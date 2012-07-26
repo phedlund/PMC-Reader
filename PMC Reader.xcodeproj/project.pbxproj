@@ -1,0 +1,295 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		D030E6B415C0D2DB00CB5285 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D030E6B315C0D2DB00CB5285 /* UIKit.framework */; };
+		D030E6B615C0D2DB00CB5285 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D030E6B515C0D2DB00CB5285 /* Foundation.framework */; };
+		D030E6B815C0D2DB00CB5285 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D030E6B715C0D2DB00CB5285 /* CoreGraphics.framework */; };
+		D030E6BE15C0D2DB00CB5285 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D030E6BC15C0D2DB00CB5285 /* InfoPlist.strings */; };
+		D030E6C015C0D2DB00CB5285 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D030E6BF15C0D2DB00CB5285 /* main.m */; };
+		D030E6C415C0D2DB00CB5285 /* PHAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D030E6C315C0D2DB00CB5285 /* PHAppDelegate.m */; };
+		D030E6C715C0D2DB00CB5285 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D030E6C515C0D2DB00CB5285 /* MainStoryboard.storyboard */; };
+		D030E6CA15C0D2DB00CB5285 /* PHMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D030E6C915C0D2DB00CB5285 /* PHMasterViewController.m */; };
+		D030E6CD15C0D2DB00CB5285 /* PHDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D030E6CC15C0D2DB00CB5285 /* PHDetailViewController.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		D030E6AF15C0D2DB00CB5285 /* PMC Reader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "PMC Reader.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D030E6B315C0D2DB00CB5285 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		D030E6B515C0D2DB00CB5285 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		D030E6B715C0D2DB00CB5285 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		D030E6BB15C0D2DB00CB5285 /* PMC Reader-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "PMC Reader-Info.plist"; sourceTree = "<group>"; };
+		D030E6BD15C0D2DB00CB5285 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		D030E6BF15C0D2DB00CB5285 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		D030E6C115C0D2DB00CB5285 /* PMC Reader-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PMC Reader-Prefix.pch"; sourceTree = "<group>"; };
+		D030E6C215C0D2DB00CB5285 /* PHAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PHAppDelegate.h; sourceTree = "<group>"; };
+		D030E6C315C0D2DB00CB5285 /* PHAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PHAppDelegate.m; sourceTree = "<group>"; };
+		D030E6C615C0D2DB00CB5285 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
+		D030E6C815C0D2DB00CB5285 /* PHMasterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PHMasterViewController.h; sourceTree = "<group>"; };
+		D030E6C915C0D2DB00CB5285 /* PHMasterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PHMasterViewController.m; sourceTree = "<group>"; };
+		D030E6CB15C0D2DB00CB5285 /* PHDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PHDetailViewController.h; sourceTree = "<group>"; };
+		D030E6CC15C0D2DB00CB5285 /* PHDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PHDetailViewController.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D030E6AC15C0D2DB00CB5285 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D030E6B415C0D2DB00CB5285 /* UIKit.framework in Frameworks */,
+				D030E6B615C0D2DB00CB5285 /* Foundation.framework in Frameworks */,
+				D030E6B815C0D2DB00CB5285 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		D030E6A415C0D2DB00CB5285 = {
+			isa = PBXGroup;
+			children = (
+				D030E6B915C0D2DB00CB5285 /* PMC Reader */,
+				D030E6B215C0D2DB00CB5285 /* Frameworks */,
+				D030E6B015C0D2DB00CB5285 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		D030E6B015C0D2DB00CB5285 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D030E6AF15C0D2DB00CB5285 /* PMC Reader.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D030E6B215C0D2DB00CB5285 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D030E6B315C0D2DB00CB5285 /* UIKit.framework */,
+				D030E6B515C0D2DB00CB5285 /* Foundation.framework */,
+				D030E6B715C0D2DB00CB5285 /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D030E6B915C0D2DB00CB5285 /* PMC Reader */ = {
+			isa = PBXGroup;
+			children = (
+				D030E6C215C0D2DB00CB5285 /* PHAppDelegate.h */,
+				D030E6C315C0D2DB00CB5285 /* PHAppDelegate.m */,
+				D030E6C515C0D2DB00CB5285 /* MainStoryboard.storyboard */,
+				D030E6C815C0D2DB00CB5285 /* PHMasterViewController.h */,
+				D030E6C915C0D2DB00CB5285 /* PHMasterViewController.m */,
+				D030E6CB15C0D2DB00CB5285 /* PHDetailViewController.h */,
+				D030E6CC15C0D2DB00CB5285 /* PHDetailViewController.m */,
+				D030E6BA15C0D2DB00CB5285 /* Supporting Files */,
+			);
+			path = "PMC Reader";
+			sourceTree = "<group>";
+		};
+		D030E6BA15C0D2DB00CB5285 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				D030E6BB15C0D2DB00CB5285 /* PMC Reader-Info.plist */,
+				D030E6BC15C0D2DB00CB5285 /* InfoPlist.strings */,
+				D030E6BF15C0D2DB00CB5285 /* main.m */,
+				D030E6C115C0D2DB00CB5285 /* PMC Reader-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		D030E6AE15C0D2DB00CB5285 /* PMC Reader */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D030E6D015C0D2DB00CB5285 /* Build configuration list for PBXNativeTarget "PMC Reader" */;
+			buildPhases = (
+				D030E6AB15C0D2DB00CB5285 /* Sources */,
+				D030E6AC15C0D2DB00CB5285 /* Frameworks */,
+				D030E6AD15C0D2DB00CB5285 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "PMC Reader";
+			productName = "PMC Reader";
+			productReference = D030E6AF15C0D2DB00CB5285 /* PMC Reader.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D030E6A615C0D2DB00CB5285 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = PH;
+				LastUpgradeCheck = 0440;
+				ORGANIZATIONNAME = "Peter Hedlund";
+			};
+			buildConfigurationList = D030E6A915C0D2DB00CB5285 /* Build configuration list for PBXProject "PMC Reader" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = D030E6A415C0D2DB00CB5285;
+			productRefGroup = D030E6B015C0D2DB00CB5285 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D030E6AE15C0D2DB00CB5285 /* PMC Reader */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D030E6AD15C0D2DB00CB5285 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D030E6BE15C0D2DB00CB5285 /* InfoPlist.strings in Resources */,
+				D030E6C715C0D2DB00CB5285 /* MainStoryboard.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D030E6AB15C0D2DB00CB5285 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D030E6C015C0D2DB00CB5285 /* main.m in Sources */,
+				D030E6C415C0D2DB00CB5285 /* PHAppDelegate.m in Sources */,
+				D030E6CA15C0D2DB00CB5285 /* PHMasterViewController.m in Sources */,
+				D030E6CD15C0D2DB00CB5285 /* PHDetailViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		D030E6BC15C0D2DB00CB5285 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D030E6BD15C0D2DB00CB5285 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		D030E6C515C0D2DB00CB5285 /* MainStoryboard.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D030E6C615C0D2DB00CB5285 /* en */,
+			);
+			name = MainStoryboard.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		D030E6CE15C0D2DB00CB5285 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = Debug;
+		};
+		D030E6CF15C0D2DB00CB5285 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 2;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		D030E6D115C0D2DB00CB5285 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "PMC Reader/PMC Reader-Prefix.pch";
+				INFOPLIST_FILE = "PMC Reader/PMC Reader-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		D030E6D215C0D2DB00CB5285 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "PMC Reader/PMC Reader-Prefix.pch";
+				INFOPLIST_FILE = "PMC Reader/PMC Reader-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D030E6A915C0D2DB00CB5285 /* Build configuration list for PBXProject "PMC Reader" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D030E6CE15C0D2DB00CB5285 /* Debug */,
+				D030E6CF15C0D2DB00CB5285 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D030E6D015C0D2DB00CB5285 /* Build configuration list for PBXNativeTarget "PMC Reader" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D030E6D115C0D2DB00CB5285 /* Debug */,
+				D030E6D215C0D2DB00CB5285 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D030E6A615C0D2DB00CB5285 /* Project object */;
+}
