@@ -42,11 +42,7 @@
         NSArray *paths = [fm URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask];
         NSURL *docDir = [paths objectAtIndex:0];
         docDir = [docDir URLByAppendingPathComponent:[self.detailItem objectAtIndex:1] isDirectory:YES];
-        NSString *html = [NSString stringWithContentsOfURL:[docDir URLByAppendingPathComponent:@"text.html" isDirectory:NO] encoding:NSUTF8StringEncoding error:nil];
-        //html = [html ]
-
         [[self articleView] loadRequest:[NSURLRequest requestWithURL:[docDir URLByAppendingPathComponent:@"text.html"]]];
-        //[[self articleView] loadHTMLString:html baseURL:nil];
         [[self navigationItem] setTitle:[self.detailItem objectAtIndex:0]];
         [(UILabel*)[[self navigationItem] titleView] setText:[self.detailItem objectAtIndex:0]];
     }
