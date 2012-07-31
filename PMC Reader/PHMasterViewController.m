@@ -30,28 +30,23 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     
-    //Prepare template files
-    NSError *err;
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-	BOOL templatesCopied = [prefs boolForKey:@"TemplatesCopied"];
-	if (!templatesCopied) {
-		[prefs setBool:YES forKey:@"TemplatesCopied"];
-		NSBundle *appBundle = [NSBundle mainBundle];
-        NSArray *templates = [NSArray arrayWithObjects:[appBundle URLForResource:@"pmc" withExtension:@"html" subdirectory:nil],
-                                                       [appBundle URLForResource:@"pmc" withExtension:@"css" subdirectory:nil],
-                                                       [appBundle URLForResource:@"pmc" withExtension:@"js" subdirectory:nil], nil];
-        
-		NSFileManager *fm = [NSFileManager defaultManager];
-        NSArray *paths = [fm URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask];
-        NSURL *docDir = [paths objectAtIndex:0];
-        docDir = [docDir URLByAppendingPathComponent:@"templates" isDirectory:YES];
-        [fm createDirectoryAtURL:docDir withIntermediateDirectories:YES attributes:nil error:nil];
-		for (NSURL *aURL in templates) {
-            NSURL *dest = [docDir URLByAppendingPathComponent: [aURL lastPathComponent]];
-			NSLog(@"Template File: %@", dest);
-			[fm copyItemAtURL:aURL toURL:dest error:&err];
-        }
+    //Prepare template files (always attempt to copy them in case they have been deleted)
+    NSBundle *appBundle = [NSBundle mainBundle];
+    NSArray *templates = [NSArray arrayWithObjects:[appBundle URLForResource:@"pmc" withExtension:@"html" subdirectory:nil],
+                                                   [appBundle URLForResource:@"pmc" withExtension:@"css" subdirectory:nil],
+                                                   [appBundle URLForResource:@"pmc" withExtension:@"js" subdirectory:nil], nil];
+    
+    NSFileManager *fm = [NSFileManager defaultManager];
+    NSArray *paths = [fm URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask];
+    NSURL *docDir = [paths objectAtIndex:0];
+    docDir = [docDir URLByAppendingPathComponent:@"templates" isDirectory:YES];
+    [fm createDirectoryAtURL:docDir withIntermediateDirectories:YES attributes:nil error:nil];
+    for (NSURL *aURL in templates) {
+        NSURL *dest = [docDir URLByAppendingPathComponent: [aURL lastPathComponent]];
+        NSLog(@"Template File: %@", dest);
+        [fm copyItemAtURL:aURL toURL:dest error:nil];
     }
+
     
     if (!_objects) {
         _objects = [[NSMutableArray alloc] init];
@@ -128,6 +123,11 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
+        NSFileManager *fm = [NSFileManager defaultManager];
+        NSArray *paths = [fm URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask];
+        NSURL *docDir = [paths objectAtIndex:0];
+        docDir = [docDir URLByAppendingPathComponent:[[_objects objectAtIndex:indexPath.row] objectAtIndex:1] isDirectory:YES];
+        [fm removeItemAtURL:docDir error:nil];
         [_objects removeObjectAtIndex:indexPath.row];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
     } else if (editingStyle == UITableViewCellEditingStyleInsert) {
