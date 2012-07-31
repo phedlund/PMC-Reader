@@ -12,5 +12,9 @@
 
 @property (strong, nonatomic) id detailItem;
 
+@property (weak, nonatomic) IBOutlet UIWebView *articleView;
 @property (weak, nonatomic) IBOutlet UILabel *detailDescriptionLabel;
+
+- (IBAction) doGoBack:(id)sender;
+
 @end

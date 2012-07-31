@@ -16,6 +16,13 @@
 		D030E6C715C0D2DB00CB5285 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D030E6C515C0D2DB00CB5285 /* MainStoryboard.storyboard */; };
 		D030E6CA15C0D2DB00CB5285 /* PHMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D030E6C915C0D2DB00CB5285 /* PHMasterViewController.m */; };
 		D030E6CD15C0D2DB00CB5285 /* PHDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D030E6CC15C0D2DB00CB5285 /* PHDetailViewController.m */; };
+		D0CDB7CD15C1BA4F0074B143 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D0CDB7CC15C1BA4F0074B143 /* libxml2.dylib */; };
+		D0CDB7D215C1F5900074B143 /* HTMLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CDB7CF15C1F5900074B143 /* HTMLNode.m */; };
+		D0CDB7D315C1F5900074B143 /* HTMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CDB7D115C1F5900074B143 /* HTMLParser.m */; };
+		D0CDB7D815C33FB70074B143 /* pmc.css in Resources */ = {isa = PBXBuildFile; fileRef = D0CDB7D515C33FB70074B143 /* pmc.css */; };
+		D0CDB7D915C33FB70074B143 /* pmc.js in Sources */ = {isa = PBXBuildFile; fileRef = D0CDB7D615C33FB70074B143 /* pmc.js */; };
+		D0CDB7DA15C33FB70074B143 /* pmc.html in Resources */ = {isa = PBXBuildFile; fileRef = D0CDB7D715C33FB70074B143 /* pmc.html */; };
+		D0CDB7DC15C340660074B143 /* pmc.js in Resources */ = {isa = PBXBuildFile; fileRef = D0CDB7D615C33FB70074B143 /* pmc.js */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +41,14 @@
 		D030E6C915C0D2DB00CB5285 /* PHMasterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PHMasterViewController.m; sourceTree = "<group>"; };
 		D030E6CB15C0D2DB00CB5285 /* PHDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PHDetailViewController.h; sourceTree = "<group>"; };
 		D030E6CC15C0D2DB00CB5285 /* PHDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PHDetailViewController.m; sourceTree = "<group>"; };
+		D0CDB7CC15C1BA4F0074B143 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
+		D0CDB7CE15C1F5900074B143 /* HTMLNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HTMLNode.h; path = "Objective-C-HTML-Parser/HTMLNode.h"; sourceTree = "<group>"; };
+		D0CDB7CF15C1F5900074B143 /* HTMLNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HTMLNode.m; path = "Objective-C-HTML-Parser/HTMLNode.m"; sourceTree = "<group>"; };
+		D0CDB7D015C1F5900074B143 /* HTMLParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HTMLParser.h; path = "Objective-C-HTML-Parser/HTMLParser.h"; sourceTree = "<group>"; };
+		D0CDB7D115C1F5900074B143 /* HTMLParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HTMLParser.m; path = "Objective-C-HTML-Parser/HTMLParser.m"; sourceTree = "<group>"; };
+		D0CDB7D515C33FB70074B143 /* pmc.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = pmc.css; path = Resources/pmc.css; sourceTree = "<group>"; };
+		D0CDB7D615C33FB70074B143 /* pmc.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = pmc.js; path = Resources/pmc.js; sourceTree = "<group>"; };
+		D0CDB7D715C33FB70074B143 /* pmc.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = pmc.html; path = Resources/pmc.html; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,6 +56,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D0CDB7CD15C1BA4F0074B143 /* libxml2.dylib in Frameworks */,
 				D030E6B415C0D2DB00CB5285 /* UIKit.framework in Frameworks */,
 				D030E6B615C0D2DB00CB5285 /* Foundation.framework in Frameworks */,
 				D030E6B815C0D2DB00CB5285 /* CoreGraphics.framework in Frameworks */,
@@ -53,6 +69,7 @@
 		D030E6A415C0D2DB00CB5285 = {
 			isa = PBXGroup;
 			children = (
+				D0CDB7CC15C1BA4F0074B143 /* libxml2.dylib */,
 				D030E6B915C0D2DB00CB5285 /* PMC Reader */,
 				D030E6B215C0D2DB00CB5285 /* Frameworks */,
 				D030E6B015C0D2DB00CB5285 /* Products */,
@@ -80,6 +97,7 @@
 		D030E6B915C0D2DB00CB5285 /* PMC Reader */ = {
 			isa = PBXGroup;
 			children = (
+				D0CDB7D415C1F59C0074B143 /* Parser */,
 				D030E6C215C0D2DB00CB5285 /* PHAppDelegate.h */,
 				D030E6C315C0D2DB00CB5285 /* PHAppDelegate.m */,
 				D030E6C515C0D2DB00CB5285 /* MainStoryboard.storyboard */,
@@ -95,12 +113,34 @@
 		D030E6BA15C0D2DB00CB5285 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				D0CDB7DB15C33FC90074B143 /* Resources */,
 				D030E6BB15C0D2DB00CB5285 /* PMC Reader-Info.plist */,
 				D030E6BC15C0D2DB00CB5285 /* InfoPlist.strings */,
 				D030E6BF15C0D2DB00CB5285 /* main.m */,
 				D030E6C115C0D2DB00CB5285 /* PMC Reader-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		D0CDB7D415C1F59C0074B143 /* Parser */ = {
+			isa = PBXGroup;
+			children = (
+				D0CDB7CE15C1F5900074B143 /* HTMLNode.h */,
+				D0CDB7CF15C1F5900074B143 /* HTMLNode.m */,
+				D0CDB7D015C1F5900074B143 /* HTMLParser.h */,
+				D0CDB7D115C1F5900074B143 /* HTMLParser.m */,
+			);
+			name = Parser;
+			sourceTree = "<group>";
+		};
+		D0CDB7DB15C33FC90074B143 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				D0CDB7D515C33FB70074B143 /* pmc.css */,
+				D0CDB7D615C33FB70074B143 /* pmc.js */,
+				D0CDB7D715C33FB70074B143 /* pmc.html */,
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -157,6 +197,9 @@
 			files = (
 				D030E6BE15C0D2DB00CB5285 /* InfoPlist.strings in Resources */,
 				D030E6C715C0D2DB00CB5285 /* MainStoryboard.storyboard in Resources */,
+				D0CDB7D815C33FB70074B143 /* pmc.css in Resources */,
+				D0CDB7DA15C33FB70074B143 /* pmc.html in Resources */,
+				D0CDB7DC15C340660074B143 /* pmc.js in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -171,6 +214,9 @@
 				D030E6C415C0D2DB00CB5285 /* PHAppDelegate.m in Sources */,
 				D030E6CA15C0D2DB00CB5285 /* PHMasterViewController.m in Sources */,
 				D030E6CD15C0D2DB00CB5285 /* PHDetailViewController.m in Sources */,
+				D0CDB7D215C1F5900074B143 /* HTMLNode.m in Sources */,
+				D0CDB7D315C1F5900074B143 /* HTMLParser.m in Sources */,
+				D0CDB7D915C33FB70074B143 /* pmc.js in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -252,6 +298,7 @@
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PMC Reader/PMC Reader-Prefix.pch";
+				HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2/**";
 				INFOPLIST_FILE = "PMC Reader/PMC Reader-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
@@ -263,6 +310,7 @@
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PMC Reader/PMC Reader-Prefix.pch";
+				HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2/**";
 				INFOPLIST_FILE = "PMC Reader/PMC Reader-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
@@ -288,6 +336,7 @@
 				D030E6D215C0D2DB00CB5285 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

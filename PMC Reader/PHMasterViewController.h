@@ -10,7 +10,7 @@
 
 @class PHDetailViewController;
 
-@interface PHMasterViewController : UITableViewController
+@interface PHMasterViewController : UITableViewController <UIAlertViewDelegate>
 
 @property (strong, nonatomic) PHDetailViewController *detailViewController;
 
