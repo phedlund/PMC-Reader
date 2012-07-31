@@ -1,0 +1,105 @@
+
+body {
+   margin: 70px;
+   font-size:20px;
+}
+
+h1 {
+   color:black;
+   font-family:"Arial";
+   font-size:150%;
+}
+
+h2 {
+    color:#985735;
+    font-family:"Arial";
+    font-size:110%;
+    /*margin-top:-0.8em;*/
+}
+
+h3 {
+    color:#724128;
+    font-family:"Arial";
+    font-size:100%;
+}
+
+h4 {
+    color:#724128;
+    font-family:"Arial";
+    font-size:80%;
+}
+
+p {
+    font-family:"Palatino";
+    font-size:100%;
+    line-height:140%;
+    clear:both;
+}
+
+/* links always have a dark blue color */
+a {
+    text-decoration: none;
+    color:#354559;
+}
+
+div.sec {
+    font-family:"Palatino";
+    font-size:100%;
+    line-height:130%;
+}
+
+div.fig {
+    font-size:80%;
+}
+
+div.table-wrap {
+    font-size:80%;
+}
+
+div.fn {
+    font-size:80%;
+}
+
+.icnblk_img {
+    float:left;
+    margin-right:20px;
+}
+
+/* make sure sub and superscript don't mess up line height */
+sub, sup { 
+    font-size: 75%;
+    line-height: 0; 
+    position: relative; 
+    vertical-align: baseline; 
+}
+
+sup { 
+    top: -0.5em; 
+}
+
+sub {
+    bottom: -0.25em; 
+}
+
+div.goto {
+    visibility:hidden;
+}
+
+/* fixes abbreviation lists */
+.labeled-list dt {
+    float: left;
+    margin-right: 0.8em;
+}
+
+/* different reference list tweaks */
+div.ref-cit-blk {
+    margin-top: 20px;
+}
+
+#reference-list li {
+    margin-top: 20px;
+}
+
+#reference-list ul {
+    list-style-type: none;
+}
