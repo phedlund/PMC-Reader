@@ -181,7 +181,7 @@
     NSString *htmlTemplatePath  = [[docDir path] stringByAppendingPathComponent:@"templates/pmc.html"];
     NSString *cssTemplatePath  = [[docDir path] stringByAppendingPathComponent:@"templates/pmc.css"];
     NSString *jsTemplatePath  = [[docDir path] stringByAppendingPathComponent:@"templates/pmc.js"];
-    NSLog(@"CSS: %@", cssTemplatePath);
+    //NSLog(@"CSS: %@", cssTemplatePath);
     
     NSString *pmcData;
     NSString *pmcID;
@@ -208,7 +208,9 @@
             HTMLNode *imgNode = [inputNode findChildTag:@"img"];
             NSString *thumbNail = [imgNode getAttributeNamed:@"src"];
             NSString *image = [imgNode getAttributeNamed:@"src-large"];
-            [images addObject:[NSArray arrayWithObjects:thumbNail, image, imgId, nil]];
+            HTMLNode *aNode = [inputNode findChildTag:@"a"];
+            NSString *href = [aNode getAttributeNamed:@"href"];
+            [images addObject:[NSArray arrayWithObjects:thumbNail, image, imgId, href, nil]];
             //NSLog(@"%@", image);
             //pmcData = [inputNode rawContents];
         }
@@ -217,8 +219,10 @@
             HTMLNode *imgNode = [inputNode findChildTag:@"img"];
             NSString *thumbNail = [imgNode getAttributeNamed:@"src"];
             NSString *image = [imgNode getAttributeNamed:@"src-large"];
-            [tables addObject:[NSArray arrayWithObjects:thumbNail, image, tableId, nil]];
-            NSLog(@"Table: %@", thumbNail);
+            HTMLNode *aNode = [inputNode findChildTag:@"a"];
+            NSString *href = [aNode getAttributeNamed:@"href"];
+            [tables addObject:[NSArray arrayWithObjects:thumbNail, image, tableId, href, nil]];
+            //NSLog(@"Table: %@", thumbNail);
             //pmcData = [inputNode rawContents];
         }
     }
@@ -235,48 +239,107 @@
     
     
     //extract and save figures
-    NSURL *imageURL;
-    NSURL *imageSaveURL;
-    NSString *imageSavePathPrefix = @"file://";
-    NSString *imageSavePath;
-    NSData *imageData;
+    NSURL *objectURL;
+    NSURL *objectSaveURL;
+    NSString *objectSavePathPrefix = @"file://";
+    NSString *objectSavePath;
+    NSData *objectData;
     
     for (NSArray *img in images) {
-        imageURL = [NSURL URLWithString:[img objectAtIndex:0] relativeToURL:baseURL];
-        imageData = [NSData dataWithContentsOfURL:imageURL];
-        imageSaveURL = [docDir  URLByAppendingPathComponent:[imageURL lastPathComponent]];
-        imageSavePath = [imageSavePathPrefix stringByAppendingString:[imageSaveURL path]];
-        [imageData writeToURL:imageSaveURL atomically:YES];
-        pmcData = [pmcData stringByReplacingOccurrencesOfString:[img objectAtIndex:0] withString:imageSavePath];
+        objectURL = [NSURL URLWithString:[img objectAtIndex:0] relativeToURL:baseURL];
+        objectData = [NSData dataWithContentsOfURL:objectURL];
+        objectSaveURL = [docDir  URLByAppendingPathComponent:[objectURL lastPathComponent]];
+        objectSavePath = [objectSavePathPrefix stringByAppendingString:[objectSaveURL path]];
+        [objectData writeToURL:objectSaveURL atomically:YES];
+        pmcData = [pmcData stringByReplacingOccurrencesOfString:[img objectAtIndex:0] withString:objectSavePath];
         
-        imageURL = [NSURL URLWithString:[img objectAtIndex:1] relativeToURL:baseURL];
-        imageData = [NSData dataWithContentsOfURL:imageURL];
-        imageSaveURL = [docDir  URLByAppendingPathComponent:[imageURL lastPathComponent]];
-        imageSavePath =  [imageSavePathPrefix stringByAppendingString:[imageSaveURL path]];
-        [imageData writeToURL:[docDir URLByAppendingPathComponent:[imageURL lastPathComponent]] atomically:YES];
-        pmcData = [pmcData stringByReplacingOccurrencesOfString:[img objectAtIndex:1] withString:imageSavePath];
+        objectURL = [NSURL URLWithString:[img objectAtIndex:1] relativeToURL:baseURL];
+        objectData = [NSData dataWithContentsOfURL:objectURL];
+        objectSaveURL = [docDir  URLByAppendingPathComponent:[objectURL lastPathComponent]];
+        objectSavePath =  [objectSavePathPrefix stringByAppendingString:[objectSaveURL path]];
+        [objectData writeToURL:[docDir URLByAppendingPathComponent:[objectURL lastPathComponent]] atomically:YES];
+        pmcData = [pmcData stringByReplacingOccurrencesOfString:[img objectAtIndex:1] withString:objectSavePath];
         //NSLog(@"imageURL: %@", imageURL);
+        
+        
+        objectURL = [articleURL URLByAppendingPathComponent:@"figure" isDirectory:YES];
+        objectURL = [objectURL URLByAppendingPathComponent:[img objectAtIndex:2] isDirectory:YES];
+        objectData = [NSData dataWithContentsOfURL:objectURL];
+        HTMLParser *objectParser = [[HTMLParser alloc] initWithData:objectData error:&error];
+        HTMLNode *objectNode = [objectParser body];
+        
+        inputNodes = [objectNode findChildTags:@"div"];
+        
+        //objectNode = [objectNode findChildTag:@"table-wrap"];
+        
+        for (HTMLNode *inputNode in inputNodes) {
+            
+            if ([[inputNode getAttributeNamed:@"class"] hasPrefix:@"fig "]) {
+                //NSLog(@"tableContent: %@", [inputNode rawContents] );
+                NSString *objectHtml = [NSString stringWithContentsOfFile:htmlTemplatePath encoding:NSUTF8StringEncoding error:nil];
+                objectHtml = [objectHtml stringByReplacingOccurrencesOfString:@"$PMCCSS$" withString:cssTemplatePath];
+                objectHtml = [objectHtml stringByReplacingOccurrencesOfString:@"$PMCJS$" withString:jsTemplatePath];
+                objectHtml = [objectHtml stringByReplacingOccurrencesOfString:@"$PMCTITLE$" withString:[[titleNodes objectAtIndex:0] innerHTML]];
+                objectHtml = [objectHtml stringByReplacingOccurrencesOfString:@"$PMCDATA$" withString:[inputNode rawContents]];
+                objectSaveURL = [docDir  URLByAppendingPathComponent:[img objectAtIndex:2]];
+                objectSaveURL = [objectSaveURL URLByAppendingPathExtension:@"html"];
+                
+                HTMLNode *imgNode = [inputNode findChildTag:@"img"];
+                NSString *thumbNail = [imgNode getAttributeNamed:@"src"];
+                objectHtml = [objectHtml stringByReplacingOccurrencesOfString:thumbNail withString:objectSavePath];
+                
+                [objectHtml writeToURL:objectSaveURL atomically:YES encoding:NSUTF8StringEncoding error:nil];
+                NSString *htmlSavePath = [objectSavePathPrefix stringByAppendingString:[objectSaveURL path]];
+                pmcData = [pmcData stringByReplacingOccurrencesOfString:[img objectAtIndex:3] withString:htmlSavePath];
+                
+            }
+        }
+
+        
+        
     }
  
     
-    
-    //extract and save tables
-    NSURL *tableURL;
-    NSURL *tableSaveURL;
-    //NSString *imageSavePathPrefix = @"file://";
-    NSString *tableSavePath;
-    NSData *tableData;
-    
     for (NSArray *table in tables) {
-        tableURL = [NSURL URLWithString:[table objectAtIndex:0] relativeToURL:baseURL];
-        tableData = [NSData dataWithContentsOfURL:tableURL];
-        tableSaveURL = [docDir  URLByAppendingPathComponent:[table objectAtIndex:2]];
-        tableSaveURL = [tableSaveURL URLByAppendingPathExtension:@"png"];
-        tableSavePath = [imageSavePathPrefix stringByAppendingString:[tableSaveURL path]];
-        [tableData writeToURL:tableSaveURL atomically:YES];
-        pmcData = [pmcData stringByReplacingOccurrencesOfString:[table objectAtIndex:0] withString:tableSavePath];
+        objectURL = [NSURL URLWithString:[table objectAtIndex:0] relativeToURL:baseURL];
+        objectData = [NSData dataWithContentsOfURL:objectURL];
+        objectSaveURL = [docDir  URLByAppendingPathComponent:[table objectAtIndex:2]];
+        objectSaveURL = [objectSaveURL URLByAppendingPathExtension:@"png"];
+        objectSavePath = [objectSavePathPrefix stringByAppendingString:[objectSaveURL path]];
+        [objectData writeToURL:objectSaveURL atomically:YES];
+        pmcData = [pmcData stringByReplacingOccurrencesOfString:[table objectAtIndex:0] withString:objectSavePath];
         
-        NSLog(@"tableURL: %@", tableURL);
+        
+        
+        objectURL = [articleURL URLByAppendingPathComponent:@"table" isDirectory:YES];
+        objectURL = [objectURL URLByAppendingPathComponent:[table objectAtIndex:2] isDirectory:YES];
+        objectData = [NSData dataWithContentsOfURL:objectURL];
+        HTMLParser *objectParser = [[HTMLParser alloc] initWithData:objectData error:&error];
+        HTMLNode *objectNode = [objectParser body];
+        
+        inputNodes = [objectNode findChildTags:@"div"];
+        
+        //objectNode = [objectNode findChildTag:@"table-wrap"];
+        
+        for (HTMLNode *inputNode in inputNodes) {
+
+            if ([[inputNode getAttributeNamed:@"class"] hasPrefix:@"table-wrap "]) {
+                //NSLog(@"tableContent: %@", [inputNode rawContents] );
+                NSString *objectHtml = [NSString stringWithContentsOfFile:htmlTemplatePath encoding:NSUTF8StringEncoding error:nil];
+                objectHtml = [objectHtml stringByReplacingOccurrencesOfString:@"$PMCCSS$" withString:cssTemplatePath];
+                objectHtml = [objectHtml stringByReplacingOccurrencesOfString:@"$PMCJS$" withString:jsTemplatePath];
+                objectHtml = [objectHtml stringByReplacingOccurrencesOfString:@"$PMCTITLE$" withString:[[titleNodes objectAtIndex:0] innerHTML]];
+                objectHtml = [objectHtml stringByReplacingOccurrencesOfString:@"$PMCDATA$" withString:[inputNode rawContents]];
+                objectSaveURL = [docDir  URLByAppendingPathComponent:[table objectAtIndex:2]];
+                objectSaveURL = [objectSaveURL URLByAppendingPathExtension:@"html"];
+                
+                [objectHtml writeToURL:objectSaveURL atomically:YES encoding:NSUTF8StringEncoding error:nil];
+                objectSavePath = [objectSavePathPrefix stringByAppendingString:[objectSaveURL path]];
+                pmcData = [pmcData stringByReplacingOccurrencesOfString:[table objectAtIndex:3] withString:objectSavePath];
+                
+            }
+        }
+        
     }
     
     
