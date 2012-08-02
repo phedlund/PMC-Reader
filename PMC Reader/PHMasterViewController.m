@@ -10,9 +10,14 @@
 
 #import "PHDetailViewController.h"
 #import "Objective-C-HTML-Parser/HTMLParser.h"
+#import "SVProgressHUD/SVProgressHUD/SVProgressHUD.h"
+
+static NSString * const kBaseUrl = @"http://www.ncbi.nlm.nih.gov";
+static NSString * const kArticleUrlSuffix = @"/pmc/articles/";
 
 @interface PHMasterViewController () {
     NSMutableArray *_objects;
+    NSURL *_articleURL;
 }
 @end
 
@@ -170,14 +175,21 @@
 
 #pragma mark - HTML Parser
 - (void)loadArticle:(NSString *)anArticle {
+    [SVProgressHUD showWithStatus:@"Downloading Article"];
+    NSURL *baseURL = [NSURL URLWithString:kBaseUrl];
+    _articleURL = [baseURL URLByAppendingPathComponent:kArticleUrlSuffix];
+    _articleURL = [_articleURL URLByAppendingPathComponent:[anArticle stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]];
     
-    NSURL *baseURL = [NSURL URLWithString:@"http://www.ncbi.nlm.nih.gov"];
-    NSURL *articleURL = [baseURL URLByAppendingPathComponent:@"/pmc/articles/"];
-    articleURL = [articleURL URLByAppendingPathComponent:[anArticle stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]];
-    NSData *htmlData = [NSData dataWithContentsOfURL:articleURL];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul), ^{NSData* data = [NSData dataWithContentsOfURL: _articleURL];
+        [self performSelectorOnMainThread:@selector(parseData:) withObject:data waitUntilDone:YES];});
+}
+
+- (void)parseData:(NSData *)htmlData {
+
+    NSURL *baseURL = [NSURL URLWithString:kBaseUrl];
+    //NSData *htmlData = [NSData dataWithContentsOfURL:articleURL];
     //NSData *htmlData = [NSData dataWithContentsOfFile:@"/Users/peter/Dropbox/test.html"];
     NSError *error = nil;
-
     HTMLParser *parser = [[HTMLParser alloc] initWithData:htmlData error:&error];
     
     if (error) {
@@ -288,7 +300,7 @@
         //NSLog(@"imageURL: %@", imageURL);
         
         
-        objectURL = [articleURL URLByAppendingPathComponent:@"figure" isDirectory:YES];
+        objectURL = [_articleURL URLByAppendingPathComponent:@"figure" isDirectory:YES];
         objectURL = [objectURL URLByAppendingPathComponent:[img objectAtIndex:2] isDirectory:YES];
         objectData = [NSData dataWithContentsOfURL:objectURL];
         HTMLParser *objectParser = [[HTMLParser alloc] initWithData:objectData error:&error];
@@ -325,7 +337,7 @@
         
     }
  
-    
+
     for (NSArray *table in tables) {
         objectURL = [NSURL URLWithString:[table objectAtIndex:0] relativeToURL:baseURL];
         objectData = [NSData dataWithContentsOfURL:objectURL];
@@ -337,7 +349,7 @@
         
         
         
-        objectURL = [articleURL URLByAppendingPathComponent:@"table" isDirectory:YES];
+        objectURL = [_articleURL URLByAppendingPathComponent:@"table" isDirectory:YES];
         objectURL = [objectURL URLByAppendingPathComponent:[table objectAtIndex:2] isDirectory:YES];
         objectData = [NSData dataWithContentsOfURL:objectURL];
         HTMLParser *objectParser = [[HTMLParser alloc] initWithData:objectData error:&error];
@@ -385,6 +397,8 @@
     //NSLog(@"Content: %@", html);
     [_objects addObject:[NSArray arrayWithObjects:pmcTitle, pmcID, pmcAuthors, nil]];
     [self.tableView reloadData];
+    
+    [SVProgressHUD showSuccessWithStatus:@"Done"];
 }
 
 - (void)enumerateArticles {
