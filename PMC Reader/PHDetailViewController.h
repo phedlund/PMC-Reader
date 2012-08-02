@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PHDetailViewController : UIViewController <UISplitViewControllerDelegate>
+@interface PHDetailViewController : UIViewController <UISplitViewControllerDelegate, UIWebViewDelegate, UIGestureRecognizerDelegate>
 
 @property (strong, nonatomic) id detailItem;
 
@@ -16,5 +16,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *detailDescriptionLabel;
 
 - (IBAction) doGoBack:(id)sender;
+- (IBAction) doGoForward:(id)sender;
 
 @end

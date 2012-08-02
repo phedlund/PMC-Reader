@@ -86,6 +86,16 @@
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
+    /*NSLog(@"Button: %d", buttonIndex);
+    if (buttonIndex == 1) {
+        UITextField * alertTextField = [alertView textFieldAtIndex:0];
+        [self loadArticle:alertTextField.text];
+    }*/
+}
+
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
     NSLog(@"Button: %d", buttonIndex);
     if (buttonIndex == 1) {
         UITextField * alertTextField = [alertView textFieldAtIndex:0];
@@ -111,6 +121,7 @@
 
     NSArray *object = (NSArray*)[_objects objectAtIndex:indexPath.row];
     cell.textLabel.text = (NSString*)[object objectAtIndex:0];
+    cell.detailTextLabel.text = (NSString*)[object objectAtIndex:2];
     return cell;
 }
 
@@ -185,6 +196,7 @@
     
     NSString *pmcData;
     NSString *pmcID;
+    NSString *pmcAuthors = @"";
     NSMutableArray *images = [[NSMutableArray alloc] init];
     NSMutableArray *tables = [[NSMutableArray alloc] init];
     
@@ -202,6 +214,20 @@
         if ([[inputNode getAttributeNamed:@"class"] isEqualToString:@"jig-ncbiinpagenav"]) {
             //NSLog(@"%@", [inputNode rawContents]);
             pmcData = [inputNode rawContents];
+        }
+        if ([[inputNode getAttributeNamed:@"class"] hasPrefix:@"contrib-group "]) {
+            NSArray *authors = [inputNode findChildTags:@"a"];
+            //NSString * authorList = @"";
+            for (HTMLNode *author in authors) {
+                //NSLog(@"Author: %@", [author contents]);
+                pmcAuthors = [pmcAuthors stringByAppendingString:[author contents]];
+                pmcAuthors = [pmcAuthors stringByAppendingString:@", "];
+            }
+            pmcAuthors = [pmcAuthors substringToIndex:[pmcAuthors length] - 2];
+            NSRange lastComma = [pmcAuthors rangeOfString:@"," options:NSBackwardsSearch];
+            pmcAuthors = [pmcAuthors stringByReplacingCharactersInRange:lastComma  withString:@", and"];
+            //NSLog(@"Authors: %@", pmcAuthors);
+
         }
         if ([[inputNode getAttributeNamed:@"class"] hasPrefix:@"fig "]) {
             NSString *imgId = [inputNode getAttributeNamed:@"id"];
@@ -353,10 +379,11 @@
     html = [html stringByReplacingOccurrencesOfString:@"$PMCDATA$" withString:pmcData];
     [html writeToURL:[docDir URLByAppendingPathComponent:@"text.html" isDirectory:NO] atomically:YES encoding:NSUTF8StringEncoding error:nil];
     [pmcTitle writeToURL:[docDir URLByAppendingPathComponent:@"title.txt" isDirectory:NO] atomically:YES encoding:NSUTF8StringEncoding error:nil];
+    [pmcAuthors writeToURL:[docDir URLByAppendingPathComponent:@"authors.txt" isDirectory:NO] atomically:YES encoding:NSUTF8StringEncoding error:nil];
     
 
     //NSLog(@"Content: %@", html);
-    [_objects addObject:[NSArray arrayWithObjects:pmcTitle, pmcID, nil]];
+    [_objects addObject:[NSArray arrayWithObjects:pmcTitle, pmcID, pmcAuthors, nil]];
     [self.tableView reloadData];
 }
 
@@ -387,7 +414,8 @@
             } else {
                 [_objects addObject:
                  [NSArray arrayWithObjects:[NSString stringWithContentsOfURL:[theURL URLByAppendingPathComponent:@"title.txt" isDirectory:NO] encoding:NSUTF8StringEncoding error:nil],
-                  [theURL lastPathComponent], nil]];
+                  [theURL lastPathComponent],
+                  [NSString stringWithContentsOfURL:[theURL URLByAppendingPathComponent:@"authors.txt" isDirectory:NO] encoding:NSUTF8StringEncoding error:nil], nil]];
             }
         }
     }

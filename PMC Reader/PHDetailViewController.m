@@ -55,26 +55,40 @@
         // this will appear as the title in the navigation bar
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 400, 44)];
         label.backgroundColor = [UIColor clearColor];
-        label.font = [UIFont systemFontOfSize:14.0];
+        label.font = [UIFont systemFontOfSize:16.0];
         //label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
         label.textAlignment = UITextAlignmentCenter;
         label.textColor = [UIColor blackColor]; // change this color
         self.navigationItem.titleView = label;
         label.text = NSLocalizedString(@"Select an article", @"");
         //[label sizeToFit];
+    
+    UIButton* myBackButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [myBackButton addTarget:self action:@selector(doGoBack:) forControlEvents:UIControlEventTouchUpInside];
+    NSString* imagePath = [ [ NSBundle mainBundle] pathForResource:@"BackIconGray" ofType:@"png"];
+    [myBackButton setImage:[UIImage imageWithContentsOfFile:imagePath] forState:UIControlStateNormal];
+    [myBackButton sizeToFit];
+    
+    UIButton* myForwardButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [myForwardButton addTarget:self action:@selector(doGoForward:) forControlEvents:UIControlEventTouchUpInside];
+    imagePath = [ [ NSBundle mainBundle] pathForResource:@"FwdIconGray" ofType:@"png"];
+    [myForwardButton setImage:[UIImage imageWithContentsOfFile:imagePath] forState:UIControlStateNormal];
+    [myForwardButton sizeToFit];
+    
+    UIBarButtonItem* barButtonBack = [[UIBarButtonItem alloc] initWithCustomView:myBackButton];
+    UIBarButtonItem* barButtonForward = [[UIBarButtonItem alloc] initWithCustomView:myForwardButton];
+    
+    NSArray *buttons = [NSArray arrayWithObjects:barButtonBack, barButtonForward, nil];
+    
+    //self.navigationItem.rightBarButtonItem = barButtonBack;
+    self.navigationItem.leftBarButtonItems = buttons;
+    
+    UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(toggleNavBar:)];
+    [self.articleView addGestureRecognizer:gesture];
+    gesture.delegate = self;
 
-    //UIBarButtonItem* barButtonAbout = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(doAbout:)];
-    //UIBarButtonItem *barButtonEdit = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(doEdit:)];
-    UIBarButtonItem* barButtonBack = [[UIBarButtonItem alloc] initWithTitle:@"◄" style:UIBarButtonItemStylePlain target:self action:@selector(doGoBack:)];
-    /*
-    NSArray *buttons = nil;
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-        buttons = [NSArray arrayWithObjects:barButtonAbout, barButtonEdit, barButtonMode, nil];
-    }
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-        buttons = [NSArray arrayWithObjects:barButtonEdit, barButtonMode, nil];
-    }*/
-    self.navigationItem.rightBarButtonItem = barButtonBack;
+    [[self articleView] loadHTMLString:@"<!DOCTYPE html><html><body></body></html>" baseURL:nil];
+    [[self articleView] setDelegate:self];
 
     [self configureView];
 }
@@ -95,15 +109,21 @@
 
 - (void)splitViewController:(UISplitViewController *)splitController willHideViewController:(UIViewController *)viewController withBarButtonItem:(UIBarButtonItem *)barButtonItem forPopoverController:(UIPopoverController *)popoverController
 {
+    NSMutableArray *buttons = [[NSMutableArray alloc] init];
     barButtonItem.title = NSLocalizedString(@"Articles", @"Articles");
-    [self.navigationItem setLeftBarButtonItem:barButtonItem animated:YES];
+    [buttons addObject:barButtonItem];
+    [buttons addObjectsFromArray:self.navigationItem.leftBarButtonItems];
+    //[self.navigationItem setLeftBarButtonItem:barButtonItem animated:YES];
+    [self.navigationItem setLeftBarButtonItems:buttons animated:YES];
     self.masterPopoverController = popoverController;
 }
 
 - (void)splitViewController:(UISplitViewController *)splitController willShowViewController:(UIViewController *)viewController invalidatingBarButtonItem:(UIBarButtonItem *)barButtonItem
 {
     // Called when the view is shown again in the split view, invalidating the button and popover controller.
-    [self.navigationItem setLeftBarButtonItem:nil animated:YES];
+    NSMutableArray *buttons = [self.navigationItem.leftBarButtonItems mutableCopy];
+    [buttons removeObject:barButtonItem];
+    [self.navigationItem setLeftBarButtonItems:buttons animated:YES];
     self.masterPopoverController = nil;
 }
 
@@ -112,6 +132,34 @@
     if ([[self articleView] canGoBack]) {
         [[self articleView] goBack];
     }
+}
+
+- (IBAction)doGoForward:(id)sender
+{
+    if ([[self articleView] canGoForward]) {
+        [[self articleView] goForward];
+    }
+}
+
+- (void)toggleNavBar:(UITapGestureRecognizer *)gesture {
+    BOOL barsHidden = self.navigationController.navigationBar.hidden;
+    [self.navigationController setNavigationBarHidden:!barsHidden animated:YES];
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
+{
+    return YES;
+}
+
+-(void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    // Enable or disable back
+    
+    [(UIButton*)[self.navigationItem.leftBarButtonItems objectAtIndex:(self.navigationItem.leftBarButtonItems.count - 2)] setEnabled:[webView canGoBack]];
+    
+    // Enable or disable forward
+    [(UIButton*)[self.navigationItem.leftBarButtonItems objectAtIndex:(self.navigationItem.leftBarButtonItems.count - 1)] setEnabled:[webView canGoForward]];
+    
 }
 
 @end
