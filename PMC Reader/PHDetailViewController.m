@@ -78,7 +78,7 @@
     UIBarButtonItem* barButtonBack = [[UIBarButtonItem alloc] initWithCustomView:myBackButton];
     UIBarButtonItem* barButtonForward = [[UIBarButtonItem alloc] initWithCustomView:myForwardButton];
     
-    NSArray *buttons = [NSArray arrayWithObjects:barButtonBack, barButtonForward, nil];
+    NSArray *buttons = [NSArray arrayWithObjects:self.navigationItem.leftBarButtonItem, barButtonBack, barButtonForward, nil];
     
     //self.navigationItem.rightBarButtonItem = barButtonBack;
     self.navigationItem.leftBarButtonItems = buttons;
