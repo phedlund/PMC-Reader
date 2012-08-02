@@ -1,3 +1,6 @@
 [submodule "PMC Reader/Objective-C-HTML-Parser"]
 	path = PMC Reader/Objective-C-HTML-Parser
 	url = git://github.com/tresni/Objective-C-HMTL-Parser.git
+[submodule "PMC Reader/SVProgressHUD"]
+	path = PMC Reader/SVProgressHUD
+	url = git://github.com/samvermette/SVProgressHUD.git

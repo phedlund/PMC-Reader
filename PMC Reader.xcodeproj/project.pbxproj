@@ -16,6 +16,14 @@
 		D030E6C715C0D2DB00CB5285 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D030E6C515C0D2DB00CB5285 /* MainStoryboard.storyboard */; };
 		D030E6CA15C0D2DB00CB5285 /* PHMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D030E6C915C0D2DB00CB5285 /* PHMasterViewController.m */; };
 		D030E6CD15C0D2DB00CB5285 /* PHDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D030E6CC15C0D2DB00CB5285 /* PHDetailViewController.m */; };
+		D08C053A15C9CDCC00D1322E /* BackDisabledIconGray.png in Resources */ = {isa = PBXBuildFile; fileRef = D08C053215C9CDCC00D1322E /* BackDisabledIconGray.png */; };
+		D08C053B15C9CDCC00D1322E /* BackDisabledIconGray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D08C053315C9CDCC00D1322E /* BackDisabledIconGray@2x.png */; };
+		D08C053C15C9CDCC00D1322E /* BackIconGray.png in Resources */ = {isa = PBXBuildFile; fileRef = D08C053415C9CDCC00D1322E /* BackIconGray.png */; };
+		D08C053D15C9CDCC00D1322E /* BackIconGray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D08C053515C9CDCC00D1322E /* BackIconGray@2x.png */; };
+		D08C053E15C9CDCC00D1322E /* FwdDisabledIconGray.png in Resources */ = {isa = PBXBuildFile; fileRef = D08C053615C9CDCC00D1322E /* FwdDisabledIconGray.png */; };
+		D08C053F15C9CDCC00D1322E /* FwdDisabledIconGray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D08C053715C9CDCC00D1322E /* FwdDisabledIconGray@2x.png */; };
+		D08C054015C9CDCC00D1322E /* FwdIconGray.png in Resources */ = {isa = PBXBuildFile; fileRef = D08C053815C9CDCC00D1322E /* FwdIconGray.png */; };
+		D08C054115C9CDCC00D1322E /* FwdIconGray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D08C053915C9CDCC00D1322E /* FwdIconGray@2x.png */; };
 		D0CDB7CD15C1BA4F0074B143 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D0CDB7CC15C1BA4F0074B143 /* libxml2.dylib */; };
 		D0CDB7D215C1F5900074B143 /* HTMLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CDB7CF15C1F5900074B143 /* HTMLNode.m */; };
 		D0CDB7D315C1F5900074B143 /* HTMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CDB7D115C1F5900074B143 /* HTMLParser.m */; };
@@ -41,6 +49,14 @@
 		D030E6C915C0D2DB00CB5285 /* PHMasterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PHMasterViewController.m; sourceTree = "<group>"; };
 		D030E6CB15C0D2DB00CB5285 /* PHDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PHDetailViewController.h; sourceTree = "<group>"; };
 		D030E6CC15C0D2DB00CB5285 /* PHDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PHDetailViewController.m; sourceTree = "<group>"; };
+		D08C053215C9CDCC00D1322E /* BackDisabledIconGray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = BackDisabledIconGray.png; path = Resources/BackDisabledIconGray.png; sourceTree = "<group>"; };
+		D08C053315C9CDCC00D1322E /* BackDisabledIconGray@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "BackDisabledIconGray@2x.png"; path = "Resources/BackDisabledIconGray@2x.png"; sourceTree = "<group>"; };
+		D08C053415C9CDCC00D1322E /* BackIconGray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = BackIconGray.png; path = Resources/BackIconGray.png; sourceTree = "<group>"; };
+		D08C053515C9CDCC00D1322E /* BackIconGray@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "BackIconGray@2x.png"; path = "Resources/BackIconGray@2x.png"; sourceTree = "<group>"; };
+		D08C053615C9CDCC00D1322E /* FwdDisabledIconGray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = FwdDisabledIconGray.png; path = Resources/FwdDisabledIconGray.png; sourceTree = "<group>"; };
+		D08C053715C9CDCC00D1322E /* FwdDisabledIconGray@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "FwdDisabledIconGray@2x.png"; path = "Resources/FwdDisabledIconGray@2x.png"; sourceTree = "<group>"; };
+		D08C053815C9CDCC00D1322E /* FwdIconGray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = FwdIconGray.png; path = Resources/FwdIconGray.png; sourceTree = "<group>"; };
+		D08C053915C9CDCC00D1322E /* FwdIconGray@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "FwdIconGray@2x.png"; path = "Resources/FwdIconGray@2x.png"; sourceTree = "<group>"; };
 		D0CDB7CC15C1BA4F0074B143 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		D0CDB7CE15C1F5900074B143 /* HTMLNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HTMLNode.h; path = "Objective-C-HTML-Parser/HTMLNode.h"; sourceTree = "<group>"; };
 		D0CDB7CF15C1F5900074B143 /* HTMLNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HTMLNode.m; path = "Objective-C-HTML-Parser/HTMLNode.m"; sourceTree = "<group>"; };
@@ -136,6 +152,14 @@
 		D0CDB7DB15C33FC90074B143 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D08C053215C9CDCC00D1322E /* BackDisabledIconGray.png */,
+				D08C053315C9CDCC00D1322E /* BackDisabledIconGray@2x.png */,
+				D08C053415C9CDCC00D1322E /* BackIconGray.png */,
+				D08C053515C9CDCC00D1322E /* BackIconGray@2x.png */,
+				D08C053615C9CDCC00D1322E /* FwdDisabledIconGray.png */,
+				D08C053715C9CDCC00D1322E /* FwdDisabledIconGray@2x.png */,
+				D08C053815C9CDCC00D1322E /* FwdIconGray.png */,
+				D08C053915C9CDCC00D1322E /* FwdIconGray@2x.png */,
 				D0CDB7D515C33FB70074B143 /* pmc.css */,
 				D0CDB7D615C33FB70074B143 /* pmc.js */,
 				D0CDB7D715C33FB70074B143 /* pmc.html */,
@@ -200,6 +224,14 @@
 				D0CDB7D815C33FB70074B143 /* pmc.css in Resources */,
 				D0CDB7DA15C33FB70074B143 /* pmc.html in Resources */,
 				D0CDB7DC15C340660074B143 /* pmc.js in Resources */,
+				D08C053A15C9CDCC00D1322E /* BackDisabledIconGray.png in Resources */,
+				D08C053B15C9CDCC00D1322E /* BackDisabledIconGray@2x.png in Resources */,
+				D08C053C15C9CDCC00D1322E /* BackIconGray.png in Resources */,
+				D08C053D15C9CDCC00D1322E /* BackIconGray@2x.png in Resources */,
+				D08C053E15C9CDCC00D1322E /* FwdDisabledIconGray.png in Resources */,
+				D08C053F15C9CDCC00D1322E /* FwdDisabledIconGray@2x.png in Resources */,
+				D08C054015C9CDCC00D1322E /* FwdIconGray.png in Resources */,
+				D08C054115C9CDCC00D1322E /* FwdIconGray@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
