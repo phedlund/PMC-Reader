@@ -7,15 +7,20 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PHPrefViewController.h"
 
-@interface PHDetailViewController : UIViewController <UISplitViewControllerDelegate, UIWebViewDelegate, UIGestureRecognizerDelegate>
+@interface PHDetailViewController : UIViewController <UISplitViewControllerDelegate, UIWebViewDelegate, UIPopoverControllerDelegate, UIGestureRecognizerDelegate, PHPrefViewControllerDelegate>
 
 @property (strong, nonatomic) id detailItem;
 
 @property (weak, nonatomic) IBOutlet UIWebView *articleView;
 @property (weak, nonatomic) IBOutlet UILabel *detailDescriptionLabel;
 
+- (void) writeCssTemplate;
+
 - (IBAction) doGoBack:(id)sender;
 - (IBAction) doGoForward:(id)sender;
+- (IBAction) doPreferences:(id)sender;
+- (IBAction) doInfo:(id)sender;
 
 @end

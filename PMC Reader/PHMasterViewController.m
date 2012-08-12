@@ -35,10 +35,22 @@ static NSString * const kArticleUrlSuffix = @"/pmc/articles/";
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     
+    //Set up preferences
+    NSString *testValue = [[NSUserDefaults standardUserDefaults] stringForKey:@"PrefsAvailable"];
+    if (testValue == nil)
+    {
+        
+        [[NSUserDefaults standardUserDefaults] registerDefaults:[NSDictionary dictionaryWithContentsOfURL:[[NSBundle mainBundle] URLForResource:@"defaults" withExtension:@"plist"]]];
+
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
+    
+    
     //Prepare template files (always attempt to copy them in case they have been deleted)
     NSBundle *appBundle = [NSBundle mainBundle];
+   
     NSArray *templates = [NSArray arrayWithObjects:[appBundle URLForResource:@"pmc" withExtension:@"html" subdirectory:nil],
-                                                   [appBundle URLForResource:@"pmc" withExtension:@"css" subdirectory:nil],
+                                                   /*[appBundle URLForResource:@"pmc" withExtension:@"css" subdirectory:nil],*/
                                                    [appBundle URLForResource:@"pmc" withExtension:@"js" subdirectory:nil], nil];
     
     NSFileManager *fm = [NSFileManager defaultManager];
@@ -52,6 +64,7 @@ static NSString * const kArticleUrlSuffix = @"/pmc/articles/";
         [fm copyItemAtURL:aURL toURL:dest error:nil];
     }
 
+    [self.detailViewController writeCssTemplate];
     
     if (!_objects) {
         _objects = [[NSMutableArray alloc] init];
@@ -59,8 +72,6 @@ static NSString * const kArticleUrlSuffix = @"/pmc/articles/";
 
     [self enumerateArticles];
     
-    //self.navigationItem.leftBarButtonItem = self.editButtonItem;
-
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
     self.navigationItem.rightBarButtonItem = addButton;
     self.detailViewController = (PHDetailViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];

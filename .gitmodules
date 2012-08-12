@@ -4,3 +4,6 @@
 [submodule "PMC Reader/SVProgressHUD"]
 	path = PMC Reader/SVProgressHUD
 	url = git://github.com/samvermette/SVProgressHUD.git
+[submodule "PMC Reader/MCSegmentedControl"]
+	path = PMC Reader/MCSegmentedControl
+	url = git://github.com/oettam/MCSegmentedControl.git

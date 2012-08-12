@@ -1,0 +1,532 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="180"
+   height="180"
+   id="svg3034"
+   version="1.1"
+   inkscape:version="0.48.2 r9819"
+   sodipodi:docname="gear.svg"
+   inkscape:export-filename="/Users/peter/Projects/PMC Reader/PMC Reader/Resources/gear@2x.png"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90">
+  <defs
+     id="defs3043">
+    <linearGradient
+       id="linearGradient3792">
+      <stop
+         style="stop-color:#333333;stop-opacity:1;"
+         offset="0"
+         id="stop3794" />
+      <stop
+         style="stop-color:#333333;stop-opacity:0.39215687;"
+         offset="1"
+         id="stop3796" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3792"
+       id="linearGradient3798"
+       x1="30"
+       y1="9.4029846"
+       x2="30.31983"
+       y2="50.533051"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(0,120)" />
+  </defs>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1436"
+     inkscape:window-height="856"
+     id="namedview3041"
+     showgrid="false"
+     inkscape:zoom="3.4565467"
+     inkscape:cx="159.96043"
+     inkscape:cy="284.38818"
+     inkscape:window-x="4"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg3034" />
+  <metadata
+     id="imagebot_4">image/svg+xml<rdf:RDF>
+  <cc:Work
+     rdf:about="">
+    <dc:format>image/svg+xml</dc:format>
+    <dc:type
+       rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+    <dc:title></dc:title>
+  </cc:Work>
+</rdf:RDF>
+</metadata>
+  <path
+     label="Ebene 1"
+     stroke-miterlimit="4"
+     id="path3790"
+     d="m 28.925633,129.50147 c -0.432348,0.0294 -0.852785,0.0963 -1.277553,0.14511 l -0.348529,0 -1.016304,5.54607 c -1.656568,0.37713 -2.703407,0.8255 -4.105223,1.69561 l -4.558744,-3.2812 c -1.232613,0.95675 -2.801719,2.52044 -3.787159,3.72896 l 3.16505,4.61668 c -0.961075,1.46869 -1.427777,2.8897 -1.834948,4.65157 0,0.008 0,-0.29226 0,-0.2909 l -5.5168415,0.8712 c -0.100976,0.82381 -0.145379,1.99508 -0.145379,2.84597 0,0.69629 0.01922,1.70295 0.08717,2.38139 l 5.5171115,0.98734 c 0.392282,1.91592 0.81776,3.19342 1.857886,4.7731 l -3.281191,4.50054 c 0.939687,1.16683 2.536482,2.80458 3.705745,3.74074 l 4.645918,-3.19402 c 1.62381,1.0358 2.924589,1.37837 4.889243,1.73599 l 0.871194,5.48787 c 0.618879,0.0563 1.573558,0.0582 2.207327,0.0582 0.894477,0 2.068715,-0.0339 2.933141,-0.1451 l 1.045271,-5.60429 c 1.865297,-0.46429 3.04201,-1.01356 4.563758,-2.0962 l 4.471843,3.25223 c 1.159516,-0.98653 2.66771,-2.56836 3.583845,-3.7869 l -3.252224,-4.70412 c 0.880669,-1.5212 1.298986,-2.6877 1.608426,-4.48262 l 5.487874,-0.87119 C 50.4908,151.4909 50.5,150.61555 50.5,150.03051 c 0,-1.01685 -0.118036,-2.33349 -0.26125,-3.31081 l -5.57532,-1.0163 c -0.43668,-1.61326 -0.961662,-2.4146 -1.869675,-3.76794 l 3.281191,-4.50082 c -1.017114,-1.24371 -2.688901,-2.96836 -3.966996,-3.94405 l -4.733092,3.25221 c -1.360394,-0.80459 -2.184549,-1.22994 -3.773977,-1.57945 l -0.871192,-5.51685 c -0.792684,-0.0934 -1.911963,-0.14538 -2.729825,-0.14538 -0.221183,0 -0.448592,-0.006 -0.66788,0 -0.106936,0.003 -0.21279,-0.006 -0.319455,0 -0.0287,0.002 -0.05848,-0.002 -0.08717,0 l 2.7e-4,2.8e-4 z m 0.755053,14.11182 c 0.106125,-0.005 0.211977,0 0.319456,0 3.43713,0 6.242928,2.80581 6.242928,6.24321 0,3.43712 -2.805798,6.21396 -6.242928,6.21396 -3.437128,0 -6.213958,-2.77684 -6.213958,-6.21396 0,-3.32992 2.606002,-6.07616 5.894502,-6.24321 z"
+     inkscape:connector-curvature="0"
+     style="fill:url(#linearGradient3798);fill-opacity:1;fill-rule:nonzero;stroke:none"
+     sodipodi:nodetypes="cccccccccccsccccccccsccccccccsccccccccsccccccssssc" />
+  <path
+     style="fill:#6a7178;fill-opacity:1;fill-rule:nonzero;stroke:none"
+     inkscape:connector-curvature="0"
+     d="m 28.975064,130.44462 c -0.412456,0.0281 -0.813548,0.0919 -1.218772,0.13843 l -0.02738,0 -0.969543,5.2909 c -1.580348,0.35977 -3.067203,0.97058 -4.404521,1.80066 l -4.348993,-3.13023 c -1.175899,0.91273 -2.245649,1.97731 -3.185749,3.13023 l 3.019424,4.40426 c -0.916855,1.40111 -1.606175,3.00083 -1.994612,4.68164 0,0.008 0,0.0263 0,0.0276 l -5.263008,0.83111 c -0.09633,0.78591 -0.13869,1.59817 -0.13869,2.40991 0,0.66426 0.01834,1.31949 0.08316,1.96671 l 5.263266,0.94191 c 0.374232,1.82777 1.085247,3.53467 2.077517,5.04167 l -3.130222,4.29347 c 0.896452,1.11314 1.931595,2.12633 3.047059,3.01942 l 4.432156,-3.04706 c 1.549098,0.98814 3.278209,1.68108 5.152468,2.02225 l 0.83111,5.23537 c 0.590403,0.0537 1.196044,0.0555 1.800652,0.0555 0.853322,0 1.668419,-0.0323 2.493072,-0.13843 l 0.997177,-5.34643 c 1.779474,-0.44293 3.45125,-1.21102 4.902981,-2.24384 l 4.266089,3.10259 c 1.106166,-0.94114 2.117806,-2.02303 2.991789,-3.1855 l -3.102587,-4.48768 c 0.840149,-1.45121 1.422288,-3.05222 1.71749,-4.76455 l 5.235373,-0.83111 c 0.04623,-0.54624 0.05501,-1.0762 0.05501,-1.63432 0,-0.97006 -0.112605,-1.92101 -0.24923,-2.85336 l -5.318794,-0.96954 c -0.416588,-1.53903 -1.100484,-2.97475 -1.966719,-4.26583 l 3.130222,-4.29373 c -0.970317,-1.18649 -2.077,-2.28258 -3.296289,-3.21338 l -4.515319,3.10258 c -1.297802,-0.76757 -2.694263,-1.35642 -4.210561,-1.68985 l -0.83111,-5.26301 c -0.756212,-0.0891 -1.51888,-0.13869 -2.299111,-0.13869 -0.211006,0 -0.427952,-0.006 -0.63715,0 -0.102016,0.003 -0.203,-0.006 -0.304758,0 -0.02738,0.002 -0.05579,-0.002 -0.08316,0 l 2.58e-4,2.6e-4 z m 0.720313,13.46253 c 0.101241,-0.005 0.202224,0 0.304757,0 3.278985,0 5.955686,2.67671 5.955686,5.95595 0,3.27898 -2.676701,5.92805 -5.955686,5.92805 -3.278984,0 -5.92805,-2.64907 -5.92805,-5.92805 0,-3.17671 2.486098,-5.79659 5.623293,-5.95595 z"
+     id="imagebot_3"
+     stroke-miterlimit="4"
+     label="Ebene 1" />
+  <rect
+     style="fill:none;stroke:#333333;stroke-width:0.98360652"
+     id="rect2995"
+     width="59.016396"
+     height="59.016392"
+     x="0.49180326"
+     y="120.49181" />
+  <rect
+     y="120.49181"
+     x="60.491802"
+     height="59.016392"
+     width="59.016396"
+     id="rect3767"
+     style="fill:none;"
+     inkscape:export-filename="/Users/peter/Projects/PMC Reader/PMC Reader/Resources/back@2x.png"
+     inkscape:export-xdpi="91.5"
+     inkscape:export-ydpi="91.5" />
+  <g
+     id="g3901"
+     transform="matrix(0.94117664,0,0,1.0588237,5.2940996,-8.8235561)"
+     inkscape:export-filename="/Users/peter/Projects/PMC Reader/PMC Reader/Resources/back@2x.png"
+     inkscape:export-xdpi="91.5"
+     inkscape:export-ydpi="91.5">
+    <path
+       inkscape:connector-curvature="0"
+       style="fill:#333333"
+       inkscape:transform-center-x="0.043386852"
+       inkscape:transform-center-y="2.4540739"
+       d="M 106.8359,133.00001 106.918,150 107,167.00001 89.999995,158.56169 73.000006,150.12337 89.917935,141.5617 z"
+       id="path3867" />
+    <path
+       sodipodi:nodetypes="ccccc"
+       id="path3877"
+       d="M 106.918,150 107,167.00001 89.999995,158.56169 73.000006,150.12337 z"
+       inkscape:transform-center-y="2.4540739"
+       inkscape:transform-center-x="0.043386852"
+       style="fill:#e6e6e6"
+       inkscape:connector-curvature="0" />
+    <path
+       inkscape:export-ydpi="45.75"
+       inkscape:export-xdpi="45.75"
+       inkscape:export-filename="/Users/peter/Projects/PMC Reader/PMC Reader/Resources/back.png"
+       id="path3769"
+       d="m 106.79749,135.05769 0.0724,14.99999 0.0723,15.00001 -14.999995,-7.44557 -14.999993,-7.44558 14.927593,-7.55442 z"
+       inkscape:transform-center-y="2.1653576"
+       inkscape:transform-center-x="0.038378219"
+       style="fill:#6a7178"
+       inkscape:connector-curvature="0" />
+  </g>
+  <rect
+     inkscape:export-ydpi="45.75"
+     inkscape:export-xdpi="45.75"
+     inkscape:export-filename="/Users/peter/Projects/PMC Reader/PMC Reader/Resources/forward.png"
+     style="fill:none"
+     id="rect4030"
+     width="59.016396"
+     height="59.016392"
+     x="-179.01639"
+     y="120.49181"
+     transform="scale(-1,1)" />
+  <g
+     inkscape:export-ydpi="45.75"
+     inkscape:export-xdpi="45.75"
+     inkscape:export-filename="/Users/peter/Projects/PMC Reader/PMC Reader/Resources/forward.png"
+     transform="matrix(-0.94117664,0,0,1.0588237,234.21412,-8.8235561)"
+     id="g4032">
+    <path
+       id="path4034"
+       d="M 106.8359,133.00001 106.918,150 107,167.00001 89.999995,158.56169 73.000006,150.12337 89.917935,141.5617 z"
+       inkscape:transform-center-y="2.4540739"
+       inkscape:transform-center-x="0.043386852"
+       style="fill:#333333"
+       inkscape:connector-curvature="0" />
+    <path
+       inkscape:connector-curvature="0"
+       style="fill:#e6e6e6"
+       inkscape:transform-center-x="0.043386852"
+       inkscape:transform-center-y="2.4540739"
+       d="M 106.918,150 107,167.00001 89.999995,158.56169 73.000006,150.12337 z"
+       id="path4036"
+       sodipodi:nodetypes="ccccc" />
+    <path
+       inkscape:connector-curvature="0"
+       style="fill:#6a7178"
+       inkscape:transform-center-x="0.038378219"
+       inkscape:transform-center-y="2.1653576"
+       d="m 106.79749,135.05769 0.0724,14.99999 0.0723,15.00001 -14.999995,-7.44557 -14.999993,-7.44558 14.927593,-7.55442 z"
+       id="path4038"
+       inkscape:export-filename="/Users/peter/Projects/PMC Reader/PMC Reader/Resources/back.png"
+       inkscape:export-xdpi="45.75"
+       inkscape:export-ydpi="45.75" />
+  </g>
+  <g
+     style="font-size:40px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#4d4d4d;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial"
+     id="text4121"
+     transform="matrix(1.0055139,0,0,1.0089434,-76.159645,49.029932)"
+     inkscape:export-filename="/Users/peter/Projects/PMC Reader/PMC Reader/Resources/fontsizel.png"
+     inkscape:export-xdpi="45"
+     inkscape:export-ydpi="45">
+    <path
+       d="m 127.45686,68.358719 -11.32032,0 -4.5,-11.707031 -20.601559,0 -4.253906,11.707031 -11.039063,0 20.074219,-51.539063 11.003909,0 20.63672,51.539063 m -19.16016,-20.390625 -7.10156,-19.125 -6.96094,19.125 14.0625,0"
+       style="font-size:72px;font-weight:bold;fill:#4d4d4d;fill-opacity:1;stroke:none;-inkscape-font-specification:Arial Bold"
+       id="path4126"
+       inkscape:connector-curvature="0" />
+  </g>
+  <g
+     transform="matrix(0.79280906,0,0,0.7955131,1.4510447,63.619753)"
+     id="g4128"
+     style="font-size:40px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#4d4d4d;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial"
+     inkscape:export-filename="/Users/peter/Projects/PMC Reader/PMC Reader/Resources/fontsizem@2x.png"
+     inkscape:export-xdpi="91.5"
+     inkscape:export-ydpi="91.5">
+    <path
+       inkscape:connector-curvature="0"
+       id="path4130"
+       style="font-size:72px;font-weight:bold;fill:#4d4d4d;fill-opacity:1;stroke:none;-inkscape-font-specification:Arial Bold"
+       d="m 127.45686,68.358719 -11.32032,0 -4.5,-11.707031 -20.601559,0 -4.253906,11.707031 -11.039063,0 20.074219,-51.539063 11.003909,0 20.63672,51.539063 m -19.16016,-20.390625 -7.10156,-19.125 -6.96094,19.125 14.0625,0" />
+  </g>
+  <g
+     transform="matrix(0.58010419,0,0,0.58208275,77.061736,78.209578)"
+     id="g4132"
+     style="font-size:40px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#4d4d4d;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial"
+     inkscape:export-filename="/Users/peter/Projects/PMC Reader/PMC Reader/Resources/fontsizes.png"
+     inkscape:export-xdpi="45.75"
+     inkscape:export-ydpi="45.75">
+    <path
+       inkscape:connector-curvature="0"
+       id="path4134"
+       style="font-size:72px;font-weight:bold;fill:#4d4d4d;fill-opacity:1;stroke:none;-inkscape-font-specification:Arial Bold"
+       d="m 127.45686,68.358719 -11.32032,0 -4.5,-11.707031 -20.601559,0 -4.253906,11.707031 -11.039063,0 20.074219,-51.539063 11.003909,0 20.63672,51.539063 m -19.16016,-20.390625 -7.10156,-19.125 -6.96094,19.125 14.0625,0" />
+  </g>
+  <rect
+     y="66.426239"
+     x="0.42622948"
+     height="51.147537"
+     width="51.147541"
+     id="rect4136"
+     style="fill:none"
+     inkscape:export-filename="/Users/peter/Projects/PMC Reader/PMC Reader/Resources/fontsizel.png"
+     inkscape:export-xdpi="45"
+     inkscape:export-ydpi="45" />
+  <rect
+     style="fill:none"
+     id="rect4138"
+     width="51.147541"
+     height="51.147537"
+     x="56.426228"
+     y="66.426239"
+     inkscape:export-filename="/Users/peter/Projects/PMC Reader/PMC Reader/Resources/fontsizem@2x.png"
+     inkscape:export-xdpi="91.5"
+     inkscape:export-ydpi="91.5" />
+  <rect
+     y="66.426239"
+     x="110.42622"
+     height="51.147537"
+     width="51.147541"
+     id="rect4140"
+     style="fill:none"
+     inkscape:export-filename="/Users/peter/Projects/PMC Reader/PMC Reader/Resources/fontsizes.png"
+     inkscape:export-xdpi="45.75"
+     inkscape:export-ydpi="45.75" />
+  <rect
+     inkscape:export-ydpi="91.5"
+     inkscape:export-xdpi="91.5"
+     inkscape:export-filename="/Users/peter/Projects/PMC Reader/PMC Reader/Resources/lineheight3@2x.png"
+     style="fill:none;"
+     id="rect4146"
+     width="51.147541"
+     height="51.147537"
+     x="0.42622948"
+     y="8.426239" />
+  <path
+     style="fill:none;stroke:#4d4d4d;stroke-width:3.94504403999999997px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+     d="M 4.9725221,16.027486 47.027478,15.97253"
+     id="path4152"
+     inkscape:connector-curvature="0"
+     sodipodi:nodetypes="cc"
+     inkscape:export-filename="/Users/peter/Projects/PMC Reader/PMC Reader/Resources/lineheight3@2x.png"
+     inkscape:export-xdpi="91.5"
+     inkscape:export-ydpi="91.5" />
+  <path
+     sodipodi:nodetypes="cc"
+     inkscape:connector-curvature="0"
+     id="path4154"
+     d="M 4.9725221,34.027486 47.027478,33.97253"
+     style="fill:none;stroke:#4d4d4d;stroke-width:3.94504403999999997px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+     inkscape:export-filename="/Users/peter/Projects/PMC Reader/PMC Reader/Resources/lineheight3@2x.png"
+     inkscape:export-xdpi="91.5"
+     inkscape:export-ydpi="91.5" />
+  <path
+     style="fill:none;stroke:#4d4d4d;stroke-width:3.94504403999999997px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+     d="M 4.9725221,52.027486 47.027478,51.97253"
+     id="path4156"
+     inkscape:connector-curvature="0"
+     sodipodi:nodetypes="cc"
+     inkscape:export-filename="/Users/peter/Projects/PMC Reader/PMC Reader/Resources/lineheight3@2x.png"
+     inkscape:export-xdpi="91.5"
+     inkscape:export-ydpi="91.5" />
+  <rect
+     y="8.426239"
+     x="54.426228"
+     height="51.147537"
+     width="51.147541"
+     id="rect4163"
+     style="fill:none;"
+     inkscape:export-filename="/Users/peter/Projects/PMC Reader/PMC Reader/Resources/lineheight2.png"
+     inkscape:export-xdpi="45.75"
+     inkscape:export-ydpi="45.75" />
+  <path
+     sodipodi:nodetypes="cc"
+     inkscape:connector-curvature="0"
+     id="path4167"
+     d="M 58.972522,20.027486 101.02748,19.97253"
+     style="fill:none;stroke:#4d4d4d;stroke-width:3.94504403999999997px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+     inkscape:export-filename="/Users/peter/Projects/PMC Reader/PMC Reader/Resources/lineheight2.png"
+     inkscape:export-xdpi="45.75"
+     inkscape:export-ydpi="45.75" />
+  <path
+     style="fill:none;stroke:#4d4d4d;stroke-width:3.94504403999999997px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+     d="M 58.972522,34.027486 101.02748,33.97253"
+     id="path4169"
+     inkscape:connector-curvature="0"
+     sodipodi:nodetypes="cc"
+     inkscape:export-filename="/Users/peter/Projects/PMC Reader/PMC Reader/Resources/lineheight2.png"
+     inkscape:export-xdpi="45.75"
+     inkscape:export-ydpi="45.75" />
+  <path
+     sodipodi:nodetypes="cc"
+     inkscape:connector-curvature="0"
+     id="path4171"
+     d="M 58.972522,48.027486 101.02748,47.97253"
+     style="fill:none;stroke:#4d4d4d;stroke-width:3.94504403999999997px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+     inkscape:export-filename="/Users/peter/Projects/PMC Reader/PMC Reader/Resources/lineheight2.png"
+     inkscape:export-xdpi="45.75"
+     inkscape:export-ydpi="45.75" />
+  <rect
+     inkscape:export-ydpi="91.5"
+     inkscape:export-xdpi="91.5"
+     inkscape:export-filename="/Users/peter/Projects/PMC Reader/PMC Reader/Resources/lineheight1@2x.png"
+     style="fill:none;"
+     id="rect4173"
+     width="51.147541"
+     height="51.147537"
+     x="108.42622"
+     y="8.426239" />
+  <path
+     style="fill:none;stroke:#4d4d4d;stroke-width:3.94504403999999997px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+     d="m 112.97252,24.027486 42.05496,-0.05496"
+     id="path4177"
+     inkscape:connector-curvature="0"
+     sodipodi:nodetypes="cc"
+     inkscape:export-filename="/Users/peter/Projects/PMC Reader/PMC Reader/Resources/lineheight1@2x.png"
+     inkscape:export-xdpi="91.5"
+     inkscape:export-ydpi="91.5" />
+  <path
+     sodipodi:nodetypes="cc"
+     inkscape:connector-curvature="0"
+     id="path4179"
+     d="m 112.97252,34.027486 42.05496,-0.05496"
+     style="fill:none;stroke:#4d4d4d;stroke-width:3.94504403999999997px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+     inkscape:export-filename="/Users/peter/Projects/PMC Reader/PMC Reader/Resources/lineheight1@2x.png"
+     inkscape:export-xdpi="91.5"
+     inkscape:export-ydpi="91.5" />
+  <path
+     style="fill:none;stroke:#4d4d4d;stroke-width:3.94504403999999997px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+     d="m 112.97252,44.027486 42.05496,-0.05496"
+     id="path4181"
+     inkscape:connector-curvature="0"
+     sodipodi:nodetypes="cc"
+     inkscape:export-filename="/Users/peter/Projects/PMC Reader/PMC Reader/Resources/lineheight1@2x.png"
+     inkscape:export-xdpi="91.5"
+     inkscape:export-ydpi="91.5" />
+  <rect
+     y="-56.426224"
+     x="0.42622948"
+     height="52"
+     width="52"
+     id="rect4192"
+     style="fill:none"
+     inkscape:export-filename="/Users/peter/Projects/PMC Reader/PMC Reader/Resources/margin1.png"
+     inkscape:export-xdpi="44.990002"
+     inkscape:export-ydpi="44.990002" />
+  <rect
+     style="fill:none;stroke:#4d4d4d;stroke-width:2.85351682;stroke-miterlimit:4;stroke-dasharray:none"
+     id="rect4216"
+     width="49.146481"
+     height="27.146482"
+     x="1.8529892"
+     y="-43.999466"
+     inkscape:export-filename="/Users/peter/Projects/PMC Reader/PMC Reader/Resources/margin1.png"
+     inkscape:export-xdpi="44.990002"
+     inkscape:export-ydpi="44.990002" />
+  <rect
+     y="-44.172165"
+     x="7.6802902"
+     height="27.49188"
+     width="37.491879"
+     id="rect4218"
+     style="fill:#4d4d4d;stroke:#4d4d4d;stroke-width:2.50811982;stroke-miterlimit:4;stroke-dasharray:none"
+     inkscape:export-filename="/Users/peter/Projects/PMC Reader/PMC Reader/Resources/margin1.png"
+     inkscape:export-xdpi="44.990002"
+     inkscape:export-ydpi="44.990002" />
+  <rect
+     inkscape:export-ydpi="44.990002"
+     inkscape:export-xdpi="44.990002"
+     inkscape:export-filename="/Users/peter/Projects/PMC Reader/PMC Reader/Resources/margin2.png"
+     style="fill:none"
+     id="rect4220"
+     width="52"
+     height="52"
+     x="56.426228"
+     y="-56.426224" />
+  <rect
+     y="-43.999466"
+     x="57.852989"
+     height="27.146482"
+     width="49.146481"
+     id="rect4222"
+     style="fill:none;stroke:#4d4d4d;stroke-width:2.85351682;stroke-miterlimit:4;stroke-dasharray:none"
+     inkscape:export-filename="/Users/peter/Projects/PMC Reader/PMC Reader/Resources/margin2.png"
+     inkscape:export-xdpi="44.990002"
+     inkscape:export-ydpi="44.990002" />
+  <rect
+     style="fill:#4d4d4d;stroke:#4d4d4d;stroke-width:2.24505615;stroke-miterlimit:4;stroke-dasharray:none"
+     id="rect4224"
+     width="29.754944"
+     height="27.754944"
+     x="67.548752"
+     y="-44.303696"
+     inkscape:export-filename="/Users/peter/Projects/PMC Reader/PMC Reader/Resources/margin2.png"
+     inkscape:export-xdpi="44.990002"
+     inkscape:export-ydpi="44.990002" />
+  <rect
+     y="-56.426224"
+     x="110.42622"
+     height="52"
+     width="52"
+     id="rect4226"
+     style="fill:none"
+     inkscape:export-filename="/Users/peter/Projects/PMC Reader/PMC Reader/Resources/margin3.png"
+     inkscape:export-xdpi="44.990002"
+     inkscape:export-ydpi="44.990002" />
+  <rect
+     style="fill:none;stroke:#4d4d4d;stroke-width:2.85351682;stroke-miterlimit:4;stroke-dasharray:none"
+     id="rect4228"
+     width="49.146481"
+     height="27.146482"
+     x="111.85298"
+     y="-43.999466"
+     inkscape:export-filename="/Users/peter/Projects/PMC Reader/PMC Reader/Resources/margin3.png"
+     inkscape:export-xdpi="44.990002"
+     inkscape:export-ydpi="44.990002" />
+  <rect
+     y="-44.454521"
+     x="125.39793"
+     height="28.056591"
+     width="22.056591"
+     id="rect4230"
+     style="fill:#4d4d4d;stroke:#4d4d4d;stroke-width:1.94340861;stroke-miterlimit:4;stroke-dasharray:none"
+     inkscape:export-filename="/Users/peter/Projects/PMC Reader/PMC Reader/Resources/margin3.png"
+     inkscape:export-xdpi="44.990002"
+     inkscape:export-ydpi="44.990002" />
+  <rect
+     inkscape:export-ydpi="90"
+     inkscape:export-xdpi="90"
+     inkscape:export-filename="/Users/peter/Projects/PMC Reader/PMC Reader/Resources/background@2x.png"
+     style="fill:none"
+     id="rect4232"
+     width="52"
+     height="52"
+     x="0.42622948"
+     y="-124.42622" />
+  <rect
+     inkscape:export-ydpi="90"
+     inkscape:export-xdpi="90"
+     inkscape:export-filename="/Users/peter/Projects/PMC Reader/PMC Reader/Resources/background@2x.png"
+     style="fill:#4d4d4d;stroke:#4d4d4d;stroke-width:2.94702816;stroke-miterlimit:4;stroke-dasharray:none"
+     id="rect4236"
+     width="43.052975"
+     height="33.052971"
+     x="4.8997421"
+     y="-114.95271" />
+  <rect
+     y="-124.42622"
+     x="90.426224"
+     height="52"
+     width="52"
+     id="rect4238"
+     style="fill:none"
+     inkscape:export-filename="/Users/peter/Projects/PMC Reader/PMC Reader/Resources/background3.png"
+     inkscape:export-xdpi="45"
+     inkscape:export-ydpi="45" />
+  <rect
+     y="-114.95271"
+     x="94.899742"
+     height="33.052971"
+     width="43.052975"
+     id="rect4240"
+     style="fill:#000000;stroke:#000000;stroke-width:2.94702815999999990;stroke-miterlimit:4;stroke-dasharray:none"
+     inkscape:export-filename="/Users/peter/Projects/PMC Reader/PMC Reader/Resources/background3.png"
+     inkscape:export-xdpi="45"
+     inkscape:export-ydpi="45" />
+  <rect
+     inkscape:export-ydpi="90"
+     inkscape:export-xdpi="90"
+     inkscape:export-filename="/Users/peter/Projects/PMC Reader/PMC Reader/Resources/background1@2x.png"
+     style="fill:none"
+     id="rect4242"
+     width="52"
+     height="52"
+     x="158.42622"
+     y="-124.42622" />
+  <rect
+     inkscape:export-ydpi="90"
+     inkscape:export-xdpi="90"
+     inkscape:export-filename="/Users/peter/Projects/PMC Reader/PMC Reader/Resources/background1@2x.png"
+     style="fill:#ffffff;stroke:#ffffff;stroke-width:2.94702815999999990;stroke-miterlimit:4;stroke-dasharray:none"
+     id="rect4244"
+     width="43.052975"
+     height="33.052971"
+     x="162.89975"
+     y="-114.95271" />
+  <rect
+     y="-124.42622"
+     x="214.42622"
+     height="52"
+     width="52"
+     id="rect4246"
+     style="fill:none"
+     inkscape:export-filename="/Users/peter/Projects/PMC Reader/PMC Reader/Resources/background2.png"
+     inkscape:export-xdpi="45"
+     inkscape:export-ydpi="45" />
+  <rect
+     y="-114.95271"
+     x="218.89975"
+     height="33.052971"
+     width="43.052975"
+     id="rect4248"
+     style="fill:#f5efdc;stroke:#f5efdc;stroke-width:2.94702815999999990;stroke-miterlimit:4;stroke-dasharray:none;fill-opacity:1;stroke-opacity:1"
+     inkscape:export-filename="/Users/peter/Projects/PMC Reader/PMC Reader/Resources/background2.png"
+     inkscape:export-xdpi="45"
+     inkscape:export-ydpi="45" />
+</svg>

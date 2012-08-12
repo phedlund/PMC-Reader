@@ -1,0 +1,119 @@
+
+html {
+    -webkit-text-size-adjust: none; /* Never autoresize text */
+}
+
+body {
+    background: $BACKGROUND$;
+    color:$COLOR$;
+    font-size:$FONTSIZE$;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    margin-left: $MARGIN$;
+    margin-right: $MARGIN$;
+}
+
+h1 {
+   font-family:"Arial";
+   font-size:150%;
+   line-height:$LINEHEIGHT$;
+}
+
+h2 {
+    color:#985735;
+    font-family:"Arial";
+    font-size:110%;
+    /*margin-top:-0.8em;*/
+    line-height:$LINEHEIGHT$;
+}
+
+h3 {
+    color:#724128;
+    font-family:"Arial";
+    font-size:100%;
+    line-height:$LINEHEIGHT$;
+}
+
+h4 {
+    color:#724128;
+    font-family:"Arial";
+    font-size:80%;
+    line-height:$LINEHEIGHT$;
+}
+
+p {
+    font-family:"Palatino";
+    font-size:100%;
+    line-height:$LINEHEIGHT$;
+    clear:both;
+}
+
+/* links always have a dark blue color */
+a {
+    text-decoration: none;
+    color:$COLORLINK$;
+}
+
+div.sec {
+    font-family:"Palatino";
+    font-size:100%;
+    line-height:$LINEHEIGHT$;
+}
+
+div.fig {
+    font-size:80%;
+    line-height:$LINEHEIGHT$;
+}
+
+div.table-wrap {
+    font-size:80%;
+}
+
+div.fn {
+    font-size:80%;
+    line-height:$LINEHEIGHT$;
+}
+
+.icnblk_img {
+    float:left;
+    margin-right:20px;
+}
+
+/* make sure sub and superscript don't mess up line height */
+sub, sup { 
+    font-size: 75%;
+    line-height: 0; 
+    position: relative; 
+    vertical-align: baseline; 
+}
+
+sup { 
+    top: -0.5em; 
+}
+
+sub {
+    bottom: -0.25em; 
+}
+
+div.goto {
+    visibility:hidden;
+}
+
+/* fixes abbreviation lists */
+.labeled-list dt {
+    float: left;
+    margin-right: 0.8em;
+}
+
+/* different reference list tweaks */
+div.ref-cit-blk {
+    margin-top: 20px;
+}
+
+#reference-list li {
+    margin-top: 20px;
+}
+
+#reference-list ul {
+    list-style-type: none;
+}
