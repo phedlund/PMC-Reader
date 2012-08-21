@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "PHPrefViewController.h"
 
-@interface PHDetailViewController : UIViewController <UISplitViewControllerDelegate, UIWebViewDelegate, UIPopoverControllerDelegate, UIGestureRecognizerDelegate, PHPrefViewControllerDelegate>
+@interface PHDetailViewController : UIViewController <UISplitViewControllerDelegate, UIActionSheetDelegate, UIWebViewDelegate, UIPopoverControllerDelegate, UIGestureRecognizerDelegate, PHPrefViewControllerDelegate>
 
 @property (strong, nonatomic) id detailItem;
 

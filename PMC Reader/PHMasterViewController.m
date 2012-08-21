@@ -13,7 +13,7 @@
 #import "SVProgressHUD/SVProgressHUD/SVProgressHUD.h"
 
 static NSString * const kBaseUrl = @"http://www.ncbi.nlm.nih.gov";
-static NSString * const kArticleUrlSuffix = @"/pmc/articles/";
+static NSString * const kArticleUrlSuffix = @"pmc/articles/";
 
 @interface PHMasterViewController () {
     NSMutableArray *_objects;
@@ -41,7 +41,7 @@ static NSString * const kArticleUrlSuffix = @"/pmc/articles/";
     {
         
         [[NSUserDefaults standardUserDefaults] registerDefaults:[NSDictionary dictionaryWithContentsOfURL:[[NSBundle mainBundle] URLForResource:@"defaults" withExtension:@"plist"]]];
-
+        //[[NSUserDefaults standardUserDefaults] setObject:@"yes" forKey:@"PrefsAvailable"];
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
     
@@ -64,7 +64,6 @@ static NSString * const kArticleUrlSuffix = @"/pmc/articles/";
         [fm copyItemAtURL:aURL toURL:dest error:nil];
     }
 
-    [self.detailViewController writeCssTemplate];
     
     if (!_objects) {
         _objects = [[NSMutableArray alloc] init];
@@ -75,6 +74,7 @@ static NSString * const kArticleUrlSuffix = @"/pmc/articles/";
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
     self.navigationItem.rightBarButtonItem = addButton;
     self.detailViewController = (PHDetailViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
+    [self.detailViewController writeCssTemplate];
 }
 
 - (void)viewDidUnload
@@ -114,8 +114,13 @@ static NSString * const kArticleUrlSuffix = @"/pmc/articles/";
 {
     NSLog(@"Button: %d", buttonIndex);
     if (buttonIndex == 1) {
-        UITextField * alertTextField = [alertView textFieldAtIndex:0];
-        [self loadArticle:alertTextField.text];
+        //UITextField * alertTextField = [alertView textFieldAtIndex:0];
+        NSString *newID = [[alertView textFieldAtIndex:0] text];
+        if (newID.length == 10) {
+            if ([newID hasPrefix:@"PMC"]) {
+                [self loadArticle:newID];
+            }
+        }
     }
 }
 
@@ -135,9 +140,9 @@ static NSString * const kArticleUrlSuffix = @"/pmc/articles/";
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
 
-    NSArray *object = (NSArray*)[_objects objectAtIndex:indexPath.row];
-    cell.textLabel.text = (NSString*)[object objectAtIndex:0];
-    cell.detailTextLabel.text = (NSString*)[object objectAtIndex:2];
+    NSDictionary *object = (NSDictionary*)[_objects objectAtIndex:indexPath.row];
+    cell.textLabel.text = (NSString*)[object objectForKey:@"Title"];
+    cell.detailTextLabel.text = (NSString*)[object objectForKey:@"Authors"];
     return cell;
 }
 
@@ -220,6 +225,8 @@ static NSString * const kArticleUrlSuffix = @"/pmc/articles/";
     NSString *pmcData;
     NSString *pmcID;
     NSString *pmcAuthors = @"";
+    NSString *oldInfo = @"";
+    NSString *newInfo = @"";
     NSMutableArray *images = [[NSMutableArray alloc] init];
     NSMutableArray *tables = [[NSMutableArray alloc] init];
     
@@ -231,7 +238,7 @@ static NSString * const kArticleUrlSuffix = @"/pmc/articles/";
     for (HTMLNode *inputNode in inputNodes) {
         
         if ([[inputNode getAttributeNamed:@"class"] isEqualToString:@"fm-citation-pmcid"]) {
-            //NSLog(@"%@", [[[inputNode firstChild] nextSibling] innerHTML]);
+            NSLog(@"%@", [[[inputNode firstChild] nextSibling] innerHTML]);
             pmcID = [[[inputNode firstChild] nextSibling] innerHTML];
         }
         if ([[inputNode getAttributeNamed:@"class"] isEqualToString:@"jig-ncbiinpagenav"]) {
@@ -251,6 +258,24 @@ static NSString * const kArticleUrlSuffix = @"/pmc/articles/";
             pmcAuthors = [pmcAuthors stringByReplacingCharactersInRange:lastComma  withString:@", and"];
             //NSLog(@"Authors: %@", pmcAuthors);
 
+        }
+        if ([[inputNode getAttributeNamed:@"class"] hasPrefix:@"fm-authors-info "]) {
+            NSLog(@"Info: %@", [inputNode rawContents]);
+            oldInfo = [inputNode rawContents];
+            newInfo = [oldInfo stringByReplacingOccurrencesOfString:@"display:none" withString:@""];
+            newInfo = [newInfo stringByReplacingOccurrencesOfString:@"/at/" withString:@"@"];
+            /*NSArray *authors = [inputNode findChildTags:@"a"];
+            //NSString * authorList = @"";
+            for (HTMLNode *author in authors) {
+                //NSLog(@"Author: %@", [author contents]);
+                pmcAuthors = [pmcAuthors stringByAppendingString:[author contents]];
+                pmcAuthors = [pmcAuthors stringByAppendingString:@", "];
+            }
+            pmcAuthors = [pmcAuthors substringToIndex:[pmcAuthors length] - 2];
+            NSRange lastComma = [pmcAuthors rangeOfString:@"," options:NSBackwardsSearch];
+            pmcAuthors = [pmcAuthors stringByReplacingCharactersInRange:lastComma  withString:@", and"];
+            //NSLog(@"Authors: %@", pmcAuthors);*/
+            
         }
         if ([[inputNode getAttributeNamed:@"class"] hasPrefix:@"fig "]) {
             NSString *imgId = [inputNode getAttributeNamed:@"id"];
@@ -286,6 +311,8 @@ static NSString * const kArticleUrlSuffix = @"/pmc/articles/";
     docDir = [docDir URLByAppendingPathComponent:pmcID isDirectory:YES];
     [fm createDirectoryAtURL:docDir withIntermediateDirectories:YES attributes:nil error:nil];
     
+    //show author info
+    pmcData = [pmcData stringByReplacingOccurrencesOfString:oldInfo withString:newInfo];
     
     //extract and save figures
     NSURL *objectURL;
@@ -401,12 +428,19 @@ static NSString * const kArticleUrlSuffix = @"/pmc/articles/";
     html = [html stringByReplacingOccurrencesOfString:@"$PMCTITLE$" withString:[[titleNodes objectAtIndex:0] innerHTML]];
     html = [html stringByReplacingOccurrencesOfString:@"$PMCDATA$" withString:pmcData];
     [html writeToURL:[docDir URLByAppendingPathComponent:@"text.html" isDirectory:NO] atomically:YES encoding:NSUTF8StringEncoding error:nil];
-    [pmcTitle writeToURL:[docDir URLByAppendingPathComponent:@"title.txt" isDirectory:NO] atomically:YES encoding:NSUTF8StringEncoding error:nil];
-    [pmcAuthors writeToURL:[docDir URLByAppendingPathComponent:@"authors.txt" isDirectory:NO] atomically:YES encoding:NSUTF8StringEncoding error:nil];
+    //[pmcTitle writeToURL:[docDir URLByAppendingPathComponent:@"title.txt" isDirectory:NO] atomically:YES encoding:NSUTF8StringEncoding error:nil];
+    //[pmcAuthors writeToURL:[docDir URLByAppendingPathComponent:@"authors.txt" isDirectory:NO] atomically:YES encoding:NSUTF8StringEncoding error:nil];
     
 
     //NSLog(@"Content: %@", html);
-    [_objects addObject:[NSArray arrayWithObjects:pmcTitle, pmcID, pmcAuthors, nil]];
+    NSDictionary *newObject = [NSDictionary dictionaryWithObjectsAndKeys:pmcID, @"PMCID",
+                                                                   [_articleURL absoluteString], @"URL",
+                                                                   pmcTitle, @"Title",
+                                                                   pmcAuthors, @"Authors",
+                                                                   [NSNumber numberWithUnsignedInteger:_objects.count], @"Index", nil];
+    [newObject writeToURL:[docDir URLByAppendingPathComponent:@"meta.plist" isDirectory:NO] atomically:YES];
+    [_objects addObject:newObject];
+    //[_objects addObject:[NSArray arrayWithObjects:pmcTitle, pmcID, pmcAuthors, nil]];
     [self.tableView reloadData];
     
     [SVProgressHUD showSuccessWithStatus:@"Done"];
@@ -437,10 +471,10 @@ static NSString * const kArticleUrlSuffix = @"/pmc/articles/";
             if ([fileName caseInsensitiveCompare:@"templates"]==NSOrderedSame) {
                 //
             } else {
-                [_objects addObject:
-                 [NSArray arrayWithObjects:[NSString stringWithContentsOfURL:[theURL URLByAppendingPathComponent:@"title.txt" isDirectory:NO] encoding:NSUTF8StringEncoding error:nil],
+                [_objects addObject:[NSDictionary dictionaryWithContentsOfURL:[theURL URLByAppendingPathComponent:@"meta.plist"]]];
+                 /*[NSArray arrayWithObjects:[NSString stringWithContentsOfURL:[theURL URLByAppendingPathComponent:@"title.txt" isDirectory:NO] encoding:NSUTF8StringEncoding error:nil],
                   [theURL lastPathComponent],
-                  [NSString stringWithContentsOfURL:[theURL URLByAppendingPathComponent:@"authors.txt" isDirectory:NO] encoding:NSUTF8StringEncoding error:nil], nil]];
+                  [NSString stringWithContentsOfURL:[theURL URLByAppendingPathComponent:@"authors.txt" isDirectory:NO] encoding:NSUTF8StringEncoding error:nil], nil]];*/
             }
         }
     }

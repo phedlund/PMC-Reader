@@ -17,6 +17,7 @@ h1 {
    font-family:"Arial";
    font-size:150%;
    line-height:$LINEHEIGHT$;
+   clear: both;
 }
 
 h2 {
@@ -25,6 +26,7 @@ h2 {
     font-size:110%;
     /*margin-top:-0.8em;*/
     line-height:$LINEHEIGHT$;
+    
 }
 
 h3 {
@@ -32,6 +34,7 @@ h3 {
     font-family:"Arial";
     font-size:100%;
     line-height:$LINEHEIGHT$;
+    
 }
 
 h4 {
@@ -39,6 +42,7 @@ h4 {
     font-family:"Arial";
     font-size:80%;
     line-height:$LINEHEIGHT$;
+    
 }
 
 p {
@@ -58,11 +62,11 @@ div.sec {
     font-family:"Palatino";
     font-size:100%;
     line-height:$LINEHEIGHT$;
+    clear: both;
 }
 
-div.fig {
-    font-size:80%;
-    line-height:$LINEHEIGHT$;
+div.small {
+    font-size: 80%;
 }
 
 div.table-wrap {
@@ -74,9 +78,24 @@ div.fn {
     line-height:$LINEHEIGHT$;
 }
 
+.clearfix {
+    display: block;
+}
+
+table, .fig, .table {
+    font-size:80%;
+    line-height:$LINEHEIGHT$;
+    clear: both;
+    margin: 1.3846em 0px;
+}
+
 .icnblk_img {
     float:left;
     margin-right:20px;
+}
+
+.whole_rhythm {
+    margin: 1.3846em 0px;
 }
 
 /* make sure sub and superscript don't mess up line height */
@@ -96,13 +115,18 @@ sub {
 }
 
 div.goto {
-    visibility:hidden;
+    display: none;
 }
 
 /* fixes abbreviation lists */
 .labeled-list dt {
     float: left;
     margin-right: 0.8em;
+}
+
+
+.kwd-title, .kwd-text {
+    font-size: 80%;
 }
 
 /* different reference list tweaks */
@@ -116,4 +140,47 @@ div.ref-cit-blk {
 
 #reference-list ul {
     list-style-type: none;
+}
+
+#Author information
+
+div.fm-authors-info {
+    /*font-size: 80%;*/
+    margin-top: 0.3em;
+}
+
+div.fm-authors-info div {
+    margin-top: 0.3em;
+}
+
+div.fm-affl {
+    font-style:italic;
+}
+
+.inline_block {
+    display: inline-block;
+}
+
+.align_right {
+    text-align: right;
+}
+
+.va_top {
+    vertical-align: top;
+}
+
+.three_col {
+    width: 23.9999%;
+    float: right;
+}
+
+.inline_block {
+    max-width: 100%;
+}
+
+div.togglers {
+    display: none;
+}
+.links-box {
+    display: none;
 }

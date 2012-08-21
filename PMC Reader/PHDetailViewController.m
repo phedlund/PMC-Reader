@@ -49,10 +49,11 @@
         NSFileManager *fm = [NSFileManager defaultManager];
         NSArray *paths = [fm URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask];
         NSURL *docDir = [paths objectAtIndex:0];
-        docDir = [docDir URLByAppendingPathComponent:[self.detailItem objectAtIndex:1] isDirectory:YES];
+        NSDictionary *detail = (NSDictionary *) self.detailItem;
+        docDir = [docDir URLByAppendingPathComponent:[detail objectForKey:@"PMCID"] isDirectory:YES];
         [[self articleView] loadRequest:[NSURLRequest requestWithURL:[docDir URLByAppendingPathComponent:@"text.html"]]];
-        [[self navigationItem] setTitle:[self.detailItem objectAtIndex:0]];
-        [(UILabel*)[[self navigationItem] titleView] setText:[self.detailItem objectAtIndex:0]];
+        [[self navigationItem] setTitle:[detail objectForKey:@"Title"]];
+        [(UILabel*)[[self navigationItem] titleView] setText:[detail objectForKey:@"Title"]];
     }
 }
 
@@ -92,11 +93,11 @@
     //self.navigationItem.rightBarButtonItem = barButtonBack;
     self.navigationItem.leftBarButtonItems = buttons;
     
-    UIButton* myInfoButton = [UIButton buttonWithType:UIButtonTypeInfoDark];
+    UIButton* myInfoButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [myInfoButton addTarget:self action:@selector(doInfo:) forControlEvents:UIControlEventTouchUpInside];
-    //NSString* imagePath = [ [ NSBundle mainBundle] pathForResource:@"BackIconGray" ofType:@"png"];
-    //[myBackButton setImage:[UIImage imageWithContentsOfFile:imagePath] forState:UIControlStateNormal];
-    //[myBackButton sizeToFit];
+    imagePath = [ [ NSBundle mainBundle] pathForResource:@"action" ofType:@"png"];
+    [myInfoButton setImage:[UIImage imageWithContentsOfFile:imagePath] forState:UIControlStateNormal];
+    [myInfoButton sizeToFit];
     
     UIButton* myPrefsButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [myPrefsButton addTarget:self action:@selector(doPreferences:) forControlEvents:UIControlEventTouchUpInside];
@@ -188,7 +189,10 @@
 }
 
 - (IBAction)doInfo:(id)sender {
-    //
+    if (self.detailItem != nil) {
+        UIActionSheet *menu = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:@"Open in Safari", @"Copy", nil];
+        [menu showFromBarButtonItem:[[self.navigationItem rightBarButtonItems] objectAtIndex:1] animated:YES];
+    }
 }
 
 - (void)toggleNavBar:(UITapGestureRecognizer *)gesture {
@@ -234,17 +238,21 @@
     cssTemplate = [cssTemplate stringByReplacingOccurrencesOfString:@"$MARGIN$" withString:[NSString stringWithFormat:@"%dpx", [margin intValue]]];
     
     NSArray *lineHeights = [[NSUserDefaults standardUserDefaults] arrayForKey:@"LineHeights"];
+    //NSLog(@"LineHeights: %@", lineHeights);
     int lineHeightIndex =[[NSUserDefaults standardUserDefaults] integerForKey:@"LineHeight"];
     NSString *lineHeight = [lineHeights objectAtIndex:lineHeightIndex];
     cssTemplate = [cssTemplate stringByReplacingOccurrencesOfString:@"$LINEHEIGHT$" withString:[NSString stringWithFormat:@"%@em", lineHeight]];
     
     NSArray *backgrounds = [[NSUserDefaults standardUserDefaults] arrayForKey:@"Backgrounds"];
+    //NSLog(@"Backgrounds: %@", backgrounds);
     int backgroundIndex =[[NSUserDefaults standardUserDefaults] integerForKey:@"Background"];
+    //NSLog(@"BackgroundIndex: %d", backgroundIndex);
     NSString *background = [backgrounds objectAtIndex:backgroundIndex];
+    //NSLog(@"Background: %@", background);
     cssTemplate = [cssTemplate stringByReplacingOccurrencesOfString:@"$BACKGROUND$" withString:background];
     
     NSArray *colors = [[NSUserDefaults standardUserDefaults] arrayForKey:@"Colors"];
-    backgroundIndex =[[NSUserDefaults standardUserDefaults] integerForKey:@"Background"];
+    //backgroundIndex =[[NSUserDefaults standardUserDefaults] integerForKey:@"Background"];
     NSString *color = [colors objectAtIndex:backgroundIndex];
     cssTemplate = [cssTemplate stringByReplacingOccurrencesOfString:@"$COLOR$" withString:color];
     
@@ -259,6 +267,23 @@
     docDir = [docDir URLByAppendingPathComponent:@"templates" isDirectory:YES];
     
     [cssTemplate writeToURL:[docDir URLByAppendingPathComponent:@"pmc.css"] atomically:YES encoding:NSUTF8StringEncoding error:nil];
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    NSDictionary *detail = (NSDictionary *) self.detailItem;
+    switch (buttonIndex) {
+        case 0: {
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[detail objectForKey:@"URL"]]];
+            break;
+        }
+        case 1: {
+            UIPasteboard* pasteboard = [UIPasteboard generalPasteboard];
+            [pasteboard setString:[detail objectForKey:@"URL"]];
+            break;
+        }
+        default:
+            break;
+    }
 }
 
 @end
