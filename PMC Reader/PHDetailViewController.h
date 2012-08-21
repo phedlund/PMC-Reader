@@ -12,9 +12,7 @@
 @interface PHDetailViewController : UIViewController <UISplitViewControllerDelegate, UIActionSheetDelegate, UIWebViewDelegate, UIPopoverControllerDelegate, UIGestureRecognizerDelegate, PHPrefViewControllerDelegate>
 
 @property (strong, nonatomic) id detailItem;
-
-@property (weak, nonatomic) IBOutlet UIWebView *articleView;
-@property (weak, nonatomic) IBOutlet UILabel *detailDescriptionLabel;
+@property (strong, nonatomic) UIWebView *articleView;
 
 - (void) writeCssTemplate;
 

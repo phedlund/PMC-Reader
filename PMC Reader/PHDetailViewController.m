@@ -45,13 +45,34 @@
     // Update the user interface for the detail item.
 
     if (self.detailItem) {
+        if ([self articleView] != nil) {
+            [[self articleView] removeFromSuperview];
+            [self articleView].delegate =nil;
+            self.articleView = nil;
+        }
+        self.articleView = [[UIWebView alloc]initWithFrame:[self view].frame];
+        //self.articleView.scalesPageToFit = YES;
+        self.articleView.delegate = self;
+        self.articleView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        [[self view] addSubview:self.articleView];
+        
+        UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(toggleNavBar:)];
+        gesture.numberOfTapsRequired = 2;
+        [self.articleView addGestureRecognizer:gesture];
+        gesture.delegate = self;
+
+        
         //self.detailDescriptionLabel.text = [self.detailItem objectAtIndex:0];
         NSFileManager *fm = [NSFileManager defaultManager];
         NSArray *paths = [fm URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask];
         NSURL *docDir = [paths objectAtIndex:0];
         NSDictionary *detail = (NSDictionary *) self.detailItem;
         docDir = [docDir URLByAppendingPathComponent:[detail objectForKey:@"PMCID"] isDirectory:YES];
-        [[self articleView] loadRequest:[NSURLRequest requestWithURL:[docDir URLByAppendingPathComponent:@"text.html"]]];
+        docDir = [docDir URLByAppendingPathComponent:@"text.html"];
+        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:docDir];
+        [request setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
+        //[[self articleView] loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"about:blank"]]];
+        [[self articleView] loadRequest:request];
         [[self navigationItem] setTitle:[detail objectForKey:@"Title"]];
         [(UILabel*)[[self navigationItem] titleView] setText:[detail objectForKey:@"Title"]];
     }
@@ -77,12 +98,14 @@
     [myBackButton addTarget:self action:@selector(doGoBack:) forControlEvents:UIControlEventTouchUpInside];
     NSString* imagePath = [ [ NSBundle mainBundle] pathForResource:@"back" ofType:@"png"];
     [myBackButton setImage:[UIImage imageWithContentsOfFile:imagePath] forState:UIControlStateNormal];
+    [myBackButton setEnabled:FALSE];
     [myBackButton sizeToFit];
     
     UIButton* myForwardButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [myForwardButton addTarget:self action:@selector(doGoForward:) forControlEvents:UIControlEventTouchUpInside];
     imagePath = [ [ NSBundle mainBundle] pathForResource:@"forward" ofType:@"png"];
     [myForwardButton setImage:[UIImage imageWithContentsOfFile:imagePath] forState:UIControlStateNormal];
+    [myForwardButton setEnabled:FALSE];
     [myForwardButton sizeToFit];
     
     UIBarButtonItem* barButtonBack = [[UIBarButtonItem alloc] initWithCustomView:myBackButton];
@@ -112,7 +135,7 @@
     
     //self.navigationItem.rightBarButtonItem = barButtonBack;
     self.navigationItem.rightBarButtonItems = buttons;
-
+/*
     UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(toggleNavBar:)];
     gesture.numberOfTapsRequired = 2;
     [self.articleView addGestureRecognizer:gesture];
@@ -120,7 +143,7 @@
 
     [[self articleView] loadHTMLString:@"<!DOCTYPE html><html><body></body></html>" baseURL:nil];
     [[self articleView] setDelegate:self];
-
+*/
     [self configureView];
 }
 
@@ -133,7 +156,9 @@
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
-    [self.articleView reload];
+    if ([self articleView] != nil) {
+        [self.articleView reload];
+    }
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -218,7 +243,9 @@
 -(void) settingsChanged:(NSString *)setting newValue:(NSUInteger)value {
     NSLog(@"New Setting: %@ with value %d", setting, value);
     [self writeCssTemplate];
-    [self.articleView reload];
+    if ([self articleView] != nil) {
+        [self.articleView reload];
+    }
 }
 
 - (void) writeCssTemplate

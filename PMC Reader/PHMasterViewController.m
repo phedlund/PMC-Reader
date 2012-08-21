@@ -116,6 +116,7 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
     if (buttonIndex == 1) {
         //UITextField * alertTextField = [alertView textFieldAtIndex:0];
         NSString *newID = [[alertView textFieldAtIndex:0] text];
+        newID = [newID stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
         if (newID.length == 10) {
             if ([newID hasPrefix:@"PMC"]) {
                 [self loadArticle:newID];
@@ -158,7 +159,7 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
         NSFileManager *fm = [NSFileManager defaultManager];
         NSArray *paths = [fm URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask];
         NSURL *docDir = [paths objectAtIndex:0];
-        docDir = [docDir URLByAppendingPathComponent:[[_objects objectAtIndex:indexPath.row] objectAtIndex:1] isDirectory:YES];
+        docDir = [docDir URLByAppendingPathComponent:[(NSDictionary*)[_objects objectAtIndex:indexPath.row] objectForKey:@"PMCID"] isDirectory:YES];
         [fm removeItemAtURL:docDir error:nil];
         [_objects removeObjectAtIndex:indexPath.row];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
@@ -194,7 +195,7 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
     [SVProgressHUD showWithStatus:@"Downloading Article"];
     NSURL *baseURL = [NSURL URLWithString:kBaseUrl];
     _articleURL = [baseURL URLByAppendingPathComponent:kArticleUrlSuffix];
-    _articleURL = [_articleURL URLByAppendingPathComponent:[anArticle stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]];
+    _articleURL = [_articleURL URLByAppendingPathComponent:anArticle];
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul), ^{NSData* data = [NSData dataWithContentsOfURL: _articleURL];
         [self performSelectorOnMainThread:@selector(parseData:) withObject:data waitUntilDone:YES];});
@@ -255,7 +256,9 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
             }
             pmcAuthors = [pmcAuthors substringToIndex:[pmcAuthors length] - 2];
             NSRange lastComma = [pmcAuthors rangeOfString:@"," options:NSBackwardsSearch];
-            pmcAuthors = [pmcAuthors stringByReplacingCharactersInRange:lastComma  withString:@", and"];
+            if (lastComma.length != 0) {
+                pmcAuthors = [pmcAuthors stringByReplacingCharactersInRange:lastComma  withString:@", and"];
+            }
             //NSLog(@"Authors: %@", pmcAuthors);
 
         }
