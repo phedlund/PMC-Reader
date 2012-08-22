@@ -112,13 +112,13 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
-    NSLog(@"Button: %d", buttonIndex);
+    //NSLog(@"Button: %d", buttonIndex);
     if (buttonIndex == 1) {
         //UITextField * alertTextField = [alertView textFieldAtIndex:0];
         NSString *newID = [[alertView textFieldAtIndex:0] text];
         newID = [newID stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
         if (newID.length == 10) {
-            if ([newID hasPrefix:@"PMC"]) {
+            if ([[newID uppercaseString] hasPrefix:@"PMC"]) {
                 [self loadArticle:newID];
             }
         }
