@@ -154,13 +154,6 @@
     // Release any retained subviews of the main view.
 }
 
-- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
-{
-    if ([self articleView] != nil) {
-        [self.articleView reload];
-    }
-}
-
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return YES;
