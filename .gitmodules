@@ -7,3 +7,6 @@
 [submodule "PMC Reader/MCSegmentedControl"]
 	path = PMC Reader/MCSegmentedControl
 	url = git://github.com/oettam/MCSegmentedControl.git
+[submodule "ViewDeck"]
+	path = ViewDeck
+	url = git://github.com/Inferis/ViewDeck.git

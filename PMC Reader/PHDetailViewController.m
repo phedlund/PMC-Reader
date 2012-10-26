@@ -7,10 +7,12 @@
 //
 
 #import "PHDetailViewController.h"
+#import "IIViewDeckController.h"
+
+#define TITLE_LABEL_WIDTH 450
 
 @interface PHDetailViewController ()
 
-@property (strong, nonatomic) UIPopoverController *masterPopoverController;
 @property (strong, nonatomic) UIPopoverController *prefPopoverController;
 @property (strong, nonatomic) PHPrefViewController *prefViewController;
 
@@ -23,6 +25,9 @@
 @synthesize articleView = _articleView;
 @synthesize prefPopoverController = _prefPopoverController;
 @synthesize prefViewController = _prefViewController;
+@synthesize titleLabel, titleBarButtonItem;
+@synthesize backBarButtonItem, forwardBarButtonItem, refreshBarButtonItem, stopBarButtonItem, leftToolbar;
+@synthesize infoBarButtonItem, prefsBarButtonItem;
 
 #pragma mark - Managing the detail item
 
@@ -33,11 +38,7 @@
         
         // Update the view.
         [self configureView];
-    }
-
-    if (self.masterPopoverController != nil) {
-        [self.masterPopoverController dismissPopoverAnimated:YES];
-    }        
+    }       
 }
 
 - (void)configureView
@@ -50,8 +51,8 @@
             [self articleView].delegate =nil;
             self.articleView = nil;
         }
-        self.articleView = [[UIWebView alloc]initWithFrame:[self view].frame];
-        //self.articleView.scalesPageToFit = YES;
+        self.articleView = [[UIWebView alloc]initWithFrame:[self view].bounds];
+        self.articleView.scalesPageToFit = YES;
         self.articleView.delegate = self;
         self.articleView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         [[self view] addSubview:self.articleView];
@@ -73,8 +74,8 @@
         [request setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
         //[[self articleView] loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"about:blank"]]];
         [[self articleView] loadRequest:request];
-        [[self navigationItem] setTitle:[detail objectForKey:@"Title"]];
-        [(UILabel*)[[self navigationItem] titleView] setText:[detail objectForKey:@"Title"]];
+        //[[self navigationItem] setTitle:[detail objectForKey:@"Title"]];
+        [self.titleLabel setText:[detail objectForKey:@"Title"]];
     }
 }
 
@@ -82,68 +83,8 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-    
-    // this will appear as the title in the navigation bar
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 400, 44)];
-    label.backgroundColor = [UIColor clearColor];
-    label.font = [UIFont systemFontOfSize:16.0];
-    //label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
-    label.textAlignment = UITextAlignmentCenter;
-    label.textColor = [UIColor blackColor]; // change this color
-    self.navigationItem.titleView = label;
-    label.text = NSLocalizedString(@"Select an article", @"");
-    //[label sizeToFit];
-    
-    UIButton* myBackButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [myBackButton addTarget:self action:@selector(doGoBack:) forControlEvents:UIControlEventTouchUpInside];
-    NSString* imagePath = [ [ NSBundle mainBundle] pathForResource:@"back" ofType:@"png"];
-    [myBackButton setImage:[UIImage imageWithContentsOfFile:imagePath] forState:UIControlStateNormal];
-    [myBackButton setEnabled:FALSE];
-    [myBackButton sizeToFit];
-    
-    UIButton* myForwardButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [myForwardButton addTarget:self action:@selector(doGoForward:) forControlEvents:UIControlEventTouchUpInside];
-    imagePath = [ [ NSBundle mainBundle] pathForResource:@"forward" ofType:@"png"];
-    [myForwardButton setImage:[UIImage imageWithContentsOfFile:imagePath] forState:UIControlStateNormal];
-    [myForwardButton setEnabled:FALSE];
-    [myForwardButton sizeToFit];
-    
-    UIBarButtonItem* barButtonBack = [[UIBarButtonItem alloc] initWithCustomView:myBackButton];
-    UIBarButtonItem* barButtonForward = [[UIBarButtonItem alloc] initWithCustomView:myForwardButton];
-    
-    NSArray *buttons = [NSArray arrayWithObjects:self.navigationItem.leftBarButtonItem, barButtonBack, barButtonForward, nil];
-    
-    //self.navigationItem.rightBarButtonItem = barButtonBack;
-    self.navigationItem.leftBarButtonItems = buttons;
-    
-    UIButton* myInfoButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [myInfoButton addTarget:self action:@selector(doInfo:) forControlEvents:UIControlEventTouchUpInside];
-    imagePath = [ [ NSBundle mainBundle] pathForResource:@"action" ofType:@"png"];
-    [myInfoButton setImage:[UIImage imageWithContentsOfFile:imagePath] forState:UIControlStateNormal];
-    [myInfoButton sizeToFit];
-    
-    UIButton* myPrefsButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [myPrefsButton addTarget:self action:@selector(doPreferences:) forControlEvents:UIControlEventTouchUpInside];
-    imagePath = [ [ NSBundle mainBundle] pathForResource:@"gear" ofType:@"png"];
-    [myPrefsButton setImage:[UIImage imageWithContentsOfFile:imagePath] forState:UIControlStateNormal];
-    [myPrefsButton sizeToFit];
-    
-    UIBarButtonItem* barButtonInfo = [[UIBarButtonItem alloc] initWithCustomView:myInfoButton];
-    UIBarButtonItem* barButtonPrefs = [[UIBarButtonItem alloc] initWithCustomView:myPrefsButton];
-    
-    buttons = [NSArray arrayWithObjects:barButtonPrefs, barButtonInfo, nil];
-    
-    //self.navigationItem.rightBarButtonItem = barButtonBack;
-    self.navigationItem.rightBarButtonItems = buttons;
-/*
-    UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(toggleNavBar:)];
-    gesture.numberOfTapsRequired = 2;
-    [self.articleView addGestureRecognizer:gesture];
-    gesture.delegate = self;
-
-    [[self articleView] loadHTMLString:@"<!DOCTYPE html><html><body></body></html>" baseURL:nil];
-    [[self articleView] setDelegate:self];
-*/
+    [[self navigationItem] setTitle:@""];
+    [self updateToolbar];
     [self configureView];
 }
 
@@ -154,32 +95,23 @@
     // Release any retained subviews of the main view.
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+- (void)viewDidDisappear:(BOOL)animated {
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+}
+
+- (void)dealloc
+{
+    [self.articleView stopLoading];
+ 	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    self.articleView.delegate = nil;
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
 {
     return YES;
 }
 
-#pragma mark - Split view
-
-- (void)splitViewController:(UISplitViewController *)splitController willHideViewController:(UIViewController *)viewController withBarButtonItem:(UIBarButtonItem *)barButtonItem forPopoverController:(UIPopoverController *)popoverController
-{
-    NSMutableArray *buttons = [[NSMutableArray alloc] init];
-    barButtonItem.title = NSLocalizedString(@"Articles", @"Articles");
-    [buttons addObject:barButtonItem];
-    [buttons addObjectsFromArray:self.navigationItem.leftBarButtonItems];
-    //[self.navigationItem setLeftBarButtonItem:barButtonItem animated:YES];
-    [self.navigationItem setLeftBarButtonItems:buttons animated:YES];
-    self.masterPopoverController = popoverController;
-}
-
-- (void)splitViewController:(UISplitViewController *)splitController willShowViewController:(UIViewController *)viewController invalidatingBarButtonItem:(UIBarButtonItem *)barButtonItem
-{
-    // Called when the view is shown again in the split view, invalidating the button and popover controller.
-    NSMutableArray *buttons = [self.navigationItem.leftBarButtonItems mutableCopy];
-    [buttons removeObject:barButtonItem];
-    [self.navigationItem setLeftBarButtonItems:buttons animated:YES];
-    self.masterPopoverController = nil;
-}
+#pragma mark - Actions
 
 - (IBAction)doGoBack:(id)sender
 {
@@ -202,20 +134,19 @@
         _prefPopoverController = [[UIPopoverController alloc] initWithContentViewController:_prefViewController];
     } 
     
-    [_prefPopoverController presentPopoverFromBarButtonItem:[self.navigationItem.rightBarButtonItems objectAtIndex:0] permittedArrowDirections:(UIPopoverArrowDirectionUp | UIPopoverArrowDirectionDown) animated:YES];
+    [_prefPopoverController presentPopoverFromBarButtonItem:prefsBarButtonItem permittedArrowDirections:(UIPopoverArrowDirectionUp | UIPopoverArrowDirectionDown) animated:YES];
         
 }
 
 - (IBAction)doInfo:(id)sender {
     if (self.detailItem != nil) {
         UIActionSheet *menu = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:@"Open in Safari", @"Copy", nil];
-        [menu showFromBarButtonItem:[[self.navigationItem rightBarButtonItems] objectAtIndex:1] animated:YES];
+        [menu showFromBarButtonItem:infoBarButtonItem animated:YES];
     }
 }
 
 - (void)toggleNavBar:(UITapGestureRecognizer *)gesture {
-    BOOL barsHidden = self.navigationController.navigationBar.hidden;
-    [self.navigationController setNavigationBarHidden:!barsHidden animated:YES];
+    [self.navigationController setNavigationBarHidden:!self.navigationController.navigationBarHidden];
 }
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
@@ -223,14 +154,33 @@
     return YES;
 }
 
--(void)webViewDidFinishLoad:(UIWebView *)webView
-{
-    // Enable or disable back
-    [(UIButton*)[self.navigationItem.leftBarButtonItems objectAtIndex:(self.navigationItem.leftBarButtonItems.count - 2)] setEnabled:[webView canGoBack]];
+
+- (IBAction)doReload:(id)sender {
+    [self.articleView reload];
+}
+
+- (IBAction)doStop:(id)sender {
+    [self.articleView stopLoading];
+	[self updateToolbar];
+}
+
+
+- (void)webViewDidStartLoad:(UIWebView *)webView {
+	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    [self updateToolbar];
+}
+
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView {
+	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     
-    // Enable or disable forward
-    [(UIButton*)[self.navigationItem.leftBarButtonItems objectAtIndex:(self.navigationItem.leftBarButtonItems.count - 1)] setEnabled:[webView canGoForward]];
-    
+    self.titleLabel.text = [webView stringByEvaluatingJavaScriptFromString:@"document.title"];
+    [self updateToolbar];
+}
+
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
+	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    [self updateToolbar];
 }
 
 -(void) settingsChanged:(NSString *)setting newValue:(NSUInteger)value {
@@ -255,7 +205,7 @@
     NSArray *margins = [[NSUserDefaults standardUserDefaults] arrayForKey:@"Margins"];
     int marginIndex =[[NSUserDefaults standardUserDefaults] integerForKey:@"Margin"];
     NSNumber *margin = (NSNumber*)[margins objectAtIndex:marginIndex];
-    cssTemplate = [cssTemplate stringByReplacingOccurrencesOfString:@"$MARGIN$" withString:[NSString stringWithFormat:@"%dpx", [margin intValue]]];
+    cssTemplate = [cssTemplate stringByReplacingOccurrencesOfString:@"$MARGIN$" withString:[NSString stringWithFormat:@"%dpx", (700 - [margin intValue])]];
     
     NSArray *lineHeights = [[NSUserDefaults standardUserDefaults] arrayForKey:@"LineHeights"];
     //NSLog(@"LineHeights: %@", lineHeights);
@@ -291,19 +241,169 @@
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     NSDictionary *detail = (NSDictionary *) self.detailItem;
+    
+    NSURL *url = self.articleView.request.URL;
+    NSLog(@"URL: %@", [url absoluteString]);
+    if ([[url absoluteString] hasSuffix:[NSString stringWithFormat:@"Documents/%@/text.html", [detail objectForKey:@"PMCID"]]]) {
+        url = [NSURL URLWithString:[detail objectForKey:@"URL"]];
+    }
+    
     switch (buttonIndex) {
         case 0: {
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[detail objectForKey:@"URL"]]];
+            [[UIApplication sharedApplication] openURL:url];
             break;
         }
         case 1: {
             UIPasteboard* pasteboard = [UIPasteboard generalPasteboard];
-            [pasteboard setString:[detail objectForKey:@"URL"]];
+            [pasteboard setString:url.absoluteString];
             break;
         }
         default:
             break;
     }
 }
+
+#pragma mark - Toolbar buttons
+
+
+- (UILabel *) titleLabel {
+    if (!titleLabel) {
+        titleLabel= [[UILabel alloc] initWithFrame:CGRectMake(0, 0, TITLE_LABEL_WIDTH, 44)];
+        titleLabel.backgroundColor = [UIColor clearColor];
+        titleLabel.font = [UIFont systemFontOfSize:16.0];
+        //label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
+        titleLabel.textAlignment = UITextAlignmentLeft;
+        titleLabel.textColor = [UIColor blackColor]; // change this color
+        titleLabel.text = NSLocalizedString(@"Select an article", @"");
+        titleLabel.autoresizingMask = UIViewAutoresizingNone;
+        //[label sizeToFit];
+    }
+    return titleLabel;
+}
+
+- (UIBarButtonItem *) titleBarButtonItem {
+    if (!titleBarButtonItem) {
+        titleBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.titleLabel];
+    }
+    return titleBarButtonItem;
+}
+
+- (UIBarButtonItem *)backBarButtonItem {
+    if (!backBarButtonItem) {
+        UIButton* myBackButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [myBackButton addTarget:self action:@selector(doGoBack:) forControlEvents:UIControlEventTouchUpInside];
+        [myBackButton setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
+        [myBackButton sizeToFit];
+        backBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:myBackButton];
+    }
+    return backBarButtonItem;
+}
+
+- (UIBarButtonItem *)forwardBarButtonItem {
+    if (!forwardBarButtonItem) {        
+        UIButton* myForwardButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [myForwardButton addTarget:self action:@selector(doGoForward:) forControlEvents:UIControlEventTouchUpInside];
+        [myForwardButton setImage:[UIImage imageNamed:@"forward"] forState:UIControlStateNormal];
+        [myForwardButton sizeToFit];
+        forwardBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:myForwardButton];
+    }
+    return forwardBarButtonItem;
+}
+
+- (UIBarButtonItem *)refreshBarButtonItem {
+    if (!refreshBarButtonItem) {
+        refreshBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(doReload:)];
+    }
+    
+    return refreshBarButtonItem;
+}
+
+- (UIBarButtonItem *)stopBarButtonItem {
+    if (!stopBarButtonItem) {
+        stopBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(doStop:)];
+    }
+    return stopBarButtonItem;
+}
+
+- (UIBarButtonItem *)infoBarButtonItem {
+    if (!infoBarButtonItem) {
+        infoBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(doInfo:)];
+    }
+    return infoBarButtonItem;
+}
+
+- (UIBarButtonItem *)prefsBarButtonItem {
+    if (!prefsBarButtonItem) {
+        UIButton* myPrefsButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [myPrefsButton addTarget:self action:@selector(doPreferences:) forControlEvents:UIControlEventTouchUpInside];
+        [myPrefsButton setImage:[UIImage imageNamed:@"gear"] forState:UIControlStateNormal];
+        [myPrefsButton sizeToFit];
+        prefsBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:myPrefsButton];
+    }
+    return prefsBarButtonItem;
+}
+
+- (UIToolbar *) leftToolbar {
+    if (!leftToolbar) {
+        leftToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 125.0f, 44.0f)];
+        UIBarButtonItem *fixedSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+        fixedSpace.width = 5.0f;
+
+        NSArray *itemsLeft = [NSArray arrayWithObjects:
+                                        fixedSpace,
+                                        self.backBarButtonItem,
+                                        fixedSpace,
+                                        self.forwardBarButtonItem,
+                                        fixedSpace,
+                                        fixedSpace,
+                                        fixedSpace,
+                                        self.titleBarButtonItem,
+                                        nil];
+
+        leftToolbar.items = itemsLeft;
+        leftToolbar.tintColor = self.navigationController.navigationBar.tintColor;
+    }
+    return leftToolbar;
+}
+
+
+#pragma mark - Toolbar
+
+- (void)updateToolbar {
+    self.backBarButtonItem.enabled = self.articleView.canGoBack;
+    self.forwardBarButtonItem.enabled = self.articleView.canGoForward;
+    if ((self.detailItem != nil)) {
+        self.infoBarButtonItem.enabled = !self.articleView.isLoading;
+    } else {
+        self.infoBarButtonItem.enabled = NO;
+    }
+
+    UIBarButtonItem *fixedSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+    fixedSpace.width = 5.0f;
+    
+    UIBarButtonItem *refreshStopBarButtonItem = self.articleView.isLoading ? self.stopBarButtonItem : self.refreshBarButtonItem;
+    refreshStopBarButtonItem.enabled = (self.detailItem != nil);
+    
+    NSMutableArray *itemsLeft = [self.leftToolbar.items mutableCopy];
+    
+    [itemsLeft replaceObjectAtIndex:(itemsLeft.count - 3) withObject:refreshStopBarButtonItem];
+
+    [self.leftToolbar setItems:itemsLeft];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.leftToolbar];
+
+    NSArray *itemsRight = [NSArray arrayWithObjects:
+                           fixedSpace,
+                           self.infoBarButtonItem,
+                           fixedSpace,
+                           self.prefsBarButtonItem,
+                           fixedSpace,
+                           nil];
+    
+    UIToolbar *toolbarRight = [[UIToolbar alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 100.0, 44.0f)];
+    toolbarRight.items = itemsRight;
+    toolbarRight.tintColor = self.navigationController.navigationBar.tintColor;
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:toolbarRight];
+}
+
 
 @end

@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2840" systemVersion="12C60" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="SIb-O2-Xa4">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1926"/>
+    </dependencies>
+    <scenes>
+        <!--Master View Controller-->
+        <scene sceneID="vux-Sf-7zs">
+            <objects>
+                <viewController storyboardIdentifier="" id="K2H-Q6-O20" customClass="PHMasterViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="dD5-Ap-SBZ">
+                        <rect key="frame" x="0.0" y="20" width="768" height="1004"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" id="KBs-78-cYC">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <items>
+                                    <navigationItem title="Articles" id="zvz-t2-Duq">
+                                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="DIl-KM-Wic">
+                                            <connections>
+                                                <action selector="doAdd:" destination="K2H-Q6-O20" id="TpN-ug-boR"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="So7-0H-dny">
+                                <rect key="frame" x="0.0" y="44" width="320" height="960"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="K2H-Q6-O20" id="Fyv-3Y-MrJ"/>
+                                    <outlet property="delegate" destination="K2H-Q6-O20" id="4p6-qx-0R0"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="CBQ-7b-j5q"/>
+                    <connections>
+                        <outlet property="tableView" destination="So7-0H-dny" id="qhe-W0-EYv"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WAQ-KG-3dU" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1336" y="-1142"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="8yI-t4-y9y">
+            <objects>
+                <navigationController storyboardIdentifier="detail" definesPresentationContext="YES" id="vYd-3p-zj2" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="QJG-6z-Kt3">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="euu-E6-BqD" kind="relationship" relationship="rootViewController" id="YhH-y4-TQt"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UI0-3a-4WP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="464" y="-2299"/>
+        </scene>
+        <!--Detail View Controller-->
+        <scene sceneID="krM-pN-5xZ">
+            <objects>
+                <viewController storyboardIdentifier="" id="euu-E6-BqD" customClass="PHDetailViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="CqQ-Cm-tng">
+                        <rect key="frame" x="0.0" y="64" width="768" height="960"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="vJc-ZI-R3y"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="sXC-W5-s9Y" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1318" y="-2299"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="hFv-Dg-bYr">
+            <objects>
+                <navigationController storyboardIdentifier="master" definesPresentationContext="YES" navigationBarHidden="YES" id="9Ox-UD-JSj" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="SrF-PF-lpW">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="K2H-Q6-O20" kind="relationship" relationship="rootViewController" id="16s-LZ-dio"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="n0H-pd-ALw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="469" y="-1142"/>
+        </scene>
+        <!--Root View Controller-->
+        <scene sceneID="b9f-M7-SOp">
+            <objects>
+                <viewController id="SIb-O2-Xa4" customClass="PHRootViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="blf-xf-5ab">
+                        <rect key="frame" x="0.0" y="20" width="768" height="1004"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1dW-ho-hEk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-362" y="-1153"/>
+        </scene>
+        <!--Pref View Controller-->
+        <scene sceneID="WPR-5m-dQR">
+            <objects>
+                <viewController storyboardIdentifier="preferences" id="2Jz-mI-5ty" customClass="PHPrefViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="99g-hB-zMd">
+                        <rect key="frame" x="0.0" y="20" width="768" height="1004"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="yW1-ee-M8T">
+                                <rect key="frame" x="20" y="20" width="200" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="" image="background1.png"/>
+                                    <segment title="" image="background2.png"/>
+                                    <segment title="" image="background3.png"/>
+                                </segments>
+                                <connections>
+                                    <action selector="doSegmentedValueChanged:" destination="2Jz-mI-5ty" eventType="valueChanged" id="QVO-KY-0IB"/>
+                                </connections>
+                            </segmentedControl>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="5WA-Dr-hBa" customClass="MCSegmentedControl">
+                                <rect key="frame" x="20" y="80" width="200" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="" image="fontsizes.png"/>
+                                    <segment title="" image="fontsizem.png"/>
+                                    <segment title="" image="fontsizel.png"/>
+                                </segments>
+                                <connections>
+                                    <action selector="doSegmentedValueChanged:" destination="2Jz-mI-5ty" eventType="valueChanged" id="td1-YI-5z4"/>
+                                </connections>
+                            </segmentedControl>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="PNK-PC-W9N" customClass="MCSegmentedControl">
+                                <rect key="frame" x="20" y="140" width="200" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="" image="lineheight1.png"/>
+                                    <segment title="" image="lineheight2.png"/>
+                                    <segment title="" image="lineheight3.png"/>
+                                </segments>
+                                <connections>
+                                    <action selector="doSegmentedValueChanged:" destination="2Jz-mI-5ty" eventType="valueChanged" id="gur-7b-pFr"/>
+                                </connections>
+                            </segmentedControl>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="ymK-T1-jcv" customClass="MCSegmentedControl">
+                                <rect key="frame" x="20" y="200" width="200" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="" image="margin1.png"/>
+                                    <segment title="" image="margin2.png"/>
+                                    <segment title="" image="margin3.png"/>
+                                </segments>
+                                <connections>
+                                    <action selector="doSegmentedValueChanged:" destination="2Jz-mI-5ty" eventType="valueChanged" id="ZuN-Ht-JAO"/>
+                                </connections>
+                            </segmentedControl>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <value key="contentSizeForViewInPopover" type="size" width="240" height="260"/>
+                    <connections>
+                        <outlet property="backgroundSegmented" destination="yW1-ee-M8T" id="P0f-GS-RNw"/>
+                        <outlet property="fontSizeSegmented" destination="5WA-Dr-hBa" id="bsf-ow-fNT"/>
+                        <outlet property="lineHeightSegmented" destination="PNK-PC-W9N" id="J3D-HT-RlN"/>
+                        <outlet property="marginSegmented" destination="ymK-T1-jcv" id="DIu-ok-f6A"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7bF-3Q-8eV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-343" y="98"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="background1.png" width="26" height="26"/>
+        <image name="background2.png" width="26" height="26"/>
+        <image name="background3.png" width="26" height="26"/>
+        <image name="fontsizel.png" width="26" height="26"/>
+        <image name="fontsizem.png" width="26" height="26"/>
+        <image name="fontsizes.png" width="26" height="26"/>
+        <image name="lineheight1.png" width="26" height="26"/>
+        <image name="lineheight2.png" width="26" height="26"/>
+        <image name="lineheight3.png" width="26" height="26"/>
+        <image name="margin1.png" width="26" height="26"/>
+        <image name="margin2.png" width="26" height="26"/>
+        <image name="margin3.png" width="26" height="26"/>
+    </resources>
+    <classes>
+        <class className="IIViewDeckController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/IIViewDeckController.h"/>
+        </class>
+        <class className="MCSegmentedControl" superclassName="UISegmentedControl">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MCSegmentedControl.h"/>
+        </class>
+        <class className="PHDetailViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PHDetailViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="doGoBack:"/>
+                <relationship kind="action" name="doGoForward:"/>
+                <relationship kind="action" name="doInfo:"/>
+                <relationship kind="action" name="doPreferences:"/>
+                <relationship kind="action" name="doReload:"/>
+                <relationship kind="action" name="doStop:"/>
+            </relationships>
+        </class>
+        <class className="PHMasterViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PHMasterViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="doAdd:"/>
+                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
+            </relationships>
+        </class>
+        <class className="PHPrefViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PHPrefViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="doSegmentedValueChanged:"/>
+                <relationship kind="outlet" name="backgroundSegmented" candidateClass="UISegmentedControl"/>
+                <relationship kind="outlet" name="fontSizeSegmented" candidateClass="MCSegmentedControl"/>
+                <relationship kind="outlet" name="lineHeightSegmented" candidateClass="MCSegmentedControl"/>
+                <relationship kind="outlet" name="marginSegmented" candidateClass="MCSegmentedControl"/>
+            </relationships>
+        </class>
+        <class className="PHRootViewController" superclassName="IIViewDeckController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PHRootViewController.h"/>
+        </class>
+    </classes>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar" statusBarStyle="blackTranslucent"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination"/>
+    </simulatedMetricsContainer>
+</document>

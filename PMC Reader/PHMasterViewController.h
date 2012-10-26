@@ -7,11 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PHDetailViewController.h"
 
-@class PHDetailViewController;
+@interface PHMasterViewController : UIViewController <UITableViewDataSource, UIAlertViewDelegate>
 
-@interface PHMasterViewController : UITableViewController <UIAlertViewDelegate>
-
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) PHDetailViewController *detailViewController;
+
+- (IBAction)doAdd:(id)sender;
 
 @end

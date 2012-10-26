@@ -13,8 +13,6 @@
 		D030E6BE15C0D2DB00CB5285 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D030E6BC15C0D2DB00CB5285 /* InfoPlist.strings */; };
 		D030E6C015C0D2DB00CB5285 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D030E6BF15C0D2DB00CB5285 /* main.m */; };
 		D030E6C415C0D2DB00CB5285 /* PHAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D030E6C315C0D2DB00CB5285 /* PHAppDelegate.m */; };
-		D030E6C715C0D2DB00CB5285 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D030E6C515C0D2DB00CB5285 /* MainStoryboard.storyboard */; };
-		D030E6CA15C0D2DB00CB5285 /* PHMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D030E6C915C0D2DB00CB5285 /* PHMasterViewController.m */; };
 		D030E6CD15C0D2DB00CB5285 /* PHDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D030E6CC15C0D2DB00CB5285 /* PHDetailViewController.m */; };
 		D03863A215D03B04004686C4 /* gear.png in Resources */ = {isa = PBXBuildFile; fileRef = D03863A015D03B04004686C4 /* gear.png */; };
 		D03863A315D03B04004686C4 /* gear@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D03863A115D03B04004686C4 /* gear@2x.png */; };
@@ -67,6 +65,11 @@
 		D0EFC9AD15D707CF00C26580 /* background1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D0EFC9AB15D707CF00C26580 /* background1@2x.png */; };
 		D0EFC9B015D70BD500C26580 /* background2.png in Resources */ = {isa = PBXBuildFile; fileRef = D0EFC9AE15D70BD500C26580 /* background2.png */; };
 		D0EFC9B115D70BD500C26580 /* background2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D0EFC9AF15D70BD500C26580 /* background2@2x.png */; };
+		D0F6004616375D9100ADBC38 /* iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0F6004416375D9100ADBC38 /* iPad.storyboard */; };
+		D0F60054163775EF00ADBC38 /* PHRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0F60050163775EE00ADBC38 /* PHRootViewController.m */; };
+		D0F60055163775EF00ADBC38 /* PHMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0F60052163775EF00ADBC38 /* PHMasterViewController.m */; };
+		D0F6005B1639A82100ADBC38 /* IIViewDeckController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0F600581639A82100ADBC38 /* IIViewDeckController.m */; };
+		D0F6005C1639A82100ADBC38 /* IIWrapController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0F6005A1639A82100ADBC38 /* IIWrapController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -80,9 +83,6 @@
 		D030E6C115C0D2DB00CB5285 /* PMC Reader-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PMC Reader-Prefix.pch"; sourceTree = "<group>"; };
 		D030E6C215C0D2DB00CB5285 /* PHAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PHAppDelegate.h; sourceTree = "<group>"; };
 		D030E6C315C0D2DB00CB5285 /* PHAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PHAppDelegate.m; sourceTree = "<group>"; };
-		D030E6C615C0D2DB00CB5285 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
-		D030E6C815C0D2DB00CB5285 /* PHMasterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PHMasterViewController.h; sourceTree = "<group>"; };
-		D030E6C915C0D2DB00CB5285 /* PHMasterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PHMasterViewController.m; sourceTree = "<group>"; };
 		D030E6CB15C0D2DB00CB5285 /* PHDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PHDetailViewController.h; sourceTree = "<group>"; };
 		D030E6CC15C0D2DB00CB5285 /* PHDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PHDetailViewController.m; sourceTree = "<group>"; };
 		D03863A015D03B04004686C4 /* gear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = gear.png; path = Resources/gear.png; sourceTree = "<group>"; };
@@ -140,6 +140,15 @@
 		D0EFC9AB15D707CF00C26580 /* background1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "background1@2x.png"; path = "Resources/background1@2x.png"; sourceTree = "<group>"; };
 		D0EFC9AE15D70BD500C26580 /* background2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = background2.png; path = Resources/background2.png; sourceTree = "<group>"; };
 		D0EFC9AF15D70BD500C26580 /* background2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "background2@2x.png"; path = "Resources/background2@2x.png"; sourceTree = "<group>"; };
+		D0F6004516375D9100ADBC38 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/iPad.storyboard; sourceTree = "<group>"; };
+		D0F6004F163775EE00ADBC38 /* PHRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHRootViewController.h; sourceTree = "<group>"; };
+		D0F60050163775EE00ADBC38 /* PHRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHRootViewController.m; sourceTree = "<group>"; };
+		D0F60051163775EF00ADBC38 /* PHMasterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHMasterViewController.h; sourceTree = "<group>"; };
+		D0F60052163775EF00ADBC38 /* PHMasterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHMasterViewController.m; sourceTree = "<group>"; };
+		D0F600571639A82100ADBC38 /* IIViewDeckController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IIViewDeckController.h; sourceTree = "<group>"; };
+		D0F600581639A82100ADBC38 /* IIViewDeckController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IIViewDeckController.m; sourceTree = "<group>"; };
+		D0F600591639A82100ADBC38 /* IIWrapController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IIWrapController.h; sourceTree = "<group>"; };
+		D0F6005A1639A82100ADBC38 /* IIWrapController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IIWrapController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -188,16 +197,19 @@
 		D030E6B915C0D2DB00CB5285 /* PMC Reader */ = {
 			isa = PBXGroup;
 			children = (
+				D0F600561639A82000ADBC38 /* ViewDeck */,
 				D0D1C73815CB5C640097CA9C /* MCSegmentedControl */,
 				D0C50B7B15CA0E130000EEFB /* SVProgressHUD */,
 				D0CDB7D415C1F59C0074B143 /* Parser */,
 				D030E6C215C0D2DB00CB5285 /* PHAppDelegate.h */,
 				D030E6C315C0D2DB00CB5285 /* PHAppDelegate.m */,
-				D030E6C515C0D2DB00CB5285 /* MainStoryboard.storyboard */,
-				D030E6C815C0D2DB00CB5285 /* PHMasterViewController.h */,
-				D030E6C915C0D2DB00CB5285 /* PHMasterViewController.m */,
+				D0F6004F163775EE00ADBC38 /* PHRootViewController.h */,
+				D0F60050163775EE00ADBC38 /* PHRootViewController.m */,
+				D0F60051163775EF00ADBC38 /* PHMasterViewController.h */,
+				D0F60052163775EF00ADBC38 /* PHMasterViewController.m */,
 				D030E6CB15C0D2DB00CB5285 /* PHDetailViewController.h */,
 				D030E6CC15C0D2DB00CB5285 /* PHDetailViewController.m */,
+				D0F6004416375D9100ADBC38 /* iPad.storyboard */,
 				D0D1C75915CB652A0097CA9C /* PHPrefViewController.h */,
 				D0D1C75A15CB652A0097CA9C /* PHPrefViewController.m */,
 				D030E6BA15C0D2DB00CB5285 /* Supporting Files */,
@@ -299,6 +311,18 @@
 			path = MCSegmentedControl/MCSegmentedControlDemo/MCSegmentedControl;
 			sourceTree = "<group>";
 		};
+		D0F600561639A82000ADBC38 /* ViewDeck */ = {
+			isa = PBXGroup;
+			children = (
+				D0F600571639A82100ADBC38 /* IIViewDeckController.h */,
+				D0F600581639A82100ADBC38 /* IIViewDeckController.m */,
+				D0F600591639A82100ADBC38 /* IIWrapController.h */,
+				D0F6005A1639A82100ADBC38 /* IIWrapController.m */,
+			);
+			name = ViewDeck;
+			path = ViewDeck/ViewDeck;
+			sourceTree = SOURCE_ROOT;
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -352,7 +376,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D030E6BE15C0D2DB00CB5285 /* InfoPlist.strings in Resources */,
-				D030E6C715C0D2DB00CB5285 /* MainStoryboard.storyboard in Resources */,
 				D0CDB7DA15C33FB70074B143 /* pmc.html in Resources */,
 				D0CDB7DC15C340660074B143 /* pmc.js in Resources */,
 				D0C50B8E15CA0E130000EEFB /* SVProgressHUD.bundle in Resources */,
@@ -397,6 +420,7 @@
 				D0EB6F6115E31B0400D3E790 /* Default-Landscape~ipad.png in Resources */,
 				D0EB6F6315E31B0800D3E790 /* Default-Portrait~ipad.png in Resources */,
 				D0EB6F6515E4346D00D3E790 /* iTunesArtwork.png in Resources */,
+				D0F6004616375D9100ADBC38 /* iPad.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -409,7 +433,6 @@
 			files = (
 				D030E6C015C0D2DB00CB5285 /* main.m in Sources */,
 				D030E6C415C0D2DB00CB5285 /* PHAppDelegate.m in Sources */,
-				D030E6CA15C0D2DB00CB5285 /* PHMasterViewController.m in Sources */,
 				D030E6CD15C0D2DB00CB5285 /* PHDetailViewController.m in Sources */,
 				D0CDB7D215C1F5900074B143 /* HTMLNode.m in Sources */,
 				D0CDB7D315C1F5900074B143 /* HTMLParser.m in Sources */,
@@ -417,6 +440,10 @@
 				D0C50B8F15CA0E130000EEFB /* SVProgressHUD.m in Sources */,
 				D0D1C74F15CB5C650097CA9C /* MCSegmentedControl.m in Sources */,
 				D0D1C75B15CB652A0097CA9C /* PHPrefViewController.m in Sources */,
+				D0F60054163775EF00ADBC38 /* PHRootViewController.m in Sources */,
+				D0F60055163775EF00ADBC38 /* PHMasterViewController.m in Sources */,
+				D0F6005B1639A82100ADBC38 /* IIViewDeckController.m in Sources */,
+				D0F6005C1639A82100ADBC38 /* IIWrapController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -431,12 +458,12 @@
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
-		D030E6C515C0D2DB00CB5285 /* MainStoryboard.storyboard */ = {
+		D0F6004416375D9100ADBC38 /* iPad.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				D030E6C615C0D2DB00CB5285 /* en */,
+				D0F6004516375D9100ADBC38 /* en */,
 			);
-			name = MainStoryboard.storyboard;
+			name = iPad.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
