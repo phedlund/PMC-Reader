@@ -1,12 +1,12 @@
-[submodule "PMC Reader/Objective-C-HTML-Parser"]
-	path = PMC Reader/Objective-C-HTML-Parser
-	url = git://github.com/tresni/Objective-C-HMTL-Parser.git
-[submodule "PMC Reader/SVProgressHUD"]
-	path = PMC Reader/SVProgressHUD
-	url = git://github.com/samvermette/SVProgressHUD.git
-[submodule "PMC Reader/MCSegmentedControl"]
-	path = PMC Reader/MCSegmentedControl
-	url = git://github.com/oettam/MCSegmentedControl.git
 [submodule "ViewDeck"]
 	path = ViewDeck
 	url = git://github.com/Inferis/ViewDeck.git
+[submodule "MCSegmentedControl"]
+	path = MCSegmentedControl
+	url = git://github.com/oettam/MCSegmentedControl.git
+[submodule "Objective-C-HMTL-Parser"]
+	path = Objective-C-HMTL-Parser
+	url = git://github.com/tresni/Objective-C-HMTL-Parser.git
+[submodule "SVProgressHUD"]
+	path = SVProgressHUD
+	url = git://github.com/samvermette/SVProgressHUD.git
