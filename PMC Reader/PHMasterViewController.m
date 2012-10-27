@@ -8,8 +8,8 @@
 
 #import "PHMasterViewController.h"
 
-#import "Objective-C-HTML-Parser/HTMLParser.h"
-#import "SVProgressHUD/SVProgressHUD/SVProgressHUD.h"
+#import "HTMLParser.h"
+#import "SVProgressHUD.h"
 #import "IIViewDeckController.h"
 
 static NSString * const kBaseUrl = @"http://www.ncbi.nlm.nih.gov";

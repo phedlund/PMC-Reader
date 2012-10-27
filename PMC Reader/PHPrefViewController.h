@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MCSegmentedControl/MCSegmentedControlDemo/MCSegmentedControl/MCSegmentedControl.h"
+#import "MCSegmentedControl.h"
 
 @protocol PHPrefViewControllerDelegate
 - (void)settingsChanged:(NSString*)setting newValue:(NSUInteger)value;

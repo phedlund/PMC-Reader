@@ -191,45 +191,6 @@
         <image name="margin2.png" width="26" height="26"/>
         <image name="margin3.png" width="26" height="26"/>
     </resources>
-    <classes>
-        <class className="IIViewDeckController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/IIViewDeckController.h"/>
-        </class>
-        <class className="MCSegmentedControl" superclassName="UISegmentedControl">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/MCSegmentedControl.h"/>
-        </class>
-        <class className="PHDetailViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PHDetailViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="doGoBack:"/>
-                <relationship kind="action" name="doGoForward:"/>
-                <relationship kind="action" name="doInfo:"/>
-                <relationship kind="action" name="doPreferences:"/>
-                <relationship kind="action" name="doReload:"/>
-                <relationship kind="action" name="doStop:"/>
-            </relationships>
-        </class>
-        <class className="PHMasterViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PHMasterViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="doAdd:"/>
-                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
-            </relationships>
-        </class>
-        <class className="PHPrefViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PHPrefViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="doSegmentedValueChanged:"/>
-                <relationship kind="outlet" name="backgroundSegmented" candidateClass="UISegmentedControl"/>
-                <relationship kind="outlet" name="fontSizeSegmented" candidateClass="MCSegmentedControl"/>
-                <relationship kind="outlet" name="lineHeightSegmented" candidateClass="MCSegmentedControl"/>
-                <relationship kind="outlet" name="marginSegmented" candidateClass="MCSegmentedControl"/>
-            </relationships>
-        </class>
-        <class className="PHRootViewController" superclassName="IIViewDeckController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PHRootViewController.h"/>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar" statusBarStyle="blackTranslucent"/>
         <simulatedOrientationMetrics key="orientation"/>
