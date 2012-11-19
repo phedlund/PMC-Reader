@@ -91,6 +91,11 @@ table, .fig, .table {
     margin: 1.3846em 0px;
 }
 
+.fig-table-link {
+    font-size:100%;
+    line-height:$LINEHEIGHT$;
+}
+
 .icnblk_img {
     float:left;
     margin-right:20px;
