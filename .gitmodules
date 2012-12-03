@@ -10,3 +10,6 @@
 [submodule "SVProgressHUD"]
 	path = SVProgressHUD
 	url = git://github.com/samvermette/SVProgressHUD.git
+[submodule "RaptureXML"]
+	path = RaptureXML
+	url = git://github.com/ZaBlanc/RaptureXML.git

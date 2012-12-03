@@ -14,6 +14,9 @@
 		D030E6C015C0D2DB00CB5285 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D030E6BF15C0D2DB00CB5285 /* main.m */; };
 		D030E6C415C0D2DB00CB5285 /* PHAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D030E6C315C0D2DB00CB5285 /* PHAppDelegate.m */; };
 		D030E6CD15C0D2DB00CB5285 /* PHDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D030E6CC15C0D2DB00CB5285 /* PHDetailViewController.m */; };
+		D036328916684C77000D3C0B /* PHDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = D036328816684C77000D3C0B /* PHDownloader.m */; };
+		D0363291166961F3000D3C0B /* PHArticle.m in Sources */ = {isa = PBXBuildFile; fileRef = D0363290166961F3000D3C0B /* PHArticle.m */; };
+		D0363294166AD2C6000D3C0B /* NSMutableArray+PList.m in Sources */ = {isa = PBXBuildFile; fileRef = D0363293166AD2C6000D3C0B /* NSMutableArray+PList.m */; };
 		D03863A215D03B04004686C4 /* gear.png in Resources */ = {isa = PBXBuildFile; fileRef = D03863A015D03B04004686C4 /* gear.png */; };
 		D03863A315D03B04004686C4 /* gear@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D03863A115D03B04004686C4 /* gear@2x.png */; };
 		D0CDB7CD15C1BA4F0074B143 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D0CDB7CC15C1BA4F0074B143 /* libxml2.dylib */; };
@@ -36,6 +39,10 @@
 		D0ED242C15DDD35000AE4803 /* back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D0ED242A15DDD35000AE4803 /* back@2x.png */; };
 		D0ED242F15DDD46B00AE4803 /* forward.png in Resources */ = {isa = PBXBuildFile; fileRef = D0ED242D15DDD46B00AE4803 /* forward.png */; };
 		D0ED243015DDD46B00AE4803 /* forward@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D0ED242E15DDD46B00AE4803 /* forward@2x.png */; };
+		D0ED8FC0165AEEBD0081E81E /* PHSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0ED8FBF165AEEBD0081E81E /* PHSearchViewController.m */; };
+		D0ED8FC4165B1F900081E81E /* RXMLElement.m in Sources */ = {isa = PBXBuildFile; fileRef = D0ED8FC3165B1F900081E81E /* RXMLElement.m */; };
+		D0ED8FC7165C6A950081E81E /* PHSearchTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D0ED8FC6165C6A950081E81E /* PHSearchTableViewCell.m */; };
+		D0ED8FC9165C6B190081E81E /* PHSearchTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0ED8FC8165C6B190081E81E /* PHSearchTableViewCell.xib */; };
 		D0EF085615D2FB2C005689E1 /* pmc_template.css in Resources */ = {isa = PBXBuildFile; fileRef = D0EF085515D2FB2C005689E1 /* pmc_template.css */; };
 		D0EF086B15D31306005689E1 /* defaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = D0EF086A15D31306005689E1 /* defaults.plist */; };
 		D0EFC98415D4915100C26580 /* fontsizel.png in Resources */ = {isa = PBXBuildFile; fileRef = D0EFC97E15D4914F00C26580 /* fontsizel.png */; };
@@ -85,6 +92,12 @@
 		D030E6C315C0D2DB00CB5285 /* PHAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PHAppDelegate.m; sourceTree = "<group>"; };
 		D030E6CB15C0D2DB00CB5285 /* PHDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PHDetailViewController.h; sourceTree = "<group>"; };
 		D030E6CC15C0D2DB00CB5285 /* PHDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PHDetailViewController.m; sourceTree = "<group>"; };
+		D036328716684C77000D3C0B /* PHDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHDownloader.h; sourceTree = "<group>"; };
+		D036328816684C77000D3C0B /* PHDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHDownloader.m; sourceTree = "<group>"; };
+		D036328F166961F2000D3C0B /* PHArticle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHArticle.h; sourceTree = "<group>"; };
+		D0363290166961F3000D3C0B /* PHArticle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHArticle.m; sourceTree = "<group>"; };
+		D0363292166AD2C5000D3C0B /* NSMutableArray+PList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+PList.h"; sourceTree = "<group>"; };
+		D0363293166AD2C6000D3C0B /* NSMutableArray+PList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+PList.m"; sourceTree = "<group>"; };
 		D03863A015D03B04004686C4 /* gear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = gear.png; path = Resources/gear.png; sourceTree = "<group>"; };
 		D03863A115D03B04004686C4 /* gear@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "gear@2x.png"; path = "Resources/gear@2x.png"; sourceTree = "<group>"; };
 		D0CDB7CC15C1BA4F0074B143 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
@@ -109,6 +122,13 @@
 		D0ED242A15DDD35000AE4803 /* back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "back@2x.png"; path = "Resources/back@2x.png"; sourceTree = "<group>"; };
 		D0ED242D15DDD46B00AE4803 /* forward.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = forward.png; path = Resources/forward.png; sourceTree = "<group>"; };
 		D0ED242E15DDD46B00AE4803 /* forward@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "forward@2x.png"; path = "Resources/forward@2x.png"; sourceTree = "<group>"; };
+		D0ED8FBE165AEEBD0081E81E /* PHSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHSearchViewController.h; sourceTree = "<group>"; };
+		D0ED8FBF165AEEBD0081E81E /* PHSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHSearchViewController.m; sourceTree = "<group>"; };
+		D0ED8FC2165B1F900081E81E /* RXMLElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RXMLElement.h; sourceTree = "<group>"; };
+		D0ED8FC3165B1F900081E81E /* RXMLElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RXMLElement.m; sourceTree = "<group>"; };
+		D0ED8FC5165C6A950081E81E /* PHSearchTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHSearchTableViewCell.h; sourceTree = "<group>"; };
+		D0ED8FC6165C6A950081E81E /* PHSearchTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHSearchTableViewCell.m; sourceTree = "<group>"; };
+		D0ED8FC8165C6B190081E81E /* PHSearchTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PHSearchTableViewCell.xib; sourceTree = "<group>"; };
 		D0EF085515D2FB2C005689E1 /* pmc_template.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = pmc_template.css; path = Resources/pmc_template.css; sourceTree = "<group>"; };
 		D0EF086A15D31306005689E1 /* defaults.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; name = defaults.plist; path = Resources/defaults.plist; sourceTree = "<group>"; };
 		D0EFC97E15D4914F00C26580 /* fontsizel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fontsizel.png; path = Resources/fontsizel.png; sourceTree = "<group>"; };
@@ -197,6 +217,7 @@
 		D030E6B915C0D2DB00CB5285 /* PMC Reader */ = {
 			isa = PBXGroup;
 			children = (
+				D0ED8FC1165B1F8F0081E81E /* RaptureXML */,
 				D0F41E3B163C90B00078DF2A /* SVProgressHUD */,
 				D0F41E37163C90620078DF2A /* MCSegmentedControl */,
 				D0F600561639A82000ADBC38 /* ViewDeck */,
@@ -207,10 +228,21 @@
 				D0F60050163775EE00ADBC38 /* PHRootViewController.m */,
 				D0F60051163775EF00ADBC38 /* PHMasterViewController.h */,
 				D0F60052163775EF00ADBC38 /* PHMasterViewController.m */,
+				D0363292166AD2C5000D3C0B /* NSMutableArray+PList.h */,
+				D0363293166AD2C6000D3C0B /* NSMutableArray+PList.m */,
 				D030E6CB15C0D2DB00CB5285 /* PHDetailViewController.h */,
 				D030E6CC15C0D2DB00CB5285 /* PHDetailViewController.m */,
 				D0D1C75915CB652A0097CA9C /* PHPrefViewController.h */,
 				D0D1C75A15CB652A0097CA9C /* PHPrefViewController.m */,
+				D0ED8FBE165AEEBD0081E81E /* PHSearchViewController.h */,
+				D0ED8FBF165AEEBD0081E81E /* PHSearchViewController.m */,
+				D0ED8FC5165C6A950081E81E /* PHSearchTableViewCell.h */,
+				D0ED8FC6165C6A950081E81E /* PHSearchTableViewCell.m */,
+				D0ED8FC8165C6B190081E81E /* PHSearchTableViewCell.xib */,
+				D036328716684C77000D3C0B /* PHDownloader.h */,
+				D036328816684C77000D3C0B /* PHDownloader.m */,
+				D036328F166961F2000D3C0B /* PHArticle.h */,
+				D0363290166961F3000D3C0B /* PHArticle.m */,
 				D0F6004416375D9100ADBC38 /* iPad.storyboard */,
 				D030E6BA15C0D2DB00CB5285 /* Supporting Files */,
 			);
@@ -289,6 +321,16 @@
 			);
 			name = Resources;
 			sourceTree = "<group>";
+		};
+		D0ED8FC1165B1F8F0081E81E /* RaptureXML */ = {
+			isa = PBXGroup;
+			children = (
+				D0ED8FC2165B1F900081E81E /* RXMLElement.h */,
+				D0ED8FC3165B1F900081E81E /* RXMLElement.m */,
+			);
+			name = RaptureXML;
+			path = RaptureXML/RaptureXML;
+			sourceTree = SOURCE_ROOT;
 		};
 		D0F41E37163C90620078DF2A /* MCSegmentedControl */ = {
 			isa = PBXGroup;
@@ -421,6 +463,7 @@
 				D0EB6F6515E4346D00D3E790 /* iTunesArtwork.png in Resources */,
 				D0F6004616375D9100ADBC38 /* iPad.storyboard in Resources */,
 				D0F41E3F163C90B00078DF2A /* SVProgressHUD.bundle in Resources */,
+				D0ED8FC9165C6B190081E81E /* PHSearchTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -444,6 +487,12 @@
 				D0F6005C1639A82100ADBC38 /* IIWrapController.m in Sources */,
 				D0F41E3A163C90620078DF2A /* MCSegmentedControl.m in Sources */,
 				D0F41E40163C90B00078DF2A /* SVProgressHUD.m in Sources */,
+				D0ED8FC0165AEEBD0081E81E /* PHSearchViewController.m in Sources */,
+				D0ED8FC4165B1F900081E81E /* RXMLElement.m in Sources */,
+				D0ED8FC7165C6A950081E81E /* PHSearchTableViewCell.m in Sources */,
+				D036328916684C77000D3C0B /* PHDownloader.m in Sources */,
+				D0363291166961F3000D3C0B /* PHArticle.m in Sources */,
+				D0363294166AD2C6000D3C0B /* NSMutableArray+PList.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

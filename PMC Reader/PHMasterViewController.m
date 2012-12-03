@@ -9,19 +9,74 @@
 #import "PHMasterViewController.h"
 
 #import "HTMLParser.h"
-#import "SVProgressHUD.h"
 #import "IIViewDeckController.h"
+#import "NSMutableArray+PList.h"
 
 static NSString * const kBaseUrl = @"http://www.ncbi.nlm.nih.gov";
 static NSString * const kArticleUrlSuffix = @"pmc/articles/";
 
 @interface PHMasterViewController() {
-    NSMutableArray *_objects;
-    NSURL *_articleURL;
+    //NSMutableArray *_objects;
 }
+
+- (void) downloadArticles:(NSNotification*)n;
+
 @end
 
 @implementation PHMasterViewController
+
+@synthesize articles = _articles;
+
+- (NSMutableArray *) articles {
+    if (!_articles) {
+        NSFileManager *fm = [NSFileManager defaultManager];
+        NSArray *paths = [fm URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask];
+        NSURL *docDir = [paths objectAtIndex:0];
+        NSURL *articlesURL = [docDir URLByAppendingPathComponent:@"articles.plist" isDirectory:NO];
+        NSMutableArray *theArticles;
+        if ([fm fileExistsAtPath:[articlesURL path]]) {
+            theArticles = [NSMutableArray readFromPlistFile:@"articles.plist"];
+        } else {
+            //Updating from version 1.x of PMC Reader
+            theArticles = [[NSMutableArray alloc] init];
+            NSDirectoryEnumerator *dirEnumerator = [fm enumeratorAtURL:docDir
+                                            includingPropertiesForKeys:[NSArray arrayWithObjects:NSURLNameKey, NSURLIsDirectoryKey,nil]
+                                                               options:NSDirectoryEnumerationSkipsHiddenFiles | NSDirectoryEnumerationSkipsSubdirectoryDescendants
+                                                          errorHandler:nil];
+            
+            for (NSURL *theURL in dirEnumerator) {
+                // Retrieve the file name. From NSURLNameKey, cached during the enumeration.
+                NSString *fileName;
+                [theURL getResourceValue:&fileName forKey:NSURLNameKey error:NULL];
+                
+                // Retrieve whether a directory. From NSURLIsDirectoryKey, also
+                // cached during the enumeration.
+                NSNumber *isDirectory;
+                [theURL getResourceValue:&isDirectory forKey:NSURLIsDirectoryKey error:NULL];
+                
+                // Ignore files under the _extras directory
+                if ([isDirectory boolValue]==YES) {
+                    if ([fileName caseInsensitiveCompare:@"templates"]==NSOrderedSame) {
+                        //
+                    } else {
+                        NSDictionary *dict = [NSDictionary dictionaryWithContentsOfURL:[theURL URLByAppendingPathComponent:@"meta.plist"]];
+                        PHArticle *article = [[PHArticle alloc] init];
+                        article.url = [NSURL URLWithString:[dict objectForKey:@"URL"]];
+                        article.pmcId = [dict objectForKey:@"PMCID"];
+                        article.title = [dict objectForKey:@"Title"];
+                        article.authors = [dict objectForKey:@"Authors"];
+                        article.source = @"";
+                        article.downloading = NO;
+
+                        [theArticles addObject:article];
+                    }
+                }
+            }
+        }
+        self.articles = theArticles;
+    }
+    return _articles;
+}
 
 - (void)viewDidLoad
 {
@@ -53,11 +108,11 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
     }
     
     
-    if (!_objects) {
-        _objects = [[NSMutableArray alloc] init];
-    }
-    
-    [self enumerateArticles];
+    //if (!_objects) {
+    //    _objects = [[NSMutableArray alloc] init];
+    //}
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(downloadArticles:) name:@"DownloadArticles" object:nil];
+
     UINavigationController *detailNavController = (UINavigationController *)self.viewDeckController.centerController;
     self.detailViewController = (PHDetailViewController *)detailNavController.topViewController;
     [self.detailViewController writeCssTemplate];
@@ -107,7 +162,7 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
         newID = [newID stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
         if (newID.length == 10) {
             if ([[newID uppercaseString] hasPrefix:@"PMC"]) {
-                [self loadArticle:newID];
+                //[self loadArticle:newID];
             }
         }
     }
@@ -122,7 +177,7 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return _objects.count;
+    return self.articles.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -132,11 +187,23 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
         cell.selectionStyle = UITableViewCellSelectionStyleBlue;
+        
+        UIActivityIndicatorView *activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        cell.accessoryView = activityIndicatorView;
     }
     
-    NSDictionary *object = (NSDictionary*)[_objects objectAtIndex:indexPath.row];
-    cell.textLabel.text = (NSString*)[object objectForKey:@"Title"];
-    cell.detailTextLabel.text = (NSString*)[object objectForKey:@"Authors"];
+    PHArticle *article = (PHArticle*)[self.articles objectAtIndex:indexPath.row];
+    cell.textLabel.text = article.title;
+    cell.detailTextLabel.text = article.authors;
+    
+    if (article.downloading == YES) {
+        NSLog(@"Setting spinner");
+        [((UIActivityIndicatorView *)cell.accessoryView) startAnimating];
+    } else {
+        NSLog(@"Removing spinner");
+        [((UIActivityIndicatorView *)cell.accessoryView) stopAnimating];
+    }
+    
     return cell;
 }
 
@@ -152,9 +219,11 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
         NSFileManager *fm = [NSFileManager defaultManager];
         NSArray *paths = [fm URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask];
         NSURL *docDir = [paths objectAtIndex:0];
-        docDir = [docDir URLByAppendingPathComponent:[(NSDictionary*)[_objects objectAtIndex:indexPath.row] objectForKey:@"PMCID"] isDirectory:YES];
+        PHArticle *article = (PHArticle*)[self.articles objectAtIndex:indexPath.row];
+        docDir = [docDir URLByAppendingPathComponent:article.pmcId isDirectory:YES];
         [fm removeItemAtURL:docDir error:nil];
-        [_objects removeObjectAtIndex:indexPath.row];
+        [self.articles removeObjectAtIndex:indexPath.row];
+        [self writeArticles];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
     } else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
@@ -176,305 +245,68 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
  return YES;
  }
  */
+- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    PHArticle *article = (PHArticle*)[self.articles objectAtIndex:indexPath.row];
+    if (article.downloading == YES) {
+        return nil;
+    }
+    return indexPath;
+}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSData *object = [_objects objectAtIndex:indexPath.row];
+    NSData *object = [self.articles objectAtIndex:indexPath.row];
     self.detailViewController.detailItem = object;
     [self.viewDeckController closeLeftView];
 }
 
 #pragma mark - HTML Parser
-- (void)loadArticle:(NSString *)anArticle {
-    [SVProgressHUD showWithStatus:@"Downloading Article"];
-    NSURL *baseURL = [NSURL URLWithString:kBaseUrl];
-    _articleURL = [baseURL URLByAppendingPathComponent:kArticleUrlSuffix];
-    _articleURL = [_articleURL URLByAppendingPathComponent:anArticle];
-    
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul), ^{NSData* data = [NSData dataWithContentsOfURL: _articleURL];
-        [self performSelectorOnMainThread:@selector(parseData:) withObject:data waitUntilDone:YES];});
+
+-(void)downloadArticles:(NSNotification *)n {
+    NSLog(@"Downloading");
+    NSArray *articles = [n.userInfo objectForKey:@"SelectedArticles"];
+    __block NSOperationQueue *queue  = [[NSOperationQueue alloc] init];
+    __block PHArticle *article = nil;
+
+    [articles enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        article = (PHArticle *)obj;
+        NSString *pmcId = article.pmcId;
+        NSLog(@"Downloading: %@", pmcId);
+        
+        PHDownloader *downloader = [[PHDownloader alloc] initWithPMCId:article indexPath:[NSIndexPath indexPathForRow:self.articles.count inSection:0] delegate:self];
+        [self.articles addObject:article];
+        [self.tableView reloadData];
+        [queue addOperation:downloader];
+    }];
+
 }
 
-- (void)parseData:(NSData *)htmlData {
-    
-    NSURL *baseURL = [NSURL URLWithString:kBaseUrl];
-    //NSData *htmlData = [NSData dataWithContentsOfURL:articleURL];
-    //NSData *htmlData = [NSData dataWithContentsOfFile:@"/Users/peter/Dropbox/test.html"];
-    NSError *error = nil;
-    HTMLParser *parser = [[HTMLParser alloc] initWithData:htmlData error:&error];
-    
-    if (error) {
-        NSLog(@"Error: %@", error);
-        return;
-    }
-    
+- (void) writeArticles {
     NSFileManager *fm = [NSFileManager defaultManager];
     NSArray *paths = [fm URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask];
     NSURL *docDir = [paths objectAtIndex:0];
-    
-    NSString *htmlTemplatePath  = [[docDir path] stringByAppendingPathComponent:@"templates/pmc.html"];
-    NSString *cssTemplatePath  = [[docDir path] stringByAppendingPathComponent:@"templates/pmc.css"];
-    NSString *jsTemplatePath  = [[docDir path] stringByAppendingPathComponent:@"templates/pmc.js"];
-    //NSLog(@"CSS: %@", cssTemplatePath);
-    
-    NSString *pmcData;
-    NSString *pmcID;
-    NSString *pmcAuthors = @"";
-    NSString *oldInfo = @"";
-    NSString *newInfo = @"";
-    NSMutableArray *images = [[NSMutableArray alloc] init];
-    NSMutableArray *tables = [[NSMutableArray alloc] init];
-    
-    //parse body
-    HTMLNode *bodyNode = [parser body];
-    
-    NSArray *inputNodes = [bodyNode findChildTags:@"div"];
-    
-    for (HTMLNode *inputNode in inputNodes) {
-        
-        if ([[inputNode getAttributeNamed:@"class"] isEqualToString:@"fm-citation-pmcid"]) {
-            NSLog(@"%@", [[[inputNode firstChild] nextSibling] innerHTML]);
-            pmcID = [[[inputNode firstChild] nextSibling] innerHTML];
-        }
-        if ([[inputNode getAttributeNamed:@"class"] isEqualToString:@"jig-ncbiinpagenav"]) {
-            //NSLog(@"%@", [inputNode rawContents]);
-            pmcData = [inputNode rawContents];
-        }
-        if ([[inputNode getAttributeNamed:@"class"] hasPrefix:@"contrib-group "]) {
-            NSArray *authors = [inputNode findChildTags:@"a"];
-            //NSString * authorList = @"";
-            for (HTMLNode *author in authors) {
-                //NSLog(@"Author: %@", [author contents]);
-                pmcAuthors = [pmcAuthors stringByAppendingString:[author contents]];
-                pmcAuthors = [pmcAuthors stringByAppendingString:@", "];
-            }
-            pmcAuthors = [pmcAuthors substringToIndex:[pmcAuthors length] - 2];
-            NSRange lastComma = [pmcAuthors rangeOfString:@"," options:NSBackwardsSearch];
-            if (lastComma.length != 0) {
-                pmcAuthors = [pmcAuthors stringByReplacingCharactersInRange:lastComma  withString:@", and"];
-            }
-            //NSLog(@"Authors: %@", pmcAuthors);
-            
-        }
-        if ([[inputNode getAttributeNamed:@"class"] hasPrefix:@"fm-authors-info "]) {
-            NSLog(@"Info: %@", [inputNode rawContents]);
-            oldInfo = [inputNode rawContents];
-            newInfo = [oldInfo stringByReplacingOccurrencesOfString:@"display:none" withString:@""];
-            newInfo = [newInfo stringByReplacingOccurrencesOfString:@"/at/" withString:@"@"];
-            /*NSArray *authors = [inputNode findChildTags:@"a"];
-             //NSString * authorList = @"";
-             for (HTMLNode *author in authors) {
-             //NSLog(@"Author: %@", [author contents]);
-             pmcAuthors = [pmcAuthors stringByAppendingString:[author contents]];
-             pmcAuthors = [pmcAuthors stringByAppendingString:@", "];
-             }
-             pmcAuthors = [pmcAuthors substringToIndex:[pmcAuthors length] - 2];
-             NSRange lastComma = [pmcAuthors rangeOfString:@"," options:NSBackwardsSearch];
-             pmcAuthors = [pmcAuthors stringByReplacingCharactersInRange:lastComma  withString:@", and"];
-             //NSLog(@"Authors: %@", pmcAuthors);*/
-            
-        }
-        if ([[inputNode getAttributeNamed:@"class"] hasPrefix:@"fig "]) {
-            NSString *imgId = [inputNode getAttributeNamed:@"id"];
-            HTMLNode *imgNode = [inputNode findChildTag:@"img"];
-            NSString *thumbNail = [imgNode getAttributeNamed:@"src"];
-            NSString *image = [imgNode getAttributeNamed:@"src-large"];
-            HTMLNode *aNode = [inputNode findChildTag:@"a"];
-            NSString *href = [aNode getAttributeNamed:@"href"];
-            [images addObject:[NSArray arrayWithObjects:thumbNail, image, imgId, href, nil]];
-            //NSLog(@"%@", image);
-            //pmcData = [inputNode rawContents];
-        }
-        if ([[inputNode getAttributeNamed:@"class"] hasPrefix:@"table-wrap "]) {
-            NSString *tableId = [inputNode getAttributeNamed:@"id"];
-            HTMLNode *imgNode = [inputNode findChildTag:@"img"];
-            NSString *thumbNail = [imgNode getAttributeNamed:@"src"];
-            NSString *image = [imgNode getAttributeNamed:@"src-large"];
-            HTMLNode *aNode = [inputNode findChildTag:@"a"];
-            NSString *href = [aNode getAttributeNamed:@"href"];
-            [tables addObject:[NSArray arrayWithObjects:thumbNail, image, tableId, href, nil]];
-            //NSLog(@"Table: %@", thumbNail);
-            //pmcData = [inputNode rawContents];
-        }
-    }
-    
-    //parse head
-    HTMLNode *headNode = [parser head];
-    
-    NSArray *titleNodes = [headNode findChildTags:@"title"];
-    NSString *pmcTitle = [[titleNodes objectAtIndex:0] innerHTML];
-    
-    //create save directory
-    docDir = [docDir URLByAppendingPathComponent:pmcID isDirectory:YES];
-    [fm createDirectoryAtURL:docDir withIntermediateDirectories:YES attributes:nil error:nil];
-    
-    //show author info
-    pmcData = [pmcData stringByReplacingOccurrencesOfString:oldInfo withString:newInfo];
-    
-    //extract and save figures
-    NSURL *objectURL;
-    NSURL *objectSaveURL;
-    NSString *objectSavePathPrefix = @"file://";
-    NSString *objectSavePath;
-    NSData *objectData;
-    
-    for (NSArray *img in images) {
-        objectURL = [NSURL URLWithString:[img objectAtIndex:0] relativeToURL:baseURL];
-        objectData = [NSData dataWithContentsOfURL:objectURL];
-        objectSaveURL = [docDir  URLByAppendingPathComponent:[objectURL lastPathComponent]];
-        objectSavePath = [objectSavePathPrefix stringByAppendingString:[objectSaveURL path]];
-        [objectData writeToURL:objectSaveURL atomically:YES];
-        pmcData = [pmcData stringByReplacingOccurrencesOfString:[img objectAtIndex:0] withString:objectSavePath];
-        
-        objectURL = [NSURL URLWithString:[img objectAtIndex:1] relativeToURL:baseURL];
-        objectData = [NSData dataWithContentsOfURL:objectURL];
-        objectSaveURL = [docDir  URLByAppendingPathComponent:[objectURL lastPathComponent]];
-        objectSavePath =  [objectSavePathPrefix stringByAppendingString:[objectSaveURL path]];
-        [objectData writeToURL:[docDir URLByAppendingPathComponent:[objectURL lastPathComponent]] atomically:YES];
-        pmcData = [pmcData stringByReplacingOccurrencesOfString:[img objectAtIndex:1] withString:objectSavePath];
-        //NSLog(@"imageURL: %@", imageURL);
-        
-        
-        objectURL = [_articleURL URLByAppendingPathComponent:@"figure" isDirectory:YES];
-        objectURL = [objectURL URLByAppendingPathComponent:[img objectAtIndex:2] isDirectory:YES];
-        objectData = [NSData dataWithContentsOfURL:objectURL];
-        HTMLParser *objectParser = [[HTMLParser alloc] initWithData:objectData error:&error];
-        HTMLNode *objectNode = [objectParser body];
-        
-        inputNodes = [objectNode findChildTags:@"div"];
-        
-        //objectNode = [objectNode findChildTag:@"table-wrap"];
-        
-        for (HTMLNode *inputNode in inputNodes) {
-            
-            if ([[inputNode getAttributeNamed:@"class"] hasPrefix:@"fig "]) {
-                //NSLog(@"tableContent: %@", [inputNode rawContents] );
-                NSString *objectHtml = [NSString stringWithContentsOfFile:htmlTemplatePath encoding:NSUTF8StringEncoding error:nil];
-                objectHtml = [objectHtml stringByReplacingOccurrencesOfString:@"$PMCCSS$" withString:cssTemplatePath];
-                objectHtml = [objectHtml stringByReplacingOccurrencesOfString:@"$PMCJS$" withString:jsTemplatePath];
-                objectHtml = [objectHtml stringByReplacingOccurrencesOfString:@"$PMCTITLE$" withString:[[titleNodes objectAtIndex:0] innerHTML]];
-                objectHtml = [objectHtml stringByReplacingOccurrencesOfString:@"$PMCDATA$" withString:[inputNode rawContents]];
-                objectSaveURL = [docDir  URLByAppendingPathComponent:[img objectAtIndex:2]];
-                objectSaveURL = [objectSaveURL URLByAppendingPathExtension:@"html"];
-                
-                HTMLNode *imgNode = [inputNode findChildTag:@"img"];
-                NSString *thumbNail = [imgNode getAttributeNamed:@"src"];
-                objectHtml = [objectHtml stringByReplacingOccurrencesOfString:thumbNail withString:objectSavePath];
-                
-                [objectHtml writeToURL:objectSaveURL atomically:YES encoding:NSUTF8StringEncoding error:nil];
-                NSString *htmlSavePath = [objectSavePathPrefix stringByAppendingString:[objectSaveURL path]];
-                pmcData = [pmcData stringByReplacingOccurrencesOfString:[img objectAtIndex:3] withString:htmlSavePath];
-                
-            }
-        }
-        
-        
-        
-    }
-    
-    
-    for (NSArray *table in tables) {
-        objectURL = [NSURL URLWithString:[table objectAtIndex:0] relativeToURL:baseURL];
-        objectData = [NSData dataWithContentsOfURL:objectURL];
-        objectSaveURL = [docDir  URLByAppendingPathComponent:[table objectAtIndex:2]];
-        objectSaveURL = [objectSaveURL URLByAppendingPathExtension:@"png"];
-        objectSavePath = [objectSavePathPrefix stringByAppendingString:[objectSaveURL path]];
-        [objectData writeToURL:objectSaveURL atomically:YES];
-        pmcData = [pmcData stringByReplacingOccurrencesOfString:[table objectAtIndex:0] withString:objectSavePath];
-        
-        
-        
-        objectURL = [_articleURL URLByAppendingPathComponent:@"table" isDirectory:YES];
-        objectURL = [objectURL URLByAppendingPathComponent:[table objectAtIndex:2] isDirectory:YES];
-        objectData = [NSData dataWithContentsOfURL:objectURL];
-        HTMLParser *objectParser = [[HTMLParser alloc] initWithData:objectData error:&error];
-        HTMLNode *objectNode = [objectParser body];
-        
-        inputNodes = [objectNode findChildTags:@"div"];
-        
-        //objectNode = [objectNode findChildTag:@"table-wrap"];
-        
-        for (HTMLNode *inputNode in inputNodes) {
-            
-            if ([[inputNode getAttributeNamed:@"class"] hasPrefix:@"table-wrap "]) {
-                //NSLog(@"tableContent: %@", [inputNode rawContents] );
-                NSString *objectHtml = [NSString stringWithContentsOfFile:htmlTemplatePath encoding:NSUTF8StringEncoding error:nil];
-                objectHtml = [objectHtml stringByReplacingOccurrencesOfString:@"$PMCCSS$" withString:cssTemplatePath];
-                objectHtml = [objectHtml stringByReplacingOccurrencesOfString:@"$PMCJS$" withString:jsTemplatePath];
-                objectHtml = [objectHtml stringByReplacingOccurrencesOfString:@"$PMCTITLE$" withString:[[titleNodes objectAtIndex:0] innerHTML]];
-                objectHtml = [objectHtml stringByReplacingOccurrencesOfString:@"$PMCDATA$" withString:[inputNode rawContents]];
-                objectSaveURL = [docDir  URLByAppendingPathComponent:[table objectAtIndex:2]];
-                objectSaveURL = [objectSaveURL URLByAppendingPathExtension:@"html"];
-                
-                [objectHtml writeToURL:objectSaveURL atomically:YES encoding:NSUTF8StringEncoding error:nil];
-                objectSavePath = [objectSavePathPrefix stringByAppendingString:[objectSaveURL path]];
-                pmcData = [pmcData stringByReplacingOccurrencesOfString:[table objectAtIndex:3] withString:objectSavePath];
-                
-            }
-        }
-        
-    }
-    
-    
-    //build and save html file
-    NSString *html = [NSString stringWithContentsOfFile:htmlTemplatePath encoding:NSUTF8StringEncoding error:nil];
-    //NSLog(@"Content: %@", html);
-    html = [html stringByReplacingOccurrencesOfString:@"$PMCCSS$" withString:cssTemplatePath];
-    //NSLog(@"Content: %@", html);
-    html = [html stringByReplacingOccurrencesOfString:@"$PMCJS$" withString:jsTemplatePath];
-    html = [html stringByReplacingOccurrencesOfString:@"$PMCTITLE$" withString:[[titleNodes objectAtIndex:0] innerHTML]];
-    html = [html stringByReplacingOccurrencesOfString:@"$PMCDATA$" withString:pmcData];
-    [html writeToURL:[docDir URLByAppendingPathComponent:@"text.html" isDirectory:NO] atomically:YES encoding:NSUTF8StringEncoding error:nil];
-    //[pmcTitle writeToURL:[docDir URLByAppendingPathComponent:@"title.txt" isDirectory:NO] atomically:YES encoding:NSUTF8StringEncoding error:nil];
-    //[pmcAuthors writeToURL:[docDir URLByAppendingPathComponent:@"authors.txt" isDirectory:NO] atomically:YES encoding:NSUTF8StringEncoding error:nil];
-    
-    
-    //NSLog(@"Content: %@", html);
-    NSDictionary *newObject = [NSDictionary dictionaryWithObjectsAndKeys:pmcID, @"PMCID",
-                               [_articleURL absoluteString], @"URL",
-                               pmcTitle, @"Title",
-                               pmcAuthors, @"Authors",
-                               [NSNumber numberWithUnsignedInteger:_objects.count], @"Index", nil];
-    [newObject writeToURL:[docDir URLByAppendingPathComponent:@"meta.plist" isDirectory:NO] atomically:YES];
-    [_objects addObject:newObject];
-    //[_objects addObject:[NSArray arrayWithObjects:pmcTitle, pmcID, pmcAuthors, nil]];
-    [self.tableView reloadData];
-    
-    [SVProgressHUD showSuccessWithStatus:@"Done"];
+    NSURL *saveURL = [docDir URLByAppendingPathComponent:@"articles.plist" isDirectory:NO];
+    //[self.articles writeToURL:saveURL atomically:YES];
+    [self.articles writeToPlistFile:@"articles.plist"];
 }
 
-- (void)enumerateArticles {
-    NSFileManager *fm = [NSFileManager defaultManager];
-    NSArray *paths = [fm URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask];
-    NSURL *docDir = [paths objectAtIndex:0];
-    
-    NSDirectoryEnumerator *dirEnumerator = [fm enumeratorAtURL:docDir
-                                    includingPropertiesForKeys:[NSArray arrayWithObjects:NSURLNameKey, NSURLIsDirectoryKey,nil]
-                                                       options:NSDirectoryEnumerationSkipsHiddenFiles | NSDirectoryEnumerationSkipsSubdirectoryDescendants
-                                                  errorHandler:nil];
-    
-    for (NSURL *theURL in dirEnumerator) {
-        // Retrieve the file name. From NSURLNameKey, cached during the enumeration.
-        NSString *fileName;
-        [theURL getResourceValue:&fileName forKey:NSURLNameKey error:NULL];
-        
-        // Retrieve whether a directory. From NSURLIsDirectoryKey, also
-        // cached during the enumeration.
-        NSNumber *isDirectory;
-        [theURL getResourceValue:&isDirectory forKey:NSURLIsDirectoryKey error:NULL];
-        
-        // Ignore files under the _extras directory
-        if ([isDirectory boolValue]==YES) {
-            if ([fileName caseInsensitiveCompare:@"templates"]==NSOrderedSame) {
-                //
-            } else {
-                [_objects addObject:[NSDictionary dictionaryWithContentsOfURL:[theURL URLByAppendingPathComponent:@"meta.plist"]]];
-                /*[NSArray arrayWithObjects:[NSString stringWithContentsOfURL:[theURL URLByAppendingPathComponent:@"title.txt" isDirectory:NO] encoding:NSUTF8StringEncoding error:nil],
-                 [theURL lastPathComponent],
-                 [NSString stringWithContentsOfURL:[theURL URLByAppendingPathComponent:@"authors.txt" isDirectory:NO] encoding:NSUTF8StringEncoding error:nil], nil]];*/
-            }
-        }
-    }
+#pragma mark - PHDownloaderDelegate
+
+-(void)downloaderDidStart:(PHDownloader *)downloader {
+    [self performSelectorOnMainThread:@selector(reloadRow:) withObject:downloader.indexPathInTableView waitUntilDone:YES];
+}
+
+-(void)downloaderDidFinish:(PHDownloader *)downloader {
+    [self performSelectorOnMainThread:@selector(reloadRow:) withObject:downloader.indexPathInTableView waitUntilDone:YES];
+    [self writeArticles];
+}
+
+-(void)downloaderDidFail:(PHDownloader *)downloader withError:(NSError *)error {
+    //
+}
+
+- (void) reloadRow:(NSIndexPath*)indexPath {
+    [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
 }
 
 @end

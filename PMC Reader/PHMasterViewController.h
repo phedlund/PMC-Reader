@@ -8,11 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "PHDetailViewController.h"
+#import "PHDownloader.h"
 
-@interface PHMasterViewController : UIViewController <UITableViewDataSource, UIAlertViewDelegate>
+@interface PHMasterViewController : UIViewController <UITableViewDataSource, UIAlertViewDelegate, PHDownloaderDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) PHDetailViewController *detailViewController;
+@property (strong, nonatomic) NSMutableArray *articles;
 
 - (IBAction)doAdd:(id)sender;
 

@@ -8,6 +8,7 @@
 
 #import "PHDetailViewController.h"
 #import "IIViewDeckController.h"
+#import "PHArticle.h"
 
 #define TITLE_LABEL_WIDTH 450
 
@@ -67,15 +68,15 @@
         NSFileManager *fm = [NSFileManager defaultManager];
         NSArray *paths = [fm URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask];
         NSURL *docDir = [paths objectAtIndex:0];
-        NSDictionary *detail = (NSDictionary *) self.detailItem;
-        docDir = [docDir URLByAppendingPathComponent:[detail objectForKey:@"PMCID"] isDirectory:YES];
+        PHArticle *detail = (PHArticle *) self.detailItem;
+        docDir = [docDir URLByAppendingPathComponent:detail.pmcId isDirectory:YES];
         docDir = [docDir URLByAppendingPathComponent:@"text.html"];
         NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:docDir];
         [request setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
         //[[self articleView] loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"about:blank"]]];
         [[self articleView] loadRequest:request];
         //[[self navigationItem] setTitle:[detail objectForKey:@"Title"]];
-        [self.titleLabel setText:[detail objectForKey:@"Title"]];
+        [self.titleLabel setText:detail.title];
     }
 }
 
@@ -240,12 +241,12 @@
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    NSDictionary *detail = (NSDictionary *) self.detailItem;
+    PHArticle *detail = (PHArticle *) self.detailItem;
     
     NSURL *url = self.articleView.request.URL;
     NSLog(@"URL: %@", [url absoluteString]);
-    if ([[url absoluteString] hasSuffix:[NSString stringWithFormat:@"Documents/%@/text.html", [detail objectForKey:@"PMCID"]]]) {
-        url = [NSURL URLWithString:[detail objectForKey:@"URL"]];
+    if ([[url absoluteString] hasSuffix:[NSString stringWithFormat:@"Documents/%@/text.html", detail.pmcId]]) {
+        url = detail.url;
     }
     
     switch (buttonIndex) {

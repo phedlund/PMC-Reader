@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2840" systemVersion="12C60" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="SIb-O2-Xa4">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2844" systemVersion="12C60" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="SIb-O2-Xa4">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1926"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1930"/>
     </dependencies>
     <scenes>
         <!--Master View Controller-->
@@ -20,6 +20,7 @@
                                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="DIl-KM-Wic">
                                             <connections>
                                                 <action selector="doAdd:" destination="K2H-Q6-O20" id="TpN-ug-boR"/>
+                                                <segue destination="55I-fb-DqJ" kind="modal" id="2xs-eR-Pb5"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
@@ -45,6 +46,51 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WAQ-KG-3dU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1336" y="-1142"/>
+        </scene>
+        <!--Search View Controller - Search Pubmed Central-->
+        <scene sceneID="BJB-am-Dqz">
+            <objects>
+                <tableViewController id="OiH-Wa-zp0" customClass="PHSearchViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Gno-rE-HkA">
+                        <rect key="frame" x="0.0" y="64" width="768" height="960"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <searchBar key="tableHeaderView" contentMode="redraw" placeholder="Search Query" id="76j-hJ-pNw">
+                            <rect key="frame" x="0.0" y="0.0" width="768" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </searchBar>
+                        <sections/>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Search Pubmed Central" id="7Je-FY-ibc">
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="hVV-np-2De">
+                            <connections>
+                                <action selector="doDone:" destination="OiH-Wa-zp0" id="aUf-em-fjO"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="searchBar" destination="76j-hJ-pNw" id="ZjZ-KR-LnP"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="DEo-fc-Vrl" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1532" y="126"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="0GD-sr-ogb">
+            <objects>
+                <navigationController definesPresentationContext="YES" modalPresentationStyle="formSheet" id="55I-fb-DqJ" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="f6Y-cS-Cos">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="OiH-Wa-zp0" kind="relationship" relationship="rootViewController" id="xdX-bN-eUw"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6r7-Xz-HjY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="650" y="126"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="8yI-t4-y9y">
@@ -191,6 +237,52 @@
         <image name="margin2.png" width="26" height="26"/>
         <image name="margin3.png" width="26" height="26"/>
     </resources>
+    <classes>
+        <class className="IIViewDeckController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/IIViewDeckController.h"/>
+        </class>
+        <class className="MCSegmentedControl" superclassName="UISegmentedControl">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MCSegmentedControl.h"/>
+        </class>
+        <class className="PHDetailViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PHDetailViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="doGoBack:"/>
+                <relationship kind="action" name="doGoForward:"/>
+                <relationship kind="action" name="doInfo:"/>
+                <relationship kind="action" name="doPreferences:"/>
+                <relationship kind="action" name="doReload:"/>
+                <relationship kind="action" name="doStop:"/>
+            </relationships>
+        </class>
+        <class className="PHMasterViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PHMasterViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="doAdd:"/>
+                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
+            </relationships>
+        </class>
+        <class className="PHPrefViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PHPrefViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="doSegmentedValueChanged:"/>
+                <relationship kind="outlet" name="backgroundSegmented" candidateClass="UISegmentedControl"/>
+                <relationship kind="outlet" name="fontSizeSegmented" candidateClass="MCSegmentedControl"/>
+                <relationship kind="outlet" name="lineHeightSegmented" candidateClass="MCSegmentedControl"/>
+                <relationship kind="outlet" name="marginSegmented" candidateClass="MCSegmentedControl"/>
+            </relationships>
+        </class>
+        <class className="PHRootViewController" superclassName="IIViewDeckController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PHRootViewController.h"/>
+        </class>
+        <class className="PHSearchViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PHSearchViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="doDone:"/>
+                <relationship kind="outlet" name="searchBar" candidateClass="UISearchBar"/>
+            </relationships>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar" statusBarStyle="blackTranslucent"/>
         <simulatedOrientationMetrics key="orientation"/>
