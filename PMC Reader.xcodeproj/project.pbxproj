@@ -220,14 +220,13 @@
 				D0F41E37163C90620078DF2A /* MCSegmentedControl */,
 				D0F600561639A82000ADBC38 /* ViewDeck */,
 				D0CDB7D415C1F59C0074B143 /* Parser */,
+				D0363299166EBD81000D3C0B /* ArrayExtra */,
 				D030E6C215C0D2DB00CB5285 /* PHAppDelegate.h */,
 				D030E6C315C0D2DB00CB5285 /* PHAppDelegate.m */,
 				D0F6004F163775EE00ADBC38 /* PHRootViewController.h */,
 				D0F60050163775EE00ADBC38 /* PHRootViewController.m */,
 				D0F60051163775EF00ADBC38 /* PHMasterViewController.h */,
 				D0F60052163775EF00ADBC38 /* PHMasterViewController.m */,
-				D0363292166AD2C5000D3C0B /* NSMutableArray+Extra.h */,
-				D0363293166AD2C6000D3C0B /* NSMutableArray+Extra.m */,
 				D030E6CB15C0D2DB00CB5285 /* PHDetailViewController.h */,
 				D030E6CC15C0D2DB00CB5285 /* PHDetailViewController.m */,
 				D0D1C75915CB652A0097CA9C /* PHPrefViewController.h */,
@@ -257,6 +256,15 @@
 				D030E6C115C0D2DB00CB5285 /* PMC Reader-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		D0363299166EBD81000D3C0B /* ArrayExtra */ = {
+			isa = PBXGroup;
+			children = (
+				D0363292166AD2C5000D3C0B /* NSMutableArray+Extra.h */,
+				D0363293166AD2C6000D3C0B /* NSMutableArray+Extra.m */,
+			);
+			name = ArrayExtra;
 			sourceTree = "<group>";
 		};
 		D0CDB7D415C1F59C0074B143 /* Parser */ = {
