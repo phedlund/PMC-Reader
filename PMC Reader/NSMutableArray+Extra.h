@@ -1,5 +1,5 @@
 //
-//  NSMutableArray+PList.h
+//  NSMutableArray+Extra.h
 //  PMC Reader
 //
 //  Created by Peter Hedlund on 12/1/12.
@@ -8,10 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
-@interface NSMutableArray (PList)
+@interface NSMutableArray (Extra)
 
--(BOOL)writeToPlistFile:(NSString*)fileName;
-+(NSMutableArray*)readFromPlistFile:(NSString*)fileName;
+- (BOOL)writeToPlistFile:(NSString*)fileName;
++ (NSMutableArray*)readFromPlistFile:(NSString*)fileName;
 
 - (void)moveObjectFromIndex:(NSUInteger)from toIndex:(NSUInteger)to;
 

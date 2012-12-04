@@ -16,7 +16,7 @@
 		D030E6CD15C0D2DB00CB5285 /* PHDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D030E6CC15C0D2DB00CB5285 /* PHDetailViewController.m */; };
 		D036328916684C77000D3C0B /* PHDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = D036328816684C77000D3C0B /* PHDownloader.m */; };
 		D0363291166961F3000D3C0B /* PHArticle.m in Sources */ = {isa = PBXBuildFile; fileRef = D0363290166961F3000D3C0B /* PHArticle.m */; };
-		D0363294166AD2C6000D3C0B /* NSMutableArray+PList.m in Sources */ = {isa = PBXBuildFile; fileRef = D0363293166AD2C6000D3C0B /* NSMutableArray+PList.m */; };
+		D0363294166AD2C6000D3C0B /* NSMutableArray+Extra.m in Sources */ = {isa = PBXBuildFile; fileRef = D0363293166AD2C6000D3C0B /* NSMutableArray+Extra.m */; };
 		D0363297166EB00B000D3C0B /* edit.png in Resources */ = {isa = PBXBuildFile; fileRef = D0363295166EB00B000D3C0B /* edit.png */; };
 		D0363298166EB00B000D3C0B /* edit@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D0363296166EB00B000D3C0B /* edit@2x.png */; };
 		D03863A215D03B04004686C4 /* gear.png in Resources */ = {isa = PBXBuildFile; fileRef = D03863A015D03B04004686C4 /* gear.png */; };
@@ -98,8 +98,8 @@
 		D036328816684C77000D3C0B /* PHDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHDownloader.m; sourceTree = "<group>"; };
 		D036328F166961F2000D3C0B /* PHArticle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHArticle.h; sourceTree = "<group>"; };
 		D0363290166961F3000D3C0B /* PHArticle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHArticle.m; sourceTree = "<group>"; };
-		D0363292166AD2C5000D3C0B /* NSMutableArray+PList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+PList.h"; sourceTree = "<group>"; };
-		D0363293166AD2C6000D3C0B /* NSMutableArray+PList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+PList.m"; sourceTree = "<group>"; };
+		D0363292166AD2C5000D3C0B /* NSMutableArray+Extra.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+Extra.h"; sourceTree = "<group>"; };
+		D0363293166AD2C6000D3C0B /* NSMutableArray+Extra.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+Extra.m"; sourceTree = "<group>"; };
 		D0363295166EB00B000D3C0B /* edit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = edit.png; sourceTree = "<group>"; };
 		D0363296166EB00B000D3C0B /* edit@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "edit@2x.png"; sourceTree = "<group>"; };
 		D03863A015D03B04004686C4 /* gear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = gear.png; path = Resources/gear.png; sourceTree = "<group>"; };
@@ -232,8 +232,8 @@
 				D0F60050163775EE00ADBC38 /* PHRootViewController.m */,
 				D0F60051163775EF00ADBC38 /* PHMasterViewController.h */,
 				D0F60052163775EF00ADBC38 /* PHMasterViewController.m */,
-				D0363292166AD2C5000D3C0B /* NSMutableArray+PList.h */,
-				D0363293166AD2C6000D3C0B /* NSMutableArray+PList.m */,
+				D0363292166AD2C5000D3C0B /* NSMutableArray+Extra.h */,
+				D0363293166AD2C6000D3C0B /* NSMutableArray+Extra.m */,
 				D030E6CB15C0D2DB00CB5285 /* PHDetailViewController.h */,
 				D030E6CC15C0D2DB00CB5285 /* PHDetailViewController.m */,
 				D0D1C75915CB652A0097CA9C /* PHPrefViewController.h */,
@@ -500,7 +500,7 @@
 				D0ED8FC7165C6A950081E81E /* PHSearchTableViewCell.m in Sources */,
 				D036328916684C77000D3C0B /* PHDownloader.m in Sources */,
 				D0363291166961F3000D3C0B /* PHArticle.m in Sources */,
-				D0363294166AD2C6000D3C0B /* NSMutableArray+PList.m in Sources */,
+				D0363294166AD2C6000D3C0B /* NSMutableArray+Extra.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

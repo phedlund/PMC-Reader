@@ -10,7 +10,7 @@
 
 #import "HTMLParser.h"
 #import "IIViewDeckController.h"
-#import "NSMutableArray+PList.h"
+#import "NSMutableArray+Extra.h"
 
 static NSString * const kBaseUrl = @"http://www.ncbi.nlm.nih.gov";
 static NSString * const kArticleUrlSuffix = @"pmc/articles/";
@@ -36,7 +36,7 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
         NSURL *articlesURL = [docDir URLByAppendingPathComponent:@"articles.plist" isDirectory:NO];
         NSMutableArray *theArticles;
         if ([fm fileExistsAtPath:[articlesURL path]]) {
-            theArticles = [NSMutableArray readFromPlistFile:@"articles.plist"];
+            theArticles = [NSMutableArray readFromPlistFile:@"articles"];
         } else {
             //Updating from version 1.x of PMC Reader
             theArticles = [[NSMutableArray alloc] init];
@@ -286,7 +286,7 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
 }
 
 - (void) writeArticles {
-    [self.articles writeToPlistFile:@"articles.plist"];
+    [self.articles writeToPlistFile:@"articles"];
 }
 
 #pragma mark - PHDownloaderDelegate
