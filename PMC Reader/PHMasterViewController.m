@@ -26,6 +26,7 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
 @implementation PHMasterViewController
 
 @synthesize articles = _articles;
+@synthesize editBarButtonItem;
 
 - (NSMutableArray *) articles {
     if (!_articles) {
@@ -78,6 +79,14 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
     return _articles;
 }
 
+- (UIBarButtonItem *)editBarButtonItem {
+    if (!editBarButtonItem) {
+        editBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"edit"] style:UIBarButtonItemStylePlain target:self action:@selector(doEdit:)];
+        editBarButtonItem.imageInsets = UIEdgeInsetsMake(2.0f, 0.0f, -2.0f, 0.0f);
+    }
+    return editBarButtonItem;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -107,10 +116,10 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
         [fm copyItemAtURL:aURL toURL:dest error:nil];
     }
     
-    
-    //if (!_objects) {
-    //    _objects = [[NSMutableArray alloc] init];
-    //}
+    self.tableView.allowsSelection = YES;
+    self.tableView.allowsSelectionDuringEditing = NO;
+    [self setEditing:NO animated:NO];
+
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(downloadArticles:) name:@"DownloadArticles" object:nil];
 
     UINavigationController *detailNavController = (UINavigationController *)self.viewDeckController.centerController;
@@ -124,6 +133,7 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
 - (void)viewDidUnload
 {
     [self setTableView:nil];
+    [self setMyNavigationItem:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
@@ -133,38 +143,30 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
     return YES;
 }
 
-- (IBAction)doAdd:(id)sender {
-    UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Save PMC Article" message:@"Enter PMCID of article:" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Save",nil];
-    alert.alertViewStyle = UIAlertViewStylePlainTextInput;
-    UITextField * alertTextField = [alert textFieldAtIndex:0];
-    alertTextField.keyboardType = UIKeyboardTypeDefault;
-    alertTextField.placeholder = @"PMCXXXXXXX";
-    [alert show];
+- (IBAction)doEdit:(id)sender {
+    [self setEditing:YES animated:YES];
 }
 
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    /*NSLog(@"Button: %d", buttonIndex);
-     if (buttonIndex == 1) {
-     UITextField * alertTextField = [alertView textFieldAtIndex:0];
-     [self loadArticle:alertTextField.text];
-     }*/
-}
-
-
-- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
-{
-    //NSLog(@"Button: %d", buttonIndex);
-    if (buttonIndex == 1) {
-        //UITextField * alertTextField = [alertView textFieldAtIndex:0];
-        NSString *newID = [[alertView textFieldAtIndex:0] text];
-        newID = [newID stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-        if (newID.length == 10) {
-            if ([[newID uppercaseString] hasPrefix:@"PMC"]) {
-                //[self loadArticle:newID];
-            }
-        }
+- (void) setEditing:(BOOL)editing animated:(BOOL)animated {
+    [super setEditing:editing animated:animated];
+    [self.tableView setEditing:editing animated:animated];
+    if (editing) {
+        self.myNavigationItem.leftBarButtonItem = self.editButtonItem;
+    } else {
+        UIBarButtonItem *fixedSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+        fixedSpace.width = 2.0f;
+        UIBarButtonItem *flexibleSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+        
+        NSArray *items = [NSArray arrayWithObjects:
+                          fixedSpace,
+                          self.editBarButtonItem,
+                          flexibleSpace,
+                          nil];
+        
+        UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 100.0f, 44.0f)];
+        toolbar.items = items;
+        toolbar.tintColor = self.navigationController.navigationBar.tintColor;
+        self.myNavigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:toolbar];
     }
 }
 
@@ -230,21 +232,23 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
     }
 }
 
-/*
- // Override to support rearranging the table view.
- - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
- {
- }
- */
+// Override to support rearranging the table view.
+- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
+{
+    [self.articles moveObjectFromIndex:fromIndexPath.row toIndex:toIndexPath.row];
+    [self.tableView reloadData];
+    [self writeArticles];
+}
 
-/*
- // Override to support conditional rearranging of the table view.
- - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
- {
- // Return NO if you do not want the item to be re-orderable.
- return YES;
- }
- */
+
+
+// Override to support conditional rearranging of the table view.
+- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    // Return NO if you do not want the item to be re-orderable.
+    return YES;
+}
+
 - (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     PHArticle *article = (PHArticle*)[self.articles objectAtIndex:indexPath.row];
     if (article.downloading == YES) {
@@ -282,11 +286,6 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
 }
 
 - (void) writeArticles {
-    NSFileManager *fm = [NSFileManager defaultManager];
-    NSArray *paths = [fm URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask];
-    NSURL *docDir = [paths objectAtIndex:0];
-    NSURL *saveURL = [docDir URLByAppendingPathComponent:@"articles.plist" isDirectory:NO];
-    //[self.articles writeToURL:saveURL atomically:YES];
     [self.articles writeToPlistFile:@"articles.plist"];
 }
 

@@ -17,6 +17,8 @@
 		D036328916684C77000D3C0B /* PHDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = D036328816684C77000D3C0B /* PHDownloader.m */; };
 		D0363291166961F3000D3C0B /* PHArticle.m in Sources */ = {isa = PBXBuildFile; fileRef = D0363290166961F3000D3C0B /* PHArticle.m */; };
 		D0363294166AD2C6000D3C0B /* NSMutableArray+PList.m in Sources */ = {isa = PBXBuildFile; fileRef = D0363293166AD2C6000D3C0B /* NSMutableArray+PList.m */; };
+		D0363297166EB00B000D3C0B /* edit.png in Resources */ = {isa = PBXBuildFile; fileRef = D0363295166EB00B000D3C0B /* edit.png */; };
+		D0363298166EB00B000D3C0B /* edit@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D0363296166EB00B000D3C0B /* edit@2x.png */; };
 		D03863A215D03B04004686C4 /* gear.png in Resources */ = {isa = PBXBuildFile; fileRef = D03863A015D03B04004686C4 /* gear.png */; };
 		D03863A315D03B04004686C4 /* gear@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D03863A115D03B04004686C4 /* gear@2x.png */; };
 		D0CDB7CD15C1BA4F0074B143 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D0CDB7CC15C1BA4F0074B143 /* libxml2.dylib */; };
@@ -98,6 +100,8 @@
 		D0363290166961F3000D3C0B /* PHArticle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHArticle.m; sourceTree = "<group>"; };
 		D0363292166AD2C5000D3C0B /* NSMutableArray+PList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+PList.h"; sourceTree = "<group>"; };
 		D0363293166AD2C6000D3C0B /* NSMutableArray+PList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+PList.m"; sourceTree = "<group>"; };
+		D0363295166EB00B000D3C0B /* edit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = edit.png; sourceTree = "<group>"; };
+		D0363296166EB00B000D3C0B /* edit@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "edit@2x.png"; sourceTree = "<group>"; };
 		D03863A015D03B04004686C4 /* gear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = gear.png; path = Resources/gear.png; sourceTree = "<group>"; };
 		D03863A115D03B04004686C4 /* gear@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "gear@2x.png"; path = "Resources/gear@2x.png"; sourceTree = "<group>"; };
 		D0CDB7CC15C1BA4F0074B143 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
@@ -275,6 +279,8 @@
 		D0CDB7DB15C33FC90074B143 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D0363295166EB00B000D3C0B /* edit.png */,
+				D0363296166EB00B000D3C0B /* edit@2x.png */,
 				D0EB6F6415E4346D00D3E790 /* iTunesArtwork.png */,
 				D0EB6F5A15E3124500D3E790 /* icon-144.png */,
 				D0EB6F5715E3123100D3E790 /* icon-72.png */,
@@ -464,6 +470,8 @@
 				D0F6004616375D9100ADBC38 /* iPad.storyboard in Resources */,
 				D0F41E3F163C90B00078DF2A /* SVProgressHUD.bundle in Resources */,
 				D0ED8FC9165C6B190081E81E /* PHSearchTableViewCell.xib in Resources */,
+				D0363297166EB00B000D3C0B /* edit.png in Resources */,
+				D0363298166EB00B000D3C0B /* edit@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

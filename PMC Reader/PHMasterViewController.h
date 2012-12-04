@@ -14,8 +14,10 @@
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) PHDetailViewController *detailViewController;
+@property (nonatomic, strong, readonly) UIBarButtonItem *editBarButtonItem;
 @property (strong, nonatomic) NSMutableArray *articles;
+@property (strong, nonatomic) IBOutlet UINavigationItem *myNavigationItem;
 
-- (IBAction)doAdd:(id)sender;
+- (IBAction) doEdit:(id)sender;
 
 @end

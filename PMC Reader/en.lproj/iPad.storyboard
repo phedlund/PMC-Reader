@@ -19,7 +19,6 @@
                                     <navigationItem title="Articles" id="zvz-t2-Duq">
                                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="DIl-KM-Wic">
                                             <connections>
-                                                <action selector="doAdd:" destination="K2H-Q6-O20" id="TpN-ug-boR"/>
                                                 <segue destination="55I-fb-DqJ" kind="modal" id="2xs-eR-Pb5"/>
                                             </connections>
                                         </barButtonItem>
@@ -40,6 +39,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="CBQ-7b-j5q"/>
                     <connections>
+                        <outlet property="myNavigationItem" destination="zvz-t2-Duq" id="h0s-kN-t6g"/>
                         <outlet property="tableView" destination="So7-0H-dny" id="qhe-W0-EYv"/>
                     </connections>
                 </viewController>
@@ -259,6 +259,8 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PHMasterViewController.h"/>
             <relationships>
                 <relationship kind="action" name="doAdd:"/>
+                <relationship kind="action" name="doEdit:"/>
+                <relationship kind="outlet" name="myNavigationItem" candidateClass="UINavigationItem"/>
                 <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
             </relationships>
         </class>

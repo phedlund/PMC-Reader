@@ -13,4 +13,6 @@
 -(BOOL)writeToPlistFile:(NSString*)fileName;
 +(NSMutableArray*)readFromPlistFile:(NSString*)fileName;
 
+- (void)moveObjectFromIndex:(NSUInteger)from toIndex:(NSUInteger)to;
+
 @end
