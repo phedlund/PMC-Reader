@@ -7,9 +7,6 @@
 [submodule "Objective-C-HMTL-Parser"]
 	path = Objective-C-HMTL-Parser
 	url = git://github.com/tresni/Objective-C-HMTL-Parser.git
-[submodule "SVProgressHUD"]
-	path = SVProgressHUD
-	url = git://github.com/samvermette/SVProgressHUD.git
 [submodule "RaptureXML"]
 	path = RaptureXML
 	url = git://github.com/ZaBlanc/RaptureXML.git
