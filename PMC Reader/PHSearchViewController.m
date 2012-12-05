@@ -42,8 +42,6 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     [self.tableView registerNib:[UINib nibWithNibName:@"PHTableViewCell" bundle:nil] forCellReuseIdentifier:@"PHCell"];
     self.tableView.rowHeight = 101;
-
-    self.searchBar.delegate = self;
     
     if (!_objects) {
         _objects = [[NSMutableArray alloc] init];
@@ -54,8 +52,8 @@
 }
 
 - (void)viewDidAppear:(BOOL)animated {
-    [[self searchBar] becomeFirstResponder];
     [super viewDidAppear:animated];
+    [[self searchBar] becomeFirstResponder];
 }
 
 - (void)didReceiveMemoryWarning
