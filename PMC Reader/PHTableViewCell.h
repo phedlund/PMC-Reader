@@ -8,7 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PHSearchTableViewCell : UITableViewCell
+@interface PHTableViewCell : UITableViewCell
+
+@property (nonatomic, strong, readonly) UIActivityIndicatorView *activityIndicator;
 
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *authorLabel;

@@ -11,6 +11,7 @@
 #import "HTMLParser.h"
 #import "IIViewDeckController.h"
 #import "NSMutableArray+Extra.h"
+#import "PHTableViewCell.h"
 
 static NSString * const kBaseUrl = @"http://www.ncbi.nlm.nih.gov";
 static NSString * const kArticleUrlSuffix = @"pmc/articles/";
@@ -116,6 +117,8 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
         [fm copyItemAtURL:aURL toURL:dest error:nil];
     }
     
+    [self.tableView registerNib:[UINib nibWithNibName:@"PHTableViewCell" bundle:nil] forCellReuseIdentifier:@"PHCell"];
+    self.tableView.rowHeight = 101;
     self.tableView.allowsSelection = YES;
     self.tableView.allowsSelectionDuringEditing = NO;
     [self setEditing:NO animated:NO];
@@ -184,26 +187,21 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
-        cell.selectionStyle = UITableViewCellSelectionStyleBlue;
-        
-        UIActivityIndicatorView *activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-        cell.accessoryView = activityIndicatorView;
-    }
-    
+    PHTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PHCell"];
     PHArticle *article = (PHArticle*)[self.articles objectAtIndex:indexPath.row];
-    cell.textLabel.text = article.title;
-    cell.detailTextLabel.text = article.authors;
+    
+    cell.titleLabel.text = article.title;
+    cell.authorLabel.text = article.authors;
+    cell.originalSourceLabel.text = article.source;
     
     if (article.downloading == YES) {
         NSLog(@"Setting spinner");
-        [((UIActivityIndicatorView *)cell.accessoryView) startAnimating];
+        cell.accessoryView = cell.activityIndicator;
+        [cell.activityIndicator startAnimating];
     } else {
         NSLog(@"Removing spinner");
-        [((UIActivityIndicatorView *)cell.accessoryView) stopAnimating];
+        [cell.activityIndicator stopAnimating];
+        cell.accessoryView = nil;
     }
     
     return cell;
@@ -277,9 +275,11 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
         NSString *pmcId = article.pmcId;
         NSLog(@"Downloading: %@", pmcId);
         
-        PHDownloader *downloader = [[PHDownloader alloc] initWithPMCId:article indexPath:[NSIndexPath indexPathForRow:self.articles.count inSection:0] delegate:self];
+        NSIndexPath *myIndexPath = [NSIndexPath indexPathForRow:self.articles.count inSection:0];
+        PHDownloader *downloader = [[PHDownloader alloc] initWithPMCId:article indexPath:myIndexPath delegate:self];
         [self.articles addObject:article];
         [self.tableView reloadData];
+        [self.tableView scrollToRowAtIndexPath:myIndexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
         [queue addOperation:downloader];
     }];
 

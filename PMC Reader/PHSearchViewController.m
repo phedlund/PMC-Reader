@@ -8,7 +8,7 @@
 
 #import "PHSearchViewController.h"
 #import "RXMLElement.h"
-#import "PHSearchTableViewCell.h"
+#import "PHTableViewCell.h"
 #import "PHArticle.h"
 
 @interface PHSearchViewController () {
@@ -40,7 +40,7 @@
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    [self.tableView registerNib:[UINib nibWithNibName:@"PHSearchTableViewCell" bundle:nil] forCellReuseIdentifier:@"SearchCell"];
+    [self.tableView registerNib:[UINib nibWithNibName:@"PHTableViewCell" bundle:nil] forCellReuseIdentifier:@"PHCell"];
     self.tableView.rowHeight = 101;
 
     self.searchBar.delegate = self;
@@ -78,7 +78,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    PHSearchTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SearchCell"];
+    PHTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PHCell"];
 
     [cell setAccessoryType:UITableViewCellAccessoryNone];
     if ([_selectedIndexes containsIndex:indexPath.row]) {

@@ -6,9 +6,20 @@
 //  Copyright (c) 2012 Peter Hedlund. All rights reserved.
 //
 
-#import "PHSearchTableViewCell.h"
+#import "PHTableViewCell.h"
 
-@implementation PHSearchTableViewCell
+@implementation PHTableViewCell
+
+@synthesize activityIndicator;
+
+- (UIActivityIndicatorView *)activityIndicator {
+    
+    if (!activityIndicator) {
+        activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    }
+    return activityIndicator;
+}
+
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
