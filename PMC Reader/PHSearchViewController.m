@@ -14,6 +14,9 @@
 @interface PHSearchViewController () {
     NSMutableArray *_objects;
     NSMutableIndexSet *_selectedIndexes;
+    BOOL _searching;
+    BOOL _hasError;
+    NSString *_errorMessage;
 }
 
 - (void)searchPMC:(NSString*)query;
@@ -61,6 +64,10 @@
     if (!_selectedIndexes) {
         _selectedIndexes = [NSMutableIndexSet indexSet];
     }
+    
+    _searching = NO;
+    _hasError = NO;
+    _errorMessage = @"";
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -83,7 +90,11 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [_objects count];
+    if (_searching || _hasError) {
+        return 1;
+    } else {
+        return [_objects count];
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -91,18 +102,33 @@
     PHTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PHCell"];
 
     [cell setAccessoryType:UITableViewCellAccessoryNone];
-    if ([_selectedIndexes containsIndex:indexPath.row]) {
-        [cell setAccessoryType:UITableViewCellAccessoryCheckmark];
+    if (_searching) {
+        cell.titleLabel.text = @"\nSearching...";
+        cell.authorLabel.text = @"";
+        cell.originalSourceLabel.text = @"";
+        cell.accessoryView = cell.activityIndicator;
+        [cell.activityIndicator startAnimating];
+    } else if (_hasError) {
+        cell.titleLabel.text = _errorMessage;
+        cell.authorLabel.text = @"";
+        cell.originalSourceLabel.text = @"";
+        cell.accessoryView = nil;
+        [cell.activityIndicator stopAnimating];
+    } else {
+        cell.accessoryView = nil;
+        [cell.activityIndicator stopAnimating];
+        if ([_selectedIndexes containsIndex:indexPath.row]) {
+            [cell setAccessoryType:UITableViewCellAccessoryCheckmark];
+        }
+        
+        // Configure the cell...
+        if (_objects.count > 0) {
+            PHArticle *article = (PHArticle*)[_objects objectAtIndex:indexPath.row];
+            cell.titleLabel.text = article.title;
+            cell.authorLabel.text = article.authors;
+            cell.originalSourceLabel.text = article.source;
+        }
     }
-    
-    // Configure the cell...
-    if (_objects.count > 0) {
-        PHArticle *article = (PHArticle*)[_objects objectAtIndex:indexPath.row];
-        cell.titleLabel.text = article.title;
-        cell.authorLabel.text = article.authors;
-        cell.originalSourceLabel.text = article.source;
-    }
-    
     return cell;
 }
 
@@ -198,6 +224,9 @@
     // api that you are using to do the search
     //NSArray *results = [SomeService doSearch:searchBar.text];
     [_objects removeAllObjects];
+    _searching = YES;
+    _hasError = NO;
+    _errorMessage = @"";
     [self.tableView reloadData];
     
 	[self searchPMC:self.searchBar.text];
@@ -275,7 +304,9 @@
                                 [item iterate:@"Item" usingBlock: ^(RXMLElement *author) {
                                     authors = [authors stringByAppendingString:[NSString stringWithFormat:@"%@, ", author.text]];
                                 }];
-                                newArticle.authors = [authors substringToIndex:[authors length] - 2];
+                                if (authors.length > 2) {
+                                    newArticle.authors = [authors substringToIndex:[authors length] - 2];
+                                }
                             }
                             if ([[item attribute:@"Name"] isEqualToString:@"Source"]) {
                                 source = [source stringByAppendingString:[NSString stringWithFormat:@"%@. ", item.text]];
@@ -291,22 +322,35 @@
                     
                     //[_objects addObjectsFromArray:[rxmlIdList children:@"Id"]];
                     html = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-                    
                     [self performSelectorOnMainThread:@selector(updateTable) withObject:nil waitUntilDone:NO];
                     
                 } else if ([data length] == 0 && error == nil) {
                     NSLog(@"Nothing was downloaded.");
+                    _hasError = YES;
+                    _errorMessage = @"There was an error retrieving summaries for found articles";
+                    [self performSelectorOnMainThread:@selector(updateTable) withObject:nil waitUntilDone:NO];
                 } else if (error != nil) {
                     NSLog(@"Error = %@", error);
+                    _hasError = YES;
+                    _errorMessage = error.localizedDescription;
+                    [self performSelectorOnMainThread:@selector(updateTable) withObject:nil waitUntilDone:NO];
                 }
                 
+
             }];
 
         } else if ([data length] == 0 && error == nil) {
             NSLog(@"Nothing was downloaded.");
+            _hasError = YES;
+            _errorMessage = @"The search did not find any articles";
+            [self performSelectorOnMainThread:@selector(updateTable) withObject:nil waitUntilDone:NO];
         } else if (error != nil) {
             NSLog(@"Error = %@", error);
+            _hasError = YES;
+            _errorMessage = error.localizedDescription;;
+            [self performSelectorOnMainThread:@selector(updateTable) withObject:nil waitUntilDone:NO];
         }
+        
     }];
     NSLog(@"Result: %@", html);
 }
@@ -314,6 +358,7 @@
 - (void)updateTable {
     self.tableView.allowsSelection = YES;
     self.tableView.scrollEnabled = YES;
+    _searching = NO;
     [self.tableView reloadData];
 }
 @end
