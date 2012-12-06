@@ -10,6 +10,7 @@
 
 @interface PHSearchViewController : UITableViewController <UISearchBarDelegate>
 
+@property (nonatomic, strong) NSOperationQueue *searchQueue;
 @property (strong, nonatomic) IBOutlet UISearchBar *searchBar;
 
 - (IBAction)doDone:(id)sender;

@@ -17,10 +17,13 @@
 }
 
 - (void)searchPMC:(NSString*)query;
+- (void)updateTable;
 
 @end
 
 @implementation PHSearchViewController
+
+@synthesize searchQueue = _searchQueue;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -29,6 +32,15 @@
         // Custom initialization
     }
     return self;
+}
+
+- (NSOperationQueue *)searchQueue {
+    if (!_searchQueue) {
+        _searchQueue = [[NSOperationQueue alloc] init];
+        _searchQueue.name = @"Search Queue";
+        //_updateQueue.maxConcurrentOperationCount = 1;
+    }
+    return _searchQueue;
 }
 
 - (void)viewDidLoad
@@ -185,17 +197,13 @@
     // SomeService is just a dummy class representing some
     // api that you are using to do the search
     //NSArray *results = [SomeService doSearch:searchBar.text];
+    [_objects removeAllObjects];
+    [self.tableView reloadData];
+    
 	[self searchPMC:self.searchBar.text];
     
     [searchBar setShowsCancelButton:NO animated:YES];
     [searchBar resignFirstResponder];
-    self.tableView.allowsSelection = YES;
-    self.tableView.scrollEnabled = YES;
-	
-    //[self.tableData removeAllObjects];
-    //[self.tableData addObjectsFromArray:results];
-    [self.tableView reloadData];
-
 }
 
 -(void)searchPMC:(NSString*)query {
@@ -207,17 +215,14 @@
                                                                 cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
                                                             timeoutInterval:60];
     [request setValue:@"PMC_Reader" forHTTPHeaderField:@"User-Agent"];
-    
-    NSURLResponse *response = nil;
-    NSError *error = nil;
-    NSString *html;
 
-    NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
-    if (error) {
-        html = @"error";
-    } else {
-        if (data) {
-            
+    __block NSString *html;
+
+    [NSURLConnection sendAsynchronousRequest:request queue:self.searchQueue completionHandler:^(NSURLResponse *response,
+                                                                                                NSData *data,
+                                                                                                NSError *error) {
+        
+        if ([data length] > 0 && error == nil) {
             RXMLElement *rootXML = [RXMLElement elementFromXMLData:data];
             NSString *queryKey = [rootXML child:@"QueryKey"].text;
             NSString *webEnv = [rootXML child:@"WebEnv"].text;
@@ -227,17 +232,15 @@
                                                                         cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
                                                                     timeoutInterval:60];
             [request setValue:@"PMC_Reader" forHTTPHeaderField:@"User-Agent"];
-            
-            NSURLResponse *response = nil;
-            NSError *error = nil;
-            NSString *html;
-            
-            NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
 
-            if (error) {
-                html = @"error";
-            } else {
-                if (data) {
+            __block NSString *html;
+            
+            [NSURLConnection sendAsynchronousRequest:request queue:self.searchQueue completionHandler:^(NSURLResponse *response,
+                                                                                                        NSData *data,
+                                                                                                        NSError *error) {
+                
+                if ([data length] > 0 && error == nil) {
+                    
                     html = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
                     NSLog(@"Summary Result: %@", html);
                     RXMLElement *rootXML = [RXMLElement elementFromXMLData:data];
@@ -255,15 +258,15 @@
                      Published in final edited form as: Pharmacol Ther. 2011 February 1; 129(2): 120–148. doi: 10.1016/j.pharmthera.2010.08.013
                      
                      PMCID: PMC3031120
-                    */
+                     */
                     [rootXML iterate:@"DocSum" usingBlock: ^(RXMLElement *docSum) {
                         PHArticle *newArticle = [[PHArticle alloc] init];
                         
                         newArticle.pmcId = [NSString stringWithFormat:@"PMC%@", [docSum child:@"Id"].text];
-
+                        
                         __block NSString *source = @"Published as: ";
                         [docSum iterate:@"Item" usingBlock: ^(RXMLElement *item) {
-
+                            
                             if ([[item attribute:@"Name"] isEqualToString:@"Title"]) {
                                 newArticle.title = item.text;
                             }
@@ -285,14 +288,32 @@
                         NSLog(@"New Object: %@", newArticle);
                         [_objects addObject:newArticle];
                     }];
-                                    
+                    
                     //[_objects addObjectsFromArray:[rxmlIdList children:@"Id"]];
                     html = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+                    
+                    [self performSelectorOnMainThread:@selector(updateTable) withObject:nil waitUntilDone:NO];
+                    
+                } else if ([data length] == 0 && error == nil) {
+                    NSLog(@"Nothing was downloaded.");
+                } else if (error != nil) {
+                    NSLog(@"Error = %@", error);
                 }
-            }
+                
+            }];
+
+        } else if ([data length] == 0 && error == nil) {
+            NSLog(@"Nothing was downloaded.");
+        } else if (error != nil) {
+            NSLog(@"Error = %@", error);
         }
-    }
+    }];
     NSLog(@"Result: %@", html);
 }
 
+- (void)updateTable {
+    self.tableView.allowsSelection = YES;
+    self.tableView.scrollEnabled = YES;
+    [self.tableView reloadData];
+}
 @end
