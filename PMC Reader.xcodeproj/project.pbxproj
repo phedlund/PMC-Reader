@@ -19,6 +19,7 @@
 		D0363294166AD2C6000D3C0B /* NSMutableArray+Extra.m in Sources */ = {isa = PBXBuildFile; fileRef = D0363293166AD2C6000D3C0B /* NSMutableArray+Extra.m */; };
 		D0363297166EB00B000D3C0B /* edit.png in Resources */ = {isa = PBXBuildFile; fileRef = D0363295166EB00B000D3C0B /* edit.png */; };
 		D0363298166EB00B000D3C0B /* edit@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D0363296166EB00B000D3C0B /* edit@2x.png */; };
+		D036329F167296F6000D3C0B /* UINavigationController+DismissKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = D036329E167296F5000D3C0B /* UINavigationController+DismissKeyboard.m */; };
 		D03863A215D03B04004686C4 /* gear.png in Resources */ = {isa = PBXBuildFile; fileRef = D03863A015D03B04004686C4 /* gear.png */; };
 		D03863A315D03B04004686C4 /* gear@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D03863A115D03B04004686C4 /* gear@2x.png */; };
 		D0CDB7CD15C1BA4F0074B143 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D0CDB7CC15C1BA4F0074B143 /* libxml2.dylib */; };
@@ -100,6 +101,8 @@
 		D0363293166AD2C6000D3C0B /* NSMutableArray+Extra.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+Extra.m"; sourceTree = "<group>"; };
 		D0363295166EB00B000D3C0B /* edit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = edit.png; sourceTree = "<group>"; };
 		D0363296166EB00B000D3C0B /* edit@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "edit@2x.png"; sourceTree = "<group>"; };
+		D036329D167296F5000D3C0B /* UINavigationController+DismissKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+DismissKeyboard.h"; sourceTree = "<group>"; };
+		D036329E167296F5000D3C0B /* UINavigationController+DismissKeyboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+DismissKeyboard.m"; sourceTree = "<group>"; };
 		D03863A015D03B04004686C4 /* gear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = gear.png; path = Resources/gear.png; sourceTree = "<group>"; };
 		D03863A115D03B04004686C4 /* gear@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "gear@2x.png"; path = "Resources/gear@2x.png"; sourceTree = "<group>"; };
 		D0CDB7CC15C1BA4F0074B143 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
@@ -221,6 +224,7 @@
 				D0F600561639A82000ADBC38 /* ViewDeck */,
 				D0CDB7D415C1F59C0074B143 /* Parser */,
 				D0363299166EBD81000D3C0B /* ArrayExtra */,
+				D03632A01672990C000D3C0B /* DismissKeyboard */,
 				D030E6C215C0D2DB00CB5285 /* PHAppDelegate.h */,
 				D030E6C315C0D2DB00CB5285 /* PHAppDelegate.m */,
 				D0F6004F163775EE00ADBC38 /* PHRootViewController.h */,
@@ -265,6 +269,15 @@
 				D0363293166AD2C6000D3C0B /* NSMutableArray+Extra.m */,
 			);
 			name = ArrayExtra;
+			sourceTree = "<group>";
+		};
+		D03632A01672990C000D3C0B /* DismissKeyboard */ = {
+			isa = PBXGroup;
+			children = (
+				D036329D167296F5000D3C0B /* UINavigationController+DismissKeyboard.h */,
+				D036329E167296F5000D3C0B /* UINavigationController+DismissKeyboard.m */,
+			);
+			name = DismissKeyboard;
 			sourceTree = "<group>";
 		};
 		D0CDB7D415C1F59C0074B143 /* Parser */ = {
@@ -490,6 +503,7 @@
 				D036328916684C77000D3C0B /* PHDownloader.m in Sources */,
 				D0363291166961F3000D3C0B /* PHArticle.m in Sources */,
 				D0363294166AD2C6000D3C0B /* NSMutableArray+Extra.m in Sources */,
+				D036329F167296F6000D3C0B /* UINavigationController+DismissKeyboard.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

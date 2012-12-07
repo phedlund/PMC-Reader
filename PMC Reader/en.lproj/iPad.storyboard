@@ -19,7 +19,7 @@
                                     <navigationItem title="Articles" id="zvz-t2-Duq">
                                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="DIl-KM-Wic">
                                             <connections>
-                                                <segue destination="55I-fb-DqJ" kind="modal" modalPresentationStyle="pageSheet" id="2xs-eR-Pb5"/>
+                                                <segue destination="55I-fb-DqJ" kind="modal" modalPresentationStyle="formSheet" id="2xs-eR-Pb5"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
@@ -50,13 +50,13 @@
         <!--Search View Controller - Search Pubmed Central-->
         <scene sceneID="BJB-am-Dqz">
             <objects>
-                <tableViewController id="OiH-Wa-zp0" customClass="PHSearchViewController" sceneMemberID="viewController">
+                <tableViewController modalPresentationStyle="formSheet" id="OiH-Wa-zp0" customClass="PHSearchViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Gno-rE-HkA">
-                        <rect key="frame" x="0.0" y="64" width="768" height="960"/>
+                        <rect key="frame" x="0.0" y="64" width="540" height="556"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <searchBar key="tableHeaderView" contentMode="redraw" placeholder="Search Query" id="76j-hJ-pNw">
-                            <rect key="frame" x="0.0" y="0.0" width="768" height="44"/>
+                            <rect key="frame" x="0.0" y="0.0" width="540" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <textInputTraits key="textInputTraits"/>
                             <connections>

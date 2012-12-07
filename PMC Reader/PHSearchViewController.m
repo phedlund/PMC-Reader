@@ -10,6 +10,7 @@
 #import "RXMLElement.h"
 #import "PHTableViewCell.h"
 #import "PHArticle.h"
+#import "UINavigationController+DismissKeyboard.h"
 
 @interface PHSearchViewController () {
     NSMutableArray *_objects;
