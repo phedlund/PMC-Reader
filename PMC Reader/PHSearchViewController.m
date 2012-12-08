@@ -12,6 +12,9 @@
 #import "PHArticle.h"
 #import "UINavigationController+DismissKeyboard.h"
 
+static NSString * const kBaseSearchUrl = @"http://eutils.ncbi.nlm.nih.gov/entrez/eutils/";
+static int const kRetMax = 20;
+
 @interface PHSearchViewController () {
     NSMutableArray *_objects;
     NSMutableIndexSet *_selectedIndexes;
@@ -27,6 +30,7 @@
 }
 
 - (void)searchPMC:(NSString*)query;
+- (void) retrieveSummaries;
 - (void)updateTable;
 
 @end
@@ -102,7 +106,11 @@
     if (_searching || _hasError) {
         return 1;
     } else {
-        return [_objects count];
+        if ([_objects count] < _searchCount) {
+            return [_objects count] + 1;
+        } else {
+            return [_objects count];
+        }
     }
 }
 
@@ -132,10 +140,18 @@
         
         // Configure the cell...
         if (_objects.count > 0) {
-            PHArticle *article = (PHArticle*)[_objects objectAtIndex:indexPath.row];
-            cell.titleLabel.text = article.title;
-            cell.authorLabel.text = article.authors;
-            cell.originalSourceLabel.text = article.source;
+            if (indexPath.row >= [_objects count]) {
+                cell.titleLabel.text = @"Show More...";
+                cell.authorLabel.text = [NSString stringWithFormat:@"Showing %d of %d.", [_objects count], _searchCount];
+                cell.originalSourceLabel.text = @"";
+            } else {
+                cell.accessoryView = nil;
+                [cell.activityIndicator stopAnimating];
+                PHArticle *article = (PHArticle*)[_objects objectAtIndex:indexPath.row];
+                cell.titleLabel.text = article.title;
+                cell.authorLabel.text = article.authors;
+                cell.originalSourceLabel.text = article.source;
+            }
         }
     }
     return cell;
@@ -200,6 +216,12 @@
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     NSLog(@"now displaying row %d", indexPath.row);
+    PHTableViewCell *myCell = (PHTableViewCell*)cell;
+    if ([myCell.titleLabel.text isEqualToString:@"Show More..."]) {
+        myCell.accessoryView = myCell.activityIndicator;
+        [myCell.activityIndicator startAnimating];
+        [self retrieveSummaries];
+    }
 }
 
 - (IBAction)doDone:(id)sender {
@@ -250,9 +272,7 @@
 }
 
 -(void)searchPMC:(NSString*)query {
-    NSString *searchBaseURL = @"http://eutils.ncbi.nlm.nih.gov/entrez/eutils/";
-    
-    NSString *searchURL  = [NSString stringWithFormat:@"%@esearch.fcgi?db=pmc&term=%@&usehistory=y", searchBaseURL, query];
+    NSString *searchURL  = [NSString stringWithFormat:@"%@esearch.fcgi?db=pmc&term=%@&usehistory=y", kBaseSearchUrl, query];
     searchURL = [searchURL stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:searchURL]
                                                                 cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
@@ -274,91 +294,10 @@
             _webEnv = [rootXML child:@"WebEnv"].text;
             _searchCount = [[rootXML child:@"Count"].text intValue];
             if (_searchCount > 0) {
-                NSString *summaryURL  = [NSString stringWithFormat:@"%@esummary.fcgi?db=pmc&query_key=%@&WebEnv=%@", searchBaseURL, _queryKey, _webEnv];
-                
-                NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:summaryURL]
-                                                                            cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
-                                                                        timeoutInterval:60];
-                [request setValue:@"PMC_Reader" forHTTPHeaderField:@"User-Agent"];
-                
-                __block NSString *html;
-                
-                [NSURLConnection sendAsynchronousRequest:request queue:self.searchQueue completionHandler:^(NSURLResponse *response,
-                                                                                                            NSData *data,
-                                                                                                            NSError *error) {
-                    
-                    if ([data length] > 0 && error == nil) {
-                        
-                        html = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-                        //NSLog(@"Summary Result: %@", html);
-                        RXMLElement *rootXML = [RXMLElement elementFromXMLData:data];
-                        [_objects removeAllObjects];
-                        [_selectedIndexes removeAllIndexes];
-                        //[_objects addObjectsFromArray:[rootXML children:@"DocSum"]];
-                        //[rootXML iterate:@"DocSum" usingBlock: ^(RXMLElement *myId) {
-                        //    NSLog(@"Id: %@", myId.text);
-                        //    [_objects addObject:myId.text];
-                        //}];
-                        /*
-                         Serotonin 5-HT7 receptor agents: structure-activity relationships and potential therapeutic applications in central nervous system disorders
-                         Marcello Leopoldo, Enza Lacivita, Francesco Berardi, Roberto Perrone, Peter B. Hedlund
-                         Pharmacol Ther. Author manuscript; available in PMC 2012 February 1.
-                         Published in final edited form as: Pharmacol Ther. 2011 February 1; 129(2): 120–148. doi: 10.1016/j.pharmthera.2010.08.013
-                         
-                         PMCID: PMC3031120
-                         */
-                        [rootXML iterate:@"DocSum" usingBlock: ^(RXMLElement *docSum) {
-                            PHArticle *newArticle = [[PHArticle alloc] init];
-                            
-                            newArticle.pmcId = [NSString stringWithFormat:@"PMC%@", [docSum child:@"Id"].text];
-                            
-                            __block NSString *source = @"Published as: ";
-                            [docSum iterate:@"Item" usingBlock: ^(RXMLElement *item) {
-                                
-                                if ([[item attribute:@"Name"] isEqualToString:@"Title"]) {
-                                    newArticle.title = item.text;
-                                }
-                                if ([[item attribute:@"Name"] isEqualToString:@"AuthorList"]) {
-                                    __block NSString *authors = @"";
-                                    [item iterate:@"Item" usingBlock: ^(RXMLElement *author) {
-                                        authors = [authors stringByAppendingString:[NSString stringWithFormat:@"%@, ", author.text]];
-                                    }];
-                                    if (authors.length > 2) {
-                                        newArticle.authors = [authors substringToIndex:[authors length] - 2];
-                                    }
-                                }
-                                if ([[item attribute:@"Name"] isEqualToString:@"Source"]) {
-                                    source = [source stringByAppendingString:[NSString stringWithFormat:@"%@. ", item.text]];
-                                }
-                                if ([[item attribute:@"Name"] isEqualToString:@"SO"]) {
-                                    source = [source stringByAppendingString:[NSString stringWithFormat:@"%@.", item.text]];
-                                }
-                            }];
-                            newArticle.source = source;
-                            NSLog(@"New Object: %@", newArticle);
-                            [_objects addObject:newArticle];
-                        }];
-                        
-                        //[_objects addObjectsFromArray:[rxmlIdList children:@"Id"]];
-                        html = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-                        [self performSelectorOnMainThread:@selector(updateTable) withObject:nil waitUntilDone:NO];
-                        
-                    } else if ([data length] == 0 && error == nil) {
-                        NSLog(@"Nothing was downloaded.");
-                        _hasError = YES;
-                        _errorMessage = @"There was an error retrieving summaries for found articles";
-                        [self performSelectorOnMainThread:@selector(updateTable) withObject:nil waitUntilDone:NO];
-                    } else if (error != nil) {
-                        NSLog(@"Error = %@", error);
-                        _hasError = YES;
-                        _errorMessage = error.localizedDescription;
-                        [self performSelectorOnMainThread:@selector(updateTable) withObject:nil waitUntilDone:NO];
-                    }
-                    
-                    
-                }];
-                
-
+                _retStart = 1;
+                [_objects removeAllObjects];
+                [_selectedIndexes removeAllIndexes];
+                [self retrieveSummaries];
             } else {
                 NSLog(@"Nothing was found.");
                 _hasError = YES;
@@ -378,6 +317,91 @@
             [self performSelectorOnMainThread:@selector(updateTable) withObject:nil waitUntilDone:NO];
         }
         
+    }];
+}
+
+- (void) retrieveSummaries {
+    NSString *summaryURL  = [NSString stringWithFormat:@"%@esummary.fcgi?db=pmc&query_key=%@&WebEnv=%@&retstart=%d&retmax=%d", kBaseSearchUrl, _queryKey, _webEnv, _retStart, kRetMax];
+    
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:summaryURL]
+                                                                cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
+                                                            timeoutInterval:60];
+    [request setValue:@"PMC_Reader" forHTTPHeaderField:@"User-Agent"];
+    
+    __block NSString *html;
+    
+    [NSURLConnection sendAsynchronousRequest:request queue:self.searchQueue completionHandler:^(NSURLResponse *response,
+                                                                                                NSData *data,
+                                                                                                NSError *error) {
+        
+        if ([data length] > 0 && error == nil) {
+            
+            html = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+            //NSLog(@"Summary Result: %@", html);
+            RXMLElement *rootXML = [RXMLElement elementFromXMLData:data];
+
+            //[_objects addObjectsFromArray:[rootXML children:@"DocSum"]];
+            //[rootXML iterate:@"DocSum" usingBlock: ^(RXMLElement *myId) {
+            //    NSLog(@"Id: %@", myId.text);
+            //    [_objects addObject:myId.text];
+            //}];
+            /*
+             Serotonin 5-HT7 receptor agents: structure-activity relationships and potential therapeutic applications in central nervous system disorders
+             Marcello Leopoldo, Enza Lacivita, Francesco Berardi, Roberto Perrone, Peter B. Hedlund
+             Pharmacol Ther. Author manuscript; available in PMC 2012 February 1.
+             Published in final edited form as: Pharmacol Ther. 2011 February 1; 129(2): 120–148. doi: 10.1016/j.pharmthera.2010.08.013
+             
+             PMCID: PMC3031120
+             */
+            [rootXML iterate:@"DocSum" usingBlock: ^(RXMLElement *docSum) {
+                PHArticle *newArticle = [[PHArticle alloc] init];
+                
+                newArticle.pmcId = [NSString stringWithFormat:@"PMC%@", [docSum child:@"Id"].text];
+                
+                __block NSString *source = @"Published as: ";
+                [docSum iterate:@"Item" usingBlock: ^(RXMLElement *item) {
+                    
+                    if ([[item attribute:@"Name"] isEqualToString:@"Title"]) {
+                        newArticle.title = item.text;
+                    }
+                    if ([[item attribute:@"Name"] isEqualToString:@"AuthorList"]) {
+                        __block NSString *authors = @"";
+                        [item iterate:@"Item" usingBlock: ^(RXMLElement *author) {
+                            authors = [authors stringByAppendingString:[NSString stringWithFormat:@"%@, ", author.text]];
+                        }];
+                        if (authors.length > 2) {
+                            newArticle.authors = [authors substringToIndex:[authors length] - 2];
+                        }
+                    }
+                    if ([[item attribute:@"Name"] isEqualToString:@"Source"]) {
+                        source = [source stringByAppendingString:[NSString stringWithFormat:@"%@. ", item.text]];
+                    }
+                    if ([[item attribute:@"Name"] isEqualToString:@"SO"]) {
+                        source = [source stringByAppendingString:[NSString stringWithFormat:@"%@.", item.text]];
+                    }
+                }];
+                newArticle.source = source;
+                NSLog(@"New Object: %@", newArticle);
+                [_objects addObject:newArticle];
+            }];
+            
+            if ((_retStart + kRetMax) < _searchCount) {
+                _retStart = _retStart + kRetMax;
+            }
+            html = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+            [self performSelectorOnMainThread:@selector(updateTable) withObject:nil waitUntilDone:NO];
+            
+        } else if ([data length] == 0 && error == nil) {
+            NSLog(@"Nothing was downloaded.");
+            _hasError = YES;
+            _errorMessage = @"There was an error retrieving summaries for found articles";
+            [self performSelectorOnMainThread:@selector(updateTable) withObject:nil waitUntilDone:NO];
+        } else if (error != nil) {
+            NSLog(@"Error = %@", error);
+            _hasError = YES;
+            _errorMessage = error.localizedDescription;
+            [self performSelectorOnMainThread:@selector(updateTable) withObject:nil waitUntilDone:NO];
+        }
     }];
 }
 
