@@ -18,6 +18,12 @@
     BOOL _searching;
     BOOL _hasError;
     NSString *_errorMessage;
+    
+    NSString *_queryKey;
+    NSString *_webEnv;
+    
+    int _searchCount;
+    int _retStart;
 }
 
 - (void)searchPMC:(NSString*)query;
@@ -69,6 +75,8 @@
     _searching = NO;
     _hasError = NO;
     _errorMessage = @"";
+    _queryKey = @"";
+    _webEnv = @"";
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -190,6 +198,10 @@
 
 }
 
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSLog(@"now displaying row %d", indexPath.row);
+}
+
 - (IBAction)doDone:(id)sender {
     if (_selectedIndexes.count > 0) {
         [[NSNotificationCenter defaultCenter] postNotificationName:@"DownloadArticles" object:self userInfo:[NSDictionary dictionaryWithObject:[_objects objectsAtIndexes:_selectedIndexes] forKey:@"SelectedArticles"]];
@@ -228,6 +240,7 @@
     _searching = YES;
     _hasError = NO;
     _errorMessage = @"";
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.tableView reloadData];
     
 	[self searchPMC:self.searchBar.text];
@@ -253,97 +266,110 @@
                                                                                                 NSError *error) {
         
         if ([data length] > 0 && error == nil) {
+            html = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+            NSLog(@"Search Result: %@", html);
+
             RXMLElement *rootXML = [RXMLElement elementFromXMLData:data];
-            NSString *queryKey = [rootXML child:@"QueryKey"].text;
-            NSString *webEnv = [rootXML child:@"WebEnv"].text;
-            NSString *summaryURL  = [NSString stringWithFormat:@"%@esummary.fcgi?db=pmc&query_key=%@&WebEnv=%@", searchBaseURL, queryKey, webEnv];
-            
-            NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:summaryURL]
-                                                                        cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
-                                                                    timeoutInterval:60];
-            [request setValue:@"PMC_Reader" forHTTPHeaderField:@"User-Agent"];
-
-            __block NSString *html;
-            
-            [NSURLConnection sendAsynchronousRequest:request queue:self.searchQueue completionHandler:^(NSURLResponse *response,
-                                                                                                        NSData *data,
-                                                                                                        NSError *error) {
+            _queryKey = [rootXML child:@"QueryKey"].text;
+            _webEnv = [rootXML child:@"WebEnv"].text;
+            _searchCount = [[rootXML child:@"Count"].text intValue];
+            if (_searchCount > 0) {
+                NSString *summaryURL  = [NSString stringWithFormat:@"%@esummary.fcgi?db=pmc&query_key=%@&WebEnv=%@", searchBaseURL, _queryKey, _webEnv];
                 
-                if ([data length] > 0 && error == nil) {
+                NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:summaryURL]
+                                                                            cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
+                                                                        timeoutInterval:60];
+                [request setValue:@"PMC_Reader" forHTTPHeaderField:@"User-Agent"];
+                
+                __block NSString *html;
+                
+                [NSURLConnection sendAsynchronousRequest:request queue:self.searchQueue completionHandler:^(NSURLResponse *response,
+                                                                                                            NSData *data,
+                                                                                                            NSError *error) {
                     
-                    html = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-                    NSLog(@"Summary Result: %@", html);
-                    RXMLElement *rootXML = [RXMLElement elementFromXMLData:data];
-                    [_objects removeAllObjects];
-                    [_selectedIndexes removeAllIndexes];
-                    //[_objects addObjectsFromArray:[rootXML children:@"DocSum"]];
-                    //[rootXML iterate:@"DocSum" usingBlock: ^(RXMLElement *myId) {
-                    //    NSLog(@"Id: %@", myId.text);
-                    //    [_objects addObject:myId.text];
-                    //}];
-                    /*
-                     Serotonin 5-HT7 receptor agents: structure-activity relationships and potential therapeutic applications in central nervous system disorders
-                     Marcello Leopoldo, Enza Lacivita, Francesco Berardi, Roberto Perrone, Peter B. Hedlund
-                     Pharmacol Ther. Author manuscript; available in PMC 2012 February 1.
-                     Published in final edited form as: Pharmacol Ther. 2011 February 1; 129(2): 120–148. doi: 10.1016/j.pharmthera.2010.08.013
-                     
-                     PMCID: PMC3031120
-                     */
-                    [rootXML iterate:@"DocSum" usingBlock: ^(RXMLElement *docSum) {
-                        PHArticle *newArticle = [[PHArticle alloc] init];
+                    if ([data length] > 0 && error == nil) {
                         
-                        newArticle.pmcId = [NSString stringWithFormat:@"PMC%@", [docSum child:@"Id"].text];
-                        
-                        __block NSString *source = @"Published as: ";
-                        [docSum iterate:@"Item" usingBlock: ^(RXMLElement *item) {
+                        html = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+                        //NSLog(@"Summary Result: %@", html);
+                        RXMLElement *rootXML = [RXMLElement elementFromXMLData:data];
+                        [_objects removeAllObjects];
+                        [_selectedIndexes removeAllIndexes];
+                        //[_objects addObjectsFromArray:[rootXML children:@"DocSum"]];
+                        //[rootXML iterate:@"DocSum" usingBlock: ^(RXMLElement *myId) {
+                        //    NSLog(@"Id: %@", myId.text);
+                        //    [_objects addObject:myId.text];
+                        //}];
+                        /*
+                         Serotonin 5-HT7 receptor agents: structure-activity relationships and potential therapeutic applications in central nervous system disorders
+                         Marcello Leopoldo, Enza Lacivita, Francesco Berardi, Roberto Perrone, Peter B. Hedlund
+                         Pharmacol Ther. Author manuscript; available in PMC 2012 February 1.
+                         Published in final edited form as: Pharmacol Ther. 2011 February 1; 129(2): 120–148. doi: 10.1016/j.pharmthera.2010.08.013
+                         
+                         PMCID: PMC3031120
+                         */
+                        [rootXML iterate:@"DocSum" usingBlock: ^(RXMLElement *docSum) {
+                            PHArticle *newArticle = [[PHArticle alloc] init];
                             
-                            if ([[item attribute:@"Name"] isEqualToString:@"Title"]) {
-                                newArticle.title = item.text;
-                            }
-                            if ([[item attribute:@"Name"] isEqualToString:@"AuthorList"]) {
-                                __block NSString *authors = @"";
-                                [item iterate:@"Item" usingBlock: ^(RXMLElement *author) {
-                                    authors = [authors stringByAppendingString:[NSString stringWithFormat:@"%@, ", author.text]];
-                                }];
-                                if (authors.length > 2) {
-                                    newArticle.authors = [authors substringToIndex:[authors length] - 2];
+                            newArticle.pmcId = [NSString stringWithFormat:@"PMC%@", [docSum child:@"Id"].text];
+                            
+                            __block NSString *source = @"Published as: ";
+                            [docSum iterate:@"Item" usingBlock: ^(RXMLElement *item) {
+                                
+                                if ([[item attribute:@"Name"] isEqualToString:@"Title"]) {
+                                    newArticle.title = item.text;
                                 }
-                            }
-                            if ([[item attribute:@"Name"] isEqualToString:@"Source"]) {
-                                source = [source stringByAppendingString:[NSString stringWithFormat:@"%@. ", item.text]];
-                            }
-                            if ([[item attribute:@"Name"] isEqualToString:@"SO"]) {
-                                source = [source stringByAppendingString:[NSString stringWithFormat:@"%@.", item.text]];
-                            }
+                                if ([[item attribute:@"Name"] isEqualToString:@"AuthorList"]) {
+                                    __block NSString *authors = @"";
+                                    [item iterate:@"Item" usingBlock: ^(RXMLElement *author) {
+                                        authors = [authors stringByAppendingString:[NSString stringWithFormat:@"%@, ", author.text]];
+                                    }];
+                                    if (authors.length > 2) {
+                                        newArticle.authors = [authors substringToIndex:[authors length] - 2];
+                                    }
+                                }
+                                if ([[item attribute:@"Name"] isEqualToString:@"Source"]) {
+                                    source = [source stringByAppendingString:[NSString stringWithFormat:@"%@. ", item.text]];
+                                }
+                                if ([[item attribute:@"Name"] isEqualToString:@"SO"]) {
+                                    source = [source stringByAppendingString:[NSString stringWithFormat:@"%@.", item.text]];
+                                }
+                            }];
+                            newArticle.source = source;
+                            NSLog(@"New Object: %@", newArticle);
+                            [_objects addObject:newArticle];
                         }];
-                        newArticle.source = source;
-                        NSLog(@"New Object: %@", newArticle);
-                        [_objects addObject:newArticle];
-                    }];
+                        
+                        //[_objects addObjectsFromArray:[rxmlIdList children:@"Id"]];
+                        html = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+                        [self performSelectorOnMainThread:@selector(updateTable) withObject:nil waitUntilDone:NO];
+                        
+                    } else if ([data length] == 0 && error == nil) {
+                        NSLog(@"Nothing was downloaded.");
+                        _hasError = YES;
+                        _errorMessage = @"There was an error retrieving summaries for found articles";
+                        [self performSelectorOnMainThread:@selector(updateTable) withObject:nil waitUntilDone:NO];
+                    } else if (error != nil) {
+                        NSLog(@"Error = %@", error);
+                        _hasError = YES;
+                        _errorMessage = error.localizedDescription;
+                        [self performSelectorOnMainThread:@selector(updateTable) withObject:nil waitUntilDone:NO];
+                    }
                     
-                    //[_objects addObjectsFromArray:[rxmlIdList children:@"Id"]];
-                    html = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-                    [self performSelectorOnMainThread:@selector(updateTable) withObject:nil waitUntilDone:NO];
                     
-                } else if ([data length] == 0 && error == nil) {
-                    NSLog(@"Nothing was downloaded.");
-                    _hasError = YES;
-                    _errorMessage = @"There was an error retrieving summaries for found articles";
-                    [self performSelectorOnMainThread:@selector(updateTable) withObject:nil waitUntilDone:NO];
-                } else if (error != nil) {
-                    NSLog(@"Error = %@", error);
-                    _hasError = YES;
-                    _errorMessage = error.localizedDescription;
-                    [self performSelectorOnMainThread:@selector(updateTable) withObject:nil waitUntilDone:NO];
-                }
+                }];
                 
 
-            }];
-
+            } else {
+                NSLog(@"Nothing was found.");
+                _hasError = YES;
+                _errorMessage = @"The search did not find any articles";
+                [self performSelectorOnMainThread:@selector(updateTable) withObject:nil waitUntilDone:NO];
+            }
+            
         } else if ([data length] == 0 && error == nil) {
             NSLog(@"Nothing was downloaded.");
             _hasError = YES;
-            _errorMessage = @"The search did not find any articles";
+            _errorMessage = @"The server did not return any data. No other error was reported";
             [self performSelectorOnMainThread:@selector(updateTable) withObject:nil waitUntilDone:NO];
         } else if (error != nil) {
             NSLog(@"Error = %@", error);
@@ -353,13 +379,17 @@
         }
         
     }];
-    NSLog(@"Result: %@", html);
 }
 
 - (void)updateTable {
     self.tableView.allowsSelection = YES;
     self.tableView.scrollEnabled = YES;
     _searching = NO;
+    if (_hasError) {
+        self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    } else {
+        self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+    }
     [self.tableView reloadData];
 }
 @end
