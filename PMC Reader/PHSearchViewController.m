@@ -211,11 +211,9 @@ static int const kRetMax = 20;
     }
     
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
-
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSLog(@"now displaying row %d", indexPath.row);
     PHTableViewCell *myCell = (PHTableViewCell*)cell;
     if ([myCell.titleLabel.text isEqualToString:@"Show More..."]) {
         myCell.accessoryView = myCell.activityIndicator;
@@ -246,7 +244,6 @@ static int const kRetMax = 20;
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
     searchBar.text=@"";
-    
     [searchBar setShowsCancelButton:NO animated:YES];
     [searchBar resignFirstResponder];
     self.tableView.allowsSelection = YES;
@@ -254,11 +251,8 @@ static int const kRetMax = 20;
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
-    // You'll probably want to do this on another thread
-    // SomeService is just a dummy class representing some
-    // api that you are using to do the search
-    //NSArray *results = [SomeService doSearch:searchBar.text];
     [_objects removeAllObjects];
+    [_selectedIndexes removeAllIndexes];
     _searching = YES;
     _hasError = NO;
     _errorMessage = @"";
@@ -279,24 +273,14 @@ static int const kRetMax = 20;
                                                             timeoutInterval:60];
     [request setValue:@"PMC_Reader" forHTTPHeaderField:@"User-Agent"];
 
-    __block NSString *html;
-
-    [NSURLConnection sendAsynchronousRequest:request queue:self.searchQueue completionHandler:^(NSURLResponse *response,
-                                                                                                NSData *data,
-                                                                                                NSError *error) {
-        
+    [NSURLConnection sendAsynchronousRequest:request queue:self.searchQueue completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
         if ([data length] > 0 && error == nil) {
-            html = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-            NSLog(@"Search Result: %@", html);
-
             RXMLElement *rootXML = [RXMLElement elementFromXMLData:data];
             _queryKey = [rootXML child:@"QueryKey"].text;
             _webEnv = [rootXML child:@"WebEnv"].text;
             _searchCount = [[rootXML child:@"Count"].text intValue];
             if (_searchCount > 0) {
                 _retStart = 1;
-                [_objects removeAllObjects];
-                [_selectedIndexes removeAllIndexes];
                 [self retrieveSummaries];
             } else {
                 NSLog(@"Nothing was found.");
@@ -328,31 +312,10 @@ static int const kRetMax = 20;
                                                             timeoutInterval:60];
     [request setValue:@"PMC_Reader" forHTTPHeaderField:@"User-Agent"];
     
-    __block NSString *html;
-    
-    [NSURLConnection sendAsynchronousRequest:request queue:self.searchQueue completionHandler:^(NSURLResponse *response,
-                                                                                                NSData *data,
-                                                                                                NSError *error) {
+    [NSURLConnection sendAsynchronousRequest:request queue:self.searchQueue completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
         
         if ([data length] > 0 && error == nil) {
-            
-            html = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-            //NSLog(@"Summary Result: %@", html);
             RXMLElement *rootXML = [RXMLElement elementFromXMLData:data];
-
-            //[_objects addObjectsFromArray:[rootXML children:@"DocSum"]];
-            //[rootXML iterate:@"DocSum" usingBlock: ^(RXMLElement *myId) {
-            //    NSLog(@"Id: %@", myId.text);
-            //    [_objects addObject:myId.text];
-            //}];
-            /*
-             Serotonin 5-HT7 receptor agents: structure-activity relationships and potential therapeutic applications in central nervous system disorders
-             Marcello Leopoldo, Enza Lacivita, Francesco Berardi, Roberto Perrone, Peter B. Hedlund
-             Pharmacol Ther. Author manuscript; available in PMC 2012 February 1.
-             Published in final edited form as: Pharmacol Ther. 2011 February 1; 129(2): 120–148. doi: 10.1016/j.pharmthera.2010.08.013
-             
-             PMCID: PMC3031120
-             */
             [rootXML iterate:@"DocSum" usingBlock: ^(RXMLElement *docSum) {
                 PHArticle *newArticle = [[PHArticle alloc] init];
                 
@@ -388,7 +351,6 @@ static int const kRetMax = 20;
             if ((_retStart + kRetMax) < _searchCount) {
                 _retStart = _retStart + kRetMax;
             }
-            html = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
             [self performSelectorOnMainThread:@selector(updateTable) withObject:nil waitUntilDone:NO];
             
         } else if ([data length] == 0 && error == nil) {
@@ -416,4 +378,5 @@ static int const kRetMax = 20;
     }
     [self.tableView reloadData];
 }
+
 @end
