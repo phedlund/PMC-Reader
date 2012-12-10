@@ -198,21 +198,14 @@
     NSURL *cssTemplateURL = [appBundle URLForResource:@"pmc_template" withExtension:@"css" subdirectory:nil];
     NSString *cssTemplate = [NSString stringWithContentsOfURL:cssTemplateURL encoding:NSUTF8StringEncoding error:nil];
     
-    NSArray *fontSizes = [[NSUserDefaults standardUserDefaults] arrayForKey:@"FontSizes"];
-    int fontIndex =[[NSUserDefaults standardUserDefaults] integerForKey:@"FontSize"];
-    NSNumber *fontSize = (NSNumber*)[fontSizes objectAtIndex:fontIndex];
-    cssTemplate = [cssTemplate stringByReplacingOccurrencesOfString:@"$FONTSIZE$" withString:[NSString stringWithFormat:@"%dpx", [fontSize intValue]]];
+    int fontSize =[[NSUserDefaults standardUserDefaults] integerForKey:@"FontSize"];
+    cssTemplate = [cssTemplate stringByReplacingOccurrencesOfString:@"$FONTSIZE$" withString:[NSString stringWithFormat:@"%dpx", fontSize]];
     
-    NSArray *margins = [[NSUserDefaults standardUserDefaults] arrayForKey:@"Margins"];
-    int marginIndex =[[NSUserDefaults standardUserDefaults] integerForKey:@"Margin"];
-    NSNumber *margin = (NSNumber*)[margins objectAtIndex:marginIndex];
-    cssTemplate = [cssTemplate stringByReplacingOccurrencesOfString:@"$MARGIN$" withString:[NSString stringWithFormat:@"%dpx", (700 - [margin intValue])]];
+    int margin =[[NSUserDefaults standardUserDefaults] integerForKey:@"Margin"];
+    cssTemplate = [cssTemplate stringByReplacingOccurrencesOfString:@"$MARGIN$" withString:[NSString stringWithFormat:@"%dpx", margin]];
     
-    NSArray *lineHeights = [[NSUserDefaults standardUserDefaults] arrayForKey:@"LineHeights"];
-    //NSLog(@"LineHeights: %@", lineHeights);
-    int lineHeightIndex =[[NSUserDefaults standardUserDefaults] integerForKey:@"LineHeight"];
-    NSString *lineHeight = [lineHeights objectAtIndex:lineHeightIndex];
-    cssTemplate = [cssTemplate stringByReplacingOccurrencesOfString:@"$LINEHEIGHT$" withString:[NSString stringWithFormat:@"%@em", lineHeight]];
+    double lineHeight =[[NSUserDefaults standardUserDefaults] doubleForKey:@"LineHeight"];
+    cssTemplate = [cssTemplate stringByReplacingOccurrencesOfString:@"$LINEHEIGHT$" withString:[NSString stringWithFormat:@"%fem", lineHeight]];
     
     NSArray *backgrounds = [[NSUserDefaults standardUserDefaults] arrayForKey:@"Backgrounds"];
     //NSLog(@"Backgrounds: %@", backgrounds);
@@ -337,7 +330,7 @@
     if (!prefsBarButtonItem) {
         UIButton* myPrefsButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [myPrefsButton addTarget:self action:@selector(doPreferences:) forControlEvents:UIControlEventTouchUpInside];
-        [myPrefsButton setImage:[UIImage imageNamed:@"gear"] forState:UIControlStateNormal];
+        [myPrefsButton setImage:[UIImage imageNamed:@"text"] forState:UIControlStateNormal];
         [myPrefsButton sizeToFit];
         prefsBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:myPrefsButton];
     }
@@ -394,9 +387,9 @@
 
     NSArray *itemsRight = [NSArray arrayWithObjects:
                            fixedSpace,
-                           self.infoBarButtonItem,
-                           fixedSpace,
                            self.prefsBarButtonItem,
+                           fixedSpace,
+                           self.infoBarButtonItem,
                            fixedSpace,
                            nil];
     

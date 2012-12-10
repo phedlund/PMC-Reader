@@ -162,7 +162,7 @@
                         <rect key="frame" x="0.0" y="20" width="768" height="1004"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="yW1-ee-M8T">
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" id="yW1-ee-M8T">
                                 <rect key="frame" x="20" y="20" width="200" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <segments>
@@ -174,36 +174,33 @@
                                     <action selector="doSegmentedValueChanged:" destination="2Jz-mI-5ty" eventType="valueChanged" id="QVO-KY-0IB"/>
                                 </connections>
                             </segmentedControl>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="5WA-Dr-hBa" customClass="MCSegmentedControl">
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" id="5WA-Dr-hBa" customClass="MCSegmentedControl">
                                 <rect key="frame" x="20" y="80" width="200" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <segments>
                                     <segment title="" image="fontsizes.png"/>
-                                    <segment title="" image="fontsizem.png"/>
                                     <segment title="" image="fontsizel.png"/>
                                 </segments>
                                 <connections>
                                     <action selector="doSegmentedValueChanged:" destination="2Jz-mI-5ty" eventType="valueChanged" id="td1-YI-5z4"/>
                                 </connections>
                             </segmentedControl>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="PNK-PC-W9N" customClass="MCSegmentedControl">
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" id="PNK-PC-W9N" customClass="MCSegmentedControl">
                                 <rect key="frame" x="20" y="140" width="200" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <segments>
                                     <segment title="" image="lineheight1.png"/>
-                                    <segment title="" image="lineheight2.png"/>
                                     <segment title="" image="lineheight3.png"/>
                                 </segments>
                                 <connections>
                                     <action selector="doSegmentedValueChanged:" destination="2Jz-mI-5ty" eventType="valueChanged" id="gur-7b-pFr"/>
                                 </connections>
                             </segmentedControl>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="ymK-T1-jcv" customClass="MCSegmentedControl">
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" id="ymK-T1-jcv" customClass="MCSegmentedControl">
                                 <rect key="frame" x="20" y="200" width="200" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <segments>
                                     <segment title="" image="margin1.png"/>
-                                    <segment title="" image="margin2.png"/>
                                     <segment title="" image="margin3.png"/>
                                 </segments>
                                 <connections>
@@ -231,13 +228,10 @@
         <image name="background2.png" width="26" height="26"/>
         <image name="background3.png" width="26" height="26"/>
         <image name="fontsizel.png" width="26" height="26"/>
-        <image name="fontsizem.png" width="26" height="26"/>
         <image name="fontsizes.png" width="26" height="26"/>
         <image name="lineheight1.png" width="26" height="26"/>
-        <image name="lineheight2.png" width="26" height="26"/>
         <image name="lineheight3.png" width="26" height="26"/>
         <image name="margin1.png" width="26" height="26"/>
-        <image name="margin2.png" width="26" height="26"/>
         <image name="margin3.png" width="26" height="26"/>
     </resources>
     <classes>

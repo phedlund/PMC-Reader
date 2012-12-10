@@ -8,6 +8,15 @@
 
 #import "PHPrefViewController.h"
 
+#define MIN_FONT_SIZE 11
+#define MAX_FONT_SIZE 30
+
+#define MIN_LINE_HEIGHT 1.2f
+#define MAX_LINE_HEIGHT 2.6f
+
+#define MIN_WIDTH 380
+#define MAX_WIDTH 700
+
 @interface PHPrefViewController ()
 
 @end
@@ -32,16 +41,6 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-	
-    //[backgroundSegmented setUnselectedItemColor:[UIColor clearColor]];
-    [[[backgroundSegmented subviews] objectAtIndex:0] setTintColor:[UIColor blackColor]];
-    [[[backgroundSegmented subviews] objectAtIndex:2] setTintColor:[UIColor blackColor]];
-    
-	[backgroundSegmented setSelectedSegmentIndex:[prefs integerForKey:@"Background"]];
-    [fontSizeSegmented setSelectedSegmentIndex:[prefs integerForKey:@"FontSize"]];
-    [lineHeightSegmented setSelectedSegmentIndex:[prefs integerForKey:@"LineHeight"]];
-    [marginSegmented setSelectedSegmentIndex:[prefs integerForKey:@"Margin"]];
 }
 
 - (void)viewDidUnload
@@ -62,27 +61,68 @@
 - (IBAction)doSegmentedValueChanged:(id)sender {
     MCSegmentedControl *seg = (MCSegmentedControl*)sender;
     int newValue = [seg selectedSegmentIndex];
+    if (newValue == UISegmentedControlNoSegment) {
+        return;
+    }
+    
     NSString *setting = nil;
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
 	//int newSize = 0;
     if (seg == backgroundSegmented) {
         //NSLog(@"BG: %d", newValue);
         setting = @"Background";
-    }
-    if (seg == fontSizeSegmented) {
-        //NSLog(@"FS: %d", newValue);
-        setting = @"FontSize";
-    }
-    if (seg == lineHeightSegmented) {
-        //NSLog(@"LH: %d", newValue);
-        setting = @"LineHeight";
-    }
-    if (seg == marginSegmented) {
-        //NSLog(@"M: %d", newValue);
-        setting = @"Margin";
+        [prefs setInteger:newValue forKey:setting];
     }
     
-    [prefs setInteger:newValue forKey:setting];
+    if (seg == fontSizeSegmented) {
+        //NSLog(@"FS: %d", newValue);
+        int currentFontSize = [[prefs valueForKey:@"FontSize"] integerValue];
+        if (newValue == 0) {
+            if (currentFontSize > MIN_FONT_SIZE) {
+                --currentFontSize;
+            }
+        } else {
+            if (currentFontSize < MAX_FONT_SIZE) {
+                ++currentFontSize;
+            }
+        }
+        NSLog(@"FS: %d", currentFontSize);
+        [prefs setInteger:currentFontSize forKey:@"FontSize"];
+    }
+    
+    if (seg == lineHeightSegmented) {
+        //NSLog(@"LH: %d", newValue);
+        double currentLineHeight = [[prefs valueForKey:@"LineHeight"] doubleValue];
+        if (newValue == 0) {
+            if (currentLineHeight > MIN_LINE_HEIGHT) {
+                currentLineHeight = currentLineHeight - 0.2f;
+            }
+        } else {
+            if (currentLineHeight < MAX_LINE_HEIGHT) {
+                currentLineHeight = currentLineHeight + 0.2f;
+            }
+        }
+        NSLog(@"FS: %f", currentLineHeight);
+        [prefs setDouble:currentLineHeight forKey:@"LineHeight"];
+    }
+    
+    if (seg == marginSegmented) {
+        //NSLog(@"M: %d", newValue);
+        int currentMargin = [[prefs valueForKey:@"Margin"] integerValue];
+        if (newValue == 0) {
+            if (currentMargin < MAX_WIDTH) {
+                currentMargin = currentMargin + 20;
+            }
+        } else {
+            if (currentMargin > MIN_WIDTH) {
+                currentMargin = currentMargin - 20;
+            }
+        }
+        NSLog(@"FS: %d", currentMargin);
+        [prefs setInteger:currentMargin forKey:@"Margin"];
+    }
+    
+    seg.selectedSegmentIndex = UISegmentedControlNoSegment;
     if (_delegate != nil) {
 		[_delegate settingsChanged:setting newValue:newValue];
 	}
