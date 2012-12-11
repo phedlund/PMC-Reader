@@ -84,7 +84,7 @@ div.fn {
     display: block;
 }
 
-table, .fig, .table {
+table, .fig, .table, .caption {
     font-size:80%;
     line-height:$LINEHEIGHT$;
     clear: both;
@@ -189,5 +189,9 @@ div.togglers {
     display: none;
 }
 .links-box {
+    display: none;
+}
+
+div.ts_bar {
     display: none;
 }

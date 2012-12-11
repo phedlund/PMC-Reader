@@ -50,15 +50,11 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
     
     NSURLResponse *response = nil;
     NSError *error = nil;
-    //NSString *html;
-    //char *article;
     NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
     if (error) {
         if (self.delegate) {
             [delegate downloaderDidFail:self withError:error];
         }
-        //html = @"<p style='color: #CC6600;'><i>(There was an error downloading the article. Showing summary instead.)</i></p>";
-        //html = [html stringByAppendingString:detail.item.summary];
     } else {
         if (data) {
             
@@ -222,23 +218,35 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
                         objectHtml = [objectHtml stringByReplacingOccurrencesOfString:@"$PMCCSS$" withString:cssTemplatePath];
                         objectHtml = [objectHtml stringByReplacingOccurrencesOfString:@"$PMCJS$" withString:jsTemplatePath];
                         objectHtml = [objectHtml stringByReplacingOccurrencesOfString:@"$PMCTITLE$" withString:[[titleNodes objectAtIndex:0] innerHTML]];
-                        objectHtml = [objectHtml stringByReplacingOccurrencesOfString:@"$PMCDATA$" withString:[inputNode rawContents]];
+                        
+                        UIImage *theImage = [UIImage imageWithContentsOfFile:[objectSaveURL path]];
+                        CGFloat imgWidth = theImage.size.width;
+                        CGFloat imgHeight = theImage.size.height;
+                        if (imgWidth > 660.0) {
+                            imgHeight = (660.0 / imgWidth) * imgHeight;
+                            imgWidth = 660.0;
+                        }
+                        
+                        NSString *myHtml = [[inputNode findChildTag:@"h1"] rawContents];
+                        myHtml = [myHtml stringByAppendingFormat:@"<a href=\"%@\"><img src=\"%@\" width=\"%d\" height=\"%d\" /></a>", objectSavePath, objectSavePath, (int)imgWidth, (int)imgHeight];
+                        
+                        NSArray *capNodes = [inputNode findChildTags:@"div"];
+                        for (HTMLNode *capNode in capNodes) {
+                           if ([[capNode getAttributeNamed:@"class"] hasPrefix:@"caption"]) {
+                               myHtml = [myHtml stringByAppendingString:[capNode rawContents]];
+                           }
+                        }
+                        //NSLog(@"MyHtml: %@", myHtml);
+                        objectHtml = [objectHtml stringByReplacingOccurrencesOfString:@"$PMCDATA$" withString:myHtml];
                         objectSaveURL = [docDir  URLByAppendingPathComponent:[img objectAtIndex:2]];
                         objectSaveURL = [objectSaveURL URLByAppendingPathExtension:@"html"];
-                        
-                        HTMLNode *imgNode = [inputNode findChildTag:@"img"];
-                        NSString *thumbNail = [imgNode getAttributeNamed:@"src"];
-                        objectHtml = [objectHtml stringByReplacingOccurrencesOfString:thumbNail withString:objectSavePath];
-                        
+
                         [objectHtml writeToURL:objectSaveURL atomically:YES encoding:NSUTF8StringEncoding error:nil];
                         NSString *htmlSavePath = [objectSavePathPrefix stringByAppendingString:[objectSaveURL path]];
                         pmcData = [pmcData stringByReplacingOccurrencesOfString:[img objectAtIndex:3] withString:htmlSavePath];
                         
                     }
                 }
-                
-                
-                
             }
             
             
