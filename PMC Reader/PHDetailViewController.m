@@ -137,8 +137,7 @@
         _prefPopoverController = [[UIPopoverController alloc] initWithContentViewController:_prefViewController];
     } 
     
-    [_prefPopoverController presentPopoverFromBarButtonItem:prefsBarButtonItem permittedArrowDirections:(UIPopoverArrowDirectionUp | UIPopoverArrowDirectionDown) animated:YES];
-        
+    [_prefPopoverController presentPopoverFromBarButtonItem:sender permittedArrowDirections:(UIPopoverArrowDirectionUp | UIPopoverArrowDirectionDown) animated:YES];
 }
 
 - (IBAction)doInfo:(id)sender {
@@ -357,11 +356,8 @@
 
 - (UIBarButtonItem *)prefsBarButtonItem {
     if (!prefsBarButtonItem) {
-        UIButton* myPrefsButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [myPrefsButton addTarget:self action:@selector(doPreferences:) forControlEvents:UIControlEventTouchUpInside];
-        [myPrefsButton setImage:[UIImage imageNamed:@"text"] forState:UIControlStateNormal];
-        [myPrefsButton sizeToFit];
-        prefsBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:myPrefsButton];
+        prefsBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"text"] style:UIBarButtonItemStylePlain target:self action:@selector(doPreferences:)];
+        prefsBarButtonItem.imageInsets = UIEdgeInsetsMake(2.0f, 0.0f, -2.0f, 0.0f);
     }
     return prefsBarButtonItem;
 }
