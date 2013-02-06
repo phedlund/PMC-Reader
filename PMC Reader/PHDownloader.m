@@ -7,6 +7,7 @@
 //
 
 #import "PHDownloader.h"
+#import "PHArticleNavigationItem.h"
 
 #import "HTMLParser.h"
 
@@ -162,6 +163,20 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
                     //pmcData = [inputNode rawContents];
                 }
             }
+            
+            //Navigation items
+            inputNodes = [bodyNode findChildTags:@"h2"];
+            NSMutableArray *navItems = [NSMutableArray array];
+            for (HTMLNode *inputNode in inputNodes) {
+                if ([inputNode getAttributeNamed:@"id"] != nil) {
+                    PHArticleNavigationItem *navItem = [[PHArticleNavigationItem alloc] init];
+                    navItem.title = [inputNode contents];
+                    navItem.idAttribute = [inputNode getAttributeNamed:@"id"];
+                    [navItems addObject:navItem];
+                }
+            }
+            
+            article.articleNavigationItems = [NSArray arrayWithArray:navItems];;
             
             //parse head
             HTMLNode *headNode = [parser head];

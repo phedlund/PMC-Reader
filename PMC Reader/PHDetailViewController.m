@@ -9,6 +9,7 @@
 #import "PHDetailViewController.h"
 #import "IIViewDeckController.h"
 #import "PHArticle.h"
+#import "PHArticleNavigationItem.h"
 
 #define TITLE_LABEL_WIDTH 450
 
@@ -28,7 +29,8 @@
 @synthesize prefViewController = _prefViewController;
 @synthesize titleLabel, titleBarButtonItem;
 @synthesize backBarButtonItem, forwardBarButtonItem, refreshBarButtonItem, stopBarButtonItem, leftToolbar;
-@synthesize infoBarButtonItem, prefsBarButtonItem;
+@synthesize infoBarButtonItem, prefsBarButtonItem, navBarButtonItem;
+@synthesize articleNavigationController, articleNavigationPopover;
 
 #pragma mark - Managing the detail item
 
@@ -144,6 +146,33 @@
         UIActionSheet *menu = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:@"Open in Safari", @"Copy", nil];
         [menu showFromBarButtonItem:infoBarButtonItem animated:YES];
     }
+}
+
+- (IBAction) doNavigation:(id)sender {
+    PHArticle *detail = (PHArticle *) self.detailItem;
+    self.articleNavigationController.articleSections = [NSArray arrayWithArray:detail.articleNavigationItems];
+    if (detail.articleNavigationItems.count > 0) {
+        self.articleNavigationPopover.popoverContentSize  = CGSizeMake(290.0f, 44 * detail.articleNavigationItems.count);
+    } else {
+        self.articleNavigationPopover.popoverContentSize = CGSizeMake(290.0f, 44);
+    }
+
+    [self.articleNavigationPopover presentPopoverFromBarButtonItem:sender permittedArrowDirections:(UIPopoverArrowDirectionUp | UIPopoverArrowDirectionDown) animated:YES];
+}
+
+- (PHArticleNavigationControllerViewController *) articleNavigationController {
+    if (!articleNavigationController) {
+        articleNavigationController = [[PHArticleNavigationControllerViewController alloc] initWithStyle:UITableViewStylePlain];
+        articleNavigationController.delegate = self;
+    }
+    return articleNavigationController;
+}
+
+- (UIPopoverController *) articleNavigationPopover {
+    if (!articleNavigationPopover) {
+        articleNavigationPopover = [[UIPopoverController alloc] initWithContentViewController:self.articleNavigationController];
+    }
+    return articleNavigationPopover;
 }
 
 - (void)toggleNavBar:(UITapGestureRecognizer *)gesture {
@@ -337,6 +366,15 @@
     return prefsBarButtonItem;
 }
 
+- (UIBarButtonItem *)navBarButtonItem {
+    if (!navBarButtonItem) {
+        navBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"contents"] style:UIBarButtonItemStylePlain target:self action:@selector(doNavigation:)];
+        navBarButtonItem.imageInsets = UIEdgeInsetsMake(2.0f, 0.0f, -2.0f, 0.0f);
+
+    }
+    return navBarButtonItem;
+}
+
 - (UIToolbar *) leftToolbar {
     if (!leftToolbar) {
         leftToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 125.0f, 44.0f)];
@@ -368,8 +406,26 @@
     self.forwardBarButtonItem.enabled = self.articleView.canGoForward;
     if ((self.detailItem != nil)) {
         self.infoBarButtonItem.enabled = !self.articleView.isLoading;
+        self.prefsBarButtonItem.enabled = !self.articleView.isLoading;
+        self.navBarButtonItem.enabled = !self.articleView.isLoading;
     } else {
         self.infoBarButtonItem.enabled = NO;
+        self.prefsBarButtonItem.enabled = NO;
+        self.navBarButtonItem.enabled = NO;
+    }
+    
+    PHArticle *detail = (PHArticle *) self.detailItem;
+    NSURL *url = self.articleView.request.URL;
+    NSString *u = [url absoluteString];
+    NSString *v = [NSString stringWithFormat:@"Documents/%@/text.html", detail.pmcId];
+    
+    if ([u rangeOfString:v].location == NSNotFound) {
+        self.navBarButtonItem.enabled = NO;
+    }
+    
+    v = [NSString stringWithFormat:@"Documents/%@", detail.pmcId];
+    if ([u rangeOfString:v].location == NSNotFound) {
+        self.prefsBarButtonItem.enabled = NO;
     }
 
     UIBarButtonItem *fixedSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
@@ -387,17 +443,30 @@
 
     NSArray *itemsRight = [NSArray arrayWithObjects:
                            fixedSpace,
+                           self.navBarButtonItem,
+                           fixedSpace,
                            self.prefsBarButtonItem,
                            fixedSpace,
                            self.infoBarButtonItem,
                            fixedSpace,
                            nil];
     
-    UIToolbar *toolbarRight = [[UIToolbar alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 100.0, 44.0f)];
+    UIToolbar *toolbarRight = [[UIToolbar alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 125, 44.0f)];
     toolbarRight.items = itemsRight;
     toolbarRight.tintColor = self.navigationController.navigationBar.tintColor;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:toolbarRight];
 }
 
+- (void)articleSectionSelected:(NSUInteger)section {
+    [self.articleNavigationPopover dismissPopoverAnimated:YES];
+    PHArticle *detail = (PHArticle *) self.detailItem;
+    PHArticleNavigationItem *navItem = (PHArticleNavigationItem *)[detail.articleNavigationItems objectAtIndex:section];
+    NSURL *url = self.articleView.request.URL;
+    NSMutableString* frag = [[NSMutableString alloc] initWithString:@"#"];
+    [frag appendString:navItem.idAttribute];
+    url = [NSURL URLWithString:frag relativeToURL:url];
+    NSLog(@"DEBUG - absoluteString: %@", [url absoluteString]);
+    [[self articleView] loadRequest:[NSURLRequest requestWithURL:url]];
+}
 
 @end

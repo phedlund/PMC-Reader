@@ -15,12 +15,14 @@
 @synthesize title;
 @synthesize authors;
 @synthesize source;
+@synthesize articleNavigationItems;
 @synthesize error;
 @synthesize downloading;
 
 - (id) init {
 	if (self = [super init]) {
-        //
+        NSArray *theNavItems = [[NSArray alloc] init];
+        self.articleNavigationItems = theNavItems;
     }
 	return self;
 }
@@ -34,6 +36,7 @@
         title = [decoder decodeObjectForKey:@"title"];
         authors = [decoder decodeObjectForKey:@"authors"];
         source = [decoder decodeObjectForKey:@"source"];
+        articleNavigationItems = [decoder decodeObjectForKey:@"articlenavigationitems"];
         error = [decoder decodeObjectForKey:@"error"];
         downloading = [decoder decodeBoolForKey:@"downloading"];
 	}
@@ -46,6 +49,7 @@
     [encoder encodeObject:title forKey:@"title"];
     [encoder encodeObject:authors forKey:@"authors"];
     [encoder encodeObject:source forKey:@"source"];
+    [encoder encodeObject:articleNavigationItems forKey:@"articlenavigationitems"];
     [encoder encodeObject:error forKey:@"error"];
     [encoder encodeBool:downloading forKey:@"downloading"];
 }
