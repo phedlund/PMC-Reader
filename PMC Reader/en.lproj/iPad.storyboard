@@ -163,7 +163,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" id="yW1-ee-M8T">
-                                <rect key="frame" x="20" y="20" width="200" height="44"/>
+                                <rect key="frame" x="240" y="20" width="200" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <segments>
                                     <segment title="" image="background1.png"/>
@@ -175,7 +175,7 @@
                                 </connections>
                             </segmentedControl>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" id="5WA-Dr-hBa" customClass="MCSegmentedControl">
-                                <rect key="frame" x="20" y="80" width="200" height="44"/>
+                                <rect key="frame" x="240" y="80" width="200" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <segments>
                                     <segment title="" image="fontsizes.png"/>
@@ -186,7 +186,7 @@
                                 </connections>
                             </segmentedControl>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" id="PNK-PC-W9N" customClass="MCSegmentedControl">
-                                <rect key="frame" x="20" y="140" width="200" height="44"/>
+                                <rect key="frame" x="240" y="140" width="200" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <segments>
                                     <segment title="" image="lineheight1.png"/>
@@ -197,7 +197,7 @@
                                 </connections>
                             </segmentedControl>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" id="ymK-T1-jcv" customClass="MCSegmentedControl">
-                                <rect key="frame" x="20" y="200" width="200" height="44"/>
+                                <rect key="frame" x="240" y="200" width="200" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <segments>
                                     <segment title="" image="margin1.png"/>
@@ -210,12 +210,13 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <value key="contentSizeForViewInPopover" type="size" width="240" height="260"/>
+                    <value key="contentSizeForViewInPopover" type="size" width="460" height="260"/>
                     <connections>
                         <outlet property="backgroundSegmented" destination="yW1-ee-M8T" id="P0f-GS-RNw"/>
                         <outlet property="fontSizeSegmented" destination="5WA-Dr-hBa" id="bsf-ow-fNT"/>
                         <outlet property="lineHeightSegmented" destination="PNK-PC-W9N" id="J3D-HT-RlN"/>
                         <outlet property="marginSegmented" destination="ymK-T1-jcv" id="DIu-ok-f6A"/>
+                        <outlet property="view" destination="99g-hB-zMd" id="vEl-f3-684"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7bF-3Q-8eV" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -269,6 +270,7 @@
                 <relationship kind="outlet" name="fontSizeSegmented" candidateClass="MCSegmentedControl"/>
                 <relationship kind="outlet" name="lineHeightSegmented" candidateClass="MCSegmentedControl"/>
                 <relationship kind="outlet" name="marginSegmented" candidateClass="MCSegmentedControl"/>
+                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
             </relationships>
         </class>
         <class className="PHRootViewController" superclassName="IIViewDeckController">

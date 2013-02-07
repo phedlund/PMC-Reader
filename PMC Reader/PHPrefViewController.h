@@ -13,12 +13,14 @@
 - (void)settingsChanged:(NSString*)setting newValue:(NSUInteger)value;
 @end
 
-@interface PHPrefViewController : UIViewController
+@interface PHPrefViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UISegmentedControl *backgroundSegmented;
 @property (weak, nonatomic) IBOutlet MCSegmentedControl *fontSizeSegmented;
 @property (weak, nonatomic) IBOutlet MCSegmentedControl *lineHeightSegmented;
 @property (weak, nonatomic) IBOutlet MCSegmentedControl *marginSegmented;
+@property (strong, nonatomic) IBOutlet UITableView *tableView;
+@property (strong, nonatomic) NSArray *fonts;
 
 @property (nonatomic, strong) id<PHPrefViewControllerDelegate> delegate;
 

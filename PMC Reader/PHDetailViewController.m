@@ -226,6 +226,9 @@
     NSURL *cssTemplateURL = [appBundle URLForResource:@"pmc_template" withExtension:@"css" subdirectory:nil];
     NSString *cssTemplate = [NSString stringWithContentsOfURL:cssTemplateURL encoding:NSUTF8StringEncoding error:nil];
     
+    NSString *font = [[NSUserDefaults standardUserDefaults] objectForKey:@"Font"];
+    cssTemplate = [cssTemplate stringByReplacingOccurrencesOfString:@"$FONT$" withString:font];
+
     int fontSize =[[NSUserDefaults standardUserDefaults] integerForKey:@"FontSize"];
     cssTemplate = [cssTemplate stringByReplacingOccurrencesOfString:@"$FONTSIZE$" withString:[NSString stringWithFormat:@"%dpx", fontSize]];
     

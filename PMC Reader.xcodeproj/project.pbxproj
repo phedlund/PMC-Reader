@@ -34,6 +34,18 @@
 		D0D3999F16C1B5B600EA2497 /* PHArticleNavigationControllerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0D3999E16C1B5B600EA2497 /* PHArticleNavigationControllerViewController.m */; };
 		D0D399A216C1F1C400EA2497 /* contents@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D0D399A016C1F1C400EA2497 /* contents@2x.png */; };
 		D0D399A316C1F1C400EA2497 /* contents.png in Resources */ = {isa = PBXBuildFile; fileRef = D0D399A116C1F1C400EA2497 /* contents.png */; };
+		D0D399AA16C2DBF800EA2497 /* DejaVuSans-Oblique.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D0D399A516C2DBF800EA2497 /* DejaVuSans-Oblique.ttf */; };
+		D0D399AB16C2DBF800EA2497 /* DejaVuSans.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D0D399A616C2DBF800EA2497 /* DejaVuSans.ttf */; };
+		D0D399AC16C2DBF800EA2497 /* DejaVuSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D0D399A716C2DBF800EA2497 /* DejaVuSans-Bold.ttf */; };
+		D0D399AD16C2DBF800EA2497 /* DejaVuSans-BoldOblique.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D0D399A816C2DBF800EA2497 /* DejaVuSans-BoldOblique.ttf */; };
+		D0D399B016C2DEDA00EA2497 /* Oxygen-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D0D399AF16C2DEDA00EA2497 /* Oxygen-Regular.ttf */; };
+		D0D399B516C2E09300EA2497 /* DejaVuSerif-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D0D399B116C2E09300EA2497 /* DejaVuSerif-Bold.ttf */; };
+		D0D399B616C2E09300EA2497 /* DejaVuSerif-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D0D399B216C2E09300EA2497 /* DejaVuSerif-BoldItalic.ttf */; };
+		D0D399B716C2E09300EA2497 /* DejaVuSerif-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D0D399B316C2E09300EA2497 /* DejaVuSerif-Italic.ttf */; };
+		D0D399B816C2E09300EA2497 /* DejaVuSerif.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D0D399B416C2E09300EA2497 /* DejaVuSerif.ttf */; };
+		D0D399BC16C2E4A800EA2497 /* LibreBaskerville-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D0D399B916C2E4A800EA2497 /* LibreBaskerville-Bold.ttf */; };
+		D0D399BD16C2E4A800EA2497 /* LibreBaskerville-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D0D399BA16C2E4A800EA2497 /* LibreBaskerville-Italic.ttf */; };
+		D0D399BE16C2E4A800EA2497 /* LibreBaskerville-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D0D399BB16C2E4A800EA2497 /* LibreBaskerville-Regular.ttf */; };
 		D0EB6F5815E3123100D3E790 /* icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = D0EB6F5715E3123100D3E790 /* icon-72.png */; };
 		D0EB6F5B15E3124500D3E790 /* icon-144.png in Resources */ = {isa = PBXBuildFile; fileRef = D0EB6F5A15E3124500D3E790 /* icon-144.png */; };
 		D0EB6F5D15E31AFB00D3E790 /* Default-Landscape@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = D0EB6F5C15E31AFB00D3E790 /* Default-Landscape@2x~ipad.png */; };
@@ -127,6 +139,18 @@
 		D0D3999E16C1B5B600EA2497 /* PHArticleNavigationControllerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHArticleNavigationControllerViewController.m; sourceTree = "<group>"; };
 		D0D399A016C1F1C400EA2497 /* contents@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "contents@2x.png"; path = "Resources/contents@2x.png"; sourceTree = "<group>"; };
 		D0D399A116C1F1C400EA2497 /* contents.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = contents.png; path = Resources/contents.png; sourceTree = "<group>"; };
+		D0D399A516C2DBF800EA2497 /* DejaVuSans-Oblique.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "DejaVuSans-Oblique.ttf"; path = "Resources/fonts/dejavu-fonts-ttf-2.33/ttf/DejaVuSans-Oblique.ttf"; sourceTree = "<group>"; };
+		D0D399A616C2DBF800EA2497 /* DejaVuSans.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = DejaVuSans.ttf; path = "Resources/fonts/dejavu-fonts-ttf-2.33/ttf/DejaVuSans.ttf"; sourceTree = "<group>"; };
+		D0D399A716C2DBF800EA2497 /* DejaVuSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "DejaVuSans-Bold.ttf"; path = "Resources/fonts/dejavu-fonts-ttf-2.33/ttf/DejaVuSans-Bold.ttf"; sourceTree = "<group>"; };
+		D0D399A816C2DBF800EA2497 /* DejaVuSans-BoldOblique.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "DejaVuSans-BoldOblique.ttf"; path = "Resources/fonts/dejavu-fonts-ttf-2.33/ttf/DejaVuSans-BoldOblique.ttf"; sourceTree = "<group>"; };
+		D0D399AF16C2DEDA00EA2497 /* Oxygen-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Oxygen-Regular.ttf"; path = "Resources/fonts/new-typography_oxygen/Oxygen-Regular.ttf"; sourceTree = "<group>"; };
+		D0D399B116C2E09300EA2497 /* DejaVuSerif-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "DejaVuSerif-Bold.ttf"; path = "Resources/fonts/dejavu-fonts-ttf-2.33/ttf/DejaVuSerif-Bold.ttf"; sourceTree = "<group>"; };
+		D0D399B216C2E09300EA2497 /* DejaVuSerif-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "DejaVuSerif-BoldItalic.ttf"; path = "Resources/fonts/dejavu-fonts-ttf-2.33/ttf/DejaVuSerif-BoldItalic.ttf"; sourceTree = "<group>"; };
+		D0D399B316C2E09300EA2497 /* DejaVuSerif-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "DejaVuSerif-Italic.ttf"; path = "Resources/fonts/dejavu-fonts-ttf-2.33/ttf/DejaVuSerif-Italic.ttf"; sourceTree = "<group>"; };
+		D0D399B416C2E09300EA2497 /* DejaVuSerif.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = DejaVuSerif.ttf; path = "Resources/fonts/dejavu-fonts-ttf-2.33/ttf/DejaVuSerif.ttf"; sourceTree = "<group>"; };
+		D0D399B916C2E4A800EA2497 /* LibreBaskerville-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "LibreBaskerville-Bold.ttf"; path = "Resources/fonts/pablo-impallari_libre-baskerville/LibreBaskerville-Bold.ttf"; sourceTree = "<group>"; };
+		D0D399BA16C2E4A800EA2497 /* LibreBaskerville-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "LibreBaskerville-Italic.ttf"; path = "Resources/fonts/pablo-impallari_libre-baskerville/LibreBaskerville-Italic.ttf"; sourceTree = "<group>"; };
+		D0D399BB16C2E4A800EA2497 /* LibreBaskerville-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "LibreBaskerville-Regular.ttf"; path = "Resources/fonts/pablo-impallari_libre-baskerville/LibreBaskerville-Regular.ttf"; sourceTree = "<group>"; };
 		D0EB6F5715E3123100D3E790 /* icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-72.png"; path = "../icon-72.png"; sourceTree = "<group>"; };
 		D0EB6F5A15E3124500D3E790 /* icon-144.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-144.png"; path = "../icon-144.png"; sourceTree = "<group>"; };
 		D0EB6F5C15E31AFB00D3E790 /* Default-Landscape@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-Landscape@2x~ipad.png"; path = "../Default-Landscape@2x~ipad.png"; sourceTree = "<group>"; };
@@ -270,6 +294,7 @@
 		D030E6BA15C0D2DB00CB5285 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				D0D399A416C2DB9D00EA2497 /* Fonts */,
 				D0CDB7DB15C33FC90074B143 /* Resources */,
 				D030E6BB15C0D2DB00CB5285 /* PMC Reader-Info.plist */,
 				D030E6BC15C0D2DB00CB5285 /* InfoPlist.strings */,
@@ -362,6 +387,25 @@
 				D0CDB7D715C33FB70074B143 /* pmc.html */,
 			);
 			name = Resources;
+			sourceTree = "<group>";
+		};
+		D0D399A416C2DB9D00EA2497 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				D0D399A616C2DBF800EA2497 /* DejaVuSans.ttf */,
+				D0D399A516C2DBF800EA2497 /* DejaVuSans-Oblique.ttf */,
+				D0D399A716C2DBF800EA2497 /* DejaVuSans-Bold.ttf */,
+				D0D399A816C2DBF800EA2497 /* DejaVuSans-BoldOblique.ttf */,
+				D0D399B416C2E09300EA2497 /* DejaVuSerif.ttf */,
+				D0D399B116C2E09300EA2497 /* DejaVuSerif-Bold.ttf */,
+				D0D399B216C2E09300EA2497 /* DejaVuSerif-BoldItalic.ttf */,
+				D0D399B316C2E09300EA2497 /* DejaVuSerif-Italic.ttf */,
+				D0D399B916C2E4A800EA2497 /* LibreBaskerville-Bold.ttf */,
+				D0D399BA16C2E4A800EA2497 /* LibreBaskerville-Italic.ttf */,
+				D0D399BB16C2E4A800EA2497 /* LibreBaskerville-Regular.ttf */,
+				D0D399AF16C2DEDA00EA2497 /* Oxygen-Regular.ttf */,
+			);
+			name = Fonts;
 			sourceTree = "<group>";
 		};
 		D0ED8FC1165B1F8F0081E81E /* RaptureXML */ = {
@@ -500,6 +544,18 @@
 				D03632A41676829D000D3C0B /* text@2x.png in Resources */,
 				D0D399A216C1F1C400EA2497 /* contents@2x.png in Resources */,
 				D0D399A316C1F1C400EA2497 /* contents.png in Resources */,
+				D0D399AA16C2DBF800EA2497 /* DejaVuSans-Oblique.ttf in Resources */,
+				D0D399AB16C2DBF800EA2497 /* DejaVuSans.ttf in Resources */,
+				D0D399AC16C2DBF800EA2497 /* DejaVuSans-Bold.ttf in Resources */,
+				D0D399AD16C2DBF800EA2497 /* DejaVuSans-BoldOblique.ttf in Resources */,
+				D0D399B016C2DEDA00EA2497 /* Oxygen-Regular.ttf in Resources */,
+				D0D399B516C2E09300EA2497 /* DejaVuSerif-Bold.ttf in Resources */,
+				D0D399B616C2E09300EA2497 /* DejaVuSerif-BoldItalic.ttf in Resources */,
+				D0D399B716C2E09300EA2497 /* DejaVuSerif-Italic.ttf in Resources */,
+				D0D399B816C2E09300EA2497 /* DejaVuSerif.ttf in Resources */,
+				D0D399BC16C2E4A800EA2497 /* LibreBaskerville-Bold.ttf in Resources */,
+				D0D399BD16C2E4A800EA2497 /* LibreBaskerville-Italic.ttf in Resources */,
+				D0D399BE16C2E4A800EA2497 /* LibreBaskerville-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,4 +1,14 @@
 {
+	Fonts = (
+		Arial,
+		"DejaVu Sans",
+		"DejaVu Serif",
+		Helvetica,
+		"Libre Baskerville",
+		Palatino,
+		"Times New Roman",
+	);
+	Font = Palatino;
 	Background = 0;
 	Backgrounds = (
 		"#FFFFFF",

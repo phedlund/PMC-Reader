@@ -55,6 +55,21 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>UIAppFonts</key>
+	<array>
+		<string>DejaVuSans.ttf</string>
+		<string>DejaVuSans-Oblique.ttf</string>
+		<string>DejaVuSans-Bold.ttf</string>
+		<string>DejaVuSans-BoldOblique.ttf</string>
+		<string>DejaVuSerif.ttf</string>
+		<string>DejaVuSerif-Bold.ttf</string>
+		<string>DejaVuSerif-BoldItalic.ttf</string>
+		<string>DejaVuSerif-Italic.ttf</string>
+		<string>LibreBaskerville-Bold.ttf</string>
+		<string>LibreBaskerville-Italic.ttf</string>
+		<string>LibreBaskerville-Regular.ttf</string>
+		<string>Oxygen-Regular.ttf</string>
+	</array>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
