@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "PHPrefViewController.h"
 #import "PHArticleNavigationControllerViewController.h"
+#import "IIViewDeckController.h"
 
-@interface PHDetailViewController : UIViewController <UIActionSheetDelegate, UIWebViewDelegate, UIPopoverControllerDelegate, UIGestureRecognizerDelegate, PHPrefViewControllerDelegate, ArticleNavigationDelegate>
+@interface PHDetailViewController : UIViewController <UIActionSheetDelegate, UIWebViewDelegate, UIPopoverControllerDelegate, UIGestureRecognizerDelegate, PHPrefViewControllerDelegate, ArticleNavigationDelegate, IIViewDeckControllerDelegate>
 
 @property (strong, nonatomic) id detailItem;
 @property (strong, nonatomic) UIWebView *articleView;

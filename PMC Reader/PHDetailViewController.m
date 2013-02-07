@@ -86,6 +86,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    self.viewDeckController.delegate = self;
     [[self navigationItem] setTitle:@""];
     [self updateToolbar];
     [self configureView];
@@ -175,7 +176,40 @@
 }
 
 - (void)toggleNavBar:(UITapGestureRecognizer *)gesture {
-    [self.navigationController setNavigationBarHidden:!self.navigationController.navigationBarHidden];
+    if (self.navigationController.navigationBarHidden) {
+        [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationSlide];
+        self.navigationController.navigationBarHidden = NO;
+        self.viewDeckController.leftController.view.frame = [self orientationRect];
+    } else {
+        [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationSlide];
+        self.navigationController.navigationBarHidden = YES;
+
+        CGRect r = [self orientationRect];
+        self.viewDeckController.leftController.view.frame = CGRectMake(r.origin.x, r.origin.y, r.size.width, r.size.height + 20.0);
+    }
+}
+
+- (CGRect)orientationRect {
+    CGFloat width;
+    CGFloat height;
+    CGSize screen = [[UIScreen mainScreen] bounds].size;
+    if (([UIApplication sharedApplication].statusBarOrientation == UIDeviceOrientationLandscapeLeft) ||
+           ([UIApplication sharedApplication].statusBarOrientation == UIDeviceOrientationLandscapeRight)) {
+        width = screen.height;
+        height = screen.width;
+    } else {
+        width = screen.width;
+        height = screen.height;
+    }
+    return CGRectMake(0.0, 0.0, width, height);
+}
+
+- (void)viewDeckController:(IIViewDeckController*)viewDeckController willOpenViewSide:(IIViewDeckSide)viewDeckSide animated:(BOOL)animated {
+    if (viewDeckSide == IIViewDeckLeftSide) {
+        if (self.navigationController.navigationBarHidden) {
+            [self toggleNavBar:nil];
+        }
+    }
 }
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer

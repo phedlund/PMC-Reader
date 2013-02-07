@@ -13,7 +13,7 @@
 - (void) viewDidLoad
 {
     [super viewDidLoad];
-    
+    self.wantsFullScreenLayout = YES;
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"iPad" bundle:nil];
     self.leftController = [storyboard instantiateViewControllerWithIdentifier:@"master"];
     self.centerController = [storyboard instantiateViewControllerWithIdentifier:@"detail"];
