@@ -227,6 +227,20 @@
 	[self updateToolbar];
 }
 
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
+    if ([self.articleView.request.URL.scheme isEqualToString:@"file"]) {
+        if ([request.URL.scheme isEqualToString:@"http"]) {
+            NSRange range = [request.URL.absoluteString rangeOfString:@"#"];
+            if (range.location != NSNotFound) {
+                NSMutableString* frag = [[NSMutableString alloc] initWithString:@"#"];
+                NSURL *url = [NSURL URLWithString:[frag stringByAppendingString:[request.URL fragment]] relativeToURL:self.articleView.request.URL];
+                [[self articleView] loadRequest:[NSURLRequest requestWithURL:url]];
+                return NO;
+            }
+        }
+    }
+    return YES;
+}
 
 - (void)webViewDidStartLoad:(UIWebView *)webView {
 	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
