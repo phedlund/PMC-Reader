@@ -16,7 +16,7 @@ body {
 }
 
 h1 {
-   font-family:"Oxygen";
+   font-family:"Arial";
    font-size:150%;
    line-height:$LINEHEIGHT$;
    clear: both;
@@ -24,7 +24,7 @@ h1 {
 
 h2 {
     color:#985735;
-    font-family:"Oxygen";
+    font-family:"Arial";
     font-size:110%;
     /*margin-top:-0.8em;*/
     line-height:$LINEHEIGHT$;
@@ -33,7 +33,7 @@ h2 {
 
 h3 {
     color:#724128;
-    font-family:"Oxygen";
+    font-family:"Arial";
     font-size:100%;
     line-height:$LINEHEIGHT$;
     
@@ -41,7 +41,7 @@ h3 {
 
 h4 {
     color:#724128;
-    font-family:"Oxygen";
+    font-family:"Arial";
     font-size:80%;
     line-height:$LINEHEIGHT$;
     

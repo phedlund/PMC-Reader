@@ -38,7 +38,6 @@
 		D0D399AB16C2DBF800EA2497 /* DejaVuSans.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D0D399A616C2DBF800EA2497 /* DejaVuSans.ttf */; };
 		D0D399AC16C2DBF800EA2497 /* DejaVuSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D0D399A716C2DBF800EA2497 /* DejaVuSans-Bold.ttf */; };
 		D0D399AD16C2DBF800EA2497 /* DejaVuSans-BoldOblique.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D0D399A816C2DBF800EA2497 /* DejaVuSans-BoldOblique.ttf */; };
-		D0D399B016C2DEDA00EA2497 /* Oxygen-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D0D399AF16C2DEDA00EA2497 /* Oxygen-Regular.ttf */; };
 		D0D399B516C2E09300EA2497 /* DejaVuSerif-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D0D399B116C2E09300EA2497 /* DejaVuSerif-Bold.ttf */; };
 		D0D399B616C2E09300EA2497 /* DejaVuSerif-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D0D399B216C2E09300EA2497 /* DejaVuSerif-BoldItalic.ttf */; };
 		D0D399B716C2E09300EA2497 /* DejaVuSerif-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D0D399B316C2E09300EA2497 /* DejaVuSerif-Italic.ttf */; };
@@ -143,7 +142,6 @@
 		D0D399A616C2DBF800EA2497 /* DejaVuSans.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = DejaVuSans.ttf; path = "Resources/fonts/dejavu-fonts-ttf-2.33/ttf/DejaVuSans.ttf"; sourceTree = "<group>"; };
 		D0D399A716C2DBF800EA2497 /* DejaVuSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "DejaVuSans-Bold.ttf"; path = "Resources/fonts/dejavu-fonts-ttf-2.33/ttf/DejaVuSans-Bold.ttf"; sourceTree = "<group>"; };
 		D0D399A816C2DBF800EA2497 /* DejaVuSans-BoldOblique.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "DejaVuSans-BoldOblique.ttf"; path = "Resources/fonts/dejavu-fonts-ttf-2.33/ttf/DejaVuSans-BoldOblique.ttf"; sourceTree = "<group>"; };
-		D0D399AF16C2DEDA00EA2497 /* Oxygen-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Oxygen-Regular.ttf"; path = "Resources/fonts/new-typography_oxygen/Oxygen-Regular.ttf"; sourceTree = "<group>"; };
 		D0D399B116C2E09300EA2497 /* DejaVuSerif-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "DejaVuSerif-Bold.ttf"; path = "Resources/fonts/dejavu-fonts-ttf-2.33/ttf/DejaVuSerif-Bold.ttf"; sourceTree = "<group>"; };
 		D0D399B216C2E09300EA2497 /* DejaVuSerif-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "DejaVuSerif-BoldItalic.ttf"; path = "Resources/fonts/dejavu-fonts-ttf-2.33/ttf/DejaVuSerif-BoldItalic.ttf"; sourceTree = "<group>"; };
 		D0D399B316C2E09300EA2497 /* DejaVuSerif-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "DejaVuSerif-Italic.ttf"; path = "Resources/fonts/dejavu-fonts-ttf-2.33/ttf/DejaVuSerif-Italic.ttf"; sourceTree = "<group>"; };
@@ -403,7 +401,6 @@
 				D0D399B916C2E4A800EA2497 /* LibreBaskerville-Bold.ttf */,
 				D0D399BA16C2E4A800EA2497 /* LibreBaskerville-Italic.ttf */,
 				D0D399BB16C2E4A800EA2497 /* LibreBaskerville-Regular.ttf */,
-				D0D399AF16C2DEDA00EA2497 /* Oxygen-Regular.ttf */,
 			);
 			name = Fonts;
 			sourceTree = "<group>";
@@ -548,7 +545,6 @@
 				D0D399AB16C2DBF800EA2497 /* DejaVuSans.ttf in Resources */,
 				D0D399AC16C2DBF800EA2497 /* DejaVuSans-Bold.ttf in Resources */,
 				D0D399AD16C2DBF800EA2497 /* DejaVuSans-BoldOblique.ttf in Resources */,
-				D0D399B016C2DEDA00EA2497 /* Oxygen-Regular.ttf in Resources */,
 				D0D399B516C2E09300EA2497 /* DejaVuSerif-Bold.ttf in Resources */,
 				D0D399B616C2E09300EA2497 /* DejaVuSerif-BoldItalic.ttf in Resources */,
 				D0D399B716C2E09300EA2497 /* DejaVuSerif-Italic.ttf in Resources */,
