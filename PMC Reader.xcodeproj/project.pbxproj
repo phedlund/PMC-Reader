@@ -88,6 +88,8 @@
 		D0EFC9AD15D707CF00C26580 /* background1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D0EFC9AB15D707CF00C26580 /* background1@2x.png */; };
 		D0EFC9B015D70BD500C26580 /* background2.png in Resources */ = {isa = PBXBuildFile; fileRef = D0EFC9AE15D70BD500C26580 /* background2.png */; };
 		D0EFC9B115D70BD500C26580 /* background2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D0EFC9AF15D70BD500C26580 /* background2@2x.png */; };
+		D0F4141316C710690033C1E9 /* IISideController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0F4141216C710690033C1E9 /* IISideController.m */; };
+		D0F4141516C711B60033C1E9 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0F4141416C711B60033C1E9 /* QuartzCore.framework */; };
 		D0F41E3A163C90620078DF2A /* MCSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = D0F41E39163C90620078DF2A /* MCSegmentedControl.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		D0F6004616375D9100ADBC38 /* iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0F6004416375D9100ADBC38 /* iPad.storyboard */; };
 		D0F60054163775EF00ADBC38 /* PHRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0F60050163775EE00ADBC38 /* PHRootViewController.m */; };
@@ -195,6 +197,9 @@
 		D0EFC9AB15D707CF00C26580 /* background1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "background1@2x.png"; path = "Resources/background1@2x.png"; sourceTree = "<group>"; };
 		D0EFC9AE15D70BD500C26580 /* background2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = background2.png; path = Resources/background2.png; sourceTree = "<group>"; };
 		D0EFC9AF15D70BD500C26580 /* background2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "background2@2x.png"; path = "Resources/background2@2x.png"; sourceTree = "<group>"; };
+		D0F4141116C710690033C1E9 /* IISideController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IISideController.h; sourceTree = "<group>"; };
+		D0F4141216C710690033C1E9 /* IISideController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IISideController.m; sourceTree = "<group>"; };
+		D0F4141416C711B60033C1E9 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		D0F41E38163C90620078DF2A /* MCSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCSegmentedControl.h; sourceTree = "<group>"; };
 		D0F41E39163C90620078DF2A /* MCSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCSegmentedControl.m; sourceTree = "<group>"; };
 		D0F6004516375D9100ADBC38 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/iPad.storyboard; sourceTree = "<group>"; };
@@ -213,6 +218,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D0F4141516C711B60033C1E9 /* QuartzCore.framework in Frameworks */,
 				D0CDB7CD15C1BA4F0074B143 /* libxml2.dylib in Frameworks */,
 				D030E6B415C0D2DB00CB5285 /* UIKit.framework in Frameworks */,
 				D030E6B615C0D2DB00CB5285 /* Foundation.framework in Frameworks */,
@@ -226,6 +232,7 @@
 		D030E6A415C0D2DB00CB5285 = {
 			isa = PBXGroup;
 			children = (
+				D0F4141416C711B60033C1E9 /* QuartzCore.framework */,
 				D0CDB7CC15C1BA4F0074B143 /* libxml2.dylib */,
 				D030E6B915C0D2DB00CB5285 /* PMC Reader */,
 				D030E6B215C0D2DB00CB5285 /* Frameworks */,
@@ -428,6 +435,8 @@
 		D0F600561639A82000ADBC38 /* ViewDeck */ = {
 			isa = PBXGroup;
 			children = (
+				D0F4141116C710690033C1E9 /* IISideController.h */,
+				D0F4141216C710690033C1E9 /* IISideController.m */,
 				D0F600571639A82100ADBC38 /* IIViewDeckController.h */,
 				D0F600581639A82100ADBC38 /* IIViewDeckController.m */,
 				D0F600591639A82100ADBC38 /* IIWrapController.h */,
@@ -582,6 +591,7 @@
 				D036329F167296F6000D3C0B /* UINavigationController+DismissKeyboard.m in Sources */,
 				D0D3999C16C06FB800EA2497 /* PHArticleNavigationItem.m in Sources */,
 				D0D3999F16C1B5B600EA2497 /* PHArticleNavigationControllerViewController.m in Sources */,
+				D0F4141316C710690033C1E9 /* IISideController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
