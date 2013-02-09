@@ -27,7 +27,11 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
 @implementation PHMasterViewController
 
 @synthesize articles = _articles;
+@synthesize filteredArticles;
+@synthesize searchBar;
+@synthesize isFiltered;
 @synthesize editBarButtonItem;
+@synthesize myNavigationItem;
 
 - (NSMutableArray *) articles {
     if (!_articles) {
@@ -123,6 +127,9 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
     self.tableView.allowsSelectionDuringEditing = NO;
     [self setEditing:NO animated:NO];
 
+    self.isFiltered = NO;
+    self.searchBar.delegate = self;
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(downloadArticles:) name:@"DownloadArticles" object:nil];
 
     UINavigationController *detailNavController = (UINavigationController *)self.viewDeckController.centerController;
@@ -137,6 +144,7 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
 {
     [self setTableView:nil];
     [self setMyNavigationItem:nil];
+    [self setSearchBar:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
@@ -182,13 +190,22 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.articles.count;
+    if (self.isFiltered) {
+        return self.filteredArticles.count;
+    } else {
+        return self.articles.count;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     PHTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PHCell"];
-    PHArticle *article = (PHArticle*)[self.articles objectAtIndex:indexPath.row];
+    PHArticle *article = nil;
+    if (self.isFiltered) {
+        article = [self.filteredArticles objectAtIndex:indexPath.row];
+    } else {
+        article = [self.articles objectAtIndex:indexPath.row];
+    }
     
     cell.titleLabel.text = article.title;
     cell.authorLabel.text = article.authors;
@@ -210,7 +227,7 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Return NO if you do not want the specified item to be editable.
-    return YES;
+    return (!self.searchBar.isFirstResponder && !self.isFiltered);
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
@@ -257,7 +274,13 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSData *object = [self.articles objectAtIndex:indexPath.row];
+    [self.searchBar resignFirstResponder];
+    NSData *object = nil;
+    if (self.isFiltered) {
+        object = [self.filteredArticles objectAtIndex:indexPath.row];
+    } else {
+        object = [self.articles objectAtIndex:indexPath.row];
+    }
     self.detailViewController.detailItem = object;
     [self.viewDeckController closeLeftView];
 }
@@ -306,6 +329,51 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
 
 - (void) reloadRow:(NSIndexPath*)indexPath {
     [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
+}
+
+
+#pragma mark - Table view delegate
+
+-(void)searchBar:(UISearchBar*)searchBar textDidChange:(NSString*)text
+{
+    if (text.length == 0) {
+        self.isFiltered = FALSE;
+    } else {
+        self.isFiltered = true;
+        self.filteredArticles = [[NSMutableArray alloc] init];
+        
+        for (PHArticle* article in self.articles) {
+            NSRange titleRange = [article.title rangeOfString:text options:NSCaseInsensitiveSearch];
+            NSRange authorsRange = [article.authors rangeOfString:text options:NSCaseInsensitiveSearch];
+            NSRange sourceRange = [article.source rangeOfString:text options:NSCaseInsensitiveSearch];
+            NSRange pmcIdRange = [article.pmcId rangeOfString:text options:NSCaseInsensitiveSearch];
+            if(titleRange.location != NSNotFound || authorsRange.location != NSNotFound || sourceRange.location != NSNotFound || pmcIdRange.location != NSNotFound) {
+                [self.filteredArticles addObject:article];
+            }
+        }
+    }
+    
+    [self.tableView reloadData];
+}
+
+- (BOOL)searchBarShouldBeginEditing:(UISearchBar*)searchBar {
+    if (self.isEditing) {
+        return NO;
+    }
+    [self.searchBar setShowsCancelButton:YES animated:YES];
+    self.editBarButtonItem.enabled = NO;
+    self.myNavigationItem.leftBarButtonItem.enabled = NO;
+    self.myNavigationItem.rightBarButtonItem.enabled = NO;
+    return YES;
+}
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
+    self.searchBar.text=@"";
+    [self.searchBar setShowsCancelButton:NO animated:YES];
+    [self.searchBar resignFirstResponder];
+    self.editBarButtonItem.enabled = YES;
+    self.myNavigationItem.leftBarButtonItem.enabled = YES;
+    self.myNavigationItem.rightBarButtonItem.enabled = YES;
 }
 
 @end

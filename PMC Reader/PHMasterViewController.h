@@ -10,12 +10,15 @@
 #import "PHDetailViewController.h"
 #import "PHDownloader.h"
 
-@interface PHMasterViewController : UIViewController <UITableViewDataSource, UIAlertViewDelegate, PHDownloaderDelegate>
+@interface PHMasterViewController : UIViewController <UITableViewDataSource, UIAlertViewDelegate, PHDownloaderDelegate, UISearchBarDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) PHDetailViewController *detailViewController;
 @property (nonatomic, strong, readonly) UIBarButtonItem *editBarButtonItem;
 @property (strong, nonatomic) NSMutableArray *articles;
+@property (strong, nonatomic) NSMutableArray *filteredArticles;
+@property (nonatomic, assign) bool isFiltered;
+@property (strong, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (strong, nonatomic) IBOutlet UINavigationItem *myNavigationItem;
 
 - (IBAction) doEdit:(id)sender;
