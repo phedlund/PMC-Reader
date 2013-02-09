@@ -363,22 +363,16 @@
 
 - (UIBarButtonItem *)backBarButtonItem {
     if (!backBarButtonItem) {
-        UIButton* myBackButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [myBackButton addTarget:self action:@selector(doGoBack:) forControlEvents:UIControlEventTouchUpInside];
-        [myBackButton setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
-        [myBackButton sizeToFit];
-        backBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:myBackButton];
+        backBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"back"] style:UIBarButtonItemStylePlain target:self action:@selector(doGoBack:)];
+        backBarButtonItem.imageInsets = UIEdgeInsetsMake(2.0f, 0.0f, -2.0f, 0.0f);
     }
     return backBarButtonItem;
 }
 
 - (UIBarButtonItem *)forwardBarButtonItem {
     if (!forwardBarButtonItem) {        
-        UIButton* myForwardButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [myForwardButton addTarget:self action:@selector(doGoForward:) forControlEvents:UIControlEventTouchUpInside];
-        [myForwardButton setImage:[UIImage imageNamed:@"forward"] forState:UIControlStateNormal];
-        [myForwardButton sizeToFit];
-        forwardBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:myForwardButton];
+        forwardBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"forward"] style:UIBarButtonItemStylePlain target:self action:@selector(doGoForward:)];
+        forwardBarButtonItem.imageInsets = UIEdgeInsetsMake(2.0f, 0.0f, -2.0f, 0.0f);
     }
     return forwardBarButtonItem;
 }
