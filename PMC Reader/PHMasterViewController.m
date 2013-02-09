@@ -31,6 +31,7 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
 @synthesize searchBar;
 @synthesize isFiltered;
 @synthesize editBarButtonItem;
+@synthesize addBarButtonItem;
 @synthesize myNavigationItem;
 
 - (NSMutableArray *) articles {
@@ -92,6 +93,14 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
     return editBarButtonItem;
 }
 
+- (UIBarButtonItem *)addBarButtonItem {    
+    if (!addBarButtonItem) {
+        addBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(doAdd:)];
+    }
+    
+    return addBarButtonItem;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -129,7 +138,21 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
 
     self.isFiltered = NO;
     self.searchBar.delegate = self;
+
+    UIBarButtonItem *fixedSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+    fixedSpace.width = 5.0f;
+    UIBarButtonItem *flexibleSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     
+    NSArray *items = [NSArray arrayWithObjects:
+                      flexibleSpace,
+                      self.addBarButtonItem,
+                      nil];
+    
+    UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 100.0f, 44.0f)];
+    toolbar.items = items;
+    toolbar.tintColor = self.navigationController.navigationBar.tintColor;
+    self.myNavigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:toolbar];
+
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(downloadArticles:) name:@"DownloadArticles" object:nil];
 
     UINavigationController *detailNavController = (UINavigationController *)self.viewDeckController.centerController;
@@ -152,6 +175,11 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
 {
     return YES;
+}
+
+
+- (IBAction)doAdd:(id)sender {
+    [self performSegueWithIdentifier:@"search" sender:self.addBarButtonItem];
 }
 
 - (IBAction)doEdit:(id)sender {

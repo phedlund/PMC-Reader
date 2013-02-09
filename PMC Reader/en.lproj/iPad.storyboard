@@ -16,13 +16,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <items>
-                                    <navigationItem title="Articles" id="zvz-t2-Duq">
-                                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="DIl-KM-Wic">
-                                            <connections>
-                                                <segue destination="55I-fb-DqJ" kind="modal" modalPresentationStyle="formSheet" id="2xs-eR-Pb5"/>
-                                            </connections>
-                                        </barButtonItem>
-                                    </navigationItem>
+                                    <navigationItem title="Articles" id="zvz-t2-Duq"/>
                                 </items>
                             </navigationBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="So7-0H-dny">
@@ -47,6 +41,7 @@
                         <outlet property="myNavigationItem" destination="zvz-t2-Duq" id="h0s-kN-t6g"/>
                         <outlet property="searchBar" destination="vNq-nA-428" id="gv1-kc-U4D"/>
                         <outlet property="tableView" destination="So7-0H-dny" id="qhe-W0-EYv"/>
+                        <segue destination="55I-fb-DqJ" kind="modal" identifier="search" id="YeC-wV-zz0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WAQ-KG-3dU" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -58,11 +53,11 @@
             <objects>
                 <tableViewController modalPresentationStyle="formSheet" id="OiH-Wa-zp0" customClass="PHSearchViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Gno-rE-HkA">
-                        <rect key="frame" x="0.0" y="64" width="540" height="556"/>
+                        <rect key="frame" x="0.0" y="64" width="768" height="960"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <searchBar key="tableHeaderView" contentMode="redraw" placeholder="Search Query" id="76j-hJ-pNw">
-                            <rect key="frame" x="0.0" y="0.0" width="540" height="44"/>
+                            <rect key="frame" x="0.0" y="0.0" width="768" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <textInputTraits key="textInputTraits"/>
                             <connections>
@@ -263,6 +258,7 @@
         <class className="PHMasterViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PHMasterViewController.h"/>
             <relationships>
+                <relationship kind="action" name="doAdd:"/>
                 <relationship kind="action" name="doEdit:"/>
                 <relationship kind="outlet" name="myNavigationItem" candidateClass="UINavigationItem"/>
                 <relationship kind="outlet" name="searchBar" candidateClass="UISearchBar"/>
