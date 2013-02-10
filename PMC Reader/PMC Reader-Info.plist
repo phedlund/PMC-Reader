@@ -32,13 +32,27 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.2</string>
+	<string>1.3</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>14</string>
+	<string>16</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>UIAppFonts</key>
+	<array>
+		<string>DejaVuSans.ttf</string>
+		<string>DejaVuSans-Oblique.ttf</string>
+		<string>DejaVuSans-Bold.ttf</string>
+		<string>DejaVuSans-BoldOblique.ttf</string>
+		<string>DejaVuSerif.ttf</string>
+		<string>DejaVuSerif-Bold.ttf</string>
+		<string>DejaVuSerif-BoldItalic.ttf</string>
+		<string>DejaVuSerif-Italic.ttf</string>
+		<string>LibreBaskerville-Bold.ttf</string>
+		<string>LibreBaskerville-Italic.ttf</string>
+		<string>LibreBaskerville-Regular.ttf</string>
+	</array>
 	<key>UIFileSharingEnabled</key>
 	<false/>
 	<key>UIMainStoryboardFile</key>
@@ -54,20 +68,6 @@
 		<string>UIInterfaceOrientationPortrait</string>
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
-	</array>
-	<key>UIAppFonts</key>
-	<array>
-		<string>DejaVuSans.ttf</string>
-		<string>DejaVuSans-Oblique.ttf</string>
-		<string>DejaVuSans-Bold.ttf</string>
-		<string>DejaVuSans-BoldOblique.ttf</string>
-		<string>DejaVuSerif.ttf</string>
-		<string>DejaVuSerif-Bold.ttf</string>
-		<string>DejaVuSerif-BoldItalic.ttf</string>
-		<string>DejaVuSerif-Italic.ttf</string>
-		<string>LibreBaskerville-Bold.ttf</string>
-		<string>LibreBaskerville-Italic.ttf</string>
-		<string>LibreBaskerville-Regular.ttf</string>
 	</array>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
