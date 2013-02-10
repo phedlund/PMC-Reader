@@ -11,7 +11,8 @@
 #import "PHArticle.h"
 #import "PHArticleNavigationItem.h"
 
-#define TITLE_LABEL_WIDTH 450
+#define TITLE_LABEL_WIDTH_LANDSCAPE 700
+#define TITLE_LABEL_WIDTH_PORTRAIT 450
 
 @interface PHDetailViewController ()
 
@@ -99,6 +100,18 @@
     // Release any retained subviews of the main view.
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    CGRect newRect = self.titleLabel.frame;
+    if (([UIApplication sharedApplication].statusBarOrientation == UIDeviceOrientationLandscapeLeft) ||
+        ([UIApplication sharedApplication].statusBarOrientation == UIDeviceOrientationLandscapeRight)) {
+        newRect.size.width = TITLE_LABEL_WIDTH_LANDSCAPE;
+    } else {
+        newRect.size.width = TITLE_LABEL_WIDTH_PORTRAIT;
+    }
+    self.titleLabel.frame = newRect;
+}
+
 - (void)viewDidDisappear:(BOOL)animated {
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
 }
@@ -113,6 +126,17 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
 {
     return YES;
+}
+
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+    [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
+    CGRect newRect = self.titleLabel.frame;
+    if ((toInterfaceOrientation == UIInterfaceOrientationLandscapeLeft) || (toInterfaceOrientation == UIInterfaceOrientationLandscapeRight)) {
+        newRect.size.width = TITLE_LABEL_WIDTH_LANDSCAPE;
+    } else {
+        newRect.size.width = TITLE_LABEL_WIDTH_PORTRAIT;
+    }
+    self.titleLabel.frame = newRect;
 }
 
 #pragma mark - Actions
@@ -341,15 +365,13 @@
 
 - (UILabel *) titleLabel {
     if (!titleLabel) {
-        titleLabel= [[UILabel alloc] initWithFrame:CGRectMake(0, 0, TITLE_LABEL_WIDTH, 44)];
+        titleLabel= [[UILabel alloc] initWithFrame:CGRectMake(0, 0, TITLE_LABEL_WIDTH_PORTRAIT, 44)];
         titleLabel.backgroundColor = [UIColor clearColor];
         titleLabel.font = [UIFont systemFontOfSize:16.0];
-        //label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
         titleLabel.textAlignment = UITextAlignmentLeft;
-        titleLabel.textColor = [UIColor blackColor]; // change this color
+        titleLabel.textColor = [UIColor blackColor];
         titleLabel.text = NSLocalizedString(@"Select an article", @"");
         titleLabel.autoresizingMask = UIViewAutoresizingNone;
-        //[label sizeToFit];
     }
     return titleLabel;
 }
