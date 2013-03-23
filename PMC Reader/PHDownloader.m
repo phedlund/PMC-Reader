@@ -8,6 +8,7 @@
 
 #import "PHDownloader.h"
 #import "PHArticleNavigationItem.h"
+#import "PHArticleReference.h"
 
 #import "HTMLParser.h"
 
@@ -176,7 +177,40 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
                 }
             }
             
-            article.articleNavigationItems = [NSArray arrayWithArray:navItems];;
+            article.articleNavigationItems = [NSArray arrayWithArray:navItems];
+
+            //References
+            inputNodes = [bodyNode findChildTags:@"a"];
+            NSMutableArray *references = [NSMutableArray array];
+            for (HTMLNode *inputNode in inputNodes) {
+                if ([inputNode getAttributeNamed:@"rid"] != nil) {
+                    if ([[inputNode getAttributeNamed:@"class"] rangeOfString:@"bibr"].location != NSNotFound) {
+                        PHArticleReference *reference = [[PHArticleReference alloc] init];
+                        reference.idAttribute = [inputNode getAttributeNamed:@"rid"];
+                        HTMLNode *refTextNode = [bodyNode findChildWithAttribute:@"id" matchingName:reference.idAttribute allowPartial:NO];
+                        reference.text = refTextNode.allContents;
+                        
+                        NSArray *spans = [refTextNode findChildTags:@"span"];
+                        for (HTMLNode *span in spans) {
+                            NSArray *links = [span findChildTags:@"a"];
+                            for (HTMLNode *link in links) {
+                                NSString *lText = link.contents;
+                                NSString *href = [link getAttributeNamed:@"href"];
+                                if ([href hasPrefix:@"/"]) {
+                                    href = [NSString stringWithFormat:@"%@%@", kBaseUrl, href];
+                                }
+                                NSString *replacement = [NSString stringWithFormat:@"<a href='%@'>%@</a>", href, lText];
+                                if ([reference.text rangeOfString:replacement].location == NSNotFound) {
+                                    reference.text = [reference.text stringByReplacingOccurrencesOfString:lText withString:replacement];
+                                }
+                            }
+                        }
+                        [references addObject:reference];
+                    }
+                }
+            }
+            
+            article.references = [NSArray arrayWithArray:references];
             
             //parse head
             HTMLNode *headNode = [parser head];

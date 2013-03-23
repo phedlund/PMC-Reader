@@ -15,6 +15,7 @@
 	NSString *authors;
     NSString *source;
     NSArray *articleNavigationItems;
+    NSArray *references;
 	NSString *error;
     BOOL downloading;
 }
@@ -25,6 +26,7 @@
 @property (nonatomic, copy) NSString *authors;
 @property (nonatomic, copy) NSString *source;
 @property (nonatomic, copy) NSArray *articleNavigationItems;
+@property (nonatomic, copy) NSArray *references;
 @property (nonatomic, copy) NSString *error;
 @property (nonatomic) BOOL downloading;
 

@@ -62,6 +62,10 @@
 		D0ED8FC4165B1F900081E81E /* RXMLElement.m in Sources */ = {isa = PBXBuildFile; fileRef = D0ED8FC3165B1F900081E81E /* RXMLElement.m */; };
 		D0ED8FC7165C6A950081E81E /* PHTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D0ED8FC6165C6A950081E81E /* PHTableViewCell.m */; };
 		D0ED8FC9165C6B190081E81E /* PHTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0ED8FC8165C6B190081E81E /* PHTableViewCell.xib */; };
+		D0EEADE416FA29C900DBAC4C /* PHArticleReference.m in Sources */ = {isa = PBXBuildFile; fileRef = D0EEADE316FA29C900DBAC4C /* PHArticleReference.m */; };
+		D0EEADE916FA76DF00DBAC4C /* PopoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = D0EEADE716FA76DF00DBAC4C /* PopoverView.m */; };
+		D0EEADEC16FA770000DBAC4C /* RTLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = D0EEADEB16FA770000DBAC4C /* RTLabel.m */; };
+		D0EEADEF16FA79D900DBAC4C /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0EEADEE16FA79D900DBAC4C /* CoreText.framework */; };
 		D0EF085615D2FB2C005689E1 /* pmc_template.css in Resources */ = {isa = PBXBuildFile; fileRef = D0EF085515D2FB2C005689E1 /* pmc_template.css */; };
 		D0EF086B15D31306005689E1 /* defaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = D0EF086A15D31306005689E1 /* defaults.plist */; };
 		D0EFC98415D4915100C26580 /* fontsizel.png in Resources */ = {isa = PBXBuildFile; fileRef = D0EFC97E15D4914F00C26580 /* fontsizel.png */; };
@@ -171,6 +175,14 @@
 		D0ED8FC5165C6A950081E81E /* PHTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHTableViewCell.h; sourceTree = "<group>"; };
 		D0ED8FC6165C6A950081E81E /* PHTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHTableViewCell.m; sourceTree = "<group>"; };
 		D0ED8FC8165C6B190081E81E /* PHTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PHTableViewCell.xib; sourceTree = "<group>"; };
+		D0EEADE216FA29C900DBAC4C /* PHArticleReference.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHArticleReference.h; sourceTree = "<group>"; };
+		D0EEADE316FA29C900DBAC4C /* PHArticleReference.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHArticleReference.m; sourceTree = "<group>"; };
+		D0EEADE616FA76DF00DBAC4C /* PopoverView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopoverView.h; sourceTree = "<group>"; };
+		D0EEADE716FA76DF00DBAC4C /* PopoverView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopoverView.m; sourceTree = "<group>"; };
+		D0EEADE816FA76DF00DBAC4C /* PopoverView_Configuration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopoverView_Configuration.h; sourceTree = "<group>"; };
+		D0EEADEA16FA76FF00DBAC4C /* RTLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RTLabel.h; path = RTLabel/RTLabelProject/Classes/RTLabel.h; sourceTree = SOURCE_ROOT; };
+		D0EEADEB16FA770000DBAC4C /* RTLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RTLabel.m; path = RTLabel/RTLabelProject/Classes/RTLabel.m; sourceTree = SOURCE_ROOT; };
+		D0EEADEE16FA79D900DBAC4C /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		D0EF085515D2FB2C005689E1 /* pmc_template.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = pmc_template.css; path = Resources/pmc_template.css; sourceTree = "<group>"; };
 		D0EF086A15D31306005689E1 /* defaults.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; name = defaults.plist; path = Resources/defaults.plist; sourceTree = "<group>"; };
 		D0EFC97E15D4914F00C26580 /* fontsizel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fontsizel.png; path = Resources/fontsizel.png; sourceTree = "<group>"; };
@@ -218,6 +230,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D0EEADEF16FA79D900DBAC4C /* CoreText.framework in Frameworks */,
 				D0F4141516C711B60033C1E9 /* QuartzCore.framework in Frameworks */,
 				D0CDB7CD15C1BA4F0074B143 /* libxml2.dylib in Frameworks */,
 				D030E6B415C0D2DB00CB5285 /* UIKit.framework in Frameworks */,
@@ -232,6 +245,7 @@
 		D030E6A415C0D2DB00CB5285 = {
 			isa = PBXGroup;
 			children = (
+				D0EEADEE16FA79D900DBAC4C /* CoreText.framework */,
 				D0F4141416C711B60033C1E9 /* QuartzCore.framework */,
 				D0CDB7CC15C1BA4F0074B143 /* libxml2.dylib */,
 				D030E6B915C0D2DB00CB5285 /* PMC Reader */,
@@ -261,6 +275,8 @@
 		D030E6B915C0D2DB00CB5285 /* PMC Reader */ = {
 			isa = PBXGroup;
 			children = (
+				D0EEADED16FA770C00DBAC4C /* RTLabel */,
+				D0EEADE516FA76DF00DBAC4C /* PopoverView */,
 				D0ED8FC1165B1F8F0081E81E /* RaptureXML */,
 				D0F41E37163C90620078DF2A /* MCSegmentedControl */,
 				D0F600561639A82000ADBC38 /* ViewDeck */,
@@ -286,6 +302,8 @@
 				D036328816684C77000D3C0B /* PHDownloader.m */,
 				D036328F166961F2000D3C0B /* PHArticle.h */,
 				D0363290166961F3000D3C0B /* PHArticle.m */,
+				D0EEADE216FA29C900DBAC4C /* PHArticleReference.h */,
+				D0EEADE316FA29C900DBAC4C /* PHArticleReference.m */,
 				D0D3999A16C06FB800EA2497 /* PHArticleNavigationItem.h */,
 				D0D3999B16C06FB800EA2497 /* PHArticleNavigationItem.m */,
 				D0D3999D16C1B5B600EA2497 /* PHArticleNavigationControllerViewController.h */,
@@ -421,6 +439,26 @@
 			name = RaptureXML;
 			path = RaptureXML/RaptureXML;
 			sourceTree = SOURCE_ROOT;
+		};
+		D0EEADE516FA76DF00DBAC4C /* PopoverView */ = {
+			isa = PBXGroup;
+			children = (
+				D0EEADE616FA76DF00DBAC4C /* PopoverView.h */,
+				D0EEADE716FA76DF00DBAC4C /* PopoverView.m */,
+				D0EEADE816FA76DF00DBAC4C /* PopoverView_Configuration.h */,
+			);
+			name = PopoverView;
+			path = PopoverView/PopoverView;
+			sourceTree = SOURCE_ROOT;
+		};
+		D0EEADED16FA770C00DBAC4C /* RTLabel */ = {
+			isa = PBXGroup;
+			children = (
+				D0EEADEA16FA76FF00DBAC4C /* RTLabel.h */,
+				D0EEADEB16FA770000DBAC4C /* RTLabel.m */,
+			);
+			name = RTLabel;
+			sourceTree = "<group>";
 		};
 		D0F41E37163C90620078DF2A /* MCSegmentedControl */ = {
 			isa = PBXGroup;
@@ -592,6 +630,9 @@
 				D0D3999C16C06FB800EA2497 /* PHArticleNavigationItem.m in Sources */,
 				D0D3999F16C1B5B600EA2497 /* PHArticleNavigationControllerViewController.m in Sources */,
 				D0F4141316C710690033C1E9 /* IISideController.m in Sources */,
+				D0EEADE416FA29C900DBAC4C /* PHArticleReference.m in Sources */,
+				D0EEADE916FA76DF00DBAC4C /* PopoverView.m in Sources */,
+				D0EEADEC16FA770000DBAC4C /* RTLabel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

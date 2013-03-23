@@ -10,11 +10,15 @@
 #import "IIViewDeckController.h"
 #import "PHArticle.h"
 #import "PHArticleNavigationItem.h"
+#import "PHArticleReference.h"
 
 #define TITLE_LABEL_WIDTH_LANDSCAPE 700
 #define TITLE_LABEL_WIDTH_PORTRAIT 450
 
-@interface PHDetailViewController ()
+@interface PHDetailViewController () {
+    PopoverView *popover;
+    CGPoint currentTapLocation;
+}
 
 @property (strong, nonatomic) UIPopoverController *prefPopoverController;
 @property (strong, nonatomic) PHPrefViewController *prefViewController;
@@ -66,6 +70,10 @@
         [self.articleView addGestureRecognizer:gesture];
         gesture.delegate = self;
 
+        UITapGestureRecognizer *tapLocationGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(updateTapLocation:)];
+        tapLocationGesture.numberOfTapsRequired = 1;
+        [self.articleView addGestureRecognizer:tapLocationGesture];
+        tapLocationGesture.delegate = self;
         
         //self.detailDescriptionLabel.text = [self.detailItem objectAtIndex:0];
         NSFileManager *fm = [NSFileManager defaultManager];
@@ -91,6 +99,7 @@
     [[self navigationItem] setTitle:@""];
     [self updateToolbar];
     [self configureView];
+    currentTapLocation = CGPointMake(350, 100);
 }
 
 - (void)viewDidUnload
@@ -137,6 +146,12 @@
         newRect.size.width = TITLE_LABEL_WIDTH_PORTRAIT;
     }
     self.titleLabel.frame = newRect;
+}
+
+- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+    if (popover) {
+        [popover dismiss:NO];
+    }
 }
 
 #pragma mark - Actions
@@ -228,6 +243,10 @@
     return CGRectMake(0.0, 0.0, width, height);
 }
 
+- (void) updateTapLocation:(UIGestureRecognizer *)gestureRecognizer {
+    currentTapLocation = [gestureRecognizer locationInView:self.articleView];
+}
+
 - (void)viewDeckController:(IIViewDeckController*)viewDeckController willOpenViewSide:(IIViewDeckSide)viewDeckSide animated:(BOOL)animated {
     if (viewDeckSide == IIViewDeckLeftSide) {
         if (self.navigationController.navigationBarHidden) {
@@ -256,9 +275,33 @@
         if ([request.URL.scheme isEqualToString:@"http"]) {
             NSRange range = [request.URL.absoluteString rangeOfString:@"#"];
             if (range.location != NSNotFound) {
-                NSMutableString* frag = [[NSMutableString alloc] initWithString:@"#"];
-                NSURL *url = [NSURL URLWithString:[frag stringByAppendingString:[request.URL fragment]] relativeToURL:self.articleView.request.URL];
-                [[self articleView] loadRequest:[NSURLRequest requestWithURL:url]];
+                PHArticle *detail = (PHArticle *) self.detailItem;
+                if (detail.references.count > 0) {
+                    [detail.references enumerateObjectsUsingBlock:^(PHArticleReference *ref, NSUInteger idx, BOOL *stop) {
+                        if ([ref.idAttribute isEqualToString:[request.URL fragment]]) {
+                            NSMutableString* frag = [[NSMutableString alloc] initWithString:@"#"];
+                            NSURL *url = [NSURL URLWithString:[frag stringByAppendingString:[request.URL fragment]] relativeToURL:self.articleView.request.URL];
+                            NSString *labelText = [NSString stringWithFormat:@" [<a href='%@'>Ref List</a>]", [url absoluteString]];
+                            labelText = [ref.text stringByAppendingString:labelText];
+                            
+                            RTLabel *label = [[RTLabel alloc] initWithFrame:CGRectMake(0, 0, 350, 500)];
+                            label.delegate = self;
+                            label.text = labelText;
+                            CGSize opt = [label optimumSize];
+                            CGRect frame = [label frame];
+                            frame.size.height = (int)opt.height+5;
+                            [label setFrame:frame];
+
+                            popover = [PopoverView showPopoverAtPoint:currentTapLocation inView:self.articleView withContentView:label delegate:self];
+                            NSLog(@"Visible: %@", label.visibleText);
+                            *stop = YES;
+                        }
+                    }];
+                } else {
+                     NSMutableString* frag = [[NSMutableString alloc] initWithString:@"#"];
+                     NSURL *url = [NSURL URLWithString:[frag stringByAppendingString:[request.URL fragment]] relativeToURL:self.articleView.request.URL];
+                     [[self articleView] loadRequest:[NSURLRequest requestWithURL:url]];
+                }
                 return NO;
             }
         }
@@ -282,6 +325,17 @@
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
 	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     [self updateToolbar];
+}
+
+- (void)rtLabel:(id)rtLabel didSelectLinkWithURL:(NSURL*)url {
+    if (popover) {
+        [popover dismiss:NO];
+    }
+    [[self articleView] loadRequest:[NSURLRequest requestWithURL:url]];
+}
+
+- (void)popoverViewDidDismiss:(PopoverView *)popoverView {
+    popover = nil;
 }
 
 -(void) settingsChanged:(NSString *)setting newValue:(NSUInteger)value {
