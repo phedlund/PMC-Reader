@@ -277,6 +277,7 @@
             if (range.location != NSNotFound) {
                 PHArticle *detail = (PHArticle *) self.detailItem;
                 if (detail.references.count > 0) {
+                    __block BOOL refFound = NO;
                     [detail.references enumerateObjectsUsingBlock:^(PHArticleReference *ref, NSUInteger idx, BOOL *stop) {
                         if ([ref.idAttribute isEqualToString:[request.URL fragment]]) {
                             NSMutableString* frag = [[NSMutableString alloc] initWithString:@"#"];
@@ -293,10 +294,16 @@
                             [label setFrame:frame];
 
                             popover = [PopoverView showPopoverAtPoint:currentTapLocation inView:self.articleView withContentView:label delegate:self];
-                            NSLog(@"Visible: %@", label.visibleText);
+                            //NSLog(@"Visible: %@", label.visibleText);
+                            refFound = YES;
                             *stop = YES;
                         }
                     }];
+                    if (!refFound) {
+                        NSMutableString* frag = [[NSMutableString alloc] initWithString:@"#"];
+                        NSURL *url = [NSURL URLWithString:[frag stringByAppendingString:[request.URL fragment]] relativeToURL:self.articleView.request.URL];
+                        [[self articleView] loadRequest:[NSURLRequest requestWithURL:url]];
+                    }
                 } else {
                      NSMutableString* frag = [[NSMutableString alloc] initWithString:@"#"];
                      NSURL *url = [NSURL URLWithString:[frag stringByAppendingString:[request.URL fragment]] relativeToURL:self.articleView.request.URL];
