@@ -10,7 +10,7 @@
 #import "PHDetailViewController.h"
 #import "PHDownloader.h"
 
-@interface PHMasterViewController : UIViewController <UITableViewDataSource, UIAlertViewDelegate, PHDownloaderDelegate, UISearchBarDelegate>
+@interface PHMasterViewController : UIViewController <UITableViewDataSource, UIAlertViewDelegate, PHDownloaderDelegate, UISearchBarDelegate, UIGestureRecognizerDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) PHDetailViewController *detailViewController;
@@ -24,5 +24,6 @@
 
 - (IBAction) doEdit:(id)sender;
 - (IBAction) doAdd:(id)sender;
+- (IBAction) doRedownload:(id)sender;
 
 @end

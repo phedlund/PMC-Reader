@@ -17,7 +17,7 @@ static NSString * const kBaseUrl = @"http://www.ncbi.nlm.nih.gov";
 static NSString * const kArticleUrlSuffix = @"pmc/articles/";
 
 @interface PHMasterViewController() {
-    //NSMutableArray *_objects;
+    NSIndexPath *_indexPathToDownload;
 }
 
 - (void) downloadArticles:(NSNotification*)n;
@@ -139,6 +139,12 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
     self.isFiltered = NO;
     self.searchBar.delegate = self;
 
+    UILongPressGestureRecognizer *lpgr = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
+    lpgr.minimumPressDuration = 1.0; //seconds
+    lpgr.delegate = self;
+    [self.tableView addGestureRecognizer:lpgr];
+    _indexPathToDownload = nil;
+    
     UIBarButtonItem *fixedSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
     fixedSpace.width = 5.0f;
     UIBarButtonItem *flexibleSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
@@ -177,6 +183,45 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
     return YES;
 }
 
+- (void) handleLongPress:(UILongPressGestureRecognizer *) gestureRecognizer {
+    if ([gestureRecognizer state] == UIGestureRecognizerStateBegan) {
+        [self becomeFirstResponder];
+        CGPoint p = [gestureRecognizer locationInView:self.tableView];
+        NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:p];
+        UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+        if (indexPath) {
+            _indexPathToDownload = indexPath;
+            UIMenuItem *reDownloadCommand = [[UIMenuItem alloc] initWithTitle:@"Download Again" action:@selector(doRedownload:)];
+            NSArray *menuItems = @[reDownloadCommand];
+            CGRect rect = cell.frame;
+            UIMenuController *menu = [UIMenuController sharedMenuController];
+            [menu setMenuItems:menuItems];
+            [menu setTargetRect:rect inView:gestureRecognizer.view];
+            [menu setMenuVisible:YES animated:YES];
+        }
+    }
+}
+
+- (BOOL)canBecomeFirstResponder {
+    return YES;
+}
+
+- (BOOL)canPerformAction:(SEL)action withSender:(id)sender {
+    return (action == @selector(doRedownload:));
+}
+
+- (IBAction)doRedownload:(id)sender {
+    NSFileManager *fm = [NSFileManager defaultManager];
+    NSArray *paths = [fm URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask];
+    NSURL *docDir = [paths objectAtIndex:0];
+    PHArticle *article = (PHArticle*)[self.articles objectAtIndex:_indexPathToDownload.row];
+    docDir = [docDir URLByAppendingPathComponent:article.pmcId isDirectory:YES];
+    [fm removeItemAtURL:docDir error:nil];
+
+    PHDownloader *downloader = [[PHDownloader alloc] initWithPMCId:article indexPath:_indexPathToDownload delegate:self];
+    NSOperationQueue *queue  = [[NSOperationQueue alloc] init];
+    [queue addOperation:downloader];
+}
 
 - (IBAction)doAdd:(id)sender {
     [self performSegueWithIdentifier:@"search" sender:self.addBarButtonItem];
