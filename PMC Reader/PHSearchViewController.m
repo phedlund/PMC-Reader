@@ -280,7 +280,7 @@ static int const kRetMax = 20;
             _webEnv = [rootXML child:@"WebEnv"].text;
             _searchCount = [[rootXML child:@"Count"].text intValue];
             if (_searchCount > 0) {
-                _retStart = 1;
+                _retStart = [[rootXML child:@"RetStart"].text intValue];
                 [self retrieveSummaries];
             } else {
                 NSLog(@"Nothing was found.");
