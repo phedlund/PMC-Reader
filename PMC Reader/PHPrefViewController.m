@@ -3,7 +3,7 @@
 //  PMC Reader
 //
 //  Created by Peter Hedlund on 8/2/12.
-//  Copyright (c) 2012 Peter Hedlund. All rights reserved.
+//  Copyright (c) 2012-2013 Peter Hedlund. All rights reserved.
 //
 
 #import "PHPrefViewController.h"
@@ -27,6 +27,7 @@
 @synthesize fontSizeSegmented;
 @synthesize lineHeightSegmented;
 @synthesize marginSegmented;
+@synthesize paginationSegmented;
 @synthesize tableView;
 @synthesize fonts;
 @synthesize delegate = _delegate;
@@ -49,7 +50,7 @@
     self.fonts = [prefs arrayForKey:@"Fonts"];
 
     //Did not work putting on storyboard
-    CGRect tableViewFrame = CGRectMake(20, 20, 200, 223);
+    CGRect tableViewFrame = CGRectMake(20, 20, 200, 283);
     self.tableView = [[UITableView alloc] initWithFrame:tableViewFrame style:UITableViewStylePlain];
     self.tableView.layer.borderWidth = 0.75;
     self.tableView.layer.borderColor = [UIColor darkGrayColor].CGColor;
@@ -65,6 +66,7 @@
     [super viewWillAppear:animated];
     [self.tableView reloadData];
 }
+
 - (void)viewDidUnload
 {
     [self setBackgroundSegmented:nil];
@@ -72,6 +74,7 @@
     [self setLineHeightSegmented:nil];
     [self setMarginSegmented:nil];
     [self setTableView:nil];
+    [self setPaginationSegmented:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
@@ -91,6 +94,12 @@
     NSString *setting = nil;
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
 	//int newSize = 0;
+    if (seg == paginationSegmented) {
+        //NSLog(@"BG: %d", newValue);
+        setting = @"Paginate";
+        [prefs setInteger:newValue forKey:setting];
+    }
+    
     if (seg == backgroundSegmented) {
         //NSLog(@"BG: %d", newValue);
         setting = @"Background";

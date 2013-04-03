@@ -3,7 +3,7 @@
 //  PMC Reader
 //
 //  Created by Peter Hedlund on 7/25/12.
-//  Copyright (c) 2012 Peter Hedlund. All rights reserved.
+//  Copyright (c) 2012-2013 Peter Hedlund. All rights reserved.
 //
 
 #import "PHDetailViewController.h"
@@ -11,6 +11,7 @@
 #import "PHArticle.h"
 #import "PHArticleNavigationItem.h"
 #import "PHArticleReference.h"
+#import "TransparentToolbar.h"
 
 #define TITLE_LABEL_WIDTH_LANDSCAPE 700
 #define TITLE_LABEL_WIDTH_PORTRAIT 450
@@ -18,12 +19,20 @@
 @interface PHDetailViewController () {
     PopoverView *popover;
     CGPoint currentTapLocation;
+    int _pageCount;
+    int _currentPage;
 }
 
 @property (strong, nonatomic) UIPopoverController *prefPopoverController;
 @property (strong, nonatomic) PHPrefViewController *prefViewController;
+@property (nonatomic, strong, readonly) UITapGestureRecognizer *pageTapRecognizer;
 
-- (void)configureView;
+- (void) configureView;
+- (void) updatePagination;
+- (BOOL) shouldPaginate;
+- (void) gotoPage:(int)page;
+- (UIColor *)colorFromHexString:(NSString *)hexString;
+- (void) updateBackgrounds;
 
 @end
 
@@ -36,6 +45,8 @@
 @synthesize backBarButtonItem, forwardBarButtonItem, refreshBarButtonItem, stopBarButtonItem, leftToolbar;
 @synthesize infoBarButtonItem, prefsBarButtonItem, navBarButtonItem;
 @synthesize articleNavigationController, articleNavigationPopover;
+@synthesize pageTapRecognizer;
+@synthesize pageNumberBar;
 
 #pragma mark - Managing the detail item
 
@@ -54,16 +65,19 @@
     // Update the user interface for the detail item.
 
     if (self.detailItem) {
+        [self updatePagination];
         if ([self articleView] != nil) {
             [[self articleView] removeFromSuperview];
             [self articleView].delegate =nil;
             self.articleView = nil;
         }
-        self.articleView = [[UIWebView alloc]initWithFrame:[self view].bounds];
+        self.articleView = [[UIWebView alloc] initWithFrame:[self articleRect]];
         self.articleView.scalesPageToFit = YES;
         self.articleView.delegate = self;
         self.articleView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-        [[self view] addSubview:self.articleView];
+        self.articleView.alpha = 0;
+        [self.view insertSubview:self.articleView belowSubview:self.pageBarContainerView];
+        
         
         UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(toggleNavBar:)];
         gesture.numberOfTapsRequired = 2;
@@ -74,6 +88,10 @@
         tapLocationGesture.numberOfTapsRequired = 1;
         [self.articleView addGestureRecognizer:tapLocationGesture];
         tapLocationGesture.delegate = self;
+
+        _currentPage = 0;
+        self.pageNumberLabel.text = @"";
+        
         
         //self.detailDescriptionLabel.text = [self.detailItem objectAtIndex:0];
         NSFileManager *fm = [NSFileManager defaultManager];
@@ -86,25 +104,35 @@
         [request setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
         //[[self articleView] loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"about:blank"]]];
         [[self articleView] loadRequest:request];
+        [self updateBackgrounds];
         //[[self navigationItem] setTitle:[detail objectForKey:@"Title"]];
         [self.titleLabel setText:detail.title];
+        [self.titleLabel2 setText:detail.title];
     }
+    
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    self.wantsFullScreenLayout = YES;
     self.viewDeckController.delegate = self;
     [[self navigationItem] setTitle:@""];
     [self updateToolbar];
     [self configureView];
     currentTapLocation = CGPointMake(350, 100);
+    self.titleLabel2.text = @"";
+    self.pageNumberLabel.text = @"";
 }
 
 - (void)viewDidUnload
 {
     [self setArticleView:nil];
+    [self setPageBarContainerView:nil];
+    [self setTopContainerView:nil];
+    [self setPageNumberLabel:nil];
+    [self setTitleLabel2:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
@@ -112,13 +140,17 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     CGRect newRect = self.titleLabel.frame;
+    CGRect newRect2 = self.titleLabel2.frame;
     if (([UIApplication sharedApplication].statusBarOrientation == UIDeviceOrientationLandscapeLeft) ||
         ([UIApplication sharedApplication].statusBarOrientation == UIDeviceOrientationLandscapeRight)) {
         newRect.size.width = TITLE_LABEL_WIDTH_LANDSCAPE;
+        newRect2.size.width = TITLE_LABEL_WIDTH_LANDSCAPE;
     } else {
         newRect.size.width = TITLE_LABEL_WIDTH_PORTRAIT;
+        newRect2.size.width = TITLE_LABEL_WIDTH_PORTRAIT;
     }
     self.titleLabel.frame = newRect;
+    self.titleLabel2.frame = newRect2;
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -146,6 +178,11 @@
         newRect.size.width = TITLE_LABEL_WIDTH_PORTRAIT;
     }
     self.titleLabel.frame = newRect;
+    if ([self shouldPaginate]) {
+        if (self.articleView != nil) {
+            [self.articleView reload];
+        }
+    }
 }
 
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
@@ -215,16 +252,25 @@
 }
 
 - (void)toggleNavBar:(UITapGestureRecognizer *)gesture {
-    if (self.navigationController.navigationBarHidden) {
-        [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationSlide];
-        self.navigationController.navigationBarHidden = NO;
-        self.viewDeckController.leftController.view.frame = [self orientationRect];
-    } else {
-        [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationSlide];
-        self.navigationController.navigationBarHidden = YES;
-
-        CGRect r = [self orientationRect];
-        self.viewDeckController.leftController.view.frame = CGRectMake(r.origin.x, r.origin.y, r.size.width, r.size.height + 20.0);
+    CGPoint loc = [gesture locationInView:self.articleView];
+    double w = self.articleView.frame.size.width;
+    if ((loc.x > 150) && (loc.x < (w - 150))) {
+        if (self.navigationController.navigationBarHidden) {
+            [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationSlide];
+            self.navigationController.navigationBarHidden = NO;
+            self.viewDeckController.leftController.view.frame = [self orientationRect];
+            self.pageNumberBar.hidden = NO;
+            self.pageNumberLabel.alpha = 1.0f;
+            self.titleLabel2.hidden = YES;
+        } else {
+            [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationSlide];
+            self.navigationController.navigationBarHidden = YES;
+            self.pageNumberBar.hidden = YES;
+            self.pageNumberLabel.alpha = 0.5f;
+            CGRect r = [self orientationRect];
+            self.viewDeckController.leftController.view.frame = CGRectMake(r.origin.x, r.origin.y, r.size.width, r.size.height + 20.0);
+            self.titleLabel2.hidden = NO;
+        }
     }
 }
 
@@ -241,6 +287,24 @@
         height = screen.height;
     }
     return CGRectMake(0.0, 0.0, width, height);
+}
+
+- (CGRect)articleRect {
+    if (([UIApplication sharedApplication].statusBarOrientation == UIDeviceOrientationLandscapeLeft) ||
+        ([UIApplication sharedApplication].statusBarOrientation == UIDeviceOrientationLandscapeRight)) {
+        return CGRectMake(0, 84, 1024, 600);
+    } else {
+        return CGRectMake(0, 84, 768, 846);
+    }
+}
+
+- (CGRect)pageNumberBarRect {
+    if (([UIApplication sharedApplication].statusBarOrientation == UIDeviceOrientationLandscapeLeft) ||
+        ([UIApplication sharedApplication].statusBarOrientation == UIDeviceOrientationLandscapeRight)) {
+        return CGRectMake(188, 20, 648, 30);
+    } else {
+        return CGRectMake(60, 20, 648, 30);
+    }
 }
 
 - (void) updateTapLocation:(UIGestureRecognizer *)gestureRecognizer {
@@ -326,6 +390,12 @@
 	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     
     self.titleLabel.text = [webView stringByEvaluatingJavaScriptFromString:@"document.title"];
+    self.titleLabel2.text = [webView stringByEvaluatingJavaScriptFromString:@"document.title"];
+    [self updatePagination];
+    [UIView animateWithDuration:0.30 animations:^{
+        webView.alpha = 1;
+    }];
+    
     [self updateToolbar];
 }
 
@@ -347,9 +417,31 @@
 
 -(void) settingsChanged:(NSString *)setting newValue:(NSUInteger)value {
     NSLog(@"New Setting: %@ with value %d", setting, value);
+    [self updateBackgrounds];
     [self writeCssTemplate];
+    [self updatePagination];
     if ([self articleView] != nil) {
         [self.articleView reload];
+    }
+}
+
+- (void)updateBackgrounds {
+    NSArray *backgrounds = [[NSUserDefaults standardUserDefaults] arrayForKey:@"Backgrounds"];
+    //NSLog(@"Backgrounds: %@", backgrounds);
+    int backgroundIndex =[[NSUserDefaults standardUserDefaults] integerForKey:@"Background"];
+    //NSLog(@"BackgroundIndex: %d", backgroundIndex);
+    NSString *background = [backgrounds objectAtIndex:backgroundIndex];
+    //NSLog(@"Background: %@", background);
+    UIColor *bgColor = [self colorFromHexString:background];
+    self.view.backgroundColor = bgColor;
+    self.topContainerView.backgroundColor = bgColor;
+    self.pageBarContainerView.backgroundColor = bgColor;
+    if ([self shouldPaginate]) {
+        self.articleView.opaque = NO;
+        self.articleView.backgroundColor = [UIColor clearColor];
+    } else {
+        self.articleView.opaque = YES;
+        self.articleView.backgroundColor = [UIColor scrollViewTexturedBackgroundColor];
     }
 }
 
@@ -397,6 +489,60 @@
     [cssTemplate writeToURL:[docDir URLByAppendingPathComponent:@"pmc.css"] atomically:YES encoding:NSUTF8StringEncoding error:nil];
 }
 
+- (void)updateCSS {
+    NSString *varMySheet = @"var mySheet = document.styleSheets[0];";
+    
+    NSString *addCSSRule =  @"function addCSSRule(selector, newRule) {"
+    "if (mySheet.addRule) {"
+    "mySheet.addRule(selector, newRule);"								// For Internet Explorer
+    "} else {"
+    "ruleIndex = mySheet.cssRules.length;"
+    "mySheet.insertRule(selector + '{' + newRule + ';}', ruleIndex);"   // For Firefox, Chrome, etc.
+    "}"
+    "}";
+    
+    NSString *insertRule1 = [NSString stringWithFormat:@"addCSSRule('html', 'padding: 0px; height: %fpx; -webkit-column-gap: 0px; -webkit-column-width: %fpx;')", [self articleRect].size.height, [self articleRect].size.width];
+    //NSString *insertRule2 = [NSString stringWithFormat:@"addCSSRule('p', 'text-align: justify;')"];
+    NSString *setTextSizeRule = [NSString stringWithFormat:@"addCSSRule('body', '-webkit-text-size-adjust: %d%%;')", 100];
+    NSString *setHighlightColorRule = [NSString stringWithFormat:@"addCSSRule('highlight', 'background-color: yellow;')"];
+    
+    [self.articleView stringByEvaluatingJavaScriptFromString:varMySheet];
+    
+    [self.articleView stringByEvaluatingJavaScriptFromString:addCSSRule];
+    
+    [self.articleView stringByEvaluatingJavaScriptFromString:insertRule1];
+    
+    //[webView stringByEvaluatingJavaScriptFromString:insertRule2];
+    
+    [self.articleView stringByEvaluatingJavaScriptFromString:setTextSizeRule];
+    
+    [self.articleView stringByEvaluatingJavaScriptFromString:setHighlightColorRule];
+    
+    //if(currentSearchResult!=nil){
+    //	NSLog(@"Highlighting %@", currentSearchResult.originatingQuery);
+    //    [webView highlightAllOccurencesOfString:currentSearchResult.originatingQuery];
+    //}
+    
+    
+    int totalWidth = [[self.articleView stringByEvaluatingJavaScriptFromString:@"document.documentElement.scrollWidth"] intValue];
+    int oldPageCount = _pageCount;
+    _pageCount = (int)((float)totalWidth/self.articleView.bounds.size.width);
+    float ratio = (float)_pageCount/(float)oldPageCount;
+    _currentPage = (int)(_currentPage * ratio);
+    self.pageNumberBar.maximumValue = _pageCount - 1;
+    self.pageNumberLabel.text = [NSString stringWithFormat:@"%d/%d",_currentPage + 1, _pageCount];
+    [self gotoPage:_currentPage];
+}
+
+// Assumes input like "#00FF00" (#RRGGBB).
+- (UIColor *)colorFromHexString:(NSString *)hexString {
+    unsigned rgbValue = 0;
+    NSScanner *scanner = [NSScanner scannerWithString:hexString];
+    [scanner setScanLocation:1]; // bypass '#' character
+    [scanner scanHexInt:&rgbValue];
+    return [UIColor colorWithRed:((rgbValue & 0xFF0000) >> 16)/255.0 green:((rgbValue & 0xFF00) >> 8)/255.0 blue:(rgbValue & 0xFF)/255.0 alpha:1.0];
+}
+
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     PHArticle *detail = (PHArticle *) self.detailItem;
     
@@ -418,6 +564,127 @@
         }
         default:
             break;
+    }
+}
+
+#pragma mark - Page navigation
+
+- (UITapGestureRecognizer *) pageTapRecognizer {
+    if (!pageTapRecognizer) {
+        pageTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
+        pageTapRecognizer.numberOfTapsRequired = 1;
+        //tapZoneRecognizer.minimumPressDuration = 0.15f;
+        pageTapRecognizer.delegate = self;
+        //[tapZoneRecognizer requireGestureRecognizerToFail:self.tapZoneRecognizer2];
+    }
+    return pageTapRecognizer;
+}
+
+- (void)handleTap:(UITapGestureRecognizer *)gesture {
+    if (gesture.state == UIGestureRecognizerStateEnded) {
+        CGPoint loc = [gesture locationInView:self.articleView];
+        double w = self.articleView.frame.size.width;
+        if (loc.x < 150) {
+            [self gotoPage:--_currentPage];
+        }
+        if (loc.x > (w - 150)) {
+            [self gotoPage:++_currentPage];
+        }
+    }
+}
+
+- (void) gotoPage:(int)page {
+    if (page < 0) {
+        _currentPage = 0;
+        return;
+    }
+    if (page > (_pageCount - 1)) {
+        _currentPage = _pageCount - 1;
+        return;
+    }
+    
+    _currentPage = page;
+    float pageOffset = _currentPage * self.articleView.bounds.size.width;
+    [self.articleView.scrollView setContentOffset:CGPointMake(pageOffset, 0.0f) animated:YES];
+
+    self.pageNumberBar.value = _currentPage;
+	self.pageNumberLabel.text = [NSString stringWithFormat:@"%d/%d", _currentPage + 1, _pageCount];
+}
+
+- (SCPageScrubberBar *)pageNumberBar
+{
+    if (pageNumberBar == nil) {
+        pageNumberBar = [[SCPageScrubberBar alloc] initWithFrame:[self pageNumberBarRect]];
+        pageNumberBar.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
+        pageNumberBar.delegate = self;
+        pageNumberBar.minimumValue = 0;
+        pageNumberBar.maximumValue = 100;
+        pageNumberBar.isPopoverMode = YES;
+        pageNumberBar.alwaysShowTitleView = NO;
+    }
+    return pageNumberBar;
+}
+
+- (NSString*)scrubberBar:(SCPageScrubberBar*)scrubberBar titleTextForValue:(CGFloat)value {
+    //NSInteger current = (int)value + 1;
+    //return [NSString stringWithFormat:@"Page %d", current];
+    return nil;
+}
+
+- (NSString *)scrubberBar:(SCPageScrubberBar *)scrubberBar subtitleTextForValue:(CGFloat)value {
+    NSInteger current = (int)value + 1;
+    return [NSString stringWithFormat:@"Page %d", current];
+    //return @"";
+}
+
+- (void)scrubberBar:(SCPageScrubberBar*)scrubberBar valueSelected:(CGFloat)value {
+    [self gotoPage:(int)value];
+}
+
+- (BOOL)shouldPaginate {
+    if ([[NSUserDefaults standardUserDefaults] integerForKey:@"Paginate"] == 1) {
+        PHArticle *detail = (PHArticle *) self.detailItem;
+        NSURL *url = self.articleView.request.URL;
+        if ([[url absoluteString] hasSuffix:[NSString stringWithFormat:@"Documents/%@/text.html", detail.pmcId]]) {
+            return YES;
+        }
+    }
+    return NO;
+}
+
+- (void)updatePagination {
+    if ([self shouldPaginate]) {
+        if (self.articleView) {
+            self.articleView.scrollView.scrollEnabled = NO;
+            self.articleView.scrollView.bounces = NO;
+            [self.articleView addGestureRecognizer:self.pageTapRecognizer];
+            self.pageNumberBar.hidden = NO;
+            self.titleLabel2.hidden = NO;
+            self.articleView.frame = [self articleRect];
+            [self updateCSS];
+        } else {
+            self.pageNumberBar.hidden = YES;
+            self.titleLabel2.hidden = YES;
+        }
+        self.pageBarContainerView.hidden = NO;
+        [self.pageBarContainerView addSubview:self.pageNumberBar];
+        self.pageNumberBar.frame = [self pageNumberBarRect];
+        self.topContainerView.hidden = NO;
+        self.navigationController.navigationBar.autoresizesSubviews = NO;
+        self.navigationController.navigationBar.translucent = YES;
+    } else {
+        if (self.articleView) {
+            self.articleView.scrollView.scrollEnabled = YES;
+            self.articleView.scrollView.bounces = YES;
+            [self.articleView removeGestureRecognizer:self.pageTapRecognizer];
+            [self.articleView setFrame:self.view.frame];
+        }
+        self.pageBarContainerView.hidden = YES;
+        [self.pageNumberBar removeFromSuperview];
+        self.topContainerView.hidden = YES;
+        
+        self.navigationController.navigationBar.autoresizesSubviews = YES;
+        self.navigationController.navigationBar.translucent = NO;
     }
 }
 
@@ -501,7 +768,7 @@
 
 - (UIToolbar *) leftToolbar {
     if (!leftToolbar) {
-        leftToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 125.0f, 44.0f)];
+        leftToolbar = [[TransparentToolbar alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 125.0f, 44.0f)];
         UIBarButtonItem *fixedSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
         fixedSpace.width = 5.0f;
 
@@ -575,7 +842,7 @@
                            fixedSpace,
                            nil];
     
-    UIToolbar *toolbarRight = [[UIToolbar alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 125, 44.0f)];
+    TransparentToolbar *toolbarRight = [[TransparentToolbar alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 125, 44.0f)];
     toolbarRight.items = itemsRight;
     toolbarRight.tintColor = self.navigationController.navigationBar.tintColor;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:toolbarRight];

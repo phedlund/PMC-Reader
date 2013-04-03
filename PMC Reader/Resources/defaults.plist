@@ -1,4 +1,5 @@
 {
+	Paginate = 0;
 	Fonts = (
 		Arial,
 		"DejaVu Sans",

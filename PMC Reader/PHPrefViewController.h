@@ -3,7 +3,7 @@
 //  PMC Reader
 //
 //  Created by Peter Hedlund on 8/2/12.
-//  Copyright (c) 2012 Peter Hedlund. All rights reserved.
+//  Copyright (c) 2012-2013 Peter Hedlund. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
@@ -15,6 +15,7 @@
 
 @interface PHPrefViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
 
+@property (strong, nonatomic) IBOutlet MCSegmentedControl *paginationSegmented;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *backgroundSegmented;
 @property (weak, nonatomic) IBOutlet MCSegmentedControl *fontSizeSegmented;
 @property (weak, nonatomic) IBOutlet MCSegmentedControl *lineHeightSegmented;

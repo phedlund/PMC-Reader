@@ -66,6 +66,14 @@
 		D0EEADE916FA76DF00DBAC4C /* PopoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = D0EEADE716FA76DF00DBAC4C /* PopoverView.m */; };
 		D0EEADEC16FA770000DBAC4C /* RTLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = D0EEADEB16FA770000DBAC4C /* RTLabel.m */; };
 		D0EEADEF16FA79D900DBAC4C /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0EEADEE16FA79D900DBAC4C /* CoreText.framework */; };
+		D0EEAE021704C1B500DBAC4C /* SCCalloutView.m in Sources */ = {isa = PBXBuildFile; fileRef = D0EEADFE1704C1B500DBAC4C /* SCCalloutView.m */; };
+		D0EEAE031704C1B500DBAC4C /* SCPageScrubberBar.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D0EEADFF1704C1B500DBAC4C /* SCPageScrubberBar.bundle */; };
+		D0EEAE041704C1B500DBAC4C /* SCPageScrubberBar.m in Sources */ = {isa = PBXBuildFile; fileRef = D0EEAE011704C1B500DBAC4C /* SCPageScrubberBar.m */; };
+		D0EEAE071708F5AD00DBAC4C /* TransparentToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = D0EEAE061708F5AC00DBAC4C /* TransparentToolbar.m */; };
+		D0EEAE0D170A1F8100DBAC4C /* paginate1.png in Resources */ = {isa = PBXBuildFile; fileRef = D0EEAE09170A1F7F00DBAC4C /* paginate1.png */; };
+		D0EEAE0E170A1F8100DBAC4C /* paginate1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D0EEAE0A170A1F8000DBAC4C /* paginate1@2x.png */; };
+		D0EEAE0F170A1F8100DBAC4C /* paginate2.png in Resources */ = {isa = PBXBuildFile; fileRef = D0EEAE0B170A1F8000DBAC4C /* paginate2.png */; };
+		D0EEAE10170A1F8100DBAC4C /* paginate2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D0EEAE0C170A1F8000DBAC4C /* paginate2@2x.png */; };
 		D0EF085615D2FB2C005689E1 /* pmc_template.css in Resources */ = {isa = PBXBuildFile; fileRef = D0EF085515D2FB2C005689E1 /* pmc_template.css */; };
 		D0EF086B15D31306005689E1 /* defaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = D0EF086A15D31306005689E1 /* defaults.plist */; };
 		D0EFC98415D4915100C26580 /* fontsizel.png in Resources */ = {isa = PBXBuildFile; fileRef = D0EFC97E15D4914F00C26580 /* fontsizel.png */; };
@@ -183,6 +191,17 @@
 		D0EEADEA16FA76FF00DBAC4C /* RTLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RTLabel.h; path = RTLabel/RTLabelProject/Classes/RTLabel.h; sourceTree = SOURCE_ROOT; };
 		D0EEADEB16FA770000DBAC4C /* RTLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RTLabel.m; path = RTLabel/RTLabelProject/Classes/RTLabel.m; sourceTree = SOURCE_ROOT; };
 		D0EEADEE16FA79D900DBAC4C /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
+		D0EEADFD1704C1B500DBAC4C /* SCCalloutView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCCalloutView.h; path = SCPageScrubberBar/SCPageScrubberBar/SCCalloutView.h; sourceTree = SOURCE_ROOT; };
+		D0EEADFE1704C1B500DBAC4C /* SCCalloutView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCCalloutView.m; path = SCPageScrubberBar/SCPageScrubberBar/SCCalloutView.m; sourceTree = SOURCE_ROOT; };
+		D0EEADFF1704C1B500DBAC4C /* SCPageScrubberBar.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = SCPageScrubberBar.bundle; path = SCPageScrubberBar/SCPageScrubberBar/SCPageScrubberBar.bundle; sourceTree = SOURCE_ROOT; };
+		D0EEAE001704C1B500DBAC4C /* SCPageScrubberBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCPageScrubberBar.h; path = SCPageScrubberBar/SCPageScrubberBar/SCPageScrubberBar.h; sourceTree = SOURCE_ROOT; };
+		D0EEAE011704C1B500DBAC4C /* SCPageScrubberBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCPageScrubberBar.m; path = SCPageScrubberBar/SCPageScrubberBar/SCPageScrubberBar.m; sourceTree = SOURCE_ROOT; };
+		D0EEAE051708F5AC00DBAC4C /* TransparentToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransparentToolbar.h; sourceTree = "<group>"; };
+		D0EEAE061708F5AC00DBAC4C /* TransparentToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransparentToolbar.m; sourceTree = "<group>"; };
+		D0EEAE09170A1F7F00DBAC4C /* paginate1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = paginate1.png; path = Resources/paginate1.png; sourceTree = "<group>"; };
+		D0EEAE0A170A1F8000DBAC4C /* paginate1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "paginate1@2x.png"; path = "Resources/paginate1@2x.png"; sourceTree = "<group>"; };
+		D0EEAE0B170A1F8000DBAC4C /* paginate2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = paginate2.png; path = Resources/paginate2.png; sourceTree = "<group>"; };
+		D0EEAE0C170A1F8000DBAC4C /* paginate2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "paginate2@2x.png"; path = "Resources/paginate2@2x.png"; sourceTree = "<group>"; };
 		D0EF085515D2FB2C005689E1 /* pmc_template.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = pmc_template.css; path = Resources/pmc_template.css; sourceTree = "<group>"; };
 		D0EF086A15D31306005689E1 /* defaults.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; name = defaults.plist; path = Resources/defaults.plist; sourceTree = "<group>"; };
 		D0EFC97E15D4914F00C26580 /* fontsizel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fontsizel.png; path = Resources/fontsizel.png; sourceTree = "<group>"; };
@@ -245,9 +264,6 @@
 		D030E6A415C0D2DB00CB5285 = {
 			isa = PBXGroup;
 			children = (
-				D0EEADEE16FA79D900DBAC4C /* CoreText.framework */,
-				D0F4141416C711B60033C1E9 /* QuartzCore.framework */,
-				D0CDB7CC15C1BA4F0074B143 /* libxml2.dylib */,
 				D030E6B915C0D2DB00CB5285 /* PMC Reader */,
 				D030E6B215C0D2DB00CB5285 /* Frameworks */,
 				D030E6B015C0D2DB00CB5285 /* Products */,
@@ -265,6 +281,9 @@
 		D030E6B215C0D2DB00CB5285 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D0EEADEE16FA79D900DBAC4C /* CoreText.framework */,
+				D0F4141416C711B60033C1E9 /* QuartzCore.framework */,
+				D0CDB7CC15C1BA4F0074B143 /* libxml2.dylib */,
 				D030E6B315C0D2DB00CB5285 /* UIKit.framework */,
 				D030E6B515C0D2DB00CB5285 /* Foundation.framework */,
 				D030E6B715C0D2DB00CB5285 /* CoreGraphics.framework */,
@@ -275,6 +294,8 @@
 		D030E6B915C0D2DB00CB5285 /* PMC Reader */ = {
 			isa = PBXGroup;
 			children = (
+				D0EEAE081708F5BF00DBAC4C /* TransparentToolbar */,
+				D0EEADFC1704C1B400DBAC4C /* SCPageScrubberBar */,
 				D0EEADED16FA770C00DBAC4C /* RTLabel */,
 				D0EEADE516FA76DF00DBAC4C /* PopoverView */,
 				D0ED8FC1165B1F8F0081E81E /* RaptureXML */,
@@ -359,6 +380,10 @@
 		D0CDB7DB15C33FC90074B143 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D0EEAE09170A1F7F00DBAC4C /* paginate1.png */,
+				D0EEAE0A170A1F8000DBAC4C /* paginate1@2x.png */,
+				D0EEAE0B170A1F8000DBAC4C /* paginate2.png */,
+				D0EEAE0C170A1F8000DBAC4C /* paginate2@2x.png */,
 				D0D399A016C1F1C400EA2497 /* contents@2x.png */,
 				D0D399A116C1F1C400EA2497 /* contents.png */,
 				D03632A11676829D000D3C0B /* text.png */,
@@ -458,6 +483,27 @@
 				D0EEADEB16FA770000DBAC4C /* RTLabel.m */,
 			);
 			name = RTLabel;
+			sourceTree = "<group>";
+		};
+		D0EEADFC1704C1B400DBAC4C /* SCPageScrubberBar */ = {
+			isa = PBXGroup;
+			children = (
+				D0EEADFD1704C1B500DBAC4C /* SCCalloutView.h */,
+				D0EEADFE1704C1B500DBAC4C /* SCCalloutView.m */,
+				D0EEADFF1704C1B500DBAC4C /* SCPageScrubberBar.bundle */,
+				D0EEAE001704C1B500DBAC4C /* SCPageScrubberBar.h */,
+				D0EEAE011704C1B500DBAC4C /* SCPageScrubberBar.m */,
+			);
+			path = SCPageScrubberBar;
+			sourceTree = "<group>";
+		};
+		D0EEAE081708F5BF00DBAC4C /* TransparentToolbar */ = {
+			isa = PBXGroup;
+			children = (
+				D0EEAE051708F5AC00DBAC4C /* TransparentToolbar.h */,
+				D0EEAE061708F5AC00DBAC4C /* TransparentToolbar.m */,
+			);
+			name = TransparentToolbar;
 			sourceTree = "<group>";
 		};
 		D0F41E37163C90620078DF2A /* MCSegmentedControl */ = {
@@ -599,6 +645,11 @@
 				D0D399BC16C2E4A800EA2497 /* LibreBaskerville-Bold.ttf in Resources */,
 				D0D399BD16C2E4A800EA2497 /* LibreBaskerville-Italic.ttf in Resources */,
 				D0D399BE16C2E4A800EA2497 /* LibreBaskerville-Regular.ttf in Resources */,
+				D0EEAE031704C1B500DBAC4C /* SCPageScrubberBar.bundle in Resources */,
+				D0EEAE0D170A1F8100DBAC4C /* paginate1.png in Resources */,
+				D0EEAE0E170A1F8100DBAC4C /* paginate1@2x.png in Resources */,
+				D0EEAE0F170A1F8100DBAC4C /* paginate2.png in Resources */,
+				D0EEAE10170A1F8100DBAC4C /* paginate2@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -633,6 +684,9 @@
 				D0EEADE416FA29C900DBAC4C /* PHArticleReference.m in Sources */,
 				D0EEADE916FA76DF00DBAC4C /* PopoverView.m in Sources */,
 				D0EEADEC16FA770000DBAC4C /* RTLabel.m in Sources */,
+				D0EEAE021704C1B500DBAC4C /* SCCalloutView.m in Sources */,
+				D0EEAE041704C1B500DBAC4C /* SCPageScrubberBar.m in Sources */,
+				D0EEAE071708F5AD00DBAC4C /* TransparentToolbar.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

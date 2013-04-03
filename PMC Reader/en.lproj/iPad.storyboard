@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12C60" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="SIb-O2-Xa4">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12D78" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="SIb-O2-Xa4">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="2083"/>
     </dependencies>
@@ -100,7 +100,7 @@
         <scene sceneID="8yI-t4-y9y">
             <objects>
                 <navigationController storyboardIdentifier="detail" definesPresentationContext="YES" id="vYd-3p-zj2" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="QJG-6z-Kt3">
+                    <navigationBar key="navigationBar" autoresizesSubviews="NO" contentMode="scaleToFill" id="QJG-6z-Kt3">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -114,13 +114,49 @@
         <!--Detail View Controller-->
         <scene sceneID="krM-pN-5xZ">
             <objects>
-                <viewController storyboardIdentifier="" id="euu-E6-BqD" customClass="PHDetailViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="" wantsFullScreenLayout="YES" id="euu-E6-BqD" customClass="PHDetailViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="CqQ-Cm-tng">
                         <rect key="frame" x="0.0" y="64" width="768" height="960"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" id="AJs-FL-EpB">
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="84"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.5" contentMode="left" text="Childhood Obesity:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="eQy-Bb-Pl9">
+                                        <rect key="frame" x="135" y="20" width="420" height="44"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <color key="textColor" red="0.40000000000000002" green="0.20000000000000001" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
+                            <view contentMode="scaleToFill" id="tA7-d3-MTi">
+                                <rect key="frame" x="0.0" y="870" width="768" height="90"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <subviews>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="100/999" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="wgE-rP-klz">
+                                        <rect key="frame" x="334" y="47" width="100" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
+                                        <color key="textColor" red="0.40000000000000002" green="0.20000000000000001" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="vJc-ZI-R3y"/>
+                    <connections>
+                        <outlet property="pageBarContainerView" destination="tA7-d3-MTi" id="4yI-fV-yYk"/>
+                        <outlet property="pageNumberLabel" destination="wgE-rP-klz" id="Vg3-rV-LLJ"/>
+                        <outlet property="titleLabel2" destination="eQy-Bb-Pl9" id="AC1-pQ-v3N"/>
+                        <outlet property="topContainerView" destination="AJs-FL-EpB" id="cnL-Ih-szY"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sXC-W5-s9Y" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -164,7 +200,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" id="yW1-ee-M8T">
-                                <rect key="frame" x="240" y="20" width="200" height="44"/>
+                                <rect key="frame" x="240" y="80" width="200" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <segments>
                                     <segment title="" image="background1.png"/>
@@ -176,7 +212,7 @@
                                 </connections>
                             </segmentedControl>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" id="5WA-Dr-hBa" customClass="MCSegmentedControl">
-                                <rect key="frame" x="240" y="80" width="200" height="44"/>
+                                <rect key="frame" x="240" y="140" width="200" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <segments>
                                     <segment title="" image="fontsizes.png"/>
@@ -187,7 +223,7 @@
                                 </connections>
                             </segmentedControl>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" id="PNK-PC-W9N" customClass="MCSegmentedControl">
-                                <rect key="frame" x="240" y="140" width="200" height="44"/>
+                                <rect key="frame" x="240" y="200" width="200" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <segments>
                                     <segment title="" image="lineheight1.png"/>
@@ -198,7 +234,7 @@
                                 </connections>
                             </segmentedControl>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" id="ymK-T1-jcv" customClass="MCSegmentedControl">
-                                <rect key="frame" x="240" y="200" width="200" height="44"/>
+                                <rect key="frame" x="240" y="260" width="200" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <segments>
                                     <segment title="" image="margin1.png"/>
@@ -208,15 +244,27 @@
                                     <action selector="doSegmentedValueChanged:" destination="2Jz-mI-5ty" eventType="valueChanged" id="ZuN-Ht-JAO"/>
                                 </connections>
                             </segmentedControl>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" id="eZ5-dW-8ze" customClass="MCSegmentedControl">
+                                <rect key="frame" x="240" y="20" width="200" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="" image="paginate1.png"/>
+                                    <segment title="" image="paginate2.png"/>
+                                </segments>
+                                <connections>
+                                    <action selector="doSegmentedValueChanged:" destination="2Jz-mI-5ty" eventType="valueChanged" id="KfM-L3-ldV"/>
+                                </connections>
+                            </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <value key="contentSizeForViewInPopover" type="size" width="460" height="260"/>
+                    <value key="contentSizeForViewInPopover" type="size" width="460" height="320"/>
                     <connections>
                         <outlet property="backgroundSegmented" destination="yW1-ee-M8T" id="P0f-GS-RNw"/>
                         <outlet property="fontSizeSegmented" destination="5WA-Dr-hBa" id="bsf-ow-fNT"/>
                         <outlet property="lineHeightSegmented" destination="PNK-PC-W9N" id="J3D-HT-RlN"/>
                         <outlet property="marginSegmented" destination="ymK-T1-jcv" id="DIu-ok-f6A"/>
+                        <outlet property="paginationSegmented" destination="eZ5-dW-8ze" id="4Pr-Rk-XkN"/>
                         <outlet property="view" destination="99g-hB-zMd" id="vEl-f3-684"/>
                     </connections>
                 </viewController>
@@ -235,6 +283,8 @@
         <image name="lineheight3.png" width="26" height="26"/>
         <image name="margin1.png" width="26" height="26"/>
         <image name="margin3.png" width="26" height="26"/>
+        <image name="paginate1.png" width="26" height="26"/>
+        <image name="paginate2.png" width="26" height="26"/>
     </resources>
     <classes>
         <class className="IIViewDeckController" superclassName="UIViewController">
@@ -253,6 +303,10 @@
                 <relationship kind="action" name="doPreferences:"/>
                 <relationship kind="action" name="doReload:"/>
                 <relationship kind="action" name="doStop:"/>
+                <relationship kind="outlet" name="pageBarContainerView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="pageNumberLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="titleLabel2" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="topContainerView" candidateClass="UIView"/>
             </relationships>
         </class>
         <class className="PHMasterViewController" superclassName="UIViewController">
@@ -260,6 +314,7 @@
             <relationships>
                 <relationship kind="action" name="doAdd:"/>
                 <relationship kind="action" name="doEdit:"/>
+                <relationship kind="action" name="doRedownload:"/>
                 <relationship kind="outlet" name="myNavigationItem" candidateClass="UINavigationItem"/>
                 <relationship kind="outlet" name="searchBar" candidateClass="UISearchBar"/>
                 <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
@@ -273,6 +328,7 @@
                 <relationship kind="outlet" name="fontSizeSegmented" candidateClass="MCSegmentedControl"/>
                 <relationship kind="outlet" name="lineHeightSegmented" candidateClass="MCSegmentedControl"/>
                 <relationship kind="outlet" name="marginSegmented" candidateClass="MCSegmentedControl"/>
+                <relationship kind="outlet" name="paginationSegmented" candidateClass="MCSegmentedControl"/>
                 <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
             </relationships>
         </class>
