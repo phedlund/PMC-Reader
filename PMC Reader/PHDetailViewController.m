@@ -299,11 +299,13 @@
 }
 
 - (CGRect)pageNumberBarRect {
+    int width =[[NSUserDefaults standardUserDefaults] integerForKey:@"Margin"];
+    int x = ([self orientationRect].size.width - width) / 2;
     if (([UIApplication sharedApplication].statusBarOrientation == UIDeviceOrientationLandscapeLeft) ||
         ([UIApplication sharedApplication].statusBarOrientation == UIDeviceOrientationLandscapeRight)) {
-        return CGRectMake(188, 20, 648, 30);
+        return CGRectMake(x, 20, width, 30);
     } else {
-        return CGRectMake(60, 20, 648, 30);
+        return CGRectMake(x, 20, width, 30);
     }
 }
 
@@ -423,6 +425,7 @@
     if ([self articleView] != nil) {
         [self.articleView reload];
     }
+    self.pageNumberBar.frame = [self pageNumberBarRect];
 }
 
 - (void)updateBackgrounds {
