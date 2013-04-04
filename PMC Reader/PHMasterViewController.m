@@ -126,8 +126,9 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
     [fm createDirectoryAtURL:docDir withIntermediateDirectories:YES attributes:nil error:nil];
     for (NSURL *aURL in templates) {
         NSURL *dest = [docDir URLByAppendingPathComponent: [aURL lastPathComponent]];
+        NSData *data = [NSData dataWithContentsOfURL:aURL];
         NSLog(@"Template File: %@", dest);
-        [fm copyItemAtURL:aURL toURL:dest error:nil];
+        [data writeToURL:dest atomically:YES];
     }
     
     [self.tableView registerNib:[UINib nibWithNibName:@"PHTableViewCell" bundle:nil] forCellReuseIdentifier:@"PHCell"];
