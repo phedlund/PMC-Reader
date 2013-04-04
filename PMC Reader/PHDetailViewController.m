@@ -506,26 +506,20 @@
     
     NSString *insertRule1 = [NSString stringWithFormat:@"addCSSRule('html', 'padding: 0px; height: %fpx; -webkit-column-gap: 0px; -webkit-column-width: %fpx;')", [self articleRect].size.height, [self articleRect].size.width];
     //NSString *insertRule2 = [NSString stringWithFormat:@"addCSSRule('p', 'text-align: justify;')"];
-    NSString *setTextSizeRule = [NSString stringWithFormat:@"addCSSRule('body', '-webkit-text-size-adjust: %d%%;')", 100];
-    NSString *setHighlightColorRule = [NSString stringWithFormat:@"addCSSRule('highlight', 'background-color: yellow;')"];
+    //NSString *setTextSizeRule = [NSString stringWithFormat:@"addCSSRule('body', '-webkit-text-size-adjust: %d%%;')", 100];
+    //NSString *setHighlightColorRule = [NSString stringWithFormat:@"addCSSRule('highlight', 'background-color: yellow;')"];
     
     [self.articleView stringByEvaluatingJavaScriptFromString:varMySheet];
-    
     [self.articleView stringByEvaluatingJavaScriptFromString:addCSSRule];
-    
     [self.articleView stringByEvaluatingJavaScriptFromString:insertRule1];
-    
-    //[webView stringByEvaluatingJavaScriptFromString:insertRule2];
-    
-    [self.articleView stringByEvaluatingJavaScriptFromString:setTextSizeRule];
-    
-    [self.articleView stringByEvaluatingJavaScriptFromString:setHighlightColorRule];
-    
+    //[self.articleView stringByEvaluatingJavaScriptFromString:insertRule2];
+    //[self.articleView stringByEvaluatingJavaScriptFromString:setTextSizeRule];
+    //[self.articleView stringByEvaluatingJavaScriptFromString:setHighlightColorRule];
+
     //if(currentSearchResult!=nil){
     //	NSLog(@"Highlighting %@", currentSearchResult.originatingQuery);
     //    [webView highlightAllOccurencesOfString:currentSearchResult.originatingQuery];
-    //}
-    
+    //}    
     
     int totalWidth = [[self.articleView stringByEvaluatingJavaScriptFromString:@"document.documentElement.scrollWidth"] intValue];
     int oldPageCount = _pageCount;

@@ -54,6 +54,7 @@ p {
     font-family:"$FONT$";
     font-size:100%;
     line-height:$LINEHEIGHT$;
+    text-align: justify;
     clear:both;
 }
 
