@@ -16,7 +16,7 @@
 #define MAX_LINE_HEIGHT 2.6f
 
 #define MIN_WIDTH 380
-#define MAX_WIDTH 700
+#define MAX_WIDTH 650
 
 @interface PHPrefViewController ()
 

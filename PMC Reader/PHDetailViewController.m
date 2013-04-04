@@ -576,9 +576,7 @@
     if (!pageTapRecognizer) {
         pageTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
         pageTapRecognizer.numberOfTapsRequired = 1;
-        //tapZoneRecognizer.minimumPressDuration = 0.15f;
         pageTapRecognizer.delegate = self;
-        //[tapZoneRecognizer requireGestureRecognizerToFail:self.tapZoneRecognizer2];
     }
     return pageTapRecognizer;
 }
@@ -586,11 +584,13 @@
 - (void)handleTap:(UITapGestureRecognizer *)gesture {
     if (gesture.state == UIGestureRecognizerStateEnded) {
         CGPoint loc = [gesture locationInView:self.articleView];
-        double w = self.articleView.frame.size.width;
-        if (loc.x < 150) {
+        int contentWidth =[[NSUserDefaults standardUserDefaults] integerForKey:@"Margin"];
+        double viewWidth = self.articleView.frame.size.width;
+        int margin = (viewWidth - contentWidth) / 2;
+        if (loc.x < margin) {
             [self gotoPage:--_currentPage];
         }
-        if (loc.x > (w - 150)) {
+        if (loc.x > (viewWidth - margin)) {
             [self gotoPage:++_currentPage];
         }
     }
