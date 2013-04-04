@@ -30,7 +30,7 @@
 - (void) configureView;
 - (void) updatePagination;
 - (BOOL) shouldPaginate;
-- (void) gotoPage:(int)page;
+- (void) gotoPage:(int)page animated:(BOOL)animated;
 - (UIColor *)colorFromHexString:(NSString *)hexString;
 - (void) updateBackgrounds;
 
@@ -534,7 +534,7 @@
     _currentPage = (int)(_currentPage * ratio);
     self.pageNumberBar.maximumValue = _pageCount - 1;
     self.pageNumberLabel.text = [NSString stringWithFormat:@"%d/%d",_currentPage + 1, _pageCount];
-    [self gotoPage:_currentPage];
+    [self gotoPage:_currentPage animated:NO];
 }
 
 // Assumes input like "#00FF00" (#RRGGBB).
@@ -588,15 +588,15 @@
         double viewWidth = self.articleView.frame.size.width;
         int margin = (viewWidth - contentWidth) / 2;
         if (loc.x < margin) {
-            [self gotoPage:--_currentPage];
+            [self gotoPage:--_currentPage animated:YES];
         }
         if (loc.x > (viewWidth - margin)) {
-            [self gotoPage:++_currentPage];
+            [self gotoPage:++_currentPage animated:YES];
         }
     }
 }
 
-- (void) gotoPage:(int)page {
+- (void) gotoPage:(int)page animated:(BOOL)animated {
     if (page < 0) {
         _currentPage = 0;
         return;
@@ -608,7 +608,7 @@
     
     _currentPage = page;
     float pageOffset = _currentPage * self.articleView.bounds.size.width;
-    [self.articleView.scrollView setContentOffset:CGPointMake(pageOffset, 0.0f) animated:YES];
+    [self.articleView.scrollView setContentOffset:CGPointMake(pageOffset, 0.0f) animated:animated];
 
     self.pageNumberBar.value = _currentPage;
 	self.pageNumberLabel.text = [NSString stringWithFormat:@"%d/%d", _currentPage + 1, _pageCount];
@@ -641,7 +641,7 @@
 }
 
 - (void)scrubberBar:(SCPageScrubberBar*)scrubberBar valueSelected:(CGFloat)value {
-    [self gotoPage:(int)value];
+    [self gotoPage:(int)value animated:NO];
 }
 
 - (BOOL)shouldPaginate {
