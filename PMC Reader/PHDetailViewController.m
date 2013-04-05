@@ -439,6 +439,8 @@
     self.view.backgroundColor = bgColor;
     self.topContainerView.backgroundColor = bgColor;
     self.pageBarContainerView.backgroundColor = bgColor;
+    self.pageNumberBar.nightMode = (backgroundIndex == 2);
+    self.titleLabel2.alpha = (backgroundIndex == 2) ? 1.0f : 0.5f;
     if ([self shouldPaginate]) {
         self.articleView.opaque = NO;
         self.articleView.backgroundColor = [UIColor clearColor];
@@ -618,6 +620,7 @@
         pageNumberBar.maximumValue = 100;
         pageNumberBar.isPopoverMode = YES;
         pageNumberBar.alwaysShowTitleView = NO;
+        pageNumberBar.nightMode = NO;
     }
     return pageNumberBar;
 }

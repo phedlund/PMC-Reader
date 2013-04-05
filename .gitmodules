@@ -18,4 +18,4 @@
 	url = git://github.com/honcheng/RTLabel.git
 [submodule "SCPageScrubberBar"]
 	path = SCPageScrubberBar
-	url = git://github.com/barz/SCPageScrubberBar.git
+url=git://github.com/phedlund/SCPageScrubberBar.git
