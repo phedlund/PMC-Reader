@@ -154,6 +154,7 @@
         [prefs setInteger:currentMargin forKey:@"Margin"];
     }
     
+    [prefs synchronize];
     seg.selectedSegmentIndex = UISegmentedControlNoSegment;
     if (_delegate != nil) {
 		[_delegate settingsChanged:setting newValue:newValue];

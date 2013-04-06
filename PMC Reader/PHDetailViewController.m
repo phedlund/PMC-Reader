@@ -12,6 +12,7 @@
 #import "PHArticleNavigationItem.h"
 #import "PHArticleReference.h"
 #import "TransparentToolbar.h"
+#import "PHColors.h"
 
 #define TITLE_LABEL_WIDTH_LANDSCAPE 700
 #define TITLE_LABEL_WIDTH_PORTRAIT 450
@@ -26,12 +27,13 @@
 @property (strong, nonatomic) UIPopoverController *prefPopoverController;
 @property (strong, nonatomic) PHPrefViewController *prefViewController;
 @property (nonatomic, strong, readonly) UITapGestureRecognizer *pageTapRecognizer;
+@property (nonatomic, strong, readonly) UISwipeGestureRecognizer *nextPageSwipeRecognizer;
+@property (nonatomic, strong, readonly) UISwipeGestureRecognizer *previousPageSwipeRecognizer;
 
 - (void) configureView;
 - (void) updatePagination;
 - (BOOL) shouldPaginate;
 - (void) gotoPage:(int)page animated:(BOOL)animated;
-- (UIColor *)colorFromHexString:(NSString *)hexString;
 - (void) updateBackgrounds;
 
 @end
@@ -45,7 +47,7 @@
 @synthesize backBarButtonItem, forwardBarButtonItem, refreshBarButtonItem, stopBarButtonItem, leftToolbar;
 @synthesize infoBarButtonItem, prefsBarButtonItem, navBarButtonItem;
 @synthesize articleNavigationController, articleNavigationPopover;
-@synthesize pageTapRecognizer;
+@synthesize pageTapRecognizer, nextPageSwipeRecognizer, previousPageSwipeRecognizer;
 @synthesize pageNumberBar;
 
 #pragma mark - Managing the detail item
@@ -124,6 +126,7 @@
     currentTapLocation = CGPointMake(350, 100);
     self.titleLabel2.text = @"";
     self.pageNumberLabel.text = @"";
+    [self updateBackgrounds];
 }
 
 - (void)viewDidUnload
@@ -418,7 +421,7 @@
 }
 
 -(void) settingsChanged:(NSString *)setting newValue:(NSUInteger)value {
-    NSLog(@"New Setting: %@ with value %d", setting, value);
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"UpdateBackgrounds" object:nil userInfo:nil];
     [self updateBackgrounds];
     [self writeCssTemplate];
     [self updatePagination];
@@ -429,13 +432,8 @@
 }
 
 - (void)updateBackgrounds {
-    NSArray *backgrounds = [[NSUserDefaults standardUserDefaults] arrayForKey:@"Backgrounds"];
-    //NSLog(@"Backgrounds: %@", backgrounds);
     int backgroundIndex =[[NSUserDefaults standardUserDefaults] integerForKey:@"Background"];
-    //NSLog(@"BackgroundIndex: %d", backgroundIndex);
-    NSString *background = [backgrounds objectAtIndex:backgroundIndex];
-    //NSLog(@"Background: %@", background);
-    UIColor *bgColor = [self colorFromHexString:background];
+    UIColor *bgColor = [PHColors backgroundColor];
     self.view.backgroundColor = bgColor;
     self.topContainerView.backgroundColor = bgColor;
     self.pageBarContainerView.backgroundColor = bgColor;
@@ -468,23 +466,9 @@
     double lineHeight =[[NSUserDefaults standardUserDefaults] doubleForKey:@"LineHeight"];
     cssTemplate = [cssTemplate stringByReplacingOccurrencesOfString:@"$LINEHEIGHT$" withString:[NSString stringWithFormat:@"%fem", lineHeight]];
     
-    NSArray *backgrounds = [[NSUserDefaults standardUserDefaults] arrayForKey:@"Backgrounds"];
-    //NSLog(@"Backgrounds: %@", backgrounds);
-    int backgroundIndex =[[NSUserDefaults standardUserDefaults] integerForKey:@"Background"];
-    //NSLog(@"BackgroundIndex: %d", backgroundIndex);
-    NSString *background = [backgrounds objectAtIndex:backgroundIndex];
-    //NSLog(@"Background: %@", background);
-    cssTemplate = [cssTemplate stringByReplacingOccurrencesOfString:@"$BACKGROUND$" withString:background];
-    
-    NSArray *colors = [[NSUserDefaults standardUserDefaults] arrayForKey:@"Colors"];
-    //backgroundIndex =[[NSUserDefaults standardUserDefaults] integerForKey:@"Background"];
-    NSString *color = [colors objectAtIndex:backgroundIndex];
-    cssTemplate = [cssTemplate stringByReplacingOccurrencesOfString:@"$COLOR$" withString:color];
-    
-    NSArray *colorsLink = [[NSUserDefaults standardUserDefaults] arrayForKey:@"ColorsLink"];
-    //backgroundIndex =[[NSUserDefaults standardUserDefaults] integerForKey:@"Background"];
-    NSString *colorLink = [colorsLink objectAtIndex:backgroundIndex];
-    cssTemplate = [cssTemplate stringByReplacingOccurrencesOfString:@"$COLORLINK$" withString:colorLink];
+    cssTemplate = [cssTemplate stringByReplacingOccurrencesOfString:@"$BACKGROUND$" withString:[PHColors backgroundColorAsHex]];
+    cssTemplate = [cssTemplate stringByReplacingOccurrencesOfString:@"$COLOR$" withString:[PHColors textColorAsHex]];
+    cssTemplate = [cssTemplate stringByReplacingOccurrencesOfString:@"$COLORLINK$" withString:[PHColors linkColorAsHex]];
     
     NSFileManager *fm = [NSFileManager defaultManager];
     NSArray *paths = [fm URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask];
@@ -533,15 +517,6 @@
     [self gotoPage:_currentPage animated:NO];
 }
 
-// Assumes input like "#00FF00" (#RRGGBB).
-- (UIColor *)colorFromHexString:(NSString *)hexString {
-    unsigned rgbValue = 0;
-    NSScanner *scanner = [NSScanner scannerWithString:hexString];
-    [scanner setScanLocation:1]; // bypass '#' character
-    [scanner scanHexInt:&rgbValue];
-    return [UIColor colorWithRed:((rgbValue & 0xFF0000) >> 16)/255.0 green:((rgbValue & 0xFF00) >> 8)/255.0 blue:(rgbValue & 0xFF)/255.0 alpha:1.0];
-}
-
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     PHArticle *detail = (PHArticle *) self.detailItem;
     
@@ -577,6 +552,26 @@
     return pageTapRecognizer;
 }
 
+- (UISwipeGestureRecognizer *) nextPageSwipeRecognizer {
+    if (!nextPageSwipeRecognizer) {
+        nextPageSwipeRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipe:)];
+        nextPageSwipeRecognizer.numberOfTouchesRequired = 1;
+        nextPageSwipeRecognizer.direction = UISwipeGestureRecognizerDirectionLeft;
+        nextPageSwipeRecognizer.delegate = self;
+    }
+    return nextPageSwipeRecognizer;
+}
+
+- (UISwipeGestureRecognizer *) previousPageSwipeRecognizer {
+    if (!previousPageSwipeRecognizer) {
+        previousPageSwipeRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipe:)];
+        previousPageSwipeRecognizer.numberOfTouchesRequired = 1;
+        previousPageSwipeRecognizer.direction = UISwipeGestureRecognizerDirectionRight;
+        previousPageSwipeRecognizer.delegate = self;
+    }
+    return previousPageSwipeRecognizer;
+}
+
 - (void)handleTap:(UITapGestureRecognizer *)gesture {
     if (gesture.state == UIGestureRecognizerStateEnded) {
         CGPoint loc = [gesture locationInView:self.articleView];
@@ -588,6 +583,17 @@
         }
         if (loc.x > (viewWidth - margin)) {
             [self gotoPage:++_currentPage animated:YES];
+        }
+    }
+}
+
+- (void)handleSwipe:(UISwipeGestureRecognizer *)gesture {
+    if (gesture.state == UIGestureRecognizerStateEnded) {
+        if (gesture.direction == UISwipeGestureRecognizerDirectionLeft) {
+            [self gotoPage:++_currentPage animated:YES];
+        }
+        if (gesture.direction == UISwipeGestureRecognizerDirectionRight) {
+            [self gotoPage:--_currentPage animated:YES];
         }
     }
 }
@@ -658,6 +664,9 @@
             self.articleView.scrollView.scrollEnabled = NO;
             self.articleView.scrollView.bounces = NO;
             [self.articleView addGestureRecognizer:self.pageTapRecognizer];
+            [self.articleView addGestureRecognizer:self.nextPageSwipeRecognizer];
+            [self.articleView addGestureRecognizer:self.previousPageSwipeRecognizer];
+            self.viewDeckController.panningMode = IIViewDeckNavigationBarPanning;
             self.pageNumberBar.hidden = NO;
             self.titleLabel2.hidden = NO;
             self.articleView.frame = [self articleRect];
@@ -677,6 +686,9 @@
             self.articleView.scrollView.scrollEnabled = YES;
             self.articleView.scrollView.bounces = YES;
             [self.articleView removeGestureRecognizer:self.pageTapRecognizer];
+            [self.articleView removeGestureRecognizer:self.nextPageSwipeRecognizer];
+            [self.articleView removeGestureRecognizer:self.previousPageSwipeRecognizer];
+            self.viewDeckController.panningMode = IIViewDeckFullViewPanning;
             [self.articleView setFrame:self.view.frame];
         }
         self.pageBarContainerView.hidden = YES;

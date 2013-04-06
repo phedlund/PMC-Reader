@@ -12,6 +12,7 @@
 #import "IIViewDeckController.h"
 #import "NSMutableArray+Extra.h"
 #import "PHTableViewCell.h"
+#import "PHColors.h"
 
 static NSString * const kBaseUrl = @"http://www.ncbi.nlm.nih.gov";
 static NSString * const kArticleUrlSuffix = @"pmc/articles/";
@@ -21,6 +22,7 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
 }
 
 - (void) downloadArticles:(NSNotification*)n;
+- (void) updateBackgrounds;
 
 @end
 
@@ -161,10 +163,13 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
     self.myNavigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:toolbar];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(downloadArticles:) name:@"DownloadArticles" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateBackgrounds) name:@"UpdateBackgrounds" object:nil];
 
     UINavigationController *detailNavController = (UINavigationController *)self.viewDeckController.centerController;
     self.detailViewController = (PHDetailViewController *)detailNavController.topViewController;
     [self.detailViewController writeCssTemplate];
+    
+    [self updateBackgrounds];
     
     self.viewDeckController.leftSize = 320;
     [self.viewDeckController openLeftView];
@@ -284,13 +289,16 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
     cell.titleLabel.text = article.title;
     cell.authorLabel.text = article.authors;
     cell.originalSourceLabel.text = article.source;
+    cell.titleLabel.textColor = [PHColors textColor];
+    cell.authorLabel.textColor = [PHColors textColor];
+    cell.originalSourceLabel.textColor = [PHColors textColor];
     
     if (article.downloading == YES) {
-        NSLog(@"Setting spinner");
         cell.accessoryView = cell.activityIndicator;
+        int backgroundIndex =[[NSUserDefaults standardUserDefaults] integerForKey:@"Background"];
+        cell.activityIndicator.activityIndicatorViewStyle = (backgroundIndex == 2) ? UIActivityIndicatorViewStyleWhite : UIActivityIndicatorViewStyleGray;
         [cell.activityIndicator startAnimating];
     } else {
-        NSLog(@"Removing spinner");
         [cell.activityIndicator stopAnimating];
         cell.accessoryView = nil;
     }
@@ -357,6 +365,10 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
     }
     self.detailViewController.detailItem = object;
     [self.viewDeckController closeLeftView];
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    cell.backgroundColor = [PHColors backgroundColor];
 }
 
 #pragma mark - HTML Parser
@@ -448,6 +460,17 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
     self.editBarButtonItem.enabled = YES;
     self.myNavigationItem.leftBarButtonItem.enabled = YES;
     self.myNavigationItem.rightBarButtonItem.enabled = YES;
+}
+
+- (void)updateBackgrounds {
+    int backgroundIndex =[[NSUserDefaults standardUserDefaults] integerForKey:@"Background"];
+    UIColor *bgColor = [PHColors backgroundColor];
+    //self.view.backgroundColor = bgColor;
+    self.tableView.backgroundColor = bgColor;
+    [self.tableView reloadData];
+    //self.pageBarContainerView.backgroundColor = bgColor;
+    //self.pageNumberBar.nightMode = (backgroundIndex == 2);
+    //self.titleLabel2.alpha = (backgroundIndex == 2) ? 1.0f : 0.5f;
 }
 
 @end

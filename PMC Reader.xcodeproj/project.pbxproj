@@ -108,6 +108,7 @@
 		D0F60055163775EF00ADBC38 /* PHMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0F60052163775EF00ADBC38 /* PHMasterViewController.m */; };
 		D0F6005B1639A82100ADBC38 /* IIViewDeckController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0F600581639A82100ADBC38 /* IIViewDeckController.m */; };
 		D0F6005C1639A82100ADBC38 /* IIWrapController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0F6005A1639A82100ADBC38 /* IIWrapController.m */; };
+		D0F9DA27170E5FBB00FA64E5 /* PHColors.m in Sources */ = {isa = PBXBuildFile; fileRef = D0F9DA26170E5FBA00FA64E5 /* PHColors.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -242,6 +243,8 @@
 		D0F600581639A82100ADBC38 /* IIViewDeckController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IIViewDeckController.m; sourceTree = "<group>"; };
 		D0F600591639A82100ADBC38 /* IIWrapController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IIWrapController.h; sourceTree = "<group>"; };
 		D0F6005A1639A82100ADBC38 /* IIWrapController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IIWrapController.m; sourceTree = "<group>"; };
+		D0F9DA25170E5FB900FA64E5 /* PHColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHColors.h; sourceTree = "<group>"; };
+		D0F9DA26170E5FBA00FA64E5 /* PHColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHColors.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -312,6 +315,8 @@
 				D0F60052163775EF00ADBC38 /* PHMasterViewController.m */,
 				D030E6CB15C0D2DB00CB5285 /* PHDetailViewController.h */,
 				D030E6CC15C0D2DB00CB5285 /* PHDetailViewController.m */,
+				D0F9DA25170E5FB900FA64E5 /* PHColors.h */,
+				D0F9DA26170E5FBA00FA64E5 /* PHColors.m */,
 				D0D1C75915CB652A0097CA9C /* PHPrefViewController.h */,
 				D0D1C75A15CB652A0097CA9C /* PHPrefViewController.m */,
 				D0ED8FBE165AEEBD0081E81E /* PHSearchViewController.h */,
@@ -687,6 +692,7 @@
 				D0EEAE021704C1B500DBAC4C /* SCCalloutView.m in Sources */,
 				D0EEAE041704C1B500DBAC4C /* SCPageScrubberBar.m in Sources */,
 				D0EEAE071708F5AD00DBAC4C /* TransparentToolbar.m in Sources */,
+				D0F9DA27170E5FBB00FA64E5 /* PHColors.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
