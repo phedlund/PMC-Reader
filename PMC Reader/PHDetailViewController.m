@@ -122,6 +122,7 @@
 	// Do any additional setup after loading the view, typically from a nib.
     self.wantsFullScreenLayout = YES;
     self.viewDeckController.delegate = self;
+    self.viewDeckController.panningView = self.topContainerView;
     [[self navigationItem] setTitle:@""];
     [self updateToolbar];
     [self configureView];
@@ -270,6 +271,9 @@
             self.titleLabel2.hidden = YES;
             if (![self shouldPaginate]) {
                 [self.articleView setFrame:CGRectMoveTop(self.view.frame, 64)];
+                self.viewDeckController.panningMode = IIViewDeckFullViewPanning;
+            } else {
+                self.viewDeckController.panningMode = IIViewDeckNavigationBarPanning;
             }
         } else {
             [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationSlide];
@@ -281,6 +285,9 @@
             self.titleLabel2.hidden = NO;
             if (![self shouldPaginate]) {
                 [self.articleView setFrame:self.view.frame];
+                self.viewDeckController.panningMode = IIViewDeckFullViewPanning;
+            } else {
+                self.viewDeckController.panningMode = IIViewDeckPanningViewPanning;
             }
         }
     }
@@ -673,7 +680,11 @@
             [self.articleView addGestureRecognizer:self.pageTapRecognizer];
             [self.articleView addGestureRecognizer:self.nextPageSwipeRecognizer];
             [self.articleView addGestureRecognizer:self.previousPageSwipeRecognizer];
-            self.viewDeckController.panningMode = IIViewDeckNavigationBarPanning;
+            if (self.navigationController.navigationBarHidden) {
+                self.viewDeckController.panningMode = IIViewDeckPanningViewPanning;
+            } else {
+                self.viewDeckController.panningMode = IIViewDeckNavigationBarPanning;
+            }
             self.pageNumberBar.hidden = NO;
             self.titleLabel2.hidden = NO;
             self.articleView.frame = [self articleRect];
