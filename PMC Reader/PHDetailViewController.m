@@ -109,7 +109,7 @@
         //[[self articleView] loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"about:blank"]]];
         [[self articleView] loadRequest:request];
         [self updateBackgrounds];
-        //[[self navigationItem] setTitle:[detail objectForKey:@"Title"]];
+        self.titleLabel2.hidden = !self.navigationController.navigationBarHidden;
         [self.titleLabel setText:detail.title];
         [self.titleLabel2 setText:detail.title];
     }
