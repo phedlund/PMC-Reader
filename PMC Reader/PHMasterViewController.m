@@ -13,6 +13,7 @@
 #import "NSMutableArray+Extra.h"
 #import "PHTableViewCell.h"
 #import "PHColors.h"
+#import "TransparentToolbar.h"
 
 static NSString * const kBaseUrl = @"http://www.ncbi.nlm.nih.gov";
 static NSString * const kArticleUrlSuffix = @"pmc/articles/";
@@ -157,7 +158,7 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
                       self.addBarButtonItem,
                       nil];
     
-    UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 100.0f, 44.0f)];
+    TransparentToolbar *toolbar = [[TransparentToolbar alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 100.0f, 44.0f)];
     toolbar.items = items;
     toolbar.tintColor = self.navigationController.navigationBar.tintColor;
     self.myNavigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:toolbar];
@@ -169,6 +170,10 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
     self.detailViewController = (PHDetailViewController *)detailNavController.topViewController;
     [self.detailViewController writeCssTemplate];
     
+    self.navigationController.navigationBar.translucent = YES;
+    self.navigationController.navigationBar.autoresizesSubviews = NO;
+    self.myNavigationBar.translucent = YES;
+    self.myNavigationBar.autoresizesSubviews = NO;
     [self updateBackgrounds];
     
     self.viewDeckController.leftSize = 320;
@@ -180,6 +185,7 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
     [self setTableView:nil];
     [self setMyNavigationItem:nil];
     [self setSearchBar:nil];
+    [self setMyNavigationBar:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
@@ -253,7 +259,7 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
                           flexibleSpace,
                           nil];
         
-        UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 100.0f, 44.0f)];
+        TransparentToolbar *toolbar = [[TransparentToolbar alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 100.0f, 44.0f)];
         toolbar.items = items;
         toolbar.tintColor = self.navigationController.navigationBar.tintColor;
         self.myNavigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:toolbar];
@@ -465,7 +471,8 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
 - (void)updateBackgrounds {
     int backgroundIndex =[[NSUserDefaults standardUserDefaults] integerForKey:@"Background"];
     UIColor *bgColor = [PHColors backgroundColor];
-    //self.view.backgroundColor = bgColor;
+    self.viewDeckController.leftController.view.backgroundColor = bgColor;
+    self.view.backgroundColor = bgColor;
     self.tableView.backgroundColor = bgColor;
     [self.tableView reloadData];
     //self.pageBarContainerView.backgroundColor = bgColor;

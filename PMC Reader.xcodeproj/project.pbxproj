@@ -109,6 +109,8 @@
 		D0F6005B1639A82100ADBC38 /* IIViewDeckController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0F600581639A82100ADBC38 /* IIViewDeckController.m */; };
 		D0F6005C1639A82100ADBC38 /* IIWrapController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0F6005A1639A82100ADBC38 /* IIWrapController.m */; };
 		D0F9DA27170E5FBB00FA64E5 /* PHColors.m in Sources */ = {isa = PBXBuildFile; fileRef = D0F9DA26170E5FBA00FA64E5 /* PHColors.m */; };
+		D0F9DA2A1710D7C000FA64E5 /* TransparentNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = D0F9DA291710D7BF00FA64E5 /* TransparentNavigationBar.m */; };
+		D0F9DA2D1710EB4C00FA64E5 /* TransparentSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = D0F9DA2C1710EB4B00FA64E5 /* TransparentSearchBar.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -245,6 +247,10 @@
 		D0F6005A1639A82100ADBC38 /* IIWrapController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IIWrapController.m; sourceTree = "<group>"; };
 		D0F9DA25170E5FB900FA64E5 /* PHColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHColors.h; sourceTree = "<group>"; };
 		D0F9DA26170E5FBA00FA64E5 /* PHColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHColors.m; sourceTree = "<group>"; };
+		D0F9DA281710D7BF00FA64E5 /* TransparentNavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransparentNavigationBar.h; sourceTree = "<group>"; };
+		D0F9DA291710D7BF00FA64E5 /* TransparentNavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransparentNavigationBar.m; sourceTree = "<group>"; };
+		D0F9DA2B1710EB4B00FA64E5 /* TransparentSearchBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransparentSearchBar.h; sourceTree = "<group>"; };
+		D0F9DA2C1710EB4B00FA64E5 /* TransparentSearchBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransparentSearchBar.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -507,6 +513,10 @@
 			children = (
 				D0EEAE051708F5AC00DBAC4C /* TransparentToolbar.h */,
 				D0EEAE061708F5AC00DBAC4C /* TransparentToolbar.m */,
+				D0F9DA2B1710EB4B00FA64E5 /* TransparentSearchBar.h */,
+				D0F9DA2C1710EB4B00FA64E5 /* TransparentSearchBar.m */,
+				D0F9DA281710D7BF00FA64E5 /* TransparentNavigationBar.h */,
+				D0F9DA291710D7BF00FA64E5 /* TransparentNavigationBar.m */,
 			);
 			name = TransparentToolbar;
 			sourceTree = "<group>";
@@ -693,6 +703,8 @@
 				D0EEAE041704C1B500DBAC4C /* SCPageScrubberBar.m in Sources */,
 				D0EEAE071708F5AD00DBAC4C /* TransparentToolbar.m in Sources */,
 				D0F9DA27170E5FBB00FA64E5 /* PHColors.m in Sources */,
+				D0F9DA2A1710D7C000FA64E5 /* TransparentNavigationBar.m in Sources */,
+				D0F9DA2D1710EB4C00FA64E5 /* TransparentSearchBar.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

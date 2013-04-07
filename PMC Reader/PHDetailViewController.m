@@ -78,6 +78,8 @@
         self.articleView.delegate = self;
         self.articleView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         self.articleView.alpha = 0;
+        self.articleView.opaque = NO;
+        self.articleView.backgroundColor = [PHColors backgroundColor];
         [self.view insertSubview:self.articleView belowSubview:self.pageBarContainerView];
         
         
@@ -126,6 +128,7 @@
     currentTapLocation = CGPointMake(350, 100);
     self.titleLabel2.text = @"";
     self.pageNumberLabel.text = @"";
+    self.navigationController.navigationBar.translucent = YES;
     [self updateBackgrounds];
 }
 
@@ -265,6 +268,9 @@
             self.pageNumberBar.hidden = NO;
             self.pageNumberLabel.alpha = 1.0f;
             self.titleLabel2.hidden = YES;
+            if (![self shouldPaginate]) {
+                [self.articleView setFrame:CGRectMoveTop(self.view.frame, 64)];
+            }
         } else {
             [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationSlide];
             self.navigationController.navigationBarHidden = YES;
@@ -273,6 +279,9 @@
             CGRect r = [self orientationRect];
             self.viewDeckController.leftController.view.frame = CGRectMake(r.origin.x, r.origin.y, r.size.width, r.size.height + 20.0);
             self.titleLabel2.hidden = NO;
+            if (![self shouldPaginate]) {
+                [self.articleView setFrame:self.view.frame];
+            }
         }
     }
 }
@@ -434,18 +443,16 @@
 - (void)updateBackgrounds {
     int backgroundIndex =[[NSUserDefaults standardUserDefaults] integerForKey:@"Background"];
     UIColor *bgColor = [PHColors backgroundColor];
+    self.viewDeckController.view.backgroundColor = bgColor;
     self.view.backgroundColor = bgColor;
     self.topContainerView.backgroundColor = bgColor;
     self.pageBarContainerView.backgroundColor = bgColor;
+    if (self.articleView) {
+        self.articleView.backgroundColor = bgColor;
+    }
     self.pageNumberBar.nightMode = (backgroundIndex == 2);
     self.titleLabel2.alpha = (backgroundIndex == 2) ? 1.0f : 0.5f;
-    if ([self shouldPaginate]) {
-        self.articleView.opaque = NO;
-        self.articleView.backgroundColor = [UIColor clearColor];
-    } else {
-        self.articleView.opaque = YES;
-        self.articleView.backgroundColor = [UIColor scrollViewTexturedBackgroundColor];
-    }
+    self.titleLabel.textColor = [PHColors textColor];
 }
 
 - (void) writeCssTemplate
@@ -680,7 +687,6 @@
         self.pageNumberBar.frame = [self pageNumberBarRect];
         self.topContainerView.hidden = NO;
         self.navigationController.navigationBar.autoresizesSubviews = NO;
-        self.navigationController.navigationBar.translucent = YES;
     } else {
         if (self.articleView) {
             self.articleView.scrollView.scrollEnabled = YES;
@@ -689,15 +695,23 @@
             [self.articleView removeGestureRecognizer:self.nextPageSwipeRecognizer];
             [self.articleView removeGestureRecognizer:self.previousPageSwipeRecognizer];
             self.viewDeckController.panningMode = IIViewDeckFullViewPanning;
-            [self.articleView setFrame:self.view.frame];
+            [self.articleView setFrame:CGRectMoveTop(self.view.frame, 64)];
         }
         self.pageBarContainerView.hidden = YES;
         [self.pageNumberBar removeFromSuperview];
-        self.topContainerView.hidden = YES;
-        
+        self.topContainerView.hidden = NO;
         self.navigationController.navigationBar.autoresizesSubviews = YES;
-        self.navigationController.navigationBar.translucent = NO;
     }
+}
+
+// Will return a CGRect with its upper boundary moved dy pixels, positive dy will reduce height, negative values increase
+CGRect CGRectMoveTop(CGRect rect, CGFloat dy) {
+    return CGRectMake(rect.origin.x, rect.origin.y + dy, rect.size.width, rect.size.height - dy);
+}
+
+// Will return a CGRect with its lower boundary moved dy pixels, positive values will reduce height, negative values increase
+CGRect CGRectMoveBottom(CGRect rect, CGFloat dy) {
+    return CGRectMake(rect.origin.x, rect.origin.y, rect.size.width, rect.size.height - dy);
 }
 
 #pragma mark - Toolbar buttons

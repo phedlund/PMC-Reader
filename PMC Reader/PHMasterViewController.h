@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "PHDetailViewController.h"
 #import "PHDownloader.h"
+#import "TransparentNavigationBar.h"
 
 @interface PHMasterViewController : UIViewController <UITableViewDataSource, UIAlertViewDelegate, PHDownloaderDelegate, UISearchBarDelegate, UIGestureRecognizerDelegate>
 
@@ -20,6 +21,7 @@
 @property (strong, nonatomic) NSMutableArray *filteredArticles;
 @property (nonatomic, assign) bool isFiltered;
 @property (strong, nonatomic) IBOutlet UISearchBar *searchBar;
+@property (strong, nonatomic) IBOutlet TransparentNavigationBar *myNavigationBar;
 @property (strong, nonatomic) IBOutlet UINavigationItem *myNavigationItem;
 
 - (IBAction) doEdit:(id)sender;
