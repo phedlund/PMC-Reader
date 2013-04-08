@@ -8,6 +8,7 @@
 
 #import "PHPrefViewController.h"
 #import "QuartzCore/QuartzCore.h"
+#import "PHColors.h"
 
 #define MIN_FONT_SIZE 11
 #define MAX_FONT_SIZE 30
@@ -23,11 +24,6 @@
 @end
 
 @implementation PHPrefViewController
-@synthesize backgroundSegmented;
-@synthesize fontSizeSegmented;
-@synthesize lineHeightSegmented;
-@synthesize marginSegmented;
-@synthesize paginationSegmented;
 @synthesize tableView;
 @synthesize fonts;
 @synthesize delegate = _delegate;
@@ -60,21 +56,83 @@
     self.tableView.delegate = self;
     self.tableView.rowHeight = 44.0;
     [self.view addSubview:self.tableView];
+    
+    [self.paginationOnButton.layer setCornerRadius:8.0f];
+    [self.paginationOnButton.layer setMasksToBounds:YES];
+    [self.paginationOnButton.layer setBorderWidth:0.75f];
+    [self.paginationOnButton.layer setBorderColor:[[UIColor darkGrayColor] CGColor]];
+    
+    [self.paginationOffButton.layer setCornerRadius:8.0f];
+    [self.paginationOffButton.layer setMasksToBounds:YES];
+    [self.paginationOffButton.layer setBorderWidth:0.75f];
+    [self.paginationOffButton.layer setBorderColor:[[UIColor darkGrayColor] CGColor]];
+    
+    [self.decreaseFontSizeButton.layer setCornerRadius:8.0f];
+    [self.decreaseFontSizeButton.layer setMasksToBounds:YES];
+    [self.decreaseFontSizeButton.layer setBorderWidth:0.75f];
+    [self.decreaseFontSizeButton.layer setBorderColor:[[UIColor darkGrayColor] CGColor]];
+    
+    [self.increaseFontSizeButton.layer setCornerRadius:8.0f];
+    [self.increaseFontSizeButton.layer setMasksToBounds:YES];
+    [self.increaseFontSizeButton.layer setBorderWidth:0.75f];
+    [self.increaseFontSizeButton.layer setBorderColor:[[UIColor darkGrayColor] CGColor]];
+    
+    [self.whiteBackgroundButton.layer setCornerRadius:8.0f];
+    [self.whiteBackgroundButton.layer setMasksToBounds:YES];
+    [self.whiteBackgroundButton.layer setBorderWidth:0.75f];
+    [self.whiteBackgroundButton.layer setBorderColor:[[UIColor darkGrayColor] CGColor]];
+    
+    [self.sepiaBackgroundButton.layer setCornerRadius:8.0f];
+    [self.sepiaBackgroundButton.layer setMasksToBounds:YES];
+    [self.sepiaBackgroundButton.layer setBorderWidth:0.75f];
+    [self.sepiaBackgroundButton.layer setBorderColor:[[UIColor darkGrayColor] CGColor]];
+    
+    [self.nightBackgroundButton.layer setCornerRadius:8.0f];
+    [self.nightBackgroundButton.layer setMasksToBounds:YES];
+    [self.nightBackgroundButton.layer setBorderWidth:0.75f];
+    [self.nightBackgroundButton.layer setBorderColor:[[UIColor darkGrayColor] CGColor]];
+    
+    [self.decreaseLineHeightButton.layer setCornerRadius:8.0f];
+    [self.decreaseLineHeightButton.layer setMasksToBounds:YES];
+    [self.decreaseLineHeightButton.layer setBorderWidth:0.75f];
+    [self.decreaseLineHeightButton.layer setBorderColor:[[UIColor darkGrayColor] CGColor]];
+    
+    [self.increaseLineHeightButton.layer setCornerRadius:8.0f];
+    [self.increaseLineHeightButton.layer setMasksToBounds:YES];
+    [self.increaseLineHeightButton.layer setBorderWidth:0.75f];
+    [self.increaseLineHeightButton.layer setBorderColor:[[UIColor darkGrayColor] CGColor]];
+    
+    [self.decreaseMarginButton.layer setCornerRadius:8.0f];
+    [self.decreaseMarginButton.layer setMasksToBounds:YES];
+    [self.decreaseMarginButton.layer setBorderWidth:0.75f];
+    [self.decreaseMarginButton.layer setBorderColor:[[UIColor darkGrayColor] CGColor]];
+    
+    [self.increaseMarginButton.layer setCornerRadius:8.0f];
+    [self.increaseMarginButton.layer setMasksToBounds:YES];
+    [self.increaseMarginButton.layer setBorderWidth:0.75f];
+    [self.increaseMarginButton.layer setBorderColor:[[UIColor darkGrayColor] CGColor]];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.tableView reloadData];
+    [self updateBackgrounds];
 }
 
 - (void)viewDidUnload
 {
-    [self setBackgroundSegmented:nil];
-    [self setFontSizeSegmented:nil];
-    [self setLineHeightSegmented:nil];
-    [self setMarginSegmented:nil];
     [self setTableView:nil];
-    [self setPaginationSegmented:nil];
+    [self setPaginationOnButton:nil];
+    [self setPaginationOffButton:nil];
+    [self setWhiteBackgroundButton:nil];
+    [self setSepiaBackgroundButton:nil];
+    [self setNightBackgroundButton:nil];
+    [self setDecreaseFontSizeButton:nil];
+    [self setIncreaseFontSizeButton:nil];
+    [self setDecreaseLineHeightButton:nil];
+    [self setIncreaseLineHeightButton:nil];
+    [self setDecreaseMarginButton:nil];
+    [self setIncreaseMarginButton:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
@@ -84,82 +142,110 @@
     return YES;
 }
 
-- (IBAction)doSegmentedValueChanged:(id)sender {
-    MCSegmentedControl *seg = (MCSegmentedControl*)sender;
-    int newValue = [seg selectedSegmentIndex];
-    if (newValue == UISegmentedControlNoSegment) {
-        return;
-    }
+- (void)updateBackgrounds {
+    UIColor *bgColor = [PHColors backgroundColor];
+    self.view.backgroundColor = bgColor;
+    self.tableView.backgroundColor = bgColor;
     
-    NSString *setting = nil;
+    self.paginationOnButton.backgroundColor = bgColor;
+    self.paginationOffButton.backgroundColor = bgColor;
+    self.decreaseFontSizeButton.backgroundColor = bgColor;
+    self.increaseFontSizeButton.backgroundColor = bgColor;
+    self.whiteBackgroundButton.backgroundColor = [UIColor whiteColor];
+    self.sepiaBackgroundButton.backgroundColor = [PHColors colorFromHexString:@"#F5EFDC"];
+    self.nightBackgroundButton.backgroundColor = [UIColor blackColor];
+    self.decreaseLineHeightButton.backgroundColor = bgColor;
+    self.increaseLineHeightButton.backgroundColor = bgColor;
+    self.decreaseMarginButton.backgroundColor = bgColor;
+    self.increaseMarginButton.backgroundColor = bgColor;
+    
+    [self.tableView reloadData];
+  
+}
+
+- (IBAction)handleButtonTap:(UIButton *)sender {
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-	//int newSize = 0;
-    if (seg == paginationSegmented) {
-        //NSLog(@"BG: %d", newValue);
-        setting = @"Paginate";
-        [prefs setInteger:newValue forKey:setting];
-    }
     
-    if (seg == backgroundSegmented) {
-        //NSLog(@"BG: %d", newValue);
-        setting = @"Background";
-        [prefs setInteger:newValue forKey:setting];
+    if (sender == self.paginationOnButton) {
+        [prefs setInteger:1 forKey:@"Paginate"];
     }
-    
-    if (seg == fontSizeSegmented) {
-        //NSLog(@"FS: %d", newValue);
+
+    if (sender == self.paginationOffButton) {
+        [prefs setInteger:0 forKey:@"Paginate"];
+    }
+
+    if (sender == self.whiteBackgroundButton) {
+        [prefs setInteger:0 forKey:@"Background"];
+        [self updateBackgrounds];
+    }
+
+    if (sender == self.sepiaBackgroundButton) {
+        [prefs setInteger:1 forKey:@"Background"];
+        [self updateBackgrounds];
+    }
+
+    if (sender == self.nightBackgroundButton) {
+        [prefs setInteger:2 forKey:@"Background"];
+        [self updateBackgrounds];
+    }
+
+    if (sender == self.decreaseFontSizeButton) {
         int currentFontSize = [[prefs valueForKey:@"FontSize"] integerValue];
-        if (newValue == 0) {
-            if (currentFontSize > MIN_FONT_SIZE) {
-                --currentFontSize;
-            }
-        } else {
-            if (currentFontSize < MAX_FONT_SIZE) {
-                ++currentFontSize;
-            }
+        
+        if (currentFontSize > MIN_FONT_SIZE) {
+            --currentFontSize;
         }
-        NSLog(@"FS: %d", currentFontSize);
         [prefs setInteger:currentFontSize forKey:@"FontSize"];
     }
     
-    if (seg == lineHeightSegmented) {
-        //NSLog(@"LH: %d", newValue);
-        double currentLineHeight = [[prefs valueForKey:@"LineHeight"] doubleValue];
-        if (newValue == 0) {
-            if (currentLineHeight > MIN_LINE_HEIGHT) {
-                currentLineHeight = currentLineHeight - 0.2f;
-            }
-        } else {
-            if (currentLineHeight < MAX_LINE_HEIGHT) {
-                currentLineHeight = currentLineHeight + 0.2f;
-            }
+    if (sender == self.increaseFontSizeButton) {
+        int currentFontSize = [[prefs valueForKey:@"FontSize"] integerValue];
+        if (currentFontSize < MAX_FONT_SIZE) {
+            ++currentFontSize;
         }
-        NSLog(@"FS: %f", currentLineHeight);
+        [prefs setInteger:currentFontSize forKey:@"FontSize"];
+    }
+    
+    
+    if (sender == self.decreaseLineHeightButton) {
+        double currentLineHeight = [[prefs valueForKey:@"LineHeight"] doubleValue];
+        if (currentLineHeight > MIN_LINE_HEIGHT) {
+            currentLineHeight = currentLineHeight - 0.2f;
+        }
+        [prefs setDouble:currentLineHeight forKey:@"LineHeight"];
+    }
+
+    if (sender == self.increaseLineHeightButton) {
+        double currentLineHeight = [[prefs valueForKey:@"LineHeight"] doubleValue];
+        if (currentLineHeight < MAX_LINE_HEIGHT) {
+            currentLineHeight = currentLineHeight + 0.2f;
+        }    
         [prefs setDouble:currentLineHeight forKey:@"LineHeight"];
     }
     
-    if (seg == marginSegmented) {
-        //NSLog(@"M: %d", newValue);
+    if (sender == self.decreaseMarginButton) {
         int currentMargin = [[prefs valueForKey:@"Margin"] integerValue];
-        if (newValue == 0) {
-            if (currentMargin < MAX_WIDTH) {
-                currentMargin = currentMargin + 20;
-            }
-        } else {
-            if (currentMargin > MIN_WIDTH) {
-                currentMargin = currentMargin - 20;
-            }
+        if (currentMargin < MAX_WIDTH) {
+            currentMargin = currentMargin + 20;
         }
-        NSLog(@"FS: %d", currentMargin);
+        [prefs setInteger:currentMargin forKey:@"Margin"];
+    }
+    
+    if (sender == self.increaseMarginButton) {
+        int currentMargin = [[prefs valueForKey:@"Margin"] integerValue];
+        if (currentMargin > MIN_WIDTH) {
+            currentMargin = currentMargin - 20;
+        }
         [prefs setInteger:currentMargin forKey:@"Margin"];
     }
     
     [prefs synchronize];
-    seg.selectedSegmentIndex = UISegmentedControlNoSegment;
+
     if (_delegate != nil) {
-		[_delegate settingsChanged:setting newValue:newValue];
+		[_delegate settingsChanged:@"" newValue:0];
 	}
 }
+
 
 #pragma mark - Table view data source
 
@@ -185,6 +271,7 @@
     
     // Configure the cell...
     cell.textLabel.text = [self.fonts objectAtIndex:indexPath.row];
+    cell.textLabel.textColor = [PHColors textColor];
     cell.accessoryType = UITableViewCellAccessoryNone;
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     NSString *font = [prefs valueForKey:@"Font"];

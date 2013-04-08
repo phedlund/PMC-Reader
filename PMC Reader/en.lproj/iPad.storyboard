@@ -200,73 +200,144 @@
                         <rect key="frame" x="0.0" y="20" width="768" height="1004"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" id="yW1-ee-M8T">
-                                <rect key="frame" x="240" y="80" width="200" height="44"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="XJT-5u-1IM">
+                                <rect key="frame" x="240" y="20" width="95" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <segments>
-                                    <segment title="" image="background1.png"/>
-                                    <segment title="" image="background2.png"/>
-                                    <segment title="" image="background3.png"/>
-                                </segments>
+                                <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
+                                <state key="normal" image="paginate1.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
                                 <connections>
-                                    <action selector="doSegmentedValueChanged:" destination="2Jz-mI-5ty" eventType="valueChanged" id="QVO-KY-0IB"/>
+                                    <action selector="handleButtonTap:" destination="2Jz-mI-5ty" eventType="touchUpInside" id="Cmg-gW-bS7"/>
                                 </connections>
-                            </segmentedControl>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" id="5WA-Dr-hBa" customClass="MCSegmentedControl">
-                                <rect key="frame" x="240" y="140" width="200" height="44"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="K8P-yk-DNa">
+                                <rect key="frame" x="345" y="20" width="95" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <segments>
-                                    <segment title="" image="fontsizes.png"/>
-                                    <segment title="" image="fontsizel.png"/>
-                                </segments>
+                                <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
+                                <state key="normal" image="paginate2.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
                                 <connections>
-                                    <action selector="doSegmentedValueChanged:" destination="2Jz-mI-5ty" eventType="valueChanged" id="td1-YI-5z4"/>
+                                    <action selector="handleButtonTap:" destination="2Jz-mI-5ty" eventType="touchUpInside" id="M6Z-KY-OLN"/>
                                 </connections>
-                            </segmentedControl>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" id="PNK-PC-W9N" customClass="MCSegmentedControl">
-                                <rect key="frame" x="240" y="200" width="200" height="44"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="5aA-bD-sc3">
+                                <rect key="frame" x="345" y="260" width="95" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <segments>
-                                    <segment title="" image="lineheight1.png"/>
-                                    <segment title="" image="lineheight3.png"/>
-                                </segments>
+                                <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
+                                <state key="normal" image="margin3.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
                                 <connections>
-                                    <action selector="doSegmentedValueChanged:" destination="2Jz-mI-5ty" eventType="valueChanged" id="gur-7b-pFr"/>
+                                    <action selector="handleButtonTap:" destination="2Jz-mI-5ty" eventType="touchUpInside" id="JO5-AD-IPg"/>
                                 </connections>
-                            </segmentedControl>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" id="ymK-T1-jcv" customClass="MCSegmentedControl">
-                                <rect key="frame" x="240" y="260" width="200" height="44"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="1fx-C8-Jxj">
+                                <rect key="frame" x="240" y="260" width="95" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <segments>
-                                    <segment title="" image="margin1.png"/>
-                                    <segment title="" image="margin3.png"/>
-                                </segments>
+                                <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
+                                <state key="normal" image="margin1.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
                                 <connections>
-                                    <action selector="doSegmentedValueChanged:" destination="2Jz-mI-5ty" eventType="valueChanged" id="ZuN-Ht-JAO"/>
+                                    <action selector="handleButtonTap:" destination="2Jz-mI-5ty" eventType="touchUpInside" id="cRY-4j-qAa"/>
                                 </connections>
-                            </segmentedControl>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" id="eZ5-dW-8ze" customClass="MCSegmentedControl">
-                                <rect key="frame" x="240" y="20" width="200" height="44"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="cc1-RF-DLq">
+                                <rect key="frame" x="345" y="200" width="95" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <segments>
-                                    <segment title="" image="paginate1.png"/>
-                                    <segment title="" image="paginate2.png"/>
-                                </segments>
+                                <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
+                                <state key="normal" image="lineheight3.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
                                 <connections>
-                                    <action selector="doSegmentedValueChanged:" destination="2Jz-mI-5ty" eventType="valueChanged" id="KfM-L3-ldV"/>
+                                    <action selector="handleButtonTap:" destination="2Jz-mI-5ty" eventType="touchUpInside" id="U0W-pl-xz2"/>
                                 </connections>
-                            </segmentedControl>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="GD9-fz-kNH">
+                                <rect key="frame" x="240" y="200" width="95" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
+                                <state key="normal" image="lineheight1.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="handleButtonTap:" destination="2Jz-mI-5ty" eventType="touchUpInside" id="dc9-ht-ULD"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Z0a-a0-OD0">
+                                <rect key="frame" x="345" y="140" width="95" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
+                                <state key="normal" image="fontsizel.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="handleButtonTap:" destination="2Jz-mI-5ty" eventType="touchUpInside" id="RjF-tO-T4j"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="gY8-I9-eig">
+                                <rect key="frame" x="240" y="140" width="95" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
+                                <state key="normal" image="fontsizes.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="handleButtonTap:" destination="2Jz-mI-5ty" eventType="touchUpInside" id="hiv-mB-KeT"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="bJV-OJ-sPx">
+                                <rect key="frame" x="380" y="80" width="60" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
+                                <state key="normal">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="handleButtonTap:" destination="2Jz-mI-5ty" eventType="touchUpInside" id="g0y-LY-Fy0"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Gkr-bM-IId">
+                                <rect key="frame" x="240" y="80" width="60" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
+                                <state key="normal">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="handleButtonTap:" destination="2Jz-mI-5ty" eventType="touchUpInside" id="9wg-2c-gao"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Y32-FC-XL9">
+                                <rect key="frame" x="310" y="80" width="60" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
+                                <state key="normal">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="handleButtonTap:" destination="2Jz-mI-5ty" eventType="touchUpInside" id="394-YE-c1e"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <value key="contentSizeForViewInPopover" type="size" width="460" height="320"/>
                     <connections>
-                        <outlet property="backgroundSegmented" destination="yW1-ee-M8T" id="P0f-GS-RNw"/>
-                        <outlet property="fontSizeSegmented" destination="5WA-Dr-hBa" id="bsf-ow-fNT"/>
-                        <outlet property="lineHeightSegmented" destination="PNK-PC-W9N" id="J3D-HT-RlN"/>
-                        <outlet property="marginSegmented" destination="ymK-T1-jcv" id="DIu-ok-f6A"/>
-                        <outlet property="paginationSegmented" destination="eZ5-dW-8ze" id="4Pr-Rk-XkN"/>
+                        <outlet property="decreaseFontSizeButton" destination="gY8-I9-eig" id="fi7-pH-tAy"/>
+                        <outlet property="decreaseLineHeightButton" destination="GD9-fz-kNH" id="haY-8U-cZz"/>
+                        <outlet property="decreaseMarginButton" destination="1fx-C8-Jxj" id="fb9-PY-3mn"/>
+                        <outlet property="increaseFontSizeButton" destination="Z0a-a0-OD0" id="qjI-gR-qGU"/>
+                        <outlet property="increaseLineHeightButton" destination="cc1-RF-DLq" id="jxh-uE-n3t"/>
+                        <outlet property="increaseMarginButton" destination="5aA-bD-sc3" id="LCj-E8-6uO"/>
+                        <outlet property="nightBackgroundButton" destination="bJV-OJ-sPx" id="2vV-sI-MTZ"/>
+                        <outlet property="paginationOffButton" destination="XJT-5u-1IM" id="GZU-BN-Maf"/>
+                        <outlet property="paginationOnButton" destination="K8P-yk-DNa" id="pgV-4M-bjH"/>
+                        <outlet property="sepiaBackgroundButton" destination="Y32-FC-XL9" id="ceT-zk-cFK"/>
                         <outlet property="view" destination="99g-hB-zMd" id="vEl-f3-684"/>
+                        <outlet property="whiteBackgroundButton" destination="Gkr-bM-IId" id="9yE-cn-61l"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7bF-3Q-8eV" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -275,9 +346,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="background1.png" width="26" height="26"/>
-        <image name="background2.png" width="26" height="26"/>
-        <image name="background3.png" width="26" height="26"/>
         <image name="fontsizel.png" width="26" height="26"/>
         <image name="fontsizes.png" width="26" height="26"/>
         <image name="lineheight1.png" width="26" height="26"/>

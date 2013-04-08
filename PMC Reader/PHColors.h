@@ -12,6 +12,7 @@
     
 }
 
++ (UIColor *)colorFromHexString:(NSString *)hexString;
 + (UIColor *)backgroundColor;
 + (NSString *)backgroundColorAsHex;
 + (UIColor *)textColor;

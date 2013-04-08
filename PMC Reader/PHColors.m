@@ -8,12 +8,6 @@
 
 #import "PHColors.h"
 
-@interface PHColors ()
-
-+ (UIColor *)colorFromHexString:(NSString *)hexString;
-
-@end
-
 @implementation PHColors
 
 

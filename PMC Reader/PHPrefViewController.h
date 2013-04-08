@@ -15,16 +15,22 @@
 
 @interface PHPrefViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
 
-@property (strong, nonatomic) IBOutlet MCSegmentedControl *paginationSegmented;
-@property (weak, nonatomic) IBOutlet UISegmentedControl *backgroundSegmented;
-@property (weak, nonatomic) IBOutlet MCSegmentedControl *fontSizeSegmented;
-@property (weak, nonatomic) IBOutlet MCSegmentedControl *lineHeightSegmented;
-@property (weak, nonatomic) IBOutlet MCSegmentedControl *marginSegmented;
+@property (strong, nonatomic) IBOutlet UIButton *paginationOnButton;
+@property (strong, nonatomic) IBOutlet UIButton *paginationOffButton;
+@property (strong, nonatomic) IBOutlet UIButton *whiteBackgroundButton;
+@property (strong, nonatomic) IBOutlet UIButton *sepiaBackgroundButton;
+@property (strong, nonatomic) IBOutlet UIButton *nightBackgroundButton;
+@property (strong, nonatomic) IBOutlet UIButton *decreaseFontSizeButton;
+@property (strong, nonatomic) IBOutlet UIButton *increaseFontSizeButton;
+@property (strong, nonatomic) IBOutlet UIButton *decreaseLineHeightButton;
+@property (strong, nonatomic) IBOutlet UIButton *increaseLineHeightButton;
+@property (strong, nonatomic) IBOutlet UIButton *decreaseMarginButton;
+@property (strong, nonatomic) IBOutlet UIButton *increaseMarginButton;
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSArray *fonts;
 
 @property (nonatomic, strong) id<PHPrefViewControllerDelegate> delegate;
 
-- (IBAction)doSegmentedValueChanged:(id)sender;
+- (IBAction)handleButtonTap:(UIButton *)sender;
 
 @end
