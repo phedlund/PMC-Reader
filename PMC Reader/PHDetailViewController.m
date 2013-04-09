@@ -24,6 +24,7 @@
     int _currentPage;
     BOOL _handlingLink;
     BOOL _scrollingInternally;
+    NSString *_currentHash;
 }
 
 @property (strong, nonatomic) UIPopoverController *prefPopoverController;
@@ -117,6 +118,7 @@
         [self.titleLabel2 setText:detail.title];
         _handlingLink = NO;
         _scrollingInternally = NO;
+        _currentHash = nil;
     }
     
 }
@@ -208,6 +210,9 @@
 - (IBAction)doGoBack:(id)sender
 {
     if ([[self articleView] canGoBack]) {
+        if ([self.articleView.request.URL.scheme isEqualToString:@"file"]) {
+            _scrollingInternally = YES;
+        }
         [[self articleView] goBack];
     }
 }
@@ -215,6 +220,9 @@
 - (IBAction)doGoForward:(id)sender
 {
     if ([[self articleView] canGoForward]) {
+        if ([self.articleView.request.URL.scheme isEqualToString:@"file"]) {
+            _scrollingInternally = YES;
+        }
         [[self articleView] goForward];
     }
 }
@@ -373,7 +381,11 @@
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
     _handlingLink = YES;
+    _scrollingInternally = NO;
     if ([self.articleView.request.URL.scheme isEqualToString:@"file"]) {
+        if ([request.URL.scheme isEqualToString:@"file"]) {
+            _scrollingInternally = YES;
+        }
         if ([request.URL.scheme isEqualToString:@"http"]) {
             NSRange range = [request.URL.absoluteString rangeOfString:@"#"];
             if (range.location != NSNotFound) {
@@ -389,6 +401,7 @@
                             labelText = [ref.text stringByAppendingString:labelText];
                             
                             RTLabel *label = [[RTLabel alloc] initWithFrame:CGRectMake(0, 0, 350, 500)];
+                            _currentHash = request.URL.fragment;
                             label.delegate = self;
                             label.text = labelText;
                             CGSize opt = [label optimumSize];
@@ -446,11 +459,14 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if (_scrollingInternally) {
         if ([self shouldPaginate]) {
+            int oldPage = _currentPage;
             _currentPage = (int)ceil(((float)scrollView.contentOffset.x / self.articleView.bounds.size.width));
+            if (oldPage > _currentPage) {
+                _currentPage--;
+            }
             [self gotoPage:_currentPage animated:NO];
         }
     }
-    _scrollingInternally = NO;
     NSLog(@"Offset: %f", scrollView.contentOffset.x);
 }
 
@@ -458,6 +474,13 @@
     if (popover) {
         [popover dismiss:NO];
     }
+    _scrollingInternally = YES;
+    
+    NSString *oldURL = self.articleView.request.URL.absoluteString;
+    [self.articleView stringByEvaluatingJavaScriptFromString:@"var stateObj = { pmc: 'pmc' };"];
+    [self.articleView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"window.history.pushState(stateObj, 'pmc', %@);", oldURL]];
+    [self.articleView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"window.location.hash = '%@';", @"__p5"]];
+    [self updateToolbar];
     [[self articleView] loadRequest:[NSURLRequest requestWithURL:url]];
 }
 
@@ -650,7 +673,7 @@
         _currentPage = _pageCount - 1;
         return;
     }
-    
+    _scrollingInternally = NO;
     _currentPage = page;
     float pageOffset = _currentPage * self.articleView.bounds.size.width;
     [self.articleView.scrollView setContentOffset:CGPointMake(pageOffset, 0.0f) animated:animated];
@@ -694,7 +717,8 @@
     if ([[NSUserDefaults standardUserDefaults] integerForKey:@"Paginate"] == 1) {
         PHArticle *detail = (PHArticle *) self.detailItem;
         NSURL *url = self.articleView.request.URL;
-        if ([[url absoluteString] hasSuffix:[NSString stringWithFormat:@"Documents/%@/text.html", detail.pmcId]]) {
+        NSRange range = [url.absoluteString rangeOfString:[NSString stringWithFormat:@"Documents/%@/text.html", detail.pmcId]];
+        if (range.location != NSNotFound) {
             return YES;
         }
     }
