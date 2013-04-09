@@ -469,15 +469,11 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
 }
 
 - (void)updateBackgrounds {
-    int backgroundIndex =[[NSUserDefaults standardUserDefaults] integerForKey:@"Background"];
     UIColor *bgColor = [PHColors backgroundColor];
     self.viewDeckController.leftController.view.backgroundColor = bgColor;
     self.view.backgroundColor = bgColor;
     self.tableView.backgroundColor = bgColor;
     [self.tableView reloadData];
-    //self.pageBarContainerView.backgroundColor = bgColor;
-    //self.pageNumberBar.nightMode = (backgroundIndex == 2);
-    //self.titleLabel2.alpha = (backgroundIndex == 2) ? 1.0f : 0.5f;
 }
 
 @end
