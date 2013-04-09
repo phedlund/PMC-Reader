@@ -22,6 +22,7 @@
     CGPoint currentTapLocation;
     int _pageCount;
     int _currentPage;
+    BOOL _handlingLink;
 }
 
 @property (strong, nonatomic) UIPopoverController *prefPopoverController;
@@ -84,7 +85,7 @@
         
         
         UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(toggleNavBar:)];
-        gesture.numberOfTapsRequired = 2;
+        gesture.numberOfTapsRequired = 1;
         [self.articleView addGestureRecognizer:gesture];
         gesture.delegate = self;
 
@@ -112,6 +113,7 @@
         self.titleLabel2.hidden = !self.navigationController.navigationBarHidden;
         [self.titleLabel setText:detail.title];
         [self.titleLabel2 setText:detail.title];
+        _handlingLink = NO;
     }
     
 }
@@ -260,7 +262,18 @@
 
 - (void)toggleNavBar:(UITapGestureRecognizer *)gesture {
     CGPoint loc = [gesture locationInView:self.articleView];
+    [self performSelector:@selector(doToggleNavBar:) withObject:[NSValue valueWithCGPoint:loc] afterDelay:0.4];
+    
+}
+
+- (void)doToggleNavBar:(NSValue *)location {
+    if (_handlingLink) {
+        _handlingLink = NO;
+        return;
+    }
+    _handlingLink = NO;
     double w = self.articleView.frame.size.width;
+    CGPoint loc = [location CGPointValue];
     if ((loc.x > 150) && (loc.x < (w - 150))) {
         if (self.navigationController.navigationBarHidden) {
             [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationSlide];
@@ -356,6 +369,7 @@
 }
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
+    _handlingLink = YES;
     if ([self.articleView.request.URL.scheme isEqualToString:@"file"]) {
         if ([request.URL.scheme isEqualToString:@"http"]) {
             NSRange range = [request.URL.absoluteString rangeOfString:@"#"];
