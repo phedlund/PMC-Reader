@@ -527,7 +527,7 @@
     float ratio = (float)_pageCount/(float)oldPageCount;
     _currentPage = (int)(_currentPage * ratio);
     self.pageNumberBar.maximumValue = _pageCount - 1;
-    self.pageNumberLabel.text = [NSString stringWithFormat:@"%d/%d",_currentPage + 1, _pageCount];
+    self.pageNumberLabel.text = [NSString stringWithFormat:@"%d of %d",_currentPage + 1, _pageCount];
     [self gotoPage:_currentPage animated:NO];
 }
 
@@ -627,7 +627,7 @@
     [self.articleView.scrollView setContentOffset:CGPointMake(pageOffset, 0.0f) animated:animated];
 
     self.pageNumberBar.value = _currentPage;
-	self.pageNumberLabel.text = [NSString stringWithFormat:@"%d/%d", _currentPage + 1, _pageCount];
+	self.pageNumberLabel.text = [NSString stringWithFormat:@"%d of %d", _currentPage + 1, _pageCount];
 }
 
 - (SCPageScrubberBar *)pageNumberBar
