@@ -14,7 +14,7 @@
 #import "PopoverView.h"
 #import "SCPageScrubberBar.h"
 
-@interface PHDetailViewController : UIViewController <UIActionSheetDelegate, UIWebViewDelegate, UIPopoverControllerDelegate, UIGestureRecognizerDelegate, PHPrefViewControllerDelegate, ArticleNavigationDelegate, IIViewDeckControllerDelegate, RTLabelDelegate, PopoverViewDelegate, SCPageScrubberBarDelegate>
+@interface PHDetailViewController : UIViewController <UIActionSheetDelegate, UIWebViewDelegate, UIScrollViewDelegate, UIPopoverControllerDelegate, UIGestureRecognizerDelegate, PHPrefViewControllerDelegate, ArticleNavigationDelegate, IIViewDeckControllerDelegate, RTLabelDelegate, PopoverViewDelegate, SCPageScrubberBarDelegate>
 
 @property (strong, nonatomic) id detailItem;
 @property (strong, nonatomic) IBOutlet UIView *pageBarContainerView;

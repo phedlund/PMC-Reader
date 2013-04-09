@@ -23,6 +23,7 @@
     int _pageCount;
     int _currentPage;
     BOOL _handlingLink;
+    BOOL _scrollingInternally;
 }
 
 @property (strong, nonatomic) UIPopoverController *prefPopoverController;
@@ -77,6 +78,7 @@
         self.articleView = [[UIWebView alloc] initWithFrame:[self articleRect]];
         self.articleView.scalesPageToFit = YES;
         self.articleView.delegate = self;
+        self.articleView.scrollView.delegate = self;
         self.articleView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         self.articleView.alpha = 0;
         self.articleView.opaque = NO;
@@ -114,6 +116,7 @@
         [self.titleLabel setText:detail.title];
         [self.titleLabel2 setText:detail.title];
         _handlingLink = NO;
+        _scrollingInternally = NO;
     }
     
 }
@@ -374,6 +377,7 @@
         if ([request.URL.scheme isEqualToString:@"http"]) {
             NSRange range = [request.URL.absoluteString rangeOfString:@"#"];
             if (range.location != NSNotFound) {
+                _scrollingInternally = YES;
                 PHArticle *detail = (PHArticle *) self.detailItem;
                 if (detail.references.count > 0) {
                     __block BOOL refFound = NO;
@@ -437,6 +441,17 @@
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
 	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     [self updateToolbar];
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if (_scrollingInternally) {
+        if ([self shouldPaginate]) {
+            _currentPage = (int)ceil(((float)scrollView.contentOffset.x / self.articleView.bounds.size.width));
+            [self gotoPage:_currentPage animated:NO];
+        }
+    }
+    _scrollingInternally = NO;
+    NSLog(@"Offset: %f", scrollView.contentOffset.x);
 }
 
 - (void)rtLabel:(id)rtLabel didSelectLinkWithURL:(NSURL*)url {
@@ -534,7 +549,7 @@
     //	NSLog(@"Highlighting %@", currentSearchResult.originatingQuery);
     //    [webView highlightAllOccurencesOfString:currentSearchResult.originatingQuery];
     //}    
-    
+
     int totalWidth = [[self.articleView stringByEvaluatingJavaScriptFromString:@"document.documentElement.scrollWidth"] intValue];
     int oldPageCount = _pageCount;
     _pageCount = (int)((float)totalWidth/self.articleView.bounds.size.width);
