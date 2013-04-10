@@ -19,5 +19,6 @@
 + (NSString *)textColorAsHex;
 + (UIColor *)linkColor;
 + (NSString *)linkColorAsHex;
++ (UIImage *)changeImage:(UIImage*)image toColor:(UIColor*)color;
 
 @end
