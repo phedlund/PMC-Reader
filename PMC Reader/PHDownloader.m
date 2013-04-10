@@ -187,6 +187,11 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
                     if ([[inputNode getAttributeNamed:@"class"] rangeOfString:@"bibr"].location != NSNotFound) {
                         PHArticleReference *reference = [[PHArticleReference alloc] init];
                         reference.idAttribute = [inputNode getAttributeNamed:@"rid"];
+                        reference.hashAttribute = [inputNode getAttributeNamed:@"id"];
+                        if (!reference.hashAttribute) {
+                            HTMLNode * p = [inputNode parent];
+                            reference.hashAttribute = [p getAttributeNamed:@"id"];
+                        }
                         HTMLNode *refTextNode = [bodyNode findChildWithAttribute:@"id" matchingName:reference.idAttribute allowPartial:NO];
                         reference.text = refTextNode.allContents;
                         

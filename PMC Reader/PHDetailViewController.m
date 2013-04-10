@@ -43,6 +43,7 @@
 
 @implementation PHDetailViewController
 
+@synthesize article = _article;
 @synthesize articleView = _articleView;
 @synthesize prefPopoverController = _prefPopoverController;
 @synthesize prefViewController = _prefViewController;
@@ -55,10 +56,9 @@
 
 #pragma mark - Managing the detail item
 
-- (void)setDetailItem:(id)newDetailItem
-{
-    if (_detailItem != newDetailItem) {
-        _detailItem = newDetailItem;
+- (void)setArticle:(PHArticle *)article {
+    if (_article != article) {
+        _article = article;
         
         // Update the view.
         [self configureView];
@@ -69,7 +69,7 @@
 {
     // Update the user interface for the detail item.
 
-    if (self.detailItem) {
+    if (self.article) {
         [self updatePagination];
         if ([self articleView] != nil) {
             [[self articleView] removeFromSuperview];
@@ -105,8 +105,7 @@
         NSFileManager *fm = [NSFileManager defaultManager];
         NSArray *paths = [fm URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask];
         NSURL *docDir = [paths objectAtIndex:0];
-        PHArticle *detail = (PHArticle *) self.detailItem;
-        docDir = [docDir URLByAppendingPathComponent:detail.pmcId isDirectory:YES];
+        docDir = [docDir URLByAppendingPathComponent:self.article.pmcId isDirectory:YES];
         docDir = [docDir URLByAppendingPathComponent:@"text.html"];
         NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:docDir];
         [request setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
@@ -114,8 +113,8 @@
         [[self articleView] loadRequest:request];
         [self updateBackgrounds];
         self.titleLabel2.hidden = !self.navigationController.navigationBarHidden;
-        [self.titleLabel setText:detail.title];
-        [self.titleLabel2 setText:detail.title];
+        [self.titleLabel setText:self.article.title];
+        [self.titleLabel2 setText:self.article.title];
         _handlingLink = NO;
         _scrollingInternally = NO;
         _currentHash = nil;
@@ -238,17 +237,16 @@
 }
 
 - (IBAction)doInfo:(id)sender {
-    if (self.detailItem != nil) {
+    if (self.article != nil) {
         UIActionSheet *menu = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:@"Open in Safari", @"Copy", nil];
         [menu showFromBarButtonItem:infoBarButtonItem animated:YES];
     }
 }
 
 - (IBAction) doNavigation:(id)sender {
-    PHArticle *detail = (PHArticle *) self.detailItem;
-    self.articleNavigationController.articleSections = [NSArray arrayWithArray:detail.articleNavigationItems];
-    if (detail.articleNavigationItems.count > 0) {
-        self.articleNavigationPopover.popoverContentSize  = CGSizeMake(290.0f, 44 * detail.articleNavigationItems.count);
+    self.articleNavigationController.articleSections = [NSArray arrayWithArray:self.article.articleNavigationItems];
+    if (self.article.articleNavigationItems.count > 0) {
+        self.articleNavigationPopover.popoverContentSize  = CGSizeMake(290.0f, 44 * self.article.articleNavigationItems.count);
     } else {
         self.articleNavigationPopover.popoverContentSize = CGSizeMake(290.0f, 44);
     }
@@ -383,17 +381,22 @@
     _handlingLink = YES;
     _scrollingInternally = NO;
     if ([self.articleView.request.URL.scheme isEqualToString:@"file"]) {
-        if ([request.URL.scheme isEqualToString:@"file"]) {
-            _scrollingInternally = YES;
+        NSURL *url = self.articleView.request.URL;
+        NSRange range = [url.absoluteString rangeOfString:[NSString stringWithFormat:@"Documents/%@/text.html", self.article.pmcId]];
+        if (range.location != NSNotFound) {
+            NSURL *url2 = request.URL;
+            NSRange range = [url2.absoluteString rangeOfString:[NSString stringWithFormat:@"Documents/%@/text.html", self.article.pmcId]];
+            if (range.location != NSNotFound) {
+                _scrollingInternally = YES;
+            }
         }
         if ([request.URL.scheme isEqualToString:@"http"]) {
             NSRange range = [request.URL.absoluteString rangeOfString:@"#"];
             if (range.location != NSNotFound) {
                 _scrollingInternally = YES;
-                PHArticle *detail = (PHArticle *) self.detailItem;
-                if (detail.references.count > 0) {
+                if (self.article.references.count > 0) {
                     __block BOOL refFound = NO;
-                    [detail.references enumerateObjectsUsingBlock:^(PHArticleReference *ref, NSUInteger idx, BOOL *stop) {
+                    [self.article.references enumerateObjectsUsingBlock:^(PHArticleReference *ref, NSUInteger idx, BOOL *stop) {
                         if ([ref.idAttribute isEqualToString:[request.URL fragment]]) {
                             NSMutableString* frag = [[NSMutableString alloc] initWithString:@"#"];
                             NSURL *url = [NSURL URLWithString:[frag stringByAppendingString:[request.URL fragment]] relativeToURL:self.articleView.request.URL];
@@ -401,7 +404,7 @@
                             labelText = [ref.text stringByAppendingString:labelText];
                             
                             RTLabel *label = [[RTLabel alloc] initWithFrame:CGRectMake(0, 0, 350, 500)];
-                            _currentHash = request.URL.fragment;
+                            _currentHash = ref.hashAttribute;
                             label.delegate = self;
                             label.text = labelText;
                             CGSize opt = [label optimumSize];
@@ -474,14 +477,19 @@
     if (popover) {
         [popover dismiss:NO];
     }
-    _scrollingInternally = YES;
+
+    NSRange range = [url.absoluteString rangeOfString:[NSString stringWithFormat:@"Documents/%@/text.html", self.article.pmcId]];
+    if (range.location != NSNotFound) {
+        _scrollingInternally = YES;
+    }
     
     NSString *oldURL = self.articleView.request.URL.absoluteString;
     [self.articleView stringByEvaluatingJavaScriptFromString:@"var stateObj = { pmc: 'pmc' };"];
     [self.articleView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"window.history.pushState(stateObj, 'pmc', %@);", oldURL]];
-    [self.articleView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"window.location.hash = '%@';", @"__p5"]];
+    [self.articleView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"window.location.hash = '%@';", _currentHash]];
+    [self.articleView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"window.location = '%@';", url.absoluteString]];
     [self updateToolbar];
-    [[self articleView] loadRequest:[NSURLRequest requestWithURL:url]];
+//    [[self articleView] loadRequest:[NSURLRequest requestWithURL:url]];
 }
 
 - (void)popoverViewDidDismiss:(PopoverView *)popoverView {
@@ -584,12 +592,10 @@
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    PHArticle *detail = (PHArticle *) self.detailItem;
-    
     NSURL *url = self.articleView.request.URL;
-    NSLog(@"URL: %@", [url absoluteString]);
-    if ([[url absoluteString] hasSuffix:[NSString stringWithFormat:@"Documents/%@/text.html", detail.pmcId]]) {
-        url = detail.url;
+    NSRange range = [url.absoluteString rangeOfString:[NSString stringWithFormat:@"Documents/%@/text.html", self.article.pmcId]];
+    if (range.location != NSNotFound) {
+        url = self.article.url;
     }
     
     switch (buttonIndex) {
@@ -715,9 +721,8 @@
 
 - (BOOL)shouldPaginate {
     if ([[NSUserDefaults standardUserDefaults] integerForKey:@"Paginate"] == 1) {
-        PHArticle *detail = (PHArticle *) self.detailItem;
         NSURL *url = self.articleView.request.URL;
-        NSRange range = [url.absoluteString rangeOfString:[NSString stringWithFormat:@"Documents/%@/text.html", detail.pmcId]];
+        NSRange range = [url.absoluteString rangeOfString:[NSString stringWithFormat:@"Documents/%@/text.html", self.article.pmcId]];
         if (range.location != NSNotFound) {
             return YES;
         }
@@ -885,7 +890,7 @@ CGRect CGRectMoveBottom(CGRect rect, CGFloat dy) {
 - (void)updateToolbar {
     self.backBarButtonItem.enabled = self.articleView.canGoBack;
     self.forwardBarButtonItem.enabled = self.articleView.canGoForward;
-    if ((self.detailItem != nil)) {
+    if ((self.article != nil)) {
         self.infoBarButtonItem.enabled = !self.articleView.isLoading;
         self.prefsBarButtonItem.enabled = !self.articleView.isLoading;
         self.navBarButtonItem.enabled = !self.articleView.isLoading;
@@ -895,16 +900,15 @@ CGRect CGRectMoveBottom(CGRect rect, CGFloat dy) {
         self.navBarButtonItem.enabled = NO;
     }
     
-    PHArticle *detail = (PHArticle *) self.detailItem;
     NSURL *url = self.articleView.request.URL;
     NSString *u = [url absoluteString];
-    NSString *v = [NSString stringWithFormat:@"Documents/%@/text.html", detail.pmcId];
+    NSString *v = [NSString stringWithFormat:@"Documents/%@/text.html", self.article.pmcId];
     
     if ([u rangeOfString:v].location == NSNotFound) {
         self.navBarButtonItem.enabled = NO;
     }
     
-    v = [NSString stringWithFormat:@"Documents/%@", detail.pmcId];
+    v = [NSString stringWithFormat:@"Documents/%@", self.article.pmcId];
     if ([u rangeOfString:v].location == NSNotFound) {
         self.prefsBarButtonItem.enabled = NO;
     }
@@ -913,7 +917,7 @@ CGRect CGRectMoveBottom(CGRect rect, CGFloat dy) {
     fixedSpace.width = 5.0f;
     
     UIBarButtonItem *refreshStopBarButtonItem = self.articleView.isLoading ? self.stopBarButtonItem : self.refreshBarButtonItem;
-    refreshStopBarButtonItem.enabled = (self.detailItem != nil);
+    refreshStopBarButtonItem.enabled = (self.article != nil);
     
     NSMutableArray *itemsLeft = [self.leftToolbar.items mutableCopy];
     
@@ -940,8 +944,7 @@ CGRect CGRectMoveBottom(CGRect rect, CGFloat dy) {
 
 - (void)articleSectionSelected:(NSUInteger)section {
     [self.articleNavigationPopover dismissPopoverAnimated:YES];
-    PHArticle *detail = (PHArticle *) self.detailItem;
-    PHArticleNavigationItem *navItem = (PHArticleNavigationItem *)[detail.articleNavigationItems objectAtIndex:section];
+    PHArticleNavigationItem *navItem = (PHArticleNavigationItem *)[self.article.articleNavigationItems objectAtIndex:section];
     NSURL *url = self.articleView.request.URL;
     NSMutableString* frag = [[NSMutableString alloc] initWithString:@"#"];
     [frag appendString:navItem.idAttribute];

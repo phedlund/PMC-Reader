@@ -12,6 +12,7 @@
 
 @synthesize text;
 @synthesize idAttribute;
+@synthesize hashAttribute;
 
 - (id) init {
 	if (self = [super init]) {
@@ -26,6 +27,7 @@
 	if ((self = [super init])) {
         text = [decoder decodeObjectForKey:@"text"];
         idAttribute = [decoder decodeObjectForKey:@"idattribute"];
+        hashAttribute = [decoder decodeObjectForKey:@"hashattribute"];
 	}
 	return self;
 }
@@ -33,6 +35,7 @@
 - (void)encodeWithCoder:(NSCoder *)encoder {
     [encoder encodeObject:text forKey:@"text"];
     [encoder encodeObject:idAttribute forKey:@"idattribute"];
+    [encoder encodeObject:hashAttribute forKey:@"hashattribute"];
 }
 
 @end

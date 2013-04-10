@@ -15,5 +15,6 @@
 
 @property (nonatomic, copy) NSString *text;
 @property (nonatomic, copy) NSString *idAttribute;
+@property (nonatomic, copy) NSString *hashAttribute;
 
 @end

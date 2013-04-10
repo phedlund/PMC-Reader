@@ -369,7 +369,7 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
     } else {
         object = [self.articles objectAtIndex:indexPath.row];
     }
-    self.detailViewController.detailItem = object;
+    self.detailViewController.article = (PHArticle*)object;
     [self.viewDeckController closeLeftView];
 }
 

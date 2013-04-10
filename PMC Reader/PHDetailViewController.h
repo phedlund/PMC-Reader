@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PHArticle.h"
 #import "PHPrefViewController.h"
 #import "PHArticleNavigationControllerViewController.h"
 #import "IIViewDeckController.h"
@@ -16,7 +17,7 @@
 
 @interface PHDetailViewController : UIViewController <UIActionSheetDelegate, UIWebViewDelegate, UIScrollViewDelegate, UIPopoverControllerDelegate, UIGestureRecognizerDelegate, PHPrefViewControllerDelegate, ArticleNavigationDelegate, IIViewDeckControllerDelegate, RTLabelDelegate, PopoverViewDelegate, SCPageScrubberBarDelegate>
 
-@property (strong, nonatomic) id detailItem;
+@property (strong, nonatomic) PHArticle *article;
 @property (strong, nonatomic) IBOutlet UIView *pageBarContainerView;
 @property (strong, nonatomic) IBOutlet UIView *topContainerView;
 @property (strong, nonatomic) UIWebView *articleView;
