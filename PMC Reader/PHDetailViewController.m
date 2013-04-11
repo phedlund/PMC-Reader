@@ -6,6 +6,7 @@
 //  Copyright (c) 2012-2013 Peter Hedlund. All rights reserved.
 //
 
+#import <QuartzCore/QuartzCore.h>
 #import "PHDetailViewController.h"
 #import "IIViewDeckController.h"
 #import "PHArticle.h"
@@ -26,6 +27,7 @@
     BOOL _handlingLink;
     BOOL _scrollingInternally;
     NSString *_currentHash;
+    CALayer *bottomBorder;
 }
 
 @property (strong, nonatomic) UIPopoverController *prefPopoverController;
@@ -137,6 +139,9 @@
     self.titleLabel2.text = @"";
     self.pageNumberLabel.text = @"";
     self.navigationController.navigationBar.translucent = YES;
+    bottomBorder = [CALayer layer];
+    bottomBorder.frame = CGRectMake(0.0f, 43.0f, 1024.0f, 1.0f);
+    [self.navigationController.navigationBar.layer addSublayer:bottomBorder];
     [self updateBackgrounds];
 }
 
@@ -528,6 +533,21 @@
     self.pageNumberBar.nightMode = (backgroundIndex == 2);
     self.titleLabel2.alpha = (backgroundIndex == 2) ? 1.0f : 0.5f;
     self.titleLabel.textColor = [PHColors textColor];
+    
+    switch (backgroundIndex) {
+        case 0:
+            bottomBorder.backgroundColor = [UIColor colorWithWhite:0.8f alpha:1.0f].CGColor;
+            break;
+        case 1:
+            bottomBorder.backgroundColor = [[PHColors backgroundColor] darkerColor].CGColor;
+            break;
+        case 2:
+            //bottomBorder.backgroundColor = [[PHColors backgroundColor] lighterColor].CGColor;
+            bottomBorder.backgroundColor = [UIColor colorWithWhite:0.3f alpha:1.0f].CGColor;
+            break;
+        default:
+            break;
+    }
 }
 
 - (void) writeCssTemplate

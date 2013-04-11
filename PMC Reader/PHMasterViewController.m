@@ -7,19 +7,21 @@
 //
 
 #import "PHMasterViewController.h"
-
+#import <QuartzCore/QuartzCore.h>
 #import "HTMLParser.h"
 #import "IIViewDeckController.h"
 #import "NSMutableArray+Extra.h"
 #import "PHTableViewCell.h"
 #import "PHColors.h"
 #import "TransparentToolbar.h"
+#import "UIColor+LightAndDark.h"
 
 static NSString * const kBaseUrl = @"http://www.ncbi.nlm.nih.gov";
 static NSString * const kArticleUrlSuffix = @"pmc/articles/";
 
 @interface PHMasterViewController() {
     NSIndexPath *_indexPathToDownload;
+    CALayer *bottomBorder;
 }
 
 - (void) downloadArticles:(NSNotification*)n;
@@ -174,6 +176,10 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
     self.navigationController.navigationBar.autoresizesSubviews = NO;
     self.myNavigationBar.translucent = YES;
     self.myNavigationBar.autoresizesSubviews = NO;
+    bottomBorder = [CALayer layer];
+    bottomBorder.frame = CGRectMake(0.0f, 43.0f, 320.0f, 1.0f);
+    [self.myNavigationBar.layer addSublayer:bottomBorder];
+
     [self updateBackgrounds];
     
     self.viewDeckController.leftSize = 320;
@@ -473,6 +479,23 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
     self.viewDeckController.leftController.view.backgroundColor = bgColor;
     self.view.backgroundColor = bgColor;
     self.tableView.backgroundColor = bgColor;
+    int backgroundIndex =[[NSUserDefaults standardUserDefaults] integerForKey:@"Background"];
+    switch (backgroundIndex) {
+        case 0:
+            bottomBorder.backgroundColor = [UIColor colorWithWhite:0.8f alpha:1.0f].CGColor;
+            self.tableView.separatorColor = [UIColor colorWithWhite:0.8f alpha:1.0f];
+            break;
+        case 1:
+            bottomBorder.backgroundColor = [[PHColors backgroundColor] darkerColor].CGColor;
+            self.tableView.separatorColor = [[PHColors backgroundColor] darkerColor];
+            break;
+        case 2:
+            bottomBorder.backgroundColor = [UIColor colorWithWhite:0.3f alpha:1.0f].CGColor;
+            self.tableView.separatorColor = [UIColor colorWithWhite:0.3f alpha:1.0f];
+            break;
+        default:
+            break;
+    }
     [self.tableView reloadData];
 }
 
