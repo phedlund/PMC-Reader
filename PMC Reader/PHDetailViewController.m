@@ -13,6 +13,7 @@
 #import "PHArticleReference.h"
 #import "TransparentToolbar.h"
 #import "PHColors.h"
+#import "UIColor+LightAndDark.h"
 
 #define TITLE_LABEL_WIDTH_LANDSCAPE 700
 #define TITLE_LABEL_WIDTH_PORTRAIT 450
@@ -407,12 +408,19 @@
                             _currentHash = ref.hashAttribute;
                             label.delegate = self;
                             label.text = labelText;
+                            label.textColor = [PHColors textColor];
                             CGSize opt = [label optimumSize];
                             CGRect frame = [label frame];
                             frame.size.height = (int)opt.height+5;
                             [label setFrame:frame];
 
-                            popover = [PopoverView showPopoverAtPoint:currentTapLocation inView:self.articleView withContentView:label delegate:self];
+                            popover = [[PopoverView alloc] initWithFrame:label.frame];
+                            int backgroundIndex =[[NSUserDefaults standardUserDefaults] integerForKey:@"Background"];
+                            if (backgroundIndex > 0) {
+                                popover.backgroundGradientColors = @[[[PHColors backgroundColor] lighterColor], [PHColors backgroundColor]];
+                            }
+                            [popover showAtPoint:currentTapLocation inView:self.articleView withContentView:label];
+                            //popover = [PopoverView showPopoverAtPoint:currentTapLocation inView:self.articleView withContentView:label delegate:self];
                             //NSLog(@"Visible: %@", label.visibleText);
                             refFound = YES;
                             *stop = YES;

@@ -12,7 +12,7 @@
 	url = git://github.com/ZaBlanc/RaptureXML.git
 [submodule "PopoverView"]
 	path = PopoverView
-	url = git://github.com/runway20/PopoverView.git
+url=git://github.com/phedlund/PopoverView.git
 [submodule "RTLabel"]
 	path = RTLabel
 	url = git://github.com/honcheng/RTLabel.git
