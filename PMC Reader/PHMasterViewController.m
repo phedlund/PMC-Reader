@@ -21,7 +21,6 @@ static NSString * const kBaseUrl = @"http://www.ncbi.nlm.nih.gov";
 static NSString * const kArticleUrlSuffix = @"pmc/articles/";
 
 @interface PHMasterViewController() {
-    NSIndexPath *_indexPathToDownload;
     CALayer *bottomBorder;
     PHCollectionViewCell *_swipedCell;
 }
@@ -37,9 +36,7 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
 @synthesize filteredArticles;
 @synthesize searchBar;
 @synthesize isFiltered;
-@synthesize editBarButtonItem;
 @synthesize addBarButtonItem;
-//@synthesize myNavigationItem;
 
 - (NSMutableArray *) articles {
     if (!_articles) {
@@ -92,14 +89,6 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
     return _articles;
 }
 
-- (UIBarButtonItem *)editBarButtonItem {
-    if (!editBarButtonItem) {
-        editBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"edit"] style:UIBarButtonItemStylePlain target:self action:@selector(doEdit:)];
-        editBarButtonItem.imageInsets = UIEdgeInsetsMake(2.0f, 0.0f, -2.0f, 0.0f);
-    }
-    return editBarButtonItem;
-}
-
 - (UIBarButtonItem *)addBarButtonItem {    
     if (!addBarButtonItem) {
         addBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(doAdd:)];
@@ -113,13 +102,6 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     self.wantsFullScreenLayout = YES;
-    //Set up preferences
-    NSString *testValue = [[NSUserDefaults standardUserDefaults] stringForKey:@"PrefsAvailable"];
-    if (testValue == nil) {
-        [[NSUserDefaults standardUserDefaults] registerDefaults:[NSDictionary dictionaryWithContentsOfURL:[[NSBundle mainBundle] URLForResource:@"defaults" withExtension:@"plist"]]];
-        //[[NSUserDefaults standardUserDefaults] setObject:@"yes" forKey:@"PrefsAvailable"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-    }
 
     //Prepare template files (always attempt to copy them in case they have been deleted)
     NSBundle *appBundle = [NSBundle mainBundle];
@@ -139,35 +121,21 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
         [data writeToURL:dest atomically:YES];
     }
     
-    //[self.tableView registerNib:[UINib nibWithNibName:@"PHTableViewCell" bundle:nil] forCellReuseIdentifier:@"PHCell"];
-    //self.tableView.rowHeight = 101;
-    //self.tableView.allowsSelection = YES;
-    //self.tableView.allowsSelectionDuringEditing = NO;
-    [self setEditing:NO animated:NO];
-
     self.isFiltered = NO;
     self.searchBar.delegate = self;
-
-    UILongPressGestureRecognizer *lpgr = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
-    lpgr.minimumPressDuration = 1.0; //seconds
-    lpgr.delegate = self;
-    //[self.collectionView addGestureRecognizer:lpgr];
-    _indexPathToDownload = nil;
     
     UIBarButtonItem *fixedSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-    fixedSpace.width = 50.0f;
+    fixedSpace.width = 5.0f;
     UIBarButtonItem *flexibleSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     
     NSArray *items = [NSArray arrayWithObjects:
-                      flexibleSpace,
-                      self.addBarButtonItem,
                       fixedSpace,
+                      self.addBarButtonItem,
                       nil];
     
     TransparentToolbar *toolbar = [[TransparentToolbar alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 100.0f, 44.0f)];
     toolbar.items = items;
-    //toolbar.tintColor = self.navigationController.navigationBar.tintColor;
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:toolbar];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:toolbar];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(downloadArticles:) name:@"DownloadArticles" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateBackgrounds) name:@"UpdateBackgrounds" object:nil];
@@ -176,8 +144,6 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
     self.detailViewController = (PHDetailViewController *)detailNavController.topViewController;
     [self.detailViewController writeCssTemplate];
     
-    //self.navigationController.navigationBar.translucent = YES;
-    //self.navigationController.navigationBar.autoresizesSubviews = NO;
     [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
     self.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
     bottomBorder = [CALayer layer];
@@ -186,16 +152,12 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
 
     [self updateBackgrounds];
     
-    //self.viewDeckController.leftSize = 320;
     [self.viewDeckController openLeftView];
 }
 
 - (void)viewDidUnload
 {
-    //[self setTableView:nil];
-    //[self setMyNavigationItem:nil];
     [self setSearchBar:nil];
-    //[self setMyNavigationBar:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
@@ -205,75 +167,12 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
     return YES;
 }
 
-- (void) handleLongPress:(UILongPressGestureRecognizer *) gestureRecognizer {
-    if ([gestureRecognizer state] == UIGestureRecognizerStateBegan) {
-        [self becomeFirstResponder];
-        CGPoint p = [gestureRecognizer locationInView:self.view];
-        NSIndexPath *indexPath = [self.collectionView indexPathForItemAtPoint:p];
-        UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:indexPath];
-        if (indexPath) {
-            _indexPathToDownload = indexPath;
-            UIMenuItem *reDownloadCommand = [[UIMenuItem alloc] initWithTitle:@"Download Again" action:@selector(doRedownload:)];
-            NSArray *menuItems = @[reDownloadCommand];
-            CGRect rect = cell.frame;
-            UIMenuController *menu = [UIMenuController sharedMenuController];
-            [menu setMenuItems:menuItems];
-            [menu setTargetRect:rect inView:gestureRecognizer.view];
-            [menu setMenuVisible:YES animated:YES];
-        }
-    }
-}
-
 - (BOOL)canBecomeFirstResponder {
     return YES;
 }
 
-- (BOOL)canPerformAction:(SEL)action withSender:(id)sender {
-    return (action == @selector(doRedownload:));
-}
-
-- (IBAction)doRedownload:(id)sender {
-    NSFileManager *fm = [NSFileManager defaultManager];
-    NSArray *paths = [fm URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask];
-    NSURL *docDir = [paths objectAtIndex:0];
-    PHArticle *article = (PHArticle*)[self.articles objectAtIndex:_indexPathToDownload.row];
-    docDir = [docDir URLByAppendingPathComponent:article.pmcId isDirectory:YES];
-    [fm removeItemAtURL:docDir error:nil];
-
-    PHDownloader *downloader = [[PHDownloader alloc] initWithPMCId:article indexPath:_indexPathToDownload delegate:self];
-    NSOperationQueue *queue  = [[NSOperationQueue alloc] init];
-    [queue addOperation:downloader];
-}
-
 - (IBAction)doAdd:(id)sender {
     [self performSegueWithIdentifier:@"search" sender:self.addBarButtonItem];
-}
-
-- (IBAction)doEdit:(id)sender {
-    [self setEditing:YES animated:YES];
-}
-
-- (void) setEditing:(BOOL)editing animated:(BOOL)animated {
-    [super setEditing:editing animated:animated];
-    //[self.tableView setEditing:editing animated:animated];
-    if (editing) {
-        self.navigationItem.leftBarButtonItem = self.editButtonItem;
-    } else {
-        UIBarButtonItem *fixedSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-        fixedSpace.width = 2.0f;
-        UIBarButtonItem *flexibleSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
-        
-        NSArray *items = [NSArray arrayWithObjects:
-                          fixedSpace,
-                          self.editBarButtonItem,
-                          flexibleSpace,
-                          nil];
-        
-        TransparentToolbar *toolbar = [[TransparentToolbar alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 100.0f, 44.0f)];
-        toolbar.items = items;
-        toolbar.tintColor = self.navigationController.navigationBar.tintColor;
-        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:toolbar];
-    }
 }
 
 #pragma mark - Table View
@@ -323,15 +222,7 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
     cell.buttonContainerView.backgroundColor = [[PHColors backgroundColor] lighterColor];
     cell.backgroundView.backgroundColor = [UIColor redColor];
     
-    if (article.downloading == YES) {
-        cell.activityVisible = YES;
-        //int backgroundIndex =[[NSUserDefaults standardUserDefaults] integerForKey:@"Background"];
-        //cell.activityIndicator.activityIndicatorViewStyle = (backgroundIndex == 2) ? UIActivityIndicatorViewStyleWhite : UIActivityIndicatorViewStyleGray;
-        //[cell.activityIndicator startAnimating];
-    } else {
-        //[cell.activityIndicator stopAnimating];
-        cell.activityVisible = NO;
-    }
+    cell.activityVisible = article.downloading;
     
     return cell;
 }
@@ -350,11 +241,11 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
         [_swipedCell hideButtons];
     }
     _swipedCell = nil;
+    NSIndexPath *indexPath = [self.collectionView indexPathForCell:cell];
     if ([button isEqual:cell.deleteButton]) {
         NSFileManager *fm = [NSFileManager defaultManager];
         NSArray *paths = [fm URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask];
         NSURL *docDir = [paths objectAtIndex:0];
-        NSIndexPath *indexPath = [self.collectionView indexPathForCell:cell];
         PHArticle *article = (PHArticle*)[self.articles objectAtIndex:indexPath.row];
         docDir = [docDir URLByAppendingPathComponent:article.pmcId isDirectory:YES];
         [fm removeItemAtURL:docDir error:nil];
@@ -363,8 +254,16 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
         [self.collectionView deleteItemsAtIndexPaths:@[indexPath]];
     }
     if ([button isEqual:cell.downloadButton]) {
-        _indexPathToDownload = [self.collectionView indexPathForCell:cell];
-        [self doRedownload:nil];
+        NSFileManager *fm = [NSFileManager defaultManager];
+         NSArray *paths = [fm URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask];
+         NSURL *docDir = [paths objectAtIndex:0];
+         PHArticle *article = (PHArticle*)[self.articles objectAtIndex:indexPath.row];
+         docDir = [docDir URLByAppendingPathComponent:article.pmcId isDirectory:YES];
+         [fm removeItemAtURL:docDir error:nil];
+         
+         PHDownloader *downloader = [[PHDownloader alloc] initWithPMCId:article indexPath:indexPath delegate:self];
+         NSOperationQueue *queue  = [[NSOperationQueue alloc] init];
+         [queue addOperation:downloader];
     }
 }
 
@@ -393,46 +292,6 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
     return YES;
 }
 
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return (!self.searchBar.isFirstResponder && !self.isFiltered);
-}
-
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        NSFileManager *fm = [NSFileManager defaultManager];
-        NSArray *paths = [fm URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask];
-        NSURL *docDir = [paths objectAtIndex:0];
-        PHArticle *article = (PHArticle*)[self.articles objectAtIndex:indexPath.row];
-        docDir = [docDir URLByAppendingPathComponent:article.pmcId isDirectory:YES];
-        [fm removeItemAtURL:docDir error:nil];
-        [self.articles removeObjectAtIndex:indexPath.row];
-        [self writeArticles];
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
-    }
-}
-
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-    [self.articles moveObjectFromIndex:fromIndexPath.row toIndex:toIndexPath.row];
-    [self.collectionView reloadData];
-    [self writeArticles];
-}
-
-
-
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     PHArticle *article = (PHArticle*)[self.articles objectAtIndex:indexPath.row];
     return !article.downloading;
@@ -453,10 +312,6 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
     }
     self.detailViewController.article = (PHArticle*)object;
     [self.viewDeckController closeLeftView];
-}
-
-- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-    cell.backgroundColor = [PHColors backgroundColor];
 }
 
 #pragma mark - HTML Parser
@@ -506,7 +361,7 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
 }
 
 
-#pragma mark - Table view delegate
+#pragma mark - Searchbar delegate
 
 -(void)searchBar:(UISearchBar*)searchBar textDidChange:(NSString*)text
 {
@@ -535,7 +390,6 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
         return NO;
     }
     [self.searchBar setShowsCancelButton:YES animated:YES];
-    self.editBarButtonItem.enabled = NO;
     self.navigationItem.leftBarButtonItem.enabled = NO;
     self.navigationItem.rightBarButtonItem.enabled = NO;
     return YES;
@@ -545,7 +399,6 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
     self.searchBar.text=@"";
     [self.searchBar setShowsCancelButton:NO animated:YES];
     [self.searchBar resignFirstResponder];
-    self.editBarButtonItem.enabled = YES;
     self.navigationItem.leftBarButtonItem.enabled = YES;
     self.navigationItem.rightBarButtonItem.enabled = YES;
 }

@@ -13,20 +13,15 @@
 #import "LXReorderableCollectionViewFlowLayout.h"
 #import "PHCollectionViewCell.h"
 
-@interface PHMasterViewController : UICollectionViewController <LXReorderableCollectionViewDataSource, LXReorderableCollectionViewDelegateFlowLayout, UIAlertViewDelegate, PHDownloaderDelegate, UISearchBarDelegate, UIGestureRecognizerDelegate, PHCollectionViewCellDelegate, UIScrollViewDelegate>
+@interface PHMasterViewController : UICollectionViewController <LXReorderableCollectionViewDataSource, LXReorderableCollectionViewDelegateFlowLayout, PHDownloaderDelegate, UISearchBarDelegate, PHCollectionViewCellDelegate, UIScrollViewDelegate>
 
 @property (strong, nonatomic) PHDetailViewController *detailViewController;
-@property (nonatomic, strong, readonly) UIBarButtonItem *editBarButtonItem;
 @property (nonatomic, strong, readonly) UIBarButtonItem *addBarButtonItem;
 @property (strong, nonatomic) NSMutableArray *articles;
 @property (strong, nonatomic) NSMutableArray *filteredArticles;
 @property (nonatomic, assign) bool isFiltered;
 @property (strong, nonatomic) IBOutlet UISearchBar *searchBar;
-//@property (strong, nonatomic) IBOutlet TransparentNavigationBar *myNavigationBar;
-//@property (strong, nonatomic) IBOutlet UINavigationItem *myNavigationItem;
 
-- (IBAction) doEdit:(id)sender;
 - (IBAction) doAdd:(id)sender;
-- (IBAction) doRedownload:(id)sender;
 
 @end
