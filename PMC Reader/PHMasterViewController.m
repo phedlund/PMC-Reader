@@ -97,6 +97,14 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
     return addBarButtonItem;
 }
 
+- (TransparentSearchBar *)searchBar {
+    if (!searchBar) {
+        searchBar = [[TransparentSearchBar alloc] initWithFrame:CGRectMake(0, 0, 220, 44)];
+        searchBar.delegate = self;
+    }
+    return searchBar;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -133,9 +141,18 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
                       self.addBarButtonItem,
                       nil];
     
-    TransparentToolbar *toolbar = [[TransparentToolbar alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 100.0f, 44.0f)];
+    TransparentToolbar *toolbar = [[TransparentToolbar alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 50.0f, 44.0f)];
     toolbar.items = items;
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:toolbar];
+    
+    UIBarButtonItem *fixedSpaceR = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+    fixedSpaceR.width = 60.0f;
+    UIBarButtonItem *searchBarItem = [[UIBarButtonItem alloc] initWithCustomView:self.searchBar];
+    
+    items = @[searchBarItem, fixedSpaceR];
+    TransparentToolbar *toolbarR =  [[TransparentToolbar alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 280, 44.0f)];
+    toolbarR.items = items;
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:toolbarR];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(downloadArticles:) name:@"DownloadArticles" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateBackgrounds) name:@"UpdateBackgrounds" object:nil];
@@ -157,7 +174,6 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
 
 - (void)viewDidUnload
 {
-    [self setSearchBar:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
@@ -363,13 +379,23 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
 
 #pragma mark - Searchbar delegate
 
+- (void)setIsFiltered:(bool)filtered {
+    isFiltered = filtered;
+    if (filtered) {
+        self.filteredArticles = [[NSMutableArray alloc] init];
+        self.addBarButtonItem.enabled = NO;
+    } else {
+        self.filteredArticles = nil;
+        self.addBarButtonItem.enabled = YES;
+    }
+}
+
 -(void)searchBar:(UISearchBar*)searchBar textDidChange:(NSString*)text
 {
     if (text.length == 0) {
-        self.isFiltered = FALSE;
+        self.isFiltered = NO;
     } else {
-        self.isFiltered = true;
-        self.filteredArticles = [[NSMutableArray alloc] init];
+        self.isFiltered = YES;
         
         for (PHArticle* article in self.articles) {
             NSRange titleRange = [article.title rangeOfString:text options:NSCaseInsensitiveSearch];
@@ -385,23 +411,7 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
     [self.collectionView reloadData];
 }
 
-- (BOOL)searchBarShouldBeginEditing:(UISearchBar*)searchBar {
-    if (self.isEditing) {
-        return NO;
-    }
-    [self.searchBar setShowsCancelButton:YES animated:YES];
-    self.navigationItem.leftBarButtonItem.enabled = NO;
-    self.navigationItem.rightBarButtonItem.enabled = NO;
-    return YES;
-}
-
-- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
-    self.searchBar.text=@"";
-    [self.searchBar setShowsCancelButton:NO animated:YES];
-    [self.searchBar resignFirstResponder];
-    self.navigationItem.leftBarButtonItem.enabled = YES;
-    self.navigationItem.rightBarButtonItem.enabled = YES;
-}
+#pragma mark - Misc
 
 - (void)updateBackgrounds {
     UIColor *bgColor = [PHColors backgroundColor];

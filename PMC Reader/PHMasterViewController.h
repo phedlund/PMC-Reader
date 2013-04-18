@@ -12,6 +12,7 @@
 #import "TransparentNavigationBar.h"
 #import "LXReorderableCollectionViewFlowLayout.h"
 #import "PHCollectionViewCell.h"
+#import "TransparentSearchBar.h"
 
 @interface PHMasterViewController : UICollectionViewController <LXReorderableCollectionViewDataSource, LXReorderableCollectionViewDelegateFlowLayout, PHDownloaderDelegate, UISearchBarDelegate, PHCollectionViewCellDelegate, UIScrollViewDelegate>
 
@@ -20,7 +21,7 @@
 @property (strong, nonatomic) NSMutableArray *articles;
 @property (strong, nonatomic) NSMutableArray *filteredArticles;
 @property (nonatomic, assign) bool isFiltered;
-@property (strong, nonatomic) IBOutlet UISearchBar *searchBar;
+@property (strong, nonatomic, readonly) TransparentSearchBar *searchBar;
 
 - (IBAction) doAdd:(id)sender;
 
