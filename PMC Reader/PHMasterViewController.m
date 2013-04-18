@@ -558,8 +558,11 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
     self.navigationController.navigationBar.tintColor = bgColor;
     
     [self.navigationController.navigationBar setTitleTextAttributes:
-     [NSDictionary dictionaryWithObjectsAndKeys:
-      [UIColor darkGrayColor], UITextAttributeTextColor, nil]];
+        [NSDictionary dictionaryWithObjectsAndKeys:
+         [UIColor darkGrayColor], UITextAttributeTextColor,
+         [UIColor clearColor], UITextAttributeTextShadowColor,
+         [NSValue valueWithUIOffset:UIOffsetMake(0, 0)],
+         UITextAttributeTextShadowOffset,nil]];
     
     int backgroundIndex =[[NSUserDefaults standardUserDefaults] integerForKey:@"Background"];
     switch (backgroundIndex) {
