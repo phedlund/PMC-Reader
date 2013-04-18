@@ -17,7 +17,7 @@
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"iPad" bundle:nil];
     self.leftController = [storyboard instantiateViewControllerWithIdentifier:@"master"];
     self.centerController = [storyboard instantiateViewControllerWithIdentifier:@"detail"];
-    self.sizeMode = IIViewDeckViewSizeMode;
+    self.sizeMode = IIViewDeckLedgeSizeMode;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation

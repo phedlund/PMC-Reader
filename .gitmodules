@@ -19,3 +19,6 @@ url=git://github.com/phedlund/PopoverView.git
 [submodule "SCPageScrubberBar"]
 	path = SCPageScrubberBar
 url=git://github.com/phedlund/SCPageScrubberBar.git
+[submodule "LXReorderableCollectionViewFlowLayout"]
+	path = LXReorderableCollectionViewFlowLayout
+	url = git://github.com/lxcid/LXReorderableCollectionViewFlowLayout.git

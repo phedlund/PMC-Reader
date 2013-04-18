@@ -8,6 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		D009A7161715E4A800BC4D77 /* UIColor+LightAndDark.m in Sources */ = {isa = PBXBuildFile; fileRef = D009A7151715E4A800BC4D77 /* UIColor+LightAndDark.m */; };
+		D009A71A171742ED00BC4D77 /* LXReorderableCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = D009A719171742ED00BC4D77 /* LXReorderableCollectionViewFlowLayout.m */; };
+		D009A71D171744A800BC4D77 /* PHCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D009A71C171744A800BC4D77 /* PHCollectionViewCell.m */; };
+		D009A720171787EC00BC4D77 /* PHCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = D009A71F171787EA00BC4D77 /* PHCollectionViewFlowLayout.m */; };
+		D009A72517178E9700BC4D77 /* UILabel+VerticalAlignment.m in Sources */ = {isa = PBXBuildFile; fileRef = D009A72417178E9700BC4D77 /* UILabel+VerticalAlignment.m */; };
+		D009A728171A2AD900BC4D77 /* delete.png in Resources */ = {isa = PBXBuildFile; fileRef = D009A726171A2AD900BC4D77 /* delete.png */; };
+		D009A729171A2AD900BC4D77 /* delete@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D009A727171A2AD900BC4D77 /* delete@2x.png */; };
 		D030E6B415C0D2DB00CB5285 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D030E6B315C0D2DB00CB5285 /* UIKit.framework */; };
 		D030E6B615C0D2DB00CB5285 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D030E6B515C0D2DB00CB5285 /* Foundation.framework */; };
 		D030E6B815C0D2DB00CB5285 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D030E6B715C0D2DB00CB5285 /* CoreGraphics.framework */; };
@@ -25,6 +31,8 @@
 		D03632A41676829D000D3C0B /* text@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D03632A21676829D000D3C0B /* text@2x.png */; };
 		D03863A215D03B04004686C4 /* gear.png in Resources */ = {isa = PBXBuildFile; fileRef = D03863A015D03B04004686C4 /* gear.png */; };
 		D03863A315D03B04004686C4 /* gear@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D03863A115D03B04004686C4 /* gear@2x.png */; };
+		D05B89F8171F4E2900C61968 /* download.png in Resources */ = {isa = PBXBuildFile; fileRef = D05B89F6171F4E2900C61968 /* download.png */; };
+		D05B89F9171F4E2900C61968 /* download@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D05B89F7171F4E2900C61968 /* download@2x.png */; };
 		D0CDB7CD15C1BA4F0074B143 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D0CDB7CC15C1BA4F0074B143 /* libxml2.dylib */; };
 		D0CDB7D215C1F5900074B143 /* HTMLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CDB7CF15C1F5900074B143 /* HTMLNode.m */; };
 		D0CDB7D315C1F5900074B143 /* HTMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CDB7D115C1F5900074B143 /* HTMLParser.m */; };
@@ -117,6 +125,16 @@
 /* Begin PBXFileReference section */
 		D009A7141715E4A700BC4D77 /* UIColor+LightAndDark.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+LightAndDark.h"; sourceTree = "<group>"; };
 		D009A7151715E4A800BC4D77 /* UIColor+LightAndDark.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+LightAndDark.m"; sourceTree = "<group>"; };
+		D009A718171742ED00BC4D77 /* LXReorderableCollectionViewFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LXReorderableCollectionViewFlowLayout.h; path = LXReorderableCollectionViewFlowLayout/LXReorderableCollectionViewFlowLayout/LXReorderableCollectionViewFlowLayout.h; sourceTree = SOURCE_ROOT; };
+		D009A719171742ED00BC4D77 /* LXReorderableCollectionViewFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LXReorderableCollectionViewFlowLayout.m; path = LXReorderableCollectionViewFlowLayout/LXReorderableCollectionViewFlowLayout/LXReorderableCollectionViewFlowLayout.m; sourceTree = SOURCE_ROOT; };
+		D009A71B171744A700BC4D77 /* PHCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHCollectionViewCell.h; sourceTree = "<group>"; };
+		D009A71C171744A800BC4D77 /* PHCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHCollectionViewCell.m; sourceTree = "<group>"; };
+		D009A71E171787E800BC4D77 /* PHCollectionViewFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHCollectionViewFlowLayout.h; sourceTree = "<group>"; };
+		D009A71F171787EA00BC4D77 /* PHCollectionViewFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHCollectionViewFlowLayout.m; sourceTree = "<group>"; };
+		D009A72317178E9700BC4D77 /* UILabel+VerticalAlignment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UILabel+VerticalAlignment.h"; path = "UILabel-VerticalAlignment/UILabel+VerticalAlignment.h"; sourceTree = SOURCE_ROOT; };
+		D009A72417178E9700BC4D77 /* UILabel+VerticalAlignment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UILabel+VerticalAlignment.m"; path = "UILabel-VerticalAlignment/UILabel+VerticalAlignment.m"; sourceTree = SOURCE_ROOT; };
+		D009A726171A2AD900BC4D77 /* delete.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = delete.png; path = Resources/delete.png; sourceTree = "<group>"; };
+		D009A727171A2AD900BC4D77 /* delete@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "delete@2x.png"; path = "Resources/delete@2x.png"; sourceTree = "<group>"; };
 		D030E6AF15C0D2DB00CB5285 /* PMC Reader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "PMC Reader.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D030E6B315C0D2DB00CB5285 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		D030E6B515C0D2DB00CB5285 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -143,6 +161,8 @@
 		D03632A21676829D000D3C0B /* text@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "text@2x.png"; path = "Resources/text@2x.png"; sourceTree = "<group>"; };
 		D03863A015D03B04004686C4 /* gear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = gear.png; path = Resources/gear.png; sourceTree = "<group>"; };
 		D03863A115D03B04004686C4 /* gear@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "gear@2x.png"; path = "Resources/gear@2x.png"; sourceTree = "<group>"; };
+		D05B89F6171F4E2900C61968 /* download.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = download.png; path = Resources/download.png; sourceTree = "<group>"; };
+		D05B89F7171F4E2900C61968 /* download@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "download@2x.png"; path = "Resources/download@2x.png"; sourceTree = "<group>"; };
 		D0CDB7CC15C1BA4F0074B143 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		D0CDB7CE15C1F5900074B143 /* HTMLNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HTMLNode.h; path = "../Objective-C-HMTL-Parser/HTMLNode.h"; sourceTree = "<group>"; };
 		D0CDB7CF15C1F5900074B143 /* HTMLNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HTMLNode.m; path = "../Objective-C-HMTL-Parser/HTMLNode.m"; sourceTree = "<group>"; };
@@ -273,6 +293,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D009A717171742ED00BC4D77 /* LXReorderableCollectionViewFlowLayout */ = {
+			isa = PBXGroup;
+			children = (
+				D009A718171742ED00BC4D77 /* LXReorderableCollectionViewFlowLayout.h */,
+				D009A719171742ED00BC4D77 /* LXReorderableCollectionViewFlowLayout.m */,
+			);
+			path = LXReorderableCollectionViewFlowLayout;
+			sourceTree = "<group>";
+		};
+		D009A72217178E9600BC4D77 /* UILabel-VerticalAlignment */ = {
+			isa = PBXGroup;
+			children = (
+				D009A72317178E9700BC4D77 /* UILabel+VerticalAlignment.h */,
+				D009A72417178E9700BC4D77 /* UILabel+VerticalAlignment.m */,
+			);
+			path = "UILabel-VerticalAlignment";
+			sourceTree = "<group>";
+		};
 		D030E6A415C0D2DB00CB5285 = {
 			isa = PBXGroup;
 			children = (
@@ -306,6 +344,7 @@
 		D030E6B915C0D2DB00CB5285 /* PMC Reader */ = {
 			isa = PBXGroup;
 			children = (
+				D009A717171742ED00BC4D77 /* LXReorderableCollectionViewFlowLayout */,
 				D0EEAE081708F5BF00DBAC4C /* TransparentToolbar */,
 				D0EEADFC1704C1B400DBAC4C /* SCPageScrubberBar */,
 				D0EEADED16FA770C00DBAC4C /* RTLabel */,
@@ -315,6 +354,7 @@
 				D0F600561639A82000ADBC38 /* ViewDeck */,
 				D0CDB7D415C1F59C0074B143 /* Parser */,
 				D0363299166EBD81000D3C0B /* ArrayExtra */,
+				D009A72217178E9600BC4D77 /* UILabel-VerticalAlignment */,
 				D03632A01672990C000D3C0B /* DismissKeyboard */,
 				D030E6C215C0D2DB00CB5285 /* PHAppDelegate.h */,
 				D030E6C315C0D2DB00CB5285 /* PHAppDelegate.m */,
@@ -322,6 +362,8 @@
 				D0F60050163775EE00ADBC38 /* PHRootViewController.m */,
 				D0F60051163775EF00ADBC38 /* PHMasterViewController.h */,
 				D0F60052163775EF00ADBC38 /* PHMasterViewController.m */,
+				D009A71E171787E800BC4D77 /* PHCollectionViewFlowLayout.h */,
+				D009A71F171787EA00BC4D77 /* PHCollectionViewFlowLayout.m */,
 				D030E6CB15C0D2DB00CB5285 /* PHDetailViewController.h */,
 				D030E6CC15C0D2DB00CB5285 /* PHDetailViewController.m */,
 				D0F9DA25170E5FB900FA64E5 /* PHColors.h */,
@@ -330,6 +372,8 @@
 				D0D1C75A15CB652A0097CA9C /* PHPrefViewController.m */,
 				D0ED8FBE165AEEBD0081E81E /* PHSearchViewController.h */,
 				D0ED8FBF165AEEBD0081E81E /* PHSearchViewController.m */,
+				D009A71B171744A700BC4D77 /* PHCollectionViewCell.h */,
+				D009A71C171744A800BC4D77 /* PHCollectionViewCell.m */,
 				D0ED8FC5165C6A950081E81E /* PHTableViewCell.h */,
 				D0ED8FC6165C6A950081E81E /* PHTableViewCell.m */,
 				D0ED8FC8165C6B190081E81E /* PHTableViewCell.xib */,
@@ -396,6 +440,10 @@
 		D0CDB7DB15C33FC90074B143 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D05B89F6171F4E2900C61968 /* download.png */,
+				D05B89F7171F4E2900C61968 /* download@2x.png */,
+				D009A726171A2AD900BC4D77 /* delete.png */,
+				D009A727171A2AD900BC4D77 /* delete@2x.png */,
 				D0EEAE09170A1F7F00DBAC4C /* paginate1.png */,
 				D0EEAE0A170A1F8000DBAC4C /* paginate1@2x.png */,
 				D0EEAE0B170A1F8000DBAC4C /* paginate2.png */,
@@ -670,6 +718,10 @@
 				D0EEAE0E170A1F8100DBAC4C /* paginate1@2x.png in Resources */,
 				D0EEAE0F170A1F8100DBAC4C /* paginate2.png in Resources */,
 				D0EEAE10170A1F8100DBAC4C /* paginate2@2x.png in Resources */,
+				D009A728171A2AD900BC4D77 /* delete.png in Resources */,
+				D009A729171A2AD900BC4D77 /* delete@2x.png in Resources */,
+				D05B89F8171F4E2900C61968 /* download.png in Resources */,
+				D05B89F9171F4E2900C61968 /* download@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -711,6 +763,10 @@
 				D0F9DA2A1710D7C000FA64E5 /* TransparentNavigationBar.m in Sources */,
 				D0F9DA2D1710EB4C00FA64E5 /* TransparentSearchBar.m in Sources */,
 				D009A7161715E4A800BC4D77 /* UIColor+LightAndDark.m in Sources */,
+				D009A71A171742ED00BC4D77 /* LXReorderableCollectionViewFlowLayout.m in Sources */,
+				D009A71D171744A800BC4D77 /* PHCollectionViewCell.m in Sources */,
+				D009A720171787EC00BC4D77 /* PHCollectionViewFlowLayout.m in Sources */,
+				D009A72517178E9700BC4D77 /* UILabel+VerticalAlignment.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

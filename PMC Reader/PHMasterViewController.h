@@ -10,10 +10,11 @@
 #import "PHDetailViewController.h"
 #import "PHDownloader.h"
 #import "TransparentNavigationBar.h"
+#import "LXReorderableCollectionViewFlowLayout.h"
+#import "PHCollectionViewCell.h"
 
-@interface PHMasterViewController : UIViewController <UITableViewDataSource, UIAlertViewDelegate, PHDownloaderDelegate, UISearchBarDelegate, UIGestureRecognizerDelegate>
+@interface PHMasterViewController : UICollectionViewController <LXReorderableCollectionViewDataSource, LXReorderableCollectionViewDelegateFlowLayout, UIAlertViewDelegate, PHDownloaderDelegate, UISearchBarDelegate, UIGestureRecognizerDelegate, PHCollectionViewCellDelegate, UIScrollViewDelegate>
 
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) PHDetailViewController *detailViewController;
 @property (nonatomic, strong, readonly) UIBarButtonItem *editBarButtonItem;
 @property (nonatomic, strong, readonly) UIBarButtonItem *addBarButtonItem;
@@ -21,8 +22,8 @@
 @property (strong, nonatomic) NSMutableArray *filteredArticles;
 @property (nonatomic, assign) bool isFiltered;
 @property (strong, nonatomic) IBOutlet UISearchBar *searchBar;
-@property (strong, nonatomic) IBOutlet TransparentNavigationBar *myNavigationBar;
-@property (strong, nonatomic) IBOutlet UINavigationItem *myNavigationItem;
+//@property (strong, nonatomic) IBOutlet TransparentNavigationBar *myNavigationBar;
+//@property (strong, nonatomic) IBOutlet UINavigationItem *myNavigationItem;
 
 - (IBAction) doEdit:(id)sender;
 - (IBAction) doAdd:(id)sender;

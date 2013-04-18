@@ -4,51 +4,6 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="2083"/>
     </dependencies>
     <scenes>
-        <!--Master View Controller-->
-        <scene sceneID="vux-Sf-7zs">
-            <objects>
-                <viewController storyboardIdentifier="" id="K2H-Q6-O20" customClass="PHMasterViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="dD5-Ap-SBZ">
-                        <rect key="frame" x="0.0" y="20" width="768" height="1004"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <navigationBar contentMode="scaleToFill" id="KBs-78-cYC" customClass="TransparentNavigationBar">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <items>
-                                    <navigationItem title="Articles" id="zvz-t2-Duq"/>
-                                </items>
-                            </navigationBar>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="So7-0H-dny">
-                                <rect key="frame" x="0.0" y="44" width="320" height="960"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <searchBar key="tableHeaderView" contentMode="redraw" placeholder="Search Articles" id="vNq-nA-428" customClass="TransparentSearchBar">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                    <textInputTraits key="textInputTraits"/>
-                                </searchBar>
-                                <connections>
-                                    <outlet property="dataSource" destination="K2H-Q6-O20" id="Fyv-3Y-MrJ"/>
-                                    <outlet property="delegate" destination="K2H-Q6-O20" id="4p6-qx-0R0"/>
-                                </connections>
-                            </tableView>
-                        </subviews>
-                        <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="CBQ-7b-j5q"/>
-                    <connections>
-                        <outlet property="myNavigationBar" destination="KBs-78-cYC" id="5wU-Ie-6e7"/>
-                        <outlet property="myNavigationItem" destination="zvz-t2-Duq" id="h0s-kN-t6g"/>
-                        <outlet property="searchBar" destination="vNq-nA-428" id="gv1-kc-U4D"/>
-                        <outlet property="tableView" destination="So7-0H-dny" id="qhe-W0-EYv"/>
-                        <segue destination="55I-fb-DqJ" kind="modal" identifier="search" id="YeC-wV-zz0"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="WAQ-KG-3dU" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1336" y="-1142"/>
-        </scene>
         <!--Search View Controller - Search Pubmed Central-->
         <scene sceneID="BJB-am-Dqz">
             <objects>
@@ -166,17 +121,155 @@
         <!--Navigation Controller-->
         <scene sceneID="hFv-Dg-bYr">
             <objects>
-                <navigationController storyboardIdentifier="master" definesPresentationContext="YES" navigationBarHidden="YES" id="9Ox-UD-JSj" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="master" definesPresentationContext="YES" id="9Ox-UD-JSj" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="SrF-PF-lpW">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="K2H-Q6-O20" kind="relationship" relationship="rootViewController" id="16s-LZ-dio"/>
+                        <segue destination="XGV-d9-oRx" kind="relationship" relationship="rootViewController" id="cMq-Zy-I7l"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="n0H-pd-ALw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="469" y="-1142"/>
+        </scene>
+        <!--Master View Controller - Articles-->
+        <scene sceneID="LK5-j2-lCF">
+            <objects>
+                <collectionViewController autoresizesArchivedViewToFullSize="NO" id="XGV-d9-oRx" customClass="PHMasterViewController" sceneMemberID="viewController">
+                    <collectionView key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" id="nOt-RD-bf1">
+                        <rect key="frame" x="0.0" y="64" width="768" height="960"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="8" minimumInteritemSpacing="8" id="Tr0-El-dS2" customClass="PHCollectionViewFlowLayout">
+                            <size key="itemSize" width="310" height="310"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="10" minY="8" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                        <cells>
+                            <collectionViewCell clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="articleCell" id="Ex8-Tn-kCw" customClass="PHCollectionViewCell">
+                                <rect key="frame" x="10" y="8" width="310" height="310"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="310" height="310"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <view contentMode="scaleToFill" id="k6f-zJ-v6T">
+                                            <rect key="frame" x="0.0" y="0.0" width="230" height="310"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Identifying patterns in treatment reponse profiles in acute bipolar mania: a cluster analysis approach" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="1pf-Vm-8mj">
+                                                    <rect key="frame" x="10" y="10" width="210" height="95"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="kLK-Cp-bte">
+                                                    <rect key="frame" x="10" y="120" width="210" height="70"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                                    <string key="text">Peter B. Hedlund, Marcello Leopoldo, Silvio Caccia, Gor Sarkisyan, Claudia Fracasso, Giuliana Martelli, Enza Lacivita, Francesco Berardi, Roberto Perrone</string>
+                                                    <fontDescription key="fontDescription" type="italicSystem" pointSize="15"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Published as:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="H8H-4S-vTA">
+                                                    <rect key="frame" x="10" y="215" width="210" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Neurosci Lett. 2007 March 13; 414(3): 247–251. Published online 2007 January 11. doi: 10.1016/j.neulet.2006.12.054" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="fBs-NT-P8m">
+                                                    <rect key="frame" x="10" y="240" width="210" height="60"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <view alpha="0.80000000000000004" contentMode="scaleToFill" id="whE-MW-dSD">
+                                                    <rect key="frame" x="115" y="115" width="80" height="80"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <subviews>
+                                                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" style="whiteLarge" id="u75-z7-SLz">
+                                                            <rect key="frame" x="22" y="21" width="37" height="37"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        </activityIndicatorView>
+                                                    </subviews>
+                                                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                </view>
+                                            </subviews>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                        </view>
+                                        <view contentMode="scaleToFill" id="qxI-IK-140">
+                                            <rect key="frame" x="230" y="0.0" width="80" height="310"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="R7m-oD-yLr">
+                                                    <rect key="frame" x="0.0" y="0.0" width="80" height="81"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                                    <state key="normal" image="delete.png">
+                                                        <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <state key="highlighted">
+                                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="doDelete:" destination="Ex8-Tn-kCw" eventType="touchUpInside" id="hru-IU-GTg"/>
+                                                    </connections>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="oG0-QB-17u">
+                                                    <rect key="frame" x="0.0" y="80" width="80" height="81"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                                    <state key="normal" image="download.png">
+                                                        <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <state key="highlighted">
+                                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="doDownload:" destination="Ex8-Tn-kCw" eventType="touchUpInside" id="xcg-pL-inQ"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                        </view>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <size key="customSize" width="310" height="310"/>
+                                <connections>
+                                    <outlet property="activityBackground" destination="whE-MW-dSD" id="0j9-aO-nMD"/>
+                                    <outlet property="activityIndicator" destination="u75-z7-SLz" id="E3p-Y7-ofu"/>
+                                    <outlet property="authorLabel" destination="kLK-Cp-bte" id="Ab7-Mm-E8G"/>
+                                    <outlet property="buttonContainerView" destination="qxI-IK-140" id="2oF-iK-awb"/>
+                                    <outlet property="deleteButton" destination="R7m-oD-yLr" id="kGY-6c-85U"/>
+                                    <outlet property="downloadButton" destination="oG0-QB-17u" id="qjr-qe-W79"/>
+                                    <outlet property="labelContainerView" destination="k6f-zJ-v6T" id="7Ve-gr-BYN"/>
+                                    <outlet property="originalSourceLabel" destination="fBs-NT-P8m" id="gCE-LL-hsq"/>
+                                    <outlet property="publishedAsLabel" destination="H8H-4S-vTA" id="R2l-mL-AMf"/>
+                                    <outlet property="titleLabel" destination="1pf-Vm-8mj" id="nb8-VK-88J"/>
+                                </connections>
+                            </collectionViewCell>
+                        </cells>
+                        <connections>
+                            <outlet property="dataSource" destination="XGV-d9-oRx" id="CZh-dN-ZfA"/>
+                            <outlet property="delegate" destination="XGV-d9-oRx" id="T1b-TT-gbW"/>
+                        </connections>
+                    </collectionView>
+                    <navigationItem key="navigationItem" title="Articles" id="ZZW-tE-Hn8"/>
+                    <connections>
+                        <segue destination="55I-fb-DqJ" kind="modal" identifier="search" id="7L6-Td-36f"/>
+                    </connections>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gN6-yG-Ai1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1377" y="-1130"/>
         </scene>
         <!--Root View Controller-->
         <scene sceneID="b9f-M7-SOp">
@@ -346,6 +439,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="delete.png" width="24" height="24"/>
+        <image name="download.png" width="24" height="24"/>
         <image name="fontsizel.png" width="26" height="26"/>
         <image name="fontsizes.png" width="26" height="26"/>
         <image name="lineheight1.png" width="26" height="26"/>
@@ -355,6 +450,106 @@
         <image name="paginate1.png" width="26" height="26"/>
         <image name="paginate2.png" width="26" height="26"/>
     </resources>
+    <classes>
+        <class className="IIViewDeckController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/IIViewDeckController.h"/>
+        </class>
+        <class className="LXReorderableCollectionViewFlowLayout" superclassName="UICollectionViewFlowLayout">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/LXReorderableCollectionViewFlowLayout.h"/>
+        </class>
+        <class className="PHCollectionViewCell" superclassName="UICollectionViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PHCollectionViewCell.h"/>
+            <relationships>
+                <relationship kind="action" name="doDelete:" candidateClass="UIButton"/>
+                <relationship kind="action" name="doDownload:" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="activityBackground" candidateClass="UIView"/>
+                <relationship kind="outlet" name="activityIndicator" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="authorLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="buttonContainerView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="deleteButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="downloadButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="labelContainerView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="originalSourceLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="pmcSourceLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="publishedAsLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="titleLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="PHCollectionViewFlowLayout" superclassName="LXReorderableCollectionViewFlowLayout">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PHCollectionViewFlowLayout.h"/>
+        </class>
+        <class className="PHDetailViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PHDetailViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="doGoBack:"/>
+                <relationship kind="action" name="doGoForward:"/>
+                <relationship kind="action" name="doInfo:"/>
+                <relationship kind="action" name="doNavigation:"/>
+                <relationship kind="action" name="doPreferences:"/>
+                <relationship kind="action" name="doReload:"/>
+                <relationship kind="action" name="doStop:"/>
+                <relationship kind="outlet" name="pageBarContainerView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="pageNumberLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="titleLabel2" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="topContainerView" candidateClass="UIView"/>
+            </relationships>
+        </class>
+        <class className="PHMasterViewController" superclassName="UICollectionViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PHMasterViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="doAdd:"/>
+                <relationship kind="action" name="doEdit:"/>
+                <relationship kind="action" name="doRedownload:"/>
+                <relationship kind="outlet" name="searchBar" candidateClass="UISearchBar"/>
+            </relationships>
+        </class>
+        <class className="PHPrefViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PHPrefViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="handleButtonTap:" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="decreaseFontSizeButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="decreaseLineHeightButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="decreaseMarginButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="increaseFontSizeButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="increaseLineHeightButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="increaseMarginButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="nightBackgroundButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="paginationOffButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="paginationOnButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="sepiaBackgroundButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="whiteBackgroundButton" candidateClass="UIButton"/>
+            </relationships>
+        </class>
+        <class className="PHRootViewController" superclassName="IIViewDeckController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PHRootViewController.h"/>
+        </class>
+        <class className="PHSearchViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PHSearchViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="doDone:"/>
+                <relationship kind="outlet" name="searchBar" candidateClass="UISearchBar"/>
+            </relationships>
+        </class>
+        <class className="TransparentNavigationBar" superclassName="UINavigationBar">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TransparentNavigationBar.h"/>
+        </class>
+        <class className="UICollectionReusableView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/UICollectionReusableView.h"/>
+        </class>
+        <class className="UICollectionViewCell" superclassName="UICollectionReusableView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/UICollectionViewCell.h"/>
+        </class>
+        <class className="UICollectionViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/UICollectionViewController.h"/>
+        </class>
+        <class className="UICollectionViewFlowLayout" superclassName="UICollectionViewLayout">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/UICollectionViewFlowLayout.h"/>
+        </class>
+        <class className="UICollectionViewLayout" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/UICollectionViewLayout.h"/>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar" statusBarStyle="blackTranslucent"/>
         <simulatedOrientationMetrics key="orientation"/>
