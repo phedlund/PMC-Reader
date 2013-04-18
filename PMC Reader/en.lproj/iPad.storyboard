@@ -187,19 +187,26 @@
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <view alpha="0.80000000000000004" contentMode="scaleToFill" id="whE-MW-dSD">
-                                                    <rect key="frame" x="115" y="115" width="80" height="80"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <subviews>
-                                                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" style="whiteLarge" id="u75-z7-SLz">
-                                                            <rect key="frame" x="22" y="21" width="37" height="37"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                        </activityIndicatorView>
-                                                    </subviews>
-                                                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                                </view>
                                             </subviews>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                        </view>
+                                        <view alpha="0.80000000000000004" contentMode="scaleToFill" id="whE-MW-dSD">
+                                            <rect key="frame" x="105" y="105" width="100" height="100"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <subviews>
+                                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" style="whiteLarge" id="u75-z7-SLz">
+                                                    <rect key="frame" x="32" y="20" width="37" height="37"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </activityIndicatorView>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Downloading..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="gFC-3P-gmQ">
+                                                    <rect key="frame" x="0.0" y="70" width="100" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                         </view>
                                         <view contentMode="scaleToFill" id="qxI-IK-140">
                                             <rect key="frame" x="230" y="0.0" width="80" height="310"/>
@@ -498,8 +505,6 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PHMasterViewController.h"/>
             <relationships>
                 <relationship kind="action" name="doAdd:"/>
-                <relationship kind="action" name="doEdit:"/>
-                <relationship kind="action" name="doRedownload:"/>
                 <relationship kind="outlet" name="searchBar" candidateClass="UISearchBar"/>
             </relationships>
         </class>
