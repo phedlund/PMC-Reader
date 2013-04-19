@@ -170,6 +170,7 @@
     }
     self.titleLabel.frame = newRect;
     self.titleLabel2.frame = newRect2;
+    self.titleLabel2.hidden = !self.navigationController.navigationBarHidden;
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -191,12 +192,16 @@
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
     [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
     CGRect newRect = self.titleLabel.frame;
+    CGRect newRect2 = self.titleLabel2.frame;
     if ((toInterfaceOrientation == UIInterfaceOrientationLandscapeLeft) || (toInterfaceOrientation == UIInterfaceOrientationLandscapeRight)) {
         newRect.size.width = TITLE_LABEL_WIDTH_LANDSCAPE;
+        newRect2.size.width = TITLE_LABEL_WIDTH_LANDSCAPE;
     } else {
         newRect.size.width = TITLE_LABEL_WIDTH_PORTRAIT;
+        newRect2.size.width = TITLE_LABEL_WIDTH_PORTRAIT;
     }
     self.titleLabel.frame = newRect;
+    self.titleLabel2.frame = newRect2;
     if ([self shouldPaginate]) {
         if (self.articleView != nil) {
             [self.articleView reload];
