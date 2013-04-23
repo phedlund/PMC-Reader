@@ -175,14 +175,14 @@
     self.increaseMarginButton.layer.borderColor = borderColor;
     
     UIColor *iconColor = [PHColors popoverIconColor];
-    self.paginationOnButton.imageView.image = [PHColors changeImage:[UIImage imageNamed:@"paginate2"] toColor:iconColor];
-    self.paginationOffButton.imageView.image = [PHColors changeImage:[UIImage imageNamed:@"paginate1"] toColor:iconColor];
-    self.decreaseFontSizeButton.imageView.image = [PHColors changeImage:[UIImage imageNamed:@"fontsizes"] toColor:iconColor];
-    self.increaseFontSizeButton.imageView.image = [PHColors changeImage:[UIImage imageNamed:@"fontsizel"] toColor:iconColor];
-    self.decreaseLineHeightButton.imageView.image = [PHColors changeImage:[UIImage imageNamed:@"lineheight1"] toColor:iconColor];
-    self.increaseLineHeightButton.imageView.image = [PHColors changeImage:[UIImage imageNamed:@"lineheight3"] toColor:iconColor];
-    self.decreaseMarginButton.imageView.image = [PHColors changeImage:[UIImage imageNamed:@"margin1"] toColor:iconColor];
-    self.increaseMarginButton.imageView.image = [PHColors changeImage:[UIImage imageNamed:@"margin3"] toColor:iconColor];
+    [self.paginationOnButton setImage:[PHColors changeImage:[UIImage imageNamed:@"paginate2"] toColor:iconColor] forState:UIControlStateNormal];
+    [self.paginationOffButton setImage:[PHColors changeImage:[UIImage imageNamed:@"paginate1"] toColor:iconColor] forState:UIControlStateNormal];
+    [self.decreaseFontSizeButton setImage:[PHColors changeImage:[UIImage imageNamed:@"fontsizes"] toColor:iconColor] forState:UIControlStateNormal];
+    [self.increaseFontSizeButton setImage:[PHColors changeImage:[UIImage imageNamed:@"fontsizel"] toColor:iconColor] forState:UIControlStateNormal];
+    [self.decreaseLineHeightButton setImage:[PHColors changeImage:[UIImage imageNamed:@"lineheight1"] toColor:iconColor] forState:UIControlStateNormal];
+    [self.increaseLineHeightButton setImage:[PHColors changeImage:[UIImage imageNamed:@"lineheight3"] toColor:iconColor] forState:UIControlStateNormal];
+    [self.decreaseMarginButton setImage:[PHColors changeImage:[UIImage imageNamed:@"margin1"] toColor:iconColor] forState:UIControlStateNormal];
+    [self.increaseMarginButton setImage:[PHColors changeImage:[UIImage imageNamed:@"margin3"] toColor:iconColor] forState:UIControlStateNormal];
     
     [self.tableView reloadData];
 }

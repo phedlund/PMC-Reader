@@ -243,6 +243,8 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
     cell.contentView.opaque = YES;
     cell.labelContainerView.backgroundColor = [PHColors cellBackgroundColor];
     cell.buttonContainerView.backgroundColor = [PHColors cellBackgroundColor];
+    [cell.deleteButton setImage:[PHColors changeImage:[UIImage imageNamed:@"delete"] toColor:[PHColors iconColor]] forState:UIControlStateNormal];
+    [cell.downloadButton setImage:[PHColors changeImage:[UIImage imageNamed:@"download"] toColor:[PHColors iconColor]] forState:UIControlStateNormal];
 
     cell.activityVisible = article.downloading;
     
