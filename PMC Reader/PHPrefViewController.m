@@ -9,7 +9,6 @@
 #import "PHPrefViewController.h"
 #import "QuartzCore/QuartzCore.h"
 #import "PHColors.h"
-#import "UIColor+LightAndDark.h"
 
 #define MIN_FONT_SIZE 11
 #define MAX_FONT_SIZE 30
@@ -144,61 +143,48 @@
 }
 
 - (void)updateBackgrounds {
-    UIColor *bgColor = [[PHColors backgroundColor] lighterColor];
+    self.view.backgroundColor = [PHColors popoverBackgroundColor];
+    self.tableView.backgroundColor = [PHColors popoverButtonColor];
+    self.tableView.layer.borderColor = [[PHColors popoverBorderColor] CGColor];
+    self.tableView.separatorColor = [PHColors popoverBorderColor];
     
-    self.view.backgroundColor = bgColor;
-    self.tableView.backgroundColor = [bgColor lighterColor];
-    self.tableView.layer.borderColor = [[bgColor darkerColor] CGColor];
-    self.tableView.separatorColor = [bgColor darkerColor];
-    
-    self.paginationOnButton.backgroundColor = [bgColor lighterColor];
-    self.paginationOffButton.backgroundColor = [bgColor lighterColor];
-    self.decreaseFontSizeButton.backgroundColor = [bgColor lighterColor];
-    self.increaseFontSizeButton.backgroundColor = [bgColor lighterColor];
-    self.whiteBackgroundButton.backgroundColor = [UIColor whiteColor];
-    self.sepiaBackgroundButton.backgroundColor = [PHColors colorFromHexString:@"#F5EFDC"];
-    self.nightBackgroundButton.backgroundColor = [PHColors colorFromHexString:@"#111111"];
-    self.decreaseLineHeightButton.backgroundColor = [bgColor lighterColor];
-    self.increaseLineHeightButton.backgroundColor = [bgColor lighterColor];
-    self.decreaseMarginButton.backgroundColor = [bgColor lighterColor];
-    self.increaseMarginButton.backgroundColor = [bgColor lighterColor];
+    UIColor *buttonColor = [PHColors popoverButtonColor];
+    self.paginationOnButton.backgroundColor = buttonColor;
+    self.paginationOffButton.backgroundColor = buttonColor;
+    self.decreaseFontSizeButton.backgroundColor = buttonColor;
+    self.increaseFontSizeButton.backgroundColor = buttonColor;
+    self.whiteBackgroundButton.backgroundColor = kPHWhiteBackgroundColor;
+    self.sepiaBackgroundButton.backgroundColor = kPHSepiaBackgroundColor;
+    self.nightBackgroundButton.backgroundColor = kPHNightBackgroundColor;
+    self.decreaseLineHeightButton.backgroundColor = buttonColor;
+    self.increaseLineHeightButton.backgroundColor = buttonColor;
+    self.decreaseMarginButton.backgroundColor = buttonColor;
+    self.increaseMarginButton.backgroundColor = buttonColor;
  
-    self.paginationOnButton.layer.borderColor = [[bgColor darkerColor] CGColor];
-    self.paginationOffButton.layer.borderColor = [[bgColor darkerColor] CGColor];
-    self.decreaseFontSizeButton.layer.borderColor = [[bgColor darkerColor] CGColor];
-    self.increaseFontSizeButton.layer.borderColor = [[bgColor darkerColor] CGColor];
-    self.whiteBackgroundButton.layer.borderColor = [[bgColor darkerColor] CGColor];
-    self.sepiaBackgroundButton.layer.borderColor = [[bgColor darkerColor] CGColor];
-    self.nightBackgroundButton.layer.borderColor = [[bgColor darkerColor] CGColor];
-    self.decreaseLineHeightButton.layer.borderColor = [[bgColor darkerColor] CGColor];
-    self.increaseLineHeightButton.layer.borderColor = [[bgColor darkerColor] CGColor];
-    self.decreaseMarginButton.layer.borderColor = [[bgColor darkerColor] CGColor];
-    self.increaseMarginButton.layer.borderColor = [[bgColor darkerColor] CGColor];
+    CGColorRef borderColor = [[PHColors popoverBorderColor] CGColor];
+    self.paginationOnButton.layer.borderColor = borderColor;
+    self.paginationOffButton.layer.borderColor = borderColor;
+    self.decreaseFontSizeButton.layer.borderColor = borderColor;
+    self.increaseFontSizeButton.layer.borderColor = borderColor;
+    self.whiteBackgroundButton.layer.borderColor = borderColor;
+    self.sepiaBackgroundButton.layer.borderColor = borderColor;
+    self.nightBackgroundButton.layer.borderColor = borderColor;
+    self.decreaseLineHeightButton.layer.borderColor = borderColor;
+    self.increaseLineHeightButton.layer.borderColor = borderColor;
+    self.decreaseMarginButton.layer.borderColor = borderColor;
+    self.increaseMarginButton.layer.borderColor = borderColor;
     
-    int backgroundIndex =[[NSUserDefaults standardUserDefaults] integerForKey:@"Background"];
-    if (backgroundIndex == 2) {
-        self.paginationOnButton.imageView.image = [PHColors changeImage:[UIImage imageNamed:@"paginate2"] toColor:[PHColors textColor]];
-        self.paginationOffButton.imageView.image = [PHColors changeImage:[UIImage imageNamed:@"paginate1"] toColor:[PHColors textColor]];
-        self.decreaseFontSizeButton.imageView.image = [PHColors changeImage:[UIImage imageNamed:@"fontsizes"] toColor:[PHColors textColor]];
-        self.increaseFontSizeButton.imageView.image = [PHColors changeImage:[UIImage imageNamed:@"fontsizel"] toColor:[PHColors textColor]];
-        self.decreaseLineHeightButton.imageView.image = [PHColors changeImage:[UIImage imageNamed:@"lineheight1"] toColor:[PHColors textColor]];
-        self.increaseLineHeightButton.imageView.image = [PHColors changeImage:[UIImage imageNamed:@"lineheight3"] toColor:[PHColors textColor]];
-        self.decreaseMarginButton.imageView.image = [PHColors changeImage:[UIImage imageNamed:@"margin1"] toColor:[PHColors textColor]];
-        self.increaseMarginButton.imageView.image = [PHColors changeImage:[UIImage imageNamed:@"margin3"] toColor:[PHColors textColor]];
-    } else {
-        self.paginationOnButton.imageView.image = [UIImage imageNamed:@"paginate2"];
-        self.paginationOffButton.imageView.image = [UIImage imageNamed:@"paginate1"];
-        self.decreaseFontSizeButton.imageView.image = [UIImage imageNamed:@"fontsizes"];
-        self.increaseFontSizeButton.imageView.image = [UIImage imageNamed:@"fontsizel"];
-        self.decreaseLineHeightButton.imageView.image = [UIImage imageNamed:@"lineheight1"];
-        self.increaseLineHeightButton.imageView.image = [UIImage imageNamed:@"lineheight3"];
-        self.decreaseMarginButton.imageView.image = [UIImage imageNamed:@"margin1"];
-        self.increaseMarginButton.imageView.image = [UIImage imageNamed:@"margin2"];
-        
-    }
+    UIColor *iconColor = [PHColors popoverIconColor];
+    self.paginationOnButton.imageView.image = [PHColors changeImage:[UIImage imageNamed:@"paginate2"] toColor:iconColor];
+    self.paginationOffButton.imageView.image = [PHColors changeImage:[UIImage imageNamed:@"paginate1"] toColor:iconColor];
+    self.decreaseFontSizeButton.imageView.image = [PHColors changeImage:[UIImage imageNamed:@"fontsizes"] toColor:iconColor];
+    self.increaseFontSizeButton.imageView.image = [PHColors changeImage:[UIImage imageNamed:@"fontsizel"] toColor:iconColor];
+    self.decreaseLineHeightButton.imageView.image = [PHColors changeImage:[UIImage imageNamed:@"lineheight1"] toColor:iconColor];
+    self.increaseLineHeightButton.imageView.image = [PHColors changeImage:[UIImage imageNamed:@"lineheight3"] toColor:iconColor];
+    self.decreaseMarginButton.imageView.image = [PHColors changeImage:[UIImage imageNamed:@"margin1"] toColor:iconColor];
+    self.increaseMarginButton.imageView.image = [PHColors changeImage:[UIImage imageNamed:@"margin3"] toColor:iconColor];
     
     [self.tableView reloadData];
-  
 }
 
 - (IBAction)handleButtonTap:(UIButton *)sender {
@@ -309,7 +295,7 @@
     
     // Configure the cell...
     cell.textLabel.text = [self.fonts objectAtIndex:indexPath.row];
-    cell.textLabel.textColor = [PHColors textColor];
+    cell.textLabel.textColor = [PHColors popoverIconColor];
     cell.accessoryType = UITableViewCellAccessoryNone;
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     NSString *font = [prefs valueForKey:@"Font"];

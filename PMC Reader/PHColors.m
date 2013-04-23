@@ -8,68 +8,79 @@
 
 #import "PHColors.h"
 
+#define kPHBackgroundColorArray        @[kPHWhiteBackgroundColor, kPHSepiaBackgroundColor, kPHNightBackgroundColor]
+#define kPHCellBackgroundColorArray    @[kPHWhiteCellBackgroundColor, kPHSepiaCellBackgroundColor, kPHNightCellBackgroundColor]
+#define kPHIconColorArray              @[kPHWhiteIconColor, kPHSepiaIconColor, kPHNightIconColor]
+#define kPHTextColorArray              @[kPHWhiteTextColor, kPHSepiaTextColor, kPHNightTextColor]
+#define kPHLinkColorArray              @[kPHWhiteLinkColor, kPHSepiaLinkColor, kPHNightLinkColor]
+#define kPHPopoverBackgroundColorArray @[kPHWhitePopoverBackgroundColor, kPHSepiaPopoverBackgroundColor, kPHNightPopoverBackgroundColor]
+#define kPHPopoverButtonColorArray     @[kPHWhitePopoverButtonColor, kPHSepiaPopoverButtonColor, kPHNightPopoverButtonColor]
+#define kPHPopoverBorderColorArray     @[kPHWhitePopoverBorderColor, kPHSepiaPopoverBorderColor, kPHNightPopoverBorderColor]
+
 @implementation PHColors
 
-
-// Assumes input like "#00FF00" (#RRGGBB).
-+ (UIColor *)colorFromHexString:(NSString *)hexString {
-    unsigned rgbValue = 0;
-    NSScanner *scanner = [NSScanner scannerWithString:hexString];
-    [scanner setScanLocation:1]; // bypass '#' character
-    [scanner scanHexInt:&rgbValue];
-    return [UIColor colorWithRed:((rgbValue & 0xFF0000) >> 16)/255.0 green:((rgbValue & 0xFF00) >> 8)/255.0 blue:(rgbValue & 0xFF)/255.0 alpha:1.0];
-}
-
 + (UIColor *)backgroundColor {
-    NSArray *backgrounds = [[NSUserDefaults standardUserDefaults] arrayForKey:@"Backgrounds"];
     int backgroundIndex =[[NSUserDefaults standardUserDefaults] integerForKey:@"Background"];
-    NSString *background = [backgrounds objectAtIndex:backgroundIndex];
-    return [self colorFromHexString:background];
+    return [kPHBackgroundColorArray objectAtIndex:backgroundIndex];
 }
 
-+ (NSString *)backgroundColorAsHex {
-    NSArray *backgrounds = [[NSUserDefaults standardUserDefaults] arrayForKey:@"Backgrounds"];
++ (UIColor *)cellBackgroundColor {
     int backgroundIndex =[[NSUserDefaults standardUserDefaults] integerForKey:@"Background"];
-    return [backgrounds objectAtIndex:backgroundIndex];
+    return [kPHCellBackgroundColorArray objectAtIndex:backgroundIndex];
+}
+
++ (UIColor *)iconColor {
+    int backgroundIndex =[[NSUserDefaults standardUserDefaults] integerForKey:@"Background"];
+    return [kPHIconColorArray objectAtIndex:backgroundIndex];
 }
 
 + (UIColor *)textColor {
     int backgroundIndex =[[NSUserDefaults standardUserDefaults] integerForKey:@"Background"];
-    NSArray *colors = [[NSUserDefaults standardUserDefaults] arrayForKey:@"Colors"];
-    NSString *color = [colors objectAtIndex:backgroundIndex];
-    return [self colorFromHexString:color];
-}
-
-+ (NSString *)textColorAsHex {
-    int backgroundIndex =[[NSUserDefaults standardUserDefaults] integerForKey:@"Background"];
-    NSArray *colors = [[NSUserDefaults standardUserDefaults] arrayForKey:@"Colors"];
-    return [colors objectAtIndex:backgroundIndex];    
+    return [kPHTextColorArray objectAtIndex:backgroundIndex];
 }
 
 + (UIColor *)linkColor {
     int backgroundIndex =[[NSUserDefaults standardUserDefaults] integerForKey:@"Background"];
-    NSArray *colors = [[NSUserDefaults standardUserDefaults] arrayForKey:@"ColorsLink"];
-    NSString *color = [colors objectAtIndex:backgroundIndex];
-    return [self colorFromHexString:color];
+    return [kPHLinkColorArray objectAtIndex:backgroundIndex];
 }
 
-+ (NSString *)linkColorAsHex {
++ (UIColor *)popoverBackgroundColor {
     int backgroundIndex =[[NSUserDefaults standardUserDefaults] integerForKey:@"Background"];
-    NSArray *colors = [[NSUserDefaults standardUserDefaults] arrayForKey:@"ColorsLink"];
-    return [colors objectAtIndex:backgroundIndex];
+    return [kPHPopoverBackgroundColorArray objectAtIndex:backgroundIndex];
+}
+
++ (UIColor *)popoverButtonColor {
+    int backgroundIndex =[[NSUserDefaults standardUserDefaults] integerForKey:@"Background"];
+    return [kPHPopoverButtonColorArray objectAtIndex:backgroundIndex];
+}
+
++ (UIColor *)popoverBorderColor {
+    int backgroundIndex =[[NSUserDefaults standardUserDefaults] integerForKey:@"Background"];
+    return [kPHPopoverBorderColorArray objectAtIndex:backgroundIndex];
+}
+
++ (UIColor *)popoverIconColor {
+    int backgroundIndex =[[NSUserDefaults standardUserDefaults] integerForKey:@"Background"];
+    if (backgroundIndex == 2) {
+        return kPHNightTextColor;
+    }
+    return [kPHIconColorArray objectAtIndex:backgroundIndex];
 }
 
 + (UIImage *)changeImage:(UIImage*)image toColor:(UIColor*)color {
-    CGRect rect = CGRectMake(0, 0, image.size.width, image.size.height);
+    CGRect rect = CGRectMake(0, 0, image.size.width * image.scale, image.size.height * image.scale);
+
     UIGraphicsBeginImageContext(rect.size);
     CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextTranslateCTM(context, 0, rect.size.height);
+    CGContextScaleCTM(context, 1.0, -1.0);
     CGContextClipToMask(context, rect, image.CGImage);
     CGContextSetFillColorWithColor(context, [color CGColor]);
     CGContextFillRect(context, rect);
     UIImage *img = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     
-    return [UIImage imageWithCGImage:img.CGImage scale:1.0 orientation: UIImageOrientationDownMirrored];
+    return [UIImage imageWithCGImage:img.CGImage scale:1.0 orientation: UIImageOrientationUp];
 }
 
 @end

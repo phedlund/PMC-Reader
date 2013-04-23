@@ -14,7 +14,7 @@
 #import "PHArticleReference.h"
 #import "TransparentToolbar.h"
 #import "PHColors.h"
-#import "UIColor+LightAndDark.h"
+#import "UIColor+Expanded.h"
 
 #define TITLE_LABEL_WIDTH_LANDSCAPE 700
 #define TITLE_LABEL_WIDTH_PORTRAIT 450
@@ -244,7 +244,7 @@
         _prefPopoverController = [[UIPopoverController alloc] initWithContentViewController:_prefViewController];
     } 
     
-    [_prefPopoverController presentPopoverFromBarButtonItem:sender permittedArrowDirections:(UIPopoverArrowDirectionUp | UIPopoverArrowDirectionDown) animated:YES];
+    [_prefPopoverController presentPopoverFromBarButtonItem:self.prefsBarButtonItem permittedArrowDirections:(UIPopoverArrowDirectionUp | UIPopoverArrowDirectionDown) animated:YES];
 }
 
 - (IBAction)doInfo:(id)sender {
@@ -262,7 +262,7 @@
         self.articleNavigationPopover.popoverContentSize = CGSizeMake(290.0f, 44);
     }
 
-    [self.articleNavigationPopover presentPopoverFromBarButtonItem:sender permittedArrowDirections:(UIPopoverArrowDirectionUp | UIPopoverArrowDirectionDown) animated:YES];
+    [self.articleNavigationPopover presentPopoverFromBarButtonItem:self.navBarButtonItem permittedArrowDirections:(UIPopoverArrowDirectionUp | UIPopoverArrowDirectionDown) animated:YES];
 }
 
 - (PHArticleNavigationControllerViewController *) articleNavigationController {
@@ -427,7 +427,7 @@
                             popover = [[PopoverView alloc] initWithFrame:label.frame];
                             int backgroundIndex =[[NSUserDefaults standardUserDefaults] integerForKey:@"Background"];
                             if (backgroundIndex > 0) {
-                                popover.backgroundGradientColors = @[[[PHColors backgroundColor] lighterColor], [PHColors backgroundColor]];
+                                popover.backgroundGradientColors = @[[PHColors popoverButtonColor], [PHColors popoverBackgroundColor]];
                             }
                             [popover showAtPoint:currentTapLocation inView:self.articleView withContentView:label];
                             //popover = [PopoverView showPopoverAtPoint:currentTapLocation inView:self.articleView withContentView:label delegate:self];
@@ -537,22 +537,17 @@
     }
     self.pageNumberBar.nightMode = (backgroundIndex == 2);
     self.titleLabel2.alpha = (backgroundIndex == 2) ? 1.0f : 0.5f;
-    self.titleLabel.textColor = [PHColors textColor];
+    self.titleLabel.textColor = [PHColors iconColor];
     
-    switch (backgroundIndex) {
-        case 0:
-            bottomBorder.backgroundColor = [UIColor colorWithWhite:0.8f alpha:1.0f].CGColor;
-            break;
-        case 1:
-            bottomBorder.backgroundColor = [[PHColors backgroundColor] darkerColor].CGColor;
-            break;
-        case 2:
-            //bottomBorder.backgroundColor = [[PHColors backgroundColor] lighterColor].CGColor;
-            bottomBorder.backgroundColor = [UIColor colorWithWhite:0.3f alpha:1.0f].CGColor;
-            break;
-        default:
-            break;
-    }
+    bottomBorder.backgroundColor = [[PHColors iconColor] CGColor];
+
+    [((UIButton*)self.backBarButtonItem.customView) setImage:[PHColors changeImage:[UIImage imageNamed:@"back"] toColor:[PHColors iconColor]] forState:UIControlStateNormal];
+    [((UIButton*)self.forwardBarButtonItem.customView) setImage:[PHColors changeImage:[UIImage imageNamed:@"forward"] toColor:[PHColors iconColor]] forState:UIControlStateNormal];
+    [((UIButton*)self.refreshBarButtonItem.customView) setImage:[PHColors changeImage:[UIImage imageNamed:@"refresh"] toColor:[PHColors iconColor]] forState:UIControlStateNormal];
+    [((UIButton*)self.stopBarButtonItem.customView) setImage:[PHColors changeImage:[UIImage imageNamed:@"stop"] toColor:[PHColors iconColor]] forState:UIControlStateNormal];
+    [((UIButton*)self.prefsBarButtonItem.customView) setImage:[PHColors changeImage:[UIImage imageNamed:@"text"] toColor:[PHColors iconColor]] forState:UIControlStateNormal];
+    [((UIButton*)self.navBarButtonItem.customView) setImage:[PHColors changeImage:[UIImage imageNamed:@"contents"] toColor:[PHColors iconColor]] forState:UIControlStateNormal];
+    [((UIButton*)self.infoBarButtonItem.customView) setImage:[PHColors changeImage:[UIImage imageNamed:@"action"] toColor:[PHColors iconColor]] forState:UIControlStateNormal];
 }
 
 - (void) writeCssTemplate
@@ -573,9 +568,9 @@
     double lineHeight =[[NSUserDefaults standardUserDefaults] doubleForKey:@"LineHeight"];
     cssTemplate = [cssTemplate stringByReplacingOccurrencesOfString:@"$LINEHEIGHT$" withString:[NSString stringWithFormat:@"%fem", lineHeight]];
     
-    cssTemplate = [cssTemplate stringByReplacingOccurrencesOfString:@"$BACKGROUND$" withString:[PHColors backgroundColorAsHex]];
-    cssTemplate = [cssTemplate stringByReplacingOccurrencesOfString:@"$COLOR$" withString:[PHColors textColorAsHex]];
-    cssTemplate = [cssTemplate stringByReplacingOccurrencesOfString:@"$COLORLINK$" withString:[PHColors linkColorAsHex]];
+    cssTemplate = [cssTemplate stringByReplacingOccurrencesOfString:@"$BACKGROUND$" withString:[NSString stringWithFormat:@"#%@", [PHColors backgroundColor].hexStringValue]];
+    cssTemplate = [cssTemplate stringByReplacingOccurrencesOfString:@"$COLOR$" withString:[NSString stringWithFormat:@"#%@", [PHColors textColor].hexStringValue]];
+    cssTemplate = [cssTemplate stringByReplacingOccurrencesOfString:@"$COLORLINK$" withString:[NSString stringWithFormat:@"#%@", [PHColors linkColor].hexStringValue]];
     
     NSFileManager *fm = [NSFileManager defaultManager];
     NSArray *paths = [fm URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask];
@@ -841,23 +836,39 @@ CGRect CGRectMoveBottom(CGRect rect, CGFloat dy) {
 
 - (UIBarButtonItem *)backBarButtonItem {
     if (!backBarButtonItem) {
-        backBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"back"] style:UIBarButtonItemStylePlain target:self action:@selector(doGoBack:)];
-        backBarButtonItem.imageInsets = UIEdgeInsetsMake(2.0f, 0.0f, -2.0f, 0.0f);
+        UIImage *image = [UIImage imageNamed:@"back"];
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+        button.frame = CGRectMake(0, 0, 28 , 42);
+        [button setImage:image forState:UIControlStateNormal];;
+        [button setImageEdgeInsets:UIEdgeInsetsMake(11.0, 2.0, 11.0, 2.0)];
+        [button addTarget:self action:@selector(doGoBack:) forControlEvents:UIControlEventTouchUpInside];
+        backBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
     }
     return backBarButtonItem;
 }
 
 - (UIBarButtonItem *)forwardBarButtonItem {
     if (!forwardBarButtonItem) {        
-        forwardBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"forward"] style:UIBarButtonItemStylePlain target:self action:@selector(doGoForward:)];
-        forwardBarButtonItem.imageInsets = UIEdgeInsetsMake(2.0f, 0.0f, -2.0f, 0.0f);
+        UIImage *image = [UIImage imageNamed:@"forward"];
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+        button.frame = CGRectMake(0, 0, 28 , 42);
+        [button setImage:image forState:UIControlStateNormal];;
+        [button setImageEdgeInsets:UIEdgeInsetsMake(11.0, 2.0, 11.0, 2.0)];
+        [button addTarget:self action:@selector(doGoForward:) forControlEvents:UIControlEventTouchUpInside];
+        forwardBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
     }
     return forwardBarButtonItem;
 }
 
 - (UIBarButtonItem *)refreshBarButtonItem {
     if (!refreshBarButtonItem) {
-        refreshBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(doReload:)];
+        UIImage *image = [UIImage imageNamed:@"refresh"];
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+        button.frame = CGRectMake(0, 0, 28 , 42);
+        [button setImage:image forState:UIControlStateNormal];;
+        [button setImageEdgeInsets:UIEdgeInsetsMake(10.0, 2.0, 10.0, 2.0)];
+        [button addTarget:self action:@selector(doReload:) forControlEvents:UIControlEventTouchUpInside];
+        refreshBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
     }
     
     return refreshBarButtonItem;
@@ -865,31 +876,52 @@ CGRect CGRectMoveBottom(CGRect rect, CGFloat dy) {
 
 - (UIBarButtonItem *)stopBarButtonItem {
     if (!stopBarButtonItem) {
-        stopBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(doStop:)];
+        UIImage *image = [UIImage imageNamed:@"stop"];
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+        button.frame = CGRectMake(0, 0, 28 , 42);
+        [button setImage:image forState:UIControlStateNormal];;
+        [button setImageEdgeInsets:UIEdgeInsetsMake(11.0, 2.0, 11.0, 2.0)];
+        [button addTarget:self action:@selector(doStop:) forControlEvents:UIControlEventTouchUpInside];
+        stopBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
     }
     return stopBarButtonItem;
 }
 
 - (UIBarButtonItem *)infoBarButtonItem {
     if (!infoBarButtonItem) {
-        infoBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(doInfo:)];
+        UIImage *image = [UIImage imageNamed:@"action"];
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+        button.frame = CGRectMake(0, 0, 28 , 42);
+        [button setImage:image forState:UIControlStateNormal];;
+        [button setImageEdgeInsets:UIEdgeInsetsMake(10.0, 2.0, 10.0, 2.0)];
+        [button addTarget:self action:@selector(doInfo:) forControlEvents:UIControlEventTouchUpInside];
+        infoBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
     }
     return infoBarButtonItem;
 }
 
 - (UIBarButtonItem *)prefsBarButtonItem {
     if (!prefsBarButtonItem) {
-        prefsBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"text"] style:UIBarButtonItemStylePlain target:self action:@selector(doPreferences:)];
-        prefsBarButtonItem.imageInsets = UIEdgeInsetsMake(2.0f, 0.0f, -2.0f, 0.0f);
+        UIImage *image = [UIImage imageNamed:@"text"];
+        UIButton *prefButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        prefButton.frame = CGRectMake(0, 0, 28 , 42);
+        [prefButton setImage:image forState:UIControlStateNormal];;
+        [prefButton setImageEdgeInsets:UIEdgeInsetsMake(11.0, 2.0, 11.0, 2.0)];
+        [prefButton addTarget:self action:@selector(doPreferences:) forControlEvents:UIControlEventTouchUpInside];
+        prefsBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:prefButton];        
     }
     return prefsBarButtonItem;
 }
 
 - (UIBarButtonItem *)navBarButtonItem {
     if (!navBarButtonItem) {
-        navBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"contents"] style:UIBarButtonItemStylePlain target:self action:@selector(doNavigation:)];
-        navBarButtonItem.imageInsets = UIEdgeInsetsMake(2.0f, 0.0f, -2.0f, 0.0f);
-
+        UIImage *image = [UIImage imageNamed:@"contents"];
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+        button.frame = CGRectMake(0, 0, 28 , 42);
+        [button setImage:image forState:UIControlStateNormal];;
+        [button setImageEdgeInsets:UIEdgeInsetsMake(11.0, 2.0, 11.0, 2.0)];
+        [button addTarget:self action:@selector(doNavigation:) forControlEvents:UIControlEventTouchUpInside];
+        navBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
     }
     return navBarButtonItem;
 }
@@ -969,7 +1001,7 @@ CGRect CGRectMoveBottom(CGRect rect, CGFloat dy) {
                            fixedSpace,
                            nil];
     
-    TransparentToolbar *toolbarRight = [[TransparentToolbar alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 125, 44.0f)];
+    TransparentToolbar *toolbarRight = [[TransparentToolbar alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 135, 44.0f)];
     toolbarRight.items = itemsRight;
     toolbarRight.tintColor = self.navigationController.navigationBar.tintColor;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:toolbarRight];

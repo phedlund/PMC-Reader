@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D009A7161715E4A800BC4D77 /* UIColor+LightAndDark.m in Sources */ = {isa = PBXBuildFile; fileRef = D009A7151715E4A800BC4D77 /* UIColor+LightAndDark.m */; };
 		D009A71A171742ED00BC4D77 /* LXReorderableCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = D009A719171742ED00BC4D77 /* LXReorderableCollectionViewFlowLayout.m */; };
 		D009A71D171744A800BC4D77 /* PHCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D009A71C171744A800BC4D77 /* PHCollectionViewCell.m */; };
 		D009A720171787EC00BC4D77 /* PHCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = D009A71F171787EA00BC4D77 /* PHCollectionViewFlowLayout.m */; };
@@ -33,6 +32,13 @@
 		D03863A315D03B04004686C4 /* gear@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D03863A115D03B04004686C4 /* gear@2x.png */; };
 		D05B89F8171F4E2900C61968 /* download.png in Resources */ = {isa = PBXBuildFile; fileRef = D05B89F6171F4E2900C61968 /* download.png */; };
 		D05B89F9171F4E2900C61968 /* download@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D05B89F7171F4E2900C61968 /* download@2x.png */; };
+		D05B89FD1725FB0800C61968 /* UIColor+Expanded.m in Sources */ = {isa = PBXBuildFile; fileRef = D05B89FC1725FB0800C61968 /* UIColor+Expanded.m */; };
+		D05B8A001727111C00C61968 /* add.png in Resources */ = {isa = PBXBuildFile; fileRef = D05B89FE1727111C00C61968 /* add.png */; };
+		D05B8A011727111C00C61968 /* add@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D05B89FF1727111C00C61968 /* add@2x.png */; };
+		D05B8A04172720D300C61968 /* refresh.png in Resources */ = {isa = PBXBuildFile; fileRef = D05B8A02172720D200C61968 /* refresh.png */; };
+		D05B8A05172720D300C61968 /* refresh@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D05B8A03172720D300C61968 /* refresh@2x.png */; };
+		D05B8A08172730C400C61968 /* stop.png in Resources */ = {isa = PBXBuildFile; fileRef = D05B8A06172730C400C61968 /* stop.png */; };
+		D05B8A09172730C400C61968 /* stop@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D05B8A07172730C400C61968 /* stop@2x.png */; };
 		D0CDB7CD15C1BA4F0074B143 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D0CDB7CC15C1BA4F0074B143 /* libxml2.dylib */; };
 		D0CDB7D215C1F5900074B143 /* HTMLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CDB7CF15C1F5900074B143 /* HTMLNode.m */; };
 		D0CDB7D315C1F5900074B143 /* HTMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CDB7D115C1F5900074B143 /* HTMLParser.m */; };
@@ -123,8 +129,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		D009A7141715E4A700BC4D77 /* UIColor+LightAndDark.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+LightAndDark.h"; sourceTree = "<group>"; };
-		D009A7151715E4A800BC4D77 /* UIColor+LightAndDark.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+LightAndDark.m"; sourceTree = "<group>"; };
 		D009A718171742ED00BC4D77 /* LXReorderableCollectionViewFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LXReorderableCollectionViewFlowLayout.h; path = LXReorderableCollectionViewFlowLayout/LXReorderableCollectionViewFlowLayout/LXReorderableCollectionViewFlowLayout.h; sourceTree = SOURCE_ROOT; };
 		D009A719171742ED00BC4D77 /* LXReorderableCollectionViewFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LXReorderableCollectionViewFlowLayout.m; path = LXReorderableCollectionViewFlowLayout/LXReorderableCollectionViewFlowLayout/LXReorderableCollectionViewFlowLayout.m; sourceTree = SOURCE_ROOT; };
 		D009A71B171744A700BC4D77 /* PHCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHCollectionViewCell.h; sourceTree = "<group>"; };
@@ -146,7 +150,7 @@
 		D030E6C215C0D2DB00CB5285 /* PHAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PHAppDelegate.h; sourceTree = "<group>"; };
 		D030E6C315C0D2DB00CB5285 /* PHAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PHAppDelegate.m; sourceTree = "<group>"; };
 		D030E6CB15C0D2DB00CB5285 /* PHDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PHDetailViewController.h; sourceTree = "<group>"; };
-		D030E6CC15C0D2DB00CB5285 /* PHDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PHDetailViewController.m; sourceTree = "<group>"; };
+		D030E6CC15C0D2DB00CB5285 /* PHDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PHDetailViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		D036328716684C77000D3C0B /* PHDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHDownloader.h; sourceTree = "<group>"; };
 		D036328816684C77000D3C0B /* PHDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHDownloader.m; sourceTree = "<group>"; };
 		D036328F166961F2000D3C0B /* PHArticle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHArticle.h; sourceTree = "<group>"; };
@@ -163,6 +167,14 @@
 		D03863A115D03B04004686C4 /* gear@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "gear@2x.png"; path = "Resources/gear@2x.png"; sourceTree = "<group>"; };
 		D05B89F6171F4E2900C61968 /* download.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = download.png; path = Resources/download.png; sourceTree = "<group>"; };
 		D05B89F7171F4E2900C61968 /* download@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "download@2x.png"; path = "Resources/download@2x.png"; sourceTree = "<group>"; };
+		D05B89FB1725FB0800C61968 /* UIColor+Expanded.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Expanded.h"; sourceTree = "<group>"; };
+		D05B89FC1725FB0800C61968 /* UIColor+Expanded.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Expanded.m"; sourceTree = "<group>"; };
+		D05B89FE1727111C00C61968 /* add.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = add.png; path = Resources/add.png; sourceTree = "<group>"; };
+		D05B89FF1727111C00C61968 /* add@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "add@2x.png"; path = "Resources/add@2x.png"; sourceTree = "<group>"; };
+		D05B8A02172720D200C61968 /* refresh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = refresh.png; path = Resources/refresh.png; sourceTree = "<group>"; };
+		D05B8A03172720D300C61968 /* refresh@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "refresh@2x.png"; path = "Resources/refresh@2x.png"; sourceTree = "<group>"; };
+		D05B8A06172730C400C61968 /* stop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = stop.png; path = Resources/stop.png; sourceTree = "<group>"; };
+		D05B8A07172730C400C61968 /* stop@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "stop@2x.png"; path = "Resources/stop@2x.png"; sourceTree = "<group>"; };
 		D0CDB7CC15C1BA4F0074B143 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		D0CDB7CE15C1F5900074B143 /* HTMLNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HTMLNode.h; path = "../Objective-C-HMTL-Parser/HTMLNode.h"; sourceTree = "<group>"; };
 		D0CDB7CF15C1F5900074B143 /* HTMLNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HTMLNode.m; path = "../Objective-C-HMTL-Parser/HTMLNode.m"; sourceTree = "<group>"; };
@@ -263,7 +275,7 @@
 		D0F6004F163775EE00ADBC38 /* PHRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHRootViewController.h; sourceTree = "<group>"; };
 		D0F60050163775EE00ADBC38 /* PHRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHRootViewController.m; sourceTree = "<group>"; };
 		D0F60051163775EF00ADBC38 /* PHMasterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHMasterViewController.h; sourceTree = "<group>"; };
-		D0F60052163775EF00ADBC38 /* PHMasterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHMasterViewController.m; sourceTree = "<group>"; };
+		D0F60052163775EF00ADBC38 /* PHMasterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PHMasterViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		D0F600571639A82100ADBC38 /* IIViewDeckController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IIViewDeckController.h; sourceTree = "<group>"; };
 		D0F600581639A82100ADBC38 /* IIViewDeckController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IIViewDeckController.m; sourceTree = "<group>"; };
 		D0F600591639A82100ADBC38 /* IIWrapController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IIWrapController.h; sourceTree = "<group>"; };
@@ -344,6 +356,7 @@
 		D030E6B915C0D2DB00CB5285 /* PMC Reader */ = {
 			isa = PBXGroup;
 			children = (
+				D05B89FA1725FB0700C61968 /* UIColor+Expanded */,
 				D009A717171742ED00BC4D77 /* LXReorderableCollectionViewFlowLayout */,
 				D0EEAE081708F5BF00DBAC4C /* TransparentToolbar */,
 				D0EEADFC1704C1B400DBAC4C /* SCPageScrubberBar */,
@@ -388,8 +401,6 @@
 				D0D3999D16C1B5B600EA2497 /* PHArticleNavigationControllerViewController.h */,
 				D0D3999E16C1B5B600EA2497 /* PHArticleNavigationControllerViewController.m */,
 				D0F6004416375D9100ADBC38 /* iPad.storyboard */,
-				D009A7141715E4A700BC4D77 /* UIColor+LightAndDark.h */,
-				D009A7151715E4A800BC4D77 /* UIColor+LightAndDark.m */,
 				D030E6BA15C0D2DB00CB5285 /* Supporting Files */,
 			);
 			path = "PMC Reader";
@@ -426,6 +437,16 @@
 			name = DismissKeyboard;
 			sourceTree = "<group>";
 		};
+		D05B89FA1725FB0700C61968 /* UIColor+Expanded */ = {
+			isa = PBXGroup;
+			children = (
+				D05B89FB1725FB0800C61968 /* UIColor+Expanded.h */,
+				D05B89FC1725FB0800C61968 /* UIColor+Expanded.m */,
+			);
+			name = "UIColor+Expanded";
+			path = "uicolor-utilities/Color/UIColor+Expanded";
+			sourceTree = SOURCE_ROOT;
+		};
 		D0CDB7D415C1F59C0074B143 /* Parser */ = {
 			isa = PBXGroup;
 			children = (
@@ -440,6 +461,12 @@
 		D0CDB7DB15C33FC90074B143 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D05B8A06172730C400C61968 /* stop.png */,
+				D05B8A07172730C400C61968 /* stop@2x.png */,
+				D05B8A02172720D200C61968 /* refresh.png */,
+				D05B8A03172720D300C61968 /* refresh@2x.png */,
+				D05B89FE1727111C00C61968 /* add.png */,
+				D05B89FF1727111C00C61968 /* add@2x.png */,
 				D05B89F6171F4E2900C61968 /* download.png */,
 				D05B89F7171F4E2900C61968 /* download@2x.png */,
 				D009A726171A2AD900BC4D77 /* delete.png */,
@@ -722,6 +749,12 @@
 				D009A729171A2AD900BC4D77 /* delete@2x.png in Resources */,
 				D05B89F8171F4E2900C61968 /* download.png in Resources */,
 				D05B89F9171F4E2900C61968 /* download@2x.png in Resources */,
+				D05B8A001727111C00C61968 /* add.png in Resources */,
+				D05B8A011727111C00C61968 /* add@2x.png in Resources */,
+				D05B8A04172720D300C61968 /* refresh.png in Resources */,
+				D05B8A05172720D300C61968 /* refresh@2x.png in Resources */,
+				D05B8A08172730C400C61968 /* stop.png in Resources */,
+				D05B8A09172730C400C61968 /* stop@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -762,11 +795,11 @@
 				D0F9DA27170E5FBB00FA64E5 /* PHColors.m in Sources */,
 				D0F9DA2A1710D7C000FA64E5 /* TransparentNavigationBar.m in Sources */,
 				D0F9DA2D1710EB4C00FA64E5 /* TransparentSearchBar.m in Sources */,
-				D009A7161715E4A800BC4D77 /* UIColor+LightAndDark.m in Sources */,
 				D009A71A171742ED00BC4D77 /* LXReorderableCollectionViewFlowLayout.m in Sources */,
 				D009A71D171744A800BC4D77 /* PHCollectionViewCell.m in Sources */,
 				D009A720171787EC00BC4D77 /* PHCollectionViewFlowLayout.m in Sources */,
 				D009A72517178E9700BC4D77 /* UILabel+VerticalAlignment.m in Sources */,
+				D05B89FD1725FB0800C61968 /* UIColor+Expanded.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

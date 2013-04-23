@@ -14,7 +14,6 @@
 #import "PHCollectionViewCell.h"
 #import "PHColors.h"
 #import "TransparentToolbar.h"
-#import "UIColor+LightAndDark.h"
 #import "UILabel+VerticalAlignment.h"
 
 static NSString * const kBaseUrl = @"http://www.ncbi.nlm.nih.gov";
@@ -91,7 +90,15 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
 
 - (UIBarButtonItem *)addBarButtonItem {    
     if (!addBarButtonItem) {
-        addBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(doAdd:)];
+        UIImage *image = [UIImage imageNamed:@"add"];
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+        button.frame = CGRectMake(0, 0, 28 , 42);
+        [button setImage:image forState:UIControlStateNormal];;
+        [button setImageEdgeInsets:UIEdgeInsetsMake(11.0, 2.0, 11.0, 2.0)];
+        [button addTarget:self action:@selector(doAdd:) forControlEvents:UIControlEventTouchUpInside];
+        addBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
+
+        //addBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(doAdd:)];
     }
     
     return addBarButtonItem;
@@ -231,13 +238,12 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
     cell.authorLabel.textVerticalAlignment = UITextVerticalAlignmentTop;
     cell.originalSourceLabel.textVerticalAlignment = UITextVerticalAlignmentTop;
     
-    cell.backgroundColor = [[PHColors backgroundColor] lighterColor];
-    cell.contentView.backgroundColor = [[PHColors backgroundColor] lighterColor];
+    cell.backgroundColor = [PHColors cellBackgroundColor];
+    cell.contentView.backgroundColor = [PHColors cellBackgroundColor];
     cell.contentView.opaque = YES;
-    cell.labelContainerView.backgroundColor = [[PHColors backgroundColor] lighterColor];
-    cell.buttonContainerView.backgroundColor = [[PHColors backgroundColor] lighterColor];
-    cell.backgroundView.backgroundColor = [UIColor redColor];
-    
+    cell.labelContainerView.backgroundColor = [PHColors cellBackgroundColor];
+    cell.buttonContainerView.backgroundColor = [PHColors cellBackgroundColor];
+
     cell.activityVisible = article.downloading;
     
     return cell;
@@ -419,31 +425,17 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
     self.view.backgroundColor = bgColor;
     self.collectionView.backgroundColor = bgColor;
     self.navigationController.navigationBar.tintColor = bgColor;
+    bottomBorder.backgroundColor = [PHColors iconColor].CGColor;
     
     [self.navigationController.navigationBar setTitleTextAttributes:
         [NSDictionary dictionaryWithObjectsAndKeys:
-         [UIColor darkGrayColor], UITextAttributeTextColor,
+         [PHColors iconColor], UITextAttributeTextColor,
          [UIColor clearColor], UITextAttributeTextShadowColor,
          [NSValue valueWithUIOffset:UIOffsetMake(0, 0)],
          UITextAttributeTextShadowOffset,nil]];
-    
-    int backgroundIndex =[[NSUserDefaults standardUserDefaults] integerForKey:@"Background"];
-    switch (backgroundIndex) {
-        case 0:
-            bottomBorder.backgroundColor = [UIColor colorWithWhite:0.8f alpha:1.0f].CGColor;
-            //self.collectionView.separatorColor = [UIColor colorWithWhite:0.8f alpha:1.0f];
-            break;
-        case 1:
-            bottomBorder.backgroundColor = [[PHColors backgroundColor] darkerColor].CGColor;
-            //self.tableView.separatorColor = [[PHColors backgroundColor] darkerColor];
-            break;
-        case 2:
-            bottomBorder.backgroundColor = [UIColor colorWithWhite:0.3f alpha:1.0f].CGColor;
-            //self.tableView.separatorColor = [UIColor colorWithWhite:0.3f alpha:1.0f];
-            break;
-        default:
-            break;
-    }
+
+    [((UIButton*)self.addBarButtonItem.customView) setImage:[PHColors changeImage:[UIImage imageNamed:@"add"] toColor:[PHColors iconColor]] forState:UIControlStateNormal];
+
     [self.collectionView reloadData];
 }
 
