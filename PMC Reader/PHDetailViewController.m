@@ -819,7 +819,7 @@ CGRect CGRectMoveBottom(CGRect rect, CGFloat dy) {
         titleLabel= [[UILabel alloc] initWithFrame:CGRectMake(0, 0, TITLE_LABEL_WIDTH_PORTRAIT, 44)];
         titleLabel.backgroundColor = [UIColor clearColor];
         titleLabel.font = [UIFont systemFontOfSize:16.0];
-        titleLabel.textAlignment = UITextAlignmentLeft;
+        titleLabel.textAlignment = NSTextAlignmentLeft;
         titleLabel.textColor = [UIColor blackColor];
         titleLabel.text = NSLocalizedString(@"Select an article", @"");
         titleLabel.autoresizingMask = UIViewAutoresizingNone;
