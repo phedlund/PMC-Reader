@@ -150,7 +150,7 @@ static int const kRetMax = 20;
                 PHArticle *article = (PHArticle*)[_objects objectAtIndex:indexPath.row];
                 cell.titleLabel.text = article.title;
                 cell.authorLabel.text = article.authors;
-                cell.originalSourceLabel.text = article.source;
+                cell.originalSourceLabel.text = [NSString stringWithFormat:@"Published as: %@", article.source];
             }
         }
     }
@@ -321,7 +321,7 @@ static int const kRetMax = 20;
                 
                 newArticle.pmcId = [NSString stringWithFormat:@"PMC%@", [docSum child:@"Id"].text];
                 
-                __block NSString *source = @"Published as: ";
+                __block NSString *source = @"";
                 [docSum iterate:@"Item" usingBlock: ^(RXMLElement *item) {
                     
                     if ([[item attribute:@"Name"] isEqualToString:@"Title"]) {
