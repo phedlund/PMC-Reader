@@ -110,19 +110,16 @@ table, .fig, .table, .caption {
 }
 
 /* make sure sub and superscript don't mess up line height */
-sub, sup { 
-    font-size: 75%;
-    line-height: 0; 
-    position: relative; 
-    vertical-align: baseline; 
-}
-
 sup { 
-    top: -0.5em; 
+    font-size: 75%; 
+    vertical-align: super; 
+    line-height: 0;
 }
 
 sub {
-    bottom: -0.25em; 
+    font-size: 75%; 
+    vertical-align: sub; 
+    line-height: 0;
 }
 
 div.goto {
@@ -134,7 +131,6 @@ div.goto {
     float: left;
     margin-right: 0.8em;
 }
-
 
 .kwd-title, .kwd-text {
     font-size: 80%;
@@ -170,6 +166,7 @@ div.fm-affl {
 
 .inline_block {
     display: inline-block;
+    max-width: 100%;
 }
 
 .align_right {
@@ -183,10 +180,6 @@ div.fm-affl {
 .three_col {
     width: 23.9999%;
     float: right;
-}
-
-.inline_block {
-    max-width: 100%;
 }
 
 div.togglers {
