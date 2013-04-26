@@ -18,11 +18,13 @@
 
 @property (strong, nonatomic) PHDetailViewController *detailViewController;
 @property (nonatomic, strong, readonly) UIBarButtonItem *addBarButtonItem;
+@property (nonatomic, strong, readonly) UIBarButtonItem *layoutBarButtonItem;
 @property (strong, nonatomic) NSMutableArray *articles;
 @property (strong, nonatomic) NSMutableArray *filteredArticles;
 @property (nonatomic, assign) bool isFiltered;
 @property (strong, nonatomic, readonly) TransparentSearchBar *searchBar;
 
 - (IBAction) doAdd:(id)sender;
+- (IBAction) doLayout:(id)sender;
 
 @end

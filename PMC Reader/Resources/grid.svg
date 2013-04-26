@@ -11,14 +11,14 @@
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    width="96"
-   height="88"
+   height="80"
    id="svg2"
    sodipodi:version="0.32"
    inkscape:version="0.48.4 r9939"
    version="1.0"
-   sodipodi:docname="action.svg"
+   sodipodi:docname="grid.svg"
    inkscape:output_extension="org.inkscape.output.svgz.inkscape"
-   inkscape:export-filename="/Users/peter/Projects/PMC Reader/PMC Reader/Resources/action@2x.png"
+   inkscape:export-filename="/Users/peter/Projects/PMC Reader/PMC Reader/Resources/grid@2x.png"
    inkscape:export-xdpi="45"
    inkscape:export-ydpi="45"
    sodipodi:modified="true">
@@ -617,21 +617,21 @@
      objecttolerance="10"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:zoom="8"
-     inkscape:cx="52.201146"
-     inkscape:cy="31.333558"
+     inkscape:zoom="7.9999999"
+     inkscape:cx="37.882398"
+     inkscape:cy="38.823157"
      inkscape:document-units="px"
      inkscape:current-layer="svg2"
-     width="2048px"
+     width="128px"
      height="128px"
      borderlayer="true"
      showgrid="true"
      showborder="true"
      inkscape:grid-points="true"
-     inkscape:window-width="1545"
+     inkscape:window-width="1389"
      inkscape:window-height="856"
-     inkscape:window-x="61"
-     inkscape:window-y="48"
+     inkscape:window-x="62"
+     inkscape:window-y="67"
      inkscape:snap-bbox="true"
      inkscape:window-maximized="0">
     <inkscape:grid
@@ -662,20 +662,16 @@
       </cc:Work>
     </rdf:RDF>
   </metadata>
-  <g
-     id="g5147"
-     transform="matrix(2.00087,0,0,2,-3955.7209,2772)">
-    <path
-       sodipodi:nodetypes="cccccccc"
-       inkscape:connector-curvature="0"
-       d="m 2007.928,-1359.9918 16.052,-12.9525 -15.9892,-13.0557 0.01,8.03 c -9.8932,0 -20,8.0849 -20,17.9782 0.3478,0.095 1.1091,0.3594 1.0814,0 0,-6.1126 12.806,-8.0843 18.9186,-8.0843 -2e-4,4.0209 -0.041,4.0635 -0.072,8.0843 z"
-       style="font-size:medium;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-indent:0;text-align:start;text-decoration:none;line-height:normal;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:start;baseline-shift:baseline;color:#000000;fill:#000000;fill-opacity:1;stroke:none;stroke-width:7.72413778;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:Sans;-inkscape-font-specification:Sans"
-       id="path4984" />
-    <path
-       sodipodi:nodetypes="ccccccccccc"
-       inkscape:connector-curvature="0"
-       id="path5141"
-       d="m 2012.0625,-1358.0313 0,4.0938 -30.0625,0 0,-20.0625 6.0313,0 3.9687,-4 -14,0 0,28 37.9375,0 0,-11 z"
-       style="font-size:medium;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-indent:0;text-align:start;text-decoration:none;line-height:normal;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:start;baseline-shift:baseline;color:#000000;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:Sans;-inkscape-font-specification:Sans" />
-  </g>
+  <path
+     sodipodi:nodetypes="cccccccc"
+     style="fill:#000000;fill-opacity:1"
+     id="path24"
+     d="m 55.9998,32 32,0 0,-28 -32,0 m -16,0 -32,0 0,28 32,0"
+     inkscape:connector-curvature="0" />
+  <path
+     inkscape:connector-curvature="0"
+     d="m 55.9998,76 32,0 0,-28 -32,0 m -16,0 -32,0 0,28 32,0"
+     id="path3301"
+     style="fill:#000000;fill-opacity:1"
+     sodipodi:nodetypes="cccccccc" />
 </svg>

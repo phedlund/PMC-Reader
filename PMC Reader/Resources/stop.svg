@@ -18,9 +18,9 @@
    version="1.0"
    sodipodi:docname="stop.svg"
    inkscape:output_extension="org.inkscape.output.svgz.inkscape"
-   inkscape:export-filename="/Users/peter/Projects/PMC Reader/PMC Reader/Resources/stop.png"
-   inkscape:export-xdpi="22.5"
-   inkscape:export-ydpi="22.5"
+   inkscape:export-filename="/Users/peter/Projects/PMC Reader/PMC Reader/Resources/stop@2x.png"
+   inkscape:export-xdpi="45"
+   inkscape:export-ydpi="45"
    sodipodi:modified="true">
   <defs
      id="defs4">
@@ -629,7 +629,7 @@
      showborder="true"
      inkscape:grid-points="true"
      inkscape:window-width="1545"
-     inkscape:window-height="1156"
+     inkscape:window-height="856"
      inkscape:window-x="106"
      inkscape:window-y="22"
      inkscape:snap-bbox="true"

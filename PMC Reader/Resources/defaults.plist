@@ -1,4 +1,5 @@
 {
+	GridLayout = 1;
 	Paginate = 0;
 	Fonts = (
 		Arial,
