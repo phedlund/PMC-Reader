@@ -18,6 +18,7 @@
     NSArray *references;
 	NSString *error;
     BOOL downloading;
+    NSNumber *currentPage;
 }
 
 @property (nonatomic, copy) NSURL *url;
@@ -29,5 +30,6 @@
 @property (nonatomic, copy) NSArray *references;
 @property (nonatomic, copy) NSString *error;
 @property (nonatomic) BOOL downloading;
+@property (nonatomic, copy) NSNumber *currentPage;
 
 @end

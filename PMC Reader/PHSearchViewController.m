@@ -344,6 +344,7 @@ static int const kRetMax = 20;
                     }
                 }];
                 newArticle.source = source;
+                newArticle.currentPage = [NSNumber numberWithInteger:0];
                 NSLog(@"New Object: %@", newArticle);
                 [_objects addObject:newArticle];
             }];

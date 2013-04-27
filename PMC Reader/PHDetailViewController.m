@@ -28,6 +28,8 @@
     BOOL _scrollingInternally;
     NSString *_currentHash;
     CALayer *bottomBorder;
+    BOOL _newArticle;
+    int _newArticlePage;
 }
 
 @property (strong, nonatomic) UIPopoverController *prefPopoverController;
@@ -62,17 +64,22 @@
 - (void)setArticle:(PHArticle *)article {
     if (_article != article) {
         _article = article;
-        
+        [[NSUserDefaults standardUserDefaults] setValue:_article.pmcId forKey:@"Reading"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
         // Update the view.
         [self configureView];
     }       
 }
 
-- (void)configureView
-{
-    // Update the user interface for the detail item.
-
+- (void)configureView {
     if (self.article) {
+        _newArticle = YES;
+        _newArticlePage = -1;
+        if (self.article.currentPage != nil) {
+            if ([self.article.currentPage integerValue] > -1) {
+                _newArticlePage =[self.article.currentPage integerValue];
+            }
+        }
         [self updatePagination];
         if ([self articleView] != nil) {
             [[self articleView] removeFromSuperview];
@@ -99,21 +106,9 @@
         tapLocationGesture.numberOfTapsRequired = 1;
         [self.articleView addGestureRecognizer:tapLocationGesture];
         tapLocationGesture.delegate = self;
-
+        
         _currentPage = 0;
         self.pageNumberLabel.text = @"";
-        
-        
-        //self.detailDescriptionLabel.text = [self.detailItem objectAtIndex:0];
-        NSFileManager *fm = [NSFileManager defaultManager];
-        NSArray *paths = [fm URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask];
-        NSURL *docDir = [paths objectAtIndex:0];
-        docDir = [docDir URLByAppendingPathComponent:self.article.pmcId isDirectory:YES];
-        docDir = [docDir URLByAppendingPathComponent:@"text.html"];
-        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:docDir];
-        [request setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
-        //[[self articleView] loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"about:blank"]]];
-        [[self articleView] loadRequest:request];
         [self updateBackgrounds];
         self.titleLabel2.hidden = !self.navigationController.navigationBarHidden;
         [self.titleLabel setText:self.article.title];
@@ -121,8 +116,16 @@
         _handlingLink = NO;
         _scrollingInternally = NO;
         _currentHash = nil;
+
+        NSFileManager *fm = [NSFileManager defaultManager];
+        NSArray *paths = [fm URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask];
+        NSURL *docDir = [paths objectAtIndex:0];
+        docDir = [docDir URLByAppendingPathComponent:self.article.pmcId isDirectory:YES];
+        docDir = [docDir URLByAppendingPathComponent:@"text.html"];
+        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:docDir];
+        [request setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
+        [[self articleView] loadRequest:request];
     }
-    
 }
 
 - (void)viewDidLoad
@@ -134,7 +137,7 @@
     self.viewDeckController.panningView = self.topContainerView;
     [[self navigationItem] setTitle:@""];
     [self updateToolbar];
-    [self configureView];
+    //[self configureView];
     currentTapLocation = CGPointMake(350, 100);
     self.titleLabel2.text = @"";
     self.pageNumberLabel.text = @"";
@@ -464,7 +467,15 @@
     
     self.titleLabel.text = [webView stringByEvaluatingJavaScriptFromString:@"document.title"];
     self.titleLabel2.text = [webView stringByEvaluatingJavaScriptFromString:@"document.title"];
+
     [self updatePagination];
+    if (_newArticle) {
+        if (_newArticlePage > -1) {
+            [self gotoPage:_newArticlePage animated:NO];
+        }
+    }
+    _newArticle = NO;
+    _newArticlePage = -1;
     [UIView animateWithDuration:0.30 animations:^{
         webView.alpha = 1;
     }];
@@ -488,7 +499,7 @@
             [self gotoPage:_currentPage animated:NO];
         }
     }
-    NSLog(@"Offset: %f", scrollView.contentOffset.x);
+    //NSLog(@"Offset: %f", scrollView.contentOffset.x);
 }
 
 - (void)rtLabel:(id)rtLabel didSelectLinkWithURL:(NSURL*)url {
@@ -714,6 +725,8 @@
 
     self.pageNumberBar.value = _currentPage;
 	self.pageNumberLabel.text = [NSString stringWithFormat:@"%d of %d", _currentPage + 1, _pageCount];
+    NSDictionary *infoDict = [NSDictionary dictionaryWithObjectsAndKeys:self.article, @"Article", [NSNumber numberWithInt:_currentPage], @"NewPage", nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"PageChanged" object:self userInfo:infoDict];
 }
 
 - (SCPageScrubberBar *)pageNumberBar

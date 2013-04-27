@@ -19,6 +19,7 @@
 @synthesize references;
 @synthesize error;
 @synthesize downloading;
+@synthesize currentPage;
 
 - (id) init {
 	if (self = [super init]) {
@@ -43,6 +44,7 @@
         references = [decoder decodeObjectForKey:@"references"];
         error = [decoder decodeObjectForKey:@"error"];
         downloading = [decoder decodeBoolForKey:@"downloading"];
+        currentPage = [decoder decodeObjectForKey:@"currentpage"];
 	}
 	return self;
 }
@@ -57,6 +59,7 @@
     [encoder encodeObject:references forKey:@"references"];
     [encoder encodeObject:error forKey:@"error"];
     [encoder encodeBool:downloading forKey:@"downloading"];
+    [encoder encodeObject:currentPage forKey:@"currentpage"];
 }
 
 @end

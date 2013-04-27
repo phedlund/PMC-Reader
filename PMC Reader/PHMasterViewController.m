@@ -79,6 +79,7 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
                         article.authors = [dict objectForKey:@"Authors"];
                         article.source = @"";
                         article.downloading = NO;
+                        article.currentPage = [NSNumber numberWithInteger:0];
 
                         [theArticles addObject:article];
                     }
@@ -157,6 +158,22 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
     self.isFiltered = NO;
     self.searchBar.delegate = self;
     
+    NSOperationQueue *mainQueue = [NSOperationQueue mainQueue];
+    [[NSNotificationCenter defaultCenter]
+        addObserverForName:@"PageChanged"
+        object:nil
+        queue:mainQueue
+        usingBlock:^(NSNotification *notification)
+        {
+            int index = [self.articles indexOfObject:(PHArticle*)[notification.userInfo objectForKey:@"Article"]];
+            NSLog(@"Notification received with index: %i", index);
+            PHArticle *article = [self.articles objectAtIndex:index];
+            article.currentPage = [notification.userInfo objectForKey:@"NewPage"];
+            NSLog(@"Notified of page: %i", [article.currentPage integerValue]);
+            [self.articles replaceObjectAtIndex:index withObject:article];
+            [self writeArticles];
+     }];
+    
     UIBarButtonItem *fixedSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
     fixedSpace.width = 5.0f;
     
@@ -195,7 +212,21 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
 
     [self updateBackgrounds];
     
-    [self.viewDeckController openLeftView];
+    NSLog(@"Currently Reading: %@", [[NSUserDefaults standardUserDefaults] stringForKey:@"Reading"]);
+    self.viewDeckController.delegate = self;
+    __block NSString *currentlyReading = [[NSUserDefaults standardUserDefaults] stringForKey:@"Reading"];
+    if ([currentlyReading isEqualToString:@"No"]) {
+        [self.viewDeckController openLeftView];
+    } else {
+        [self.articles enumerateObjectsUsingBlock:^(PHArticle *article, NSUInteger idx, BOOL *stop) {
+            if ([article.pmcId isEqualToString:currentlyReading]) {
+                [self.collectionView selectItemAtIndexPath:[NSIndexPath indexPathForItem:idx inSection:0] animated:NO scrollPosition:UICollectionViewScrollPositionCenteredVertically];
+                self.detailViewController.article = article;
+                [self.viewDeckController closeLeftView];
+                *stop = YES;
+            }
+        }];
+    }
 }
 
 - (void)viewDidUnload
@@ -388,6 +419,15 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
     }
     self.detailViewController.article = (PHArticle*)object;
     [self.viewDeckController closeLeftView];
+}
+
+#pragma mark - IIViewDeckController delegate
+
+- (void)viewDeckController:(IIViewDeckController *)viewDeckController didOpenViewSide:(IIViewDeckSide)viewDeckSide animated:(BOOL)animated {
+    if (viewDeckSide == IIViewDeckLeftSide) {
+        [[NSUserDefaults standardUserDefaults] setValue:@"No" forKey:@"Reading"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
 }
 
 #pragma mark - HTML Parser
