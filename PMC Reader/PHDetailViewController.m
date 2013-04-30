@@ -384,7 +384,9 @@
 }
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
-    _handlingLink = YES;
+    if (navigationType == UIWebViewNavigationTypeLinkClicked) {
+        _handlingLink = YES;
+    }
     _scrollingInternally = NO;
     if ([self.articleView.request.URL.scheme isEqualToString:@"file"]) {
         NSURL *url = self.articleView.request.URL;
