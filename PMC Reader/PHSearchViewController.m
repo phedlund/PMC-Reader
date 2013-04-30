@@ -226,7 +226,7 @@ static int const kRetMax = 20;
     if (_selectedIndexes.count > 0) {
         [[NSNotificationCenter defaultCenter] postNotificationName:@"DownloadArticles" object:self userInfo:[NSDictionary dictionaryWithObject:[_objects objectsAtIndexes:_selectedIndexes] forKey:@"SelectedArticles"]];
     }
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)viewDidUnload {
