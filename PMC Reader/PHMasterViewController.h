@@ -14,7 +14,7 @@
 #import "PHCollectionViewCell.h"
 #import "TransparentSearchBar.h"
 
-@interface PHMasterViewController : UICollectionViewController <LXReorderableCollectionViewDataSource, LXReorderableCollectionViewDelegateFlowLayout, PHDownloaderDelegate, UISearchBarDelegate, PHCollectionViewCellDelegate, UIScrollViewDelegate, IIViewDeckControllerDelegate>
+@interface PHMasterViewController : UICollectionViewController <LXReorderableCollectionViewDataSource, LXReorderableCollectionViewDelegateFlowLayout, PHDownloaderDelegate, UISearchBarDelegate, PHCollectionViewCellDelegate, UIScrollViewDelegate>
 
 @property (strong, nonatomic) PHDetailViewController *detailViewController;
 @property (nonatomic, strong, readonly) UIBarButtonItem *addBarButtonItem;

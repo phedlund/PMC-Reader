@@ -9,7 +9,6 @@
 #import "PHMasterViewController.h"
 #import <QuartzCore/QuartzCore.h>
 #import "HTMLParser.h"
-#import "IIViewDeckController.h"
 #import "NSMutableArray+Extra.h"
 #import "PHCollectionViewCell.h"
 #import "PHCollectionViewFlowLayout.h"
@@ -188,21 +187,19 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
     toolbar.items = items;
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:toolbar];
     
-    UIBarButtonItem *fixedSpaceR = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-    fixedSpaceR.width = 60.0f;
     UIBarButtonItem *searchBarItem = [[UIBarButtonItem alloc] initWithCustomView:self.searchBar];
     
-    items = @[searchBarItem, fixedSpaceR];
-    TransparentToolbar *toolbarR =  [[TransparentToolbar alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 280, 44.0f)];
+    items = @[searchBarItem, fixedSpace];
+    TransparentToolbar *toolbarR =  [[TransparentToolbar alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 235.0f, 44.0f)];
     toolbarR.items = items;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:toolbarR];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(downloadArticles:) name:@"DownloadArticles" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateBackgrounds) name:@"UpdateBackgrounds" object:nil];
 
-    UINavigationController *detailNavController = (UINavigationController *)self.viewDeckController.centerController;
-    self.detailViewController = (PHDetailViewController *)detailNavController.topViewController;
-    [self.detailViewController writeCssTemplate];
+    //UINavigationController *detailNavController = (UINavigationController *)self.viewDeckController.centerController;
+    //self.detailViewController = (PHDetailViewController *)detailNavController.topViewController;
+    //[self.detailViewController writeCssTemplate];
     
     [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
     self.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
@@ -213,16 +210,17 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
     [self updateBackgrounds];
     
     NSLog(@"Currently Reading: %@", [[NSUserDefaults standardUserDefaults] stringForKey:@"Reading"]);
-    self.viewDeckController.delegate = self;
+    //self.viewDeckController.delegate = self;
     __block NSString *currentlyReading = [[NSUserDefaults standardUserDefaults] stringForKey:@"Reading"];
     if ([currentlyReading isEqualToString:@"No"]) {
-        [self.viewDeckController openLeftView];
+        //[self.viewDeckController openLeftView];
     } else {
         [self.articles enumerateObjectsUsingBlock:^(PHArticle *article, NSUInteger idx, BOOL *stop) {
             if ([article.pmcId isEqualToString:currentlyReading]) {
                 [self.collectionView selectItemAtIndexPath:[NSIndexPath indexPathForItem:idx inSection:0] animated:NO scrollPosition:UICollectionViewScrollPositionCenteredVertically];
-                self.detailViewController.article = article;
-                [self.viewDeckController closeLeftView];
+                //self.detailViewController.article = article;
+                //[self.viewDeckController closeLeftView];
+                [self performSegueWithIdentifier:@"pushArticle" sender:[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:idx inSection:0]]];
                 *stop = YES;
             }
         }];
@@ -403,7 +401,7 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
     PHArticle *article = (PHArticle*)[self.articles objectAtIndex:indexPath.row];
     return !article.downloading;
 }
-
+/*
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     PHCollectionViewCell *cell = (PHCollectionViewCell*)[collectionView cellForItemAtIndexPath:indexPath];
@@ -420,16 +418,42 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
     self.detailViewController.article = (PHArticle*)object;
     [self.viewDeckController closeLeftView];
 }
+*/
+- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
+    if ([identifier isEqualToString:@"pushArticle"]) {
+        PHCollectionViewCell *cell = (PHCollectionViewCell*)sender;
+        if (cell.buttonsVisible) {
+            return NO;
+        }
+    }
+    return YES;
+}
 
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"pushArticle"]) {
+        PHCollectionViewCell *cell = (PHCollectionViewCell*)sender;
+        int row = [self.collectionView indexPathForCell:cell].row;
+        [self.searchBar resignFirstResponder];
+        PHArticle *article = nil;
+        if (self.isFiltered) {
+            article = [self.filteredArticles objectAtIndex:row];
+        } else {
+            article = [self.articles objectAtIndex:row];
+        }
+        NSLog(@"ID: %@", article.pmcId);
+        //self.detailViewController.article = article;
+        ((PHDetailViewController*)segue.destinationViewController).article = article;
+    }
+}
 #pragma mark - IIViewDeckController delegate
-
+/*
 - (void)viewDeckController:(IIViewDeckController *)viewDeckController didOpenViewSide:(IIViewDeckSide)viewDeckSide animated:(BOOL)animated {
     if (viewDeckSide == IIViewDeckLeftSide) {
         [[NSUserDefaults standardUserDefaults] setValue:@"No" forKey:@"Reading"];
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
 }
-
+*/
 #pragma mark - HTML Parser
 
 -(void)downloadArticles:(NSNotification *)n {
@@ -515,7 +539,7 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
 
 - (void)updateBackgrounds {
     UIColor *bgColor = [PHColors backgroundColor];
-    self.viewDeckController.leftController.view.backgroundColor = bgColor;
+    self.navigationController.view.backgroundColor = bgColor;
     self.view.backgroundColor = bgColor;
     self.collectionView.backgroundColor = bgColor;
     self.navigationController.navigationBar.tintColor = bgColor;

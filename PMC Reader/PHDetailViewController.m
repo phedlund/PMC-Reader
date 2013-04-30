@@ -8,7 +8,6 @@
 
 #import <QuartzCore/QuartzCore.h>
 #import "PHDetailViewController.h"
-#import "IIViewDeckController.h"
 #import "PHArticle.h"
 #import "PHArticleNavigationItem.h"
 #import "PHArticleReference.h"
@@ -16,8 +15,8 @@
 #import "PHColors.h"
 #import "UIColor+Expanded.h"
 
-#define TITLE_LABEL_WIDTH_LANDSCAPE 700
-#define TITLE_LABEL_WIDTH_PORTRAIT 450
+#define TITLE_LABEL_WIDTH_LANDSCAPE 680
+#define TITLE_LABEL_WIDTH_PORTRAIT 430
 
 @interface PHDetailViewController () {
     PopoverView *popover;
@@ -53,7 +52,7 @@
 @synthesize prefPopoverController = _prefPopoverController;
 @synthesize prefViewController = _prefViewController;
 @synthesize titleLabel, titleBarButtonItem;
-@synthesize backBarButtonItem, forwardBarButtonItem, refreshBarButtonItem, stopBarButtonItem, leftToolbar;
+@synthesize backBarButtonItem, goBackBarButtonItem, forwardBarButtonItem, refreshBarButtonItem, stopBarButtonItem, leftToolbar;
 @synthesize infoBarButtonItem, prefsBarButtonItem, navBarButtonItem;
 @synthesize articleNavigationController, articleNavigationPopover;
 @synthesize pageTapRecognizer, nextPageSwipeRecognizer, previousPageSwipeRecognizer;
@@ -110,7 +109,7 @@
         _currentPage = 0;
         self.pageNumberLabel.text = @"";
         [self updateBackgrounds];
-        self.titleLabel2.hidden = !self.navigationController.navigationBarHidden;
+        self.topContainerView.hidden = !self.navigationController.navigationBarHidden;
         [self.titleLabel setText:self.article.title];
         [self.titleLabel2 setText:self.article.title];
         _handlingLink = NO;
@@ -133,12 +132,13 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     self.wantsFullScreenLayout = YES;
-    self.viewDeckController.delegate = self;
-    self.viewDeckController.panningView = self.topContainerView;
+    //self.viewDeckController.delegate = self;
+    //self.viewDeckController.panningView = self.topContainerView;
     [[self navigationItem] setTitle:@""];
     [self updateToolbar];
-    //[self configureView];
+    [self writeCssTemplate];
     currentTapLocation = CGPointMake(350, 100);
+    self.topContainerView.hidden = YES;
     self.titleLabel2.text = @"";
     self.pageNumberLabel.text = @"";
     self.navigationController.navigationBar.translucent = YES;
@@ -173,7 +173,7 @@
     }
     self.titleLabel.frame = newRect;
     self.titleLabel2.frame = newRect2;
-    self.titleLabel2.hidden = !self.navigationController.navigationBarHidden;
+    //self.titleLabel2.hidden = !self.navigationController.navigationBarHidden;
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -219,6 +219,13 @@
 }
 
 #pragma mark - Actions
+
+- (IBAction)doBack:(id)sender
+{
+    [[NSUserDefaults standardUserDefaults] setValue:@"No" forKey:@"Reading"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    [self.navigationController popViewControllerAnimated:YES];
+}
 
 - (IBAction)doGoBack:(id)sender
 {
@@ -301,32 +308,18 @@
         if (self.navigationController.navigationBarHidden) {
             [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationSlide];
             self.navigationController.navigationBarHidden = NO;
-            self.viewDeckController.leftController.view.frame = [self orientationRect];
             self.pageNumberBar.hidden = NO;
             self.pageNumberLabel.alpha = 1.0f;
-            self.titleLabel2.hidden = YES;
-            if (![self shouldPaginate]) {
-                [self.articleView setFrame:CGRectMoveTop(self.view.frame, 64)];
-                self.viewDeckController.panningMode = IIViewDeckFullViewPanning;
-            } else {
-                self.viewDeckController.panningMode = IIViewDeckNavigationBarPanning;
-            }
+            self.topContainerView.hidden = YES;
         } else {
             [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationSlide];
             self.navigationController.navigationBarHidden = YES;
             self.pageNumberBar.hidden = YES;
             self.pageNumberLabel.alpha = 0.5f;
-            CGRect r = [self orientationRect];
-            self.viewDeckController.leftController.view.frame = CGRectMake(r.origin.x, r.origin.y, r.size.width, r.size.height + 20.0);
-            self.titleLabel2.hidden = NO;
-            if (![self shouldPaginate]) {
-                [self.articleView setFrame:self.view.frame];
-                self.viewDeckController.panningMode = IIViewDeckFullViewPanning;
-            } else {
-                self.viewDeckController.panningMode = IIViewDeckPanningViewPanning;
-            }
+            self.topContainerView.hidden = NO;
         }
     }
+    [self.articleView setFrame:[self articleRect]];
 }
 
 - (CGRect)orientationRect {
@@ -345,11 +338,19 @@
 }
 
 - (CGRect)articleRect {
-    if (([UIApplication sharedApplication].statusBarOrientation == UIDeviceOrientationLandscapeLeft) ||
-        ([UIApplication sharedApplication].statusBarOrientation == UIDeviceOrientationLandscapeRight)) {
-        return CGRectMake(0, 84, 1024, 600);
+    if ([self shouldPaginate]) {
+        int y = 30;
+        if (self.navigationController.navigationBarHidden) {
+            y = 94;
+        }
+        if (([UIApplication sharedApplication].statusBarOrientation == UIDeviceOrientationLandscapeLeft) ||
+            ([UIApplication sharedApplication].statusBarOrientation == UIDeviceOrientationLandscapeRight)) {
+            return CGRectMake(0, y, 1024, 585);
+        } else {
+            return CGRectMake(0, y, 768, 840);
+        }
     } else {
-        return CGRectMake(0, 84, 768, 846);
+        return self.view.frame;
     }
 }
 
@@ -368,19 +369,10 @@
     currentTapLocation = [gestureRecognizer locationInView:self.articleView];
 }
 
-- (void)viewDeckController:(IIViewDeckController*)viewDeckController willOpenViewSide:(IIViewDeckSide)viewDeckSide animated:(BOOL)animated {
-    if (viewDeckSide == IIViewDeckLeftSide) {
-        if (self.navigationController.navigationBarHidden) {
-            [self toggleNavBar:nil];
-        }
-    }
-}
-
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
 {
     return YES;
 }
-
 
 - (IBAction)doReload:(id)sender {
     [self.articleView reload];
@@ -518,7 +510,6 @@
     [self.articleView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"window.location.hash = '%@';", _currentHash]];
     [self.articleView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"window.location = '%@';", url.absoluteString]];
     [self updateToolbar];
-//    [[self articleView] loadRequest:[NSURLRequest requestWithURL:url]];
 }
 
 - (void)popoverViewDidDismiss:(PopoverView *)popoverView {
@@ -539,7 +530,6 @@
 - (void)updateBackgrounds {
     int backgroundIndex =[[NSUserDefaults standardUserDefaults] integerForKey:@"Background"];
     UIColor *bgColor = [PHColors backgroundColor];
-    self.viewDeckController.view.backgroundColor = bgColor;
     self.view.backgroundColor = bgColor;
     self.topContainerView.backgroundColor = bgColor;
     self.pageBarContainerView.backgroundColor = bgColor;
@@ -551,8 +541,8 @@
     self.titleLabel.textColor = [PHColors iconColor];
     
     bottomBorder.backgroundColor = [[PHColors iconColor] CGColor];
-
-    [((UIButton*)self.backBarButtonItem.customView) setImage:[PHColors changeImage:[UIImage imageNamed:@"back"] toColor:[PHColors iconColor]] forState:UIControlStateNormal];
+    [((UIButton*)self.backBarButtonItem.customView) setImage:[PHColors changeImage:[UIImage imageNamed:@"home"] toColor:[PHColors iconColor]] forState:UIControlStateNormal];
+    [((UIButton*)self.goBackBarButtonItem.customView) setImage:[PHColors changeImage:[UIImage imageNamed:@"back"] toColor:[PHColors iconColor]] forState:UIControlStateNormal];
     [((UIButton*)self.forwardBarButtonItem.customView) setImage:[PHColors changeImage:[UIImage imageNamed:@"forward"] toColor:[PHColors iconColor]] forState:UIControlStateNormal];
     [((UIButton*)self.refreshBarButtonItem.customView) setImage:[PHColors changeImage:[UIImage imageNamed:@"refresh"] toColor:[PHColors iconColor]] forState:UIControlStateNormal];
     [((UIButton*)self.stopBarButtonItem.customView) setImage:[PHColors changeImage:[UIImage imageNamed:@"stop"] toColor:[PHColors iconColor]] forState:UIControlStateNormal];
@@ -772,6 +762,7 @@
 }
 
 - (void)updatePagination {
+    self.topContainerView.hidden = !self.navigationController.navigationBarHidden;
     if ([self shouldPaginate]) {
         if (self.articleView) {
             self.articleView.scrollView.scrollEnabled = NO;
@@ -779,24 +770,17 @@
             [self.articleView addGestureRecognizer:self.pageTapRecognizer];
             [self.articleView addGestureRecognizer:self.nextPageSwipeRecognizer];
             [self.articleView addGestureRecognizer:self.previousPageSwipeRecognizer];
-            if (self.navigationController.navigationBarHidden) {
-                self.viewDeckController.panningMode = IIViewDeckPanningViewPanning;
-            } else {
-                self.viewDeckController.panningMode = IIViewDeckNavigationBarPanning;
-            }
             self.pageNumberBar.hidden = NO;
-            self.titleLabel2.hidden = NO;
+            //self.titleLabel2.hidden = NO;
             self.articleView.frame = [self articleRect];
             [self updateCSS];
         } else {
             self.pageNumberBar.hidden = YES;
-            self.titleLabel2.hidden = YES;
+            //self.titleLabel2.hidden = YES;
         }
         self.pageBarContainerView.hidden = NO;
         [self.pageBarContainerView addSubview:self.pageNumberBar];
         self.pageNumberBar.frame = [self pageNumberBarRect];
-        self.topContainerView.hidden = NO;
-        self.navigationController.navigationBar.autoresizesSubviews = NO;
     } else {
         if (self.articleView) {
             self.articleView.scrollView.scrollEnabled = YES;
@@ -804,28 +788,14 @@
             [self.articleView removeGestureRecognizer:self.pageTapRecognizer];
             [self.articleView removeGestureRecognizer:self.nextPageSwipeRecognizer];
             [self.articleView removeGestureRecognizer:self.previousPageSwipeRecognizer];
-            self.viewDeckController.panningMode = IIViewDeckFullViewPanning;
-            [self.articleView setFrame:CGRectMoveTop(self.view.frame, 64)];
+            [self.articleView setFrame:[self articleRect]];
         }
         self.pageBarContainerView.hidden = YES;
         [self.pageNumberBar removeFromSuperview];
-        self.topContainerView.hidden = NO;
-        self.navigationController.navigationBar.autoresizesSubviews = YES;
     }
 }
 
-// Will return a CGRect with its upper boundary moved dy pixels, positive dy will reduce height, negative values increase
-CGRect CGRectMoveTop(CGRect rect, CGFloat dy) {
-    return CGRectMake(rect.origin.x, rect.origin.y + dy, rect.size.width, rect.size.height - dy);
-}
-
-// Will return a CGRect with its lower boundary moved dy pixels, positive values will reduce height, negative values increase
-CGRect CGRectMoveBottom(CGRect rect, CGFloat dy) {
-    return CGRectMake(rect.origin.x, rect.origin.y, rect.size.width, rect.size.height - dy);
-}
-
 #pragma mark - Toolbar buttons
-
 
 - (UILabel *) titleLabel {
     if (!titleLabel) {
@@ -849,15 +819,28 @@ CGRect CGRectMoveBottom(CGRect rect, CGFloat dy) {
 
 - (UIBarButtonItem *)backBarButtonItem {
     if (!backBarButtonItem) {
+        UIImage *image = [UIImage imageNamed:@"home"];
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+        button.frame = CGRectMake(0, 0, 28 , 42);
+        [button setImage:image forState:UIControlStateNormal];;
+        [button setImageEdgeInsets:UIEdgeInsetsMake(11.0, 2.0, 11.0, 2.0)];
+        [button addTarget:self action:@selector(doBack:) forControlEvents:UIControlEventTouchUpInside];
+        backBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
+    }
+    return backBarButtonItem;
+}
+
+- (UIBarButtonItem *)goBackBarButtonItem {
+    if (!goBackBarButtonItem) {
         UIImage *image = [UIImage imageNamed:@"back"];
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         button.frame = CGRectMake(0, 0, 28 , 42);
         [button setImage:image forState:UIControlStateNormal];;
         [button setImageEdgeInsets:UIEdgeInsetsMake(11.0, 2.0, 11.0, 2.0)];
         [button addTarget:self action:@selector(doGoBack:) forControlEvents:UIControlEventTouchUpInside];
-        backBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
+        goBackBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
     }
-    return backBarButtonItem;
+    return goBackBarButtonItem;
 }
 
 - (UIBarButtonItem *)forwardBarButtonItem {
@@ -941,13 +924,15 @@ CGRect CGRectMoveBottom(CGRect rect, CGFloat dy) {
 
 - (UIToolbar *) leftToolbar {
     if (!leftToolbar) {
-        leftToolbar = [[TransparentToolbar alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 125.0f, 44.0f)];
+        leftToolbar = [[TransparentToolbar alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 100.0f, 44.0f)];
         UIBarButtonItem *fixedSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
         fixedSpace.width = 5.0f;
 
         NSArray *itemsLeft = [NSArray arrayWithObjects:
-                                        fixedSpace,
                                         self.backBarButtonItem,
+                                        fixedSpace,
+                                        fixedSpace,
+                                        self.goBackBarButtonItem,
                                         fixedSpace,
                                         self.forwardBarButtonItem,
                                         fixedSpace,
@@ -966,7 +951,7 @@ CGRect CGRectMoveBottom(CGRect rect, CGFloat dy) {
 #pragma mark - Toolbar
 
 - (void)updateToolbar {
-    self.backBarButtonItem.enabled = self.articleView.canGoBack;
+    self.goBackBarButtonItem.enabled = self.articleView.canGoBack;
     self.forwardBarButtonItem.enabled = self.articleView.canGoForward;
     if ((self.article != nil)) {
         self.infoBarButtonItem.enabled = !self.articleView.isLoading;
@@ -999,7 +984,7 @@ CGRect CGRectMoveBottom(CGRect rect, CGFloat dy) {
     
     NSMutableArray *itemsLeft = [self.leftToolbar.items mutableCopy];
     
-    [itemsLeft replaceObjectAtIndex:(itemsLeft.count - 3) withObject:refreshStopBarButtonItem];
+    [itemsLeft replaceObjectAtIndex:(7) withObject:refreshStopBarButtonItem];
 
     [self.leftToolbar setItems:itemsLeft];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.leftToolbar];

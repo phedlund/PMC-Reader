@@ -10,12 +10,11 @@
 #import "PHArticle.h"
 #import "PHPrefViewController.h"
 #import "PHArticleNavigationControllerViewController.h"
-#import "IIViewDeckController.h"
 #import "RTLabel.h"
 #import "PopoverView.h"
 #import "SCPageScrubberBar.h"
 
-@interface PHDetailViewController : UIViewController <UIActionSheetDelegate, UIWebViewDelegate, UIScrollViewDelegate, UIPopoverControllerDelegate, UIGestureRecognizerDelegate, PHPrefViewControllerDelegate, ArticleNavigationDelegate, IIViewDeckControllerDelegate, RTLabelDelegate, PopoverViewDelegate, SCPageScrubberBarDelegate>
+@interface PHDetailViewController : UIViewController <UIActionSheetDelegate, UIWebViewDelegate, UIScrollViewDelegate, UIPopoverControllerDelegate, UIGestureRecognizerDelegate, PHPrefViewControllerDelegate, ArticleNavigationDelegate, RTLabelDelegate, PopoverViewDelegate, SCPageScrubberBarDelegate>
 
 @property (strong, nonatomic) PHArticle *article;
 @property (strong, nonatomic) IBOutlet UIView *pageBarContainerView;
@@ -23,8 +22,9 @@
 @property (strong, nonatomic) UIWebView *articleView;
 @property (strong, nonatomic) IBOutlet UILabel *titleLabel2;
 @property (nonatomic, strong, readonly) UILabel *titleLabel;
-@property (nonatomic, strong, readonly) UIBarButtonItem *titleBarButtonItem;
 @property (nonatomic, strong, readonly) UIBarButtonItem *backBarButtonItem;
+@property (nonatomic, strong, readonly) UIBarButtonItem *titleBarButtonItem;
+@property (nonatomic, strong, readonly) UIBarButtonItem *goBackBarButtonItem;
 @property (nonatomic, strong, readonly) UIBarButtonItem *forwardBarButtonItem;
 @property (nonatomic, strong, readonly) UIBarButtonItem *refreshBarButtonItem;
 @property (nonatomic, strong, readonly) UIBarButtonItem *stopBarButtonItem;
@@ -40,6 +40,7 @@
 
 - (void) writeCssTemplate;
 
+- (IBAction) doBack:(id)sender;
 - (IBAction) doGoBack:(id)sender;
 - (IBAction) doGoForward:(id)sender;
 - (IBAction) doReload:(id)sender;

@@ -1,6 +1,3 @@
-[submodule "ViewDeck"]
-	path = ViewDeck
-	url = git://github.com/Inferis/ViewDeck.git
 [submodule "MCSegmentedControl"]
 	path = MCSegmentedControl
 	url = git://github.com/oettam/MCSegmentedControl.git
