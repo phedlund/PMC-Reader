@@ -319,7 +319,7 @@
             self.topContainerView.hidden = NO;
         }
     }
-    [self.articleView setFrame:[self articleRect]];
+    self.articleView.frame = [self articleRect];
 }
 
 - (CGRect)orientationRect {
@@ -418,8 +418,8 @@
                             label.textColor = [PHColors textColor];
                             CGSize opt = [label optimumSize];
                             CGRect frame = [label frame];
-                            frame.size.height = (int)opt.height+5;
-                            [label setFrame:frame];
+                            frame.size.height = (int)opt.height + 5;
+                            label.frame = frame;
 
                             popover = [[PopoverView alloc] initWithFrame:label.frame];
                             int backgroundIndex =[[NSUserDefaults standardUserDefaults] integerForKey:@"Background"];
@@ -790,7 +790,7 @@
             [self.articleView removeGestureRecognizer:self.pageTapRecognizer];
             [self.articleView removeGestureRecognizer:self.nextPageSwipeRecognizer];
             [self.articleView removeGestureRecognizer:self.previousPageSwipeRecognizer];
-            [self.articleView setFrame:[self articleRect]];
+            self.articleView.frame = [self articleRect];
         }
         self.pageBarContainerView.hidden = YES;
         [self.pageNumberBar removeFromSuperview];
