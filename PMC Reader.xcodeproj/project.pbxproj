@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D0096CCF17F37F3800B05E68 /* UIImage+PHColor.m in Sources */ = {isa = PBXBuildFile; fileRef = D0096CCE17F37F3800B05E68 /* UIImage+PHColor.m */; };
 		D009A71A171742ED00BC4D77 /* LXReorderableCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = D009A719171742ED00BC4D77 /* LXReorderableCollectionViewFlowLayout.m */; };
 		D009A71D171744A800BC4D77 /* PHCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D009A71C171744A800BC4D77 /* PHCollectionViewCell.m */; };
 		D009A720171787EC00BC4D77 /* PHCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = D009A71F171787EA00BC4D77 /* PHCollectionViewFlowLayout.m */; };
@@ -124,6 +125,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D0096CCD17F37F3800B05E68 /* UIImage+PHColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+PHColor.h"; sourceTree = "<group>"; };
+		D0096CCE17F37F3800B05E68 /* UIImage+PHColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+PHColor.m"; sourceTree = "<group>"; };
 		D009A718171742ED00BC4D77 /* LXReorderableCollectionViewFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LXReorderableCollectionViewFlowLayout.h; path = LXReorderableCollectionViewFlowLayout/LXReorderableCollectionViewFlowLayout/LXReorderableCollectionViewFlowLayout.h; sourceTree = SOURCE_ROOT; };
 		D009A719171742ED00BC4D77 /* LXReorderableCollectionViewFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LXReorderableCollectionViewFlowLayout.m; path = LXReorderableCollectionViewFlowLayout/LXReorderableCollectionViewFlowLayout/LXReorderableCollectionViewFlowLayout.m; sourceTree = SOURCE_ROOT; };
 		D009A71B171744A700BC4D77 /* PHCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHCollectionViewCell.h; sourceTree = "<group>"; };
@@ -379,6 +382,8 @@
 				D0D3999B16C06FB800EA2497 /* PHArticleNavigationItem.m */,
 				D0D3999D16C1B5B600EA2497 /* PHArticleNavigationControllerViewController.h */,
 				D0D3999E16C1B5B600EA2497 /* PHArticleNavigationControllerViewController.m */,
+				D0096CCD17F37F3800B05E68 /* UIImage+PHColor.h */,
+				D0096CCE17F37F3800B05E68 /* UIImage+PHColor.m */,
 				D0F6004416375D9100ADBC38 /* iPad.storyboard */,
 				D030E6BA15C0D2DB00CB5285 /* Supporting Files */,
 			);
@@ -730,6 +735,7 @@
 				D030E6C415C0D2DB00CB5285 /* PHAppDelegate.m in Sources */,
 				D030E6CD15C0D2DB00CB5285 /* PHDetailViewController.m in Sources */,
 				D0CDB7D215C1F5900074B143 /* HTMLNode.m in Sources */,
+				D0096CCF17F37F3800B05E68 /* UIImage+PHColor.m in Sources */,
 				D0CDB7D315C1F5900074B143 /* HTMLParser.m in Sources */,
 				D0D1C75B15CB652A0097CA9C /* PHPrefViewController.m in Sources */,
 				D0F60055163775EF00ADBC38 /* PHMasterViewController.m in Sources */,

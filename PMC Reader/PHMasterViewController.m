@@ -14,6 +14,7 @@
 #import "PHCollectionViewFlowLayout.h"
 #import "PHColors.h"
 #import "UILabel+VerticalAlignment.h"
+#import "UIImage+PHColor.h"
 
 static NSString * const kBaseUrl = @"http://www.ncbi.nlm.nih.gov";
 static NSString * const kArticleUrlSuffix = @"pmc/articles/";
@@ -517,7 +518,7 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
 
     self.addBarButtonItem.tintColor = [PHColors iconColor];
     self.layoutBarButtonItem.tintColor = [PHColors iconColor];
-
+    [self.searchBar setSearchFieldBackgroundImage:[UIImage imageWithColor:[PHColors cellBackgroundColor]] forState:UIControlStateNormal];
     [self.collectionView reloadData];
 }
 
