@@ -131,7 +131,6 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-    self.wantsFullScreenLayout = YES;
     //self.viewDeckController.delegate = self;
     //self.viewDeckController.panningView = self.topContainerView;
     [[self navigationItem] setTitle:@""];

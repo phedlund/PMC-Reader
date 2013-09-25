@@ -20,7 +20,7 @@ static NSString * const kBaseUrl = @"http://www.ncbi.nlm.nih.gov";
 static NSString * const kArticleUrlSuffix = @"pmc/articles/";
 
 @interface PHMasterViewController() {
-    CALayer *bottomBorder;
+    //CALayer *bottomBorder;
     PHCollectionViewCell *_swipedCell;
 }
 
@@ -124,7 +124,7 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
 
 - (TransparentSearchBar *)searchBar {
     if (!searchBar) {
-        searchBar = [[TransparentSearchBar alloc] initWithFrame:CGRectMake(0, 0, 220, 44)];
+        searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, 220, 44)];
         searchBar.delegate = self;
     }
     return searchBar;
@@ -134,7 +134,6 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-    self.wantsFullScreenLayout = YES;
 
     //Prepare template files (always attempt to copy them in case they have been deleted)
     NSBundle *appBundle = [NSBundle mainBundle];
@@ -176,50 +175,30 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
     UIBarButtonItem *fixedSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
     fixedSpace.width = 5.0f;
     
-    NSArray *items = [NSArray arrayWithObjects:
-                      fixedSpace,
-                      self.addBarButtonItem,
-                      fixedSpace,
-                      self.layoutBarButtonItem,
-                      nil];
-    
-    TransparentToolbar *toolbar = [[TransparentToolbar alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 100.0f, 44.0f)];
-    toolbar.items = items;
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:toolbar];
-    
+    self.navigationItem.leftBarButtonItems = @[self.addBarButtonItem, self.layoutBarButtonItem];
     UIBarButtonItem *searchBarItem = [[UIBarButtonItem alloc] initWithCustomView:self.searchBar];
-    
-    items = @[searchBarItem, fixedSpace];
-    TransparentToolbar *toolbarR =  [[TransparentToolbar alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 235.0f, 44.0f)];
-    toolbarR.items = items;
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:toolbarR];
+    self.navigationItem.rightBarButtonItems = @[searchBarItem, fixedSpace];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(downloadArticles:) name:@"DownloadArticles" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateBackgrounds) name:@"UpdateBackgrounds" object:nil];
-
-    //UINavigationController *detailNavController = (UINavigationController *)self.viewDeckController.centerController;
-    //self.detailViewController = (PHDetailViewController *)detailNavController.topViewController;
-    //[self.detailViewController writeCssTemplate];
     
-    [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
-    self.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
-    bottomBorder = [CALayer layer];
-    bottomBorder.frame = CGRectMake(0.0f, 43.0f, 1024.0f, 1.0f);
-    [self.navigationController.navigationBar.layer addSublayer:bottomBorder];
-
+    //remove bottom line/shadow
+    for (UIView *view in self.navigationController.navigationBar.subviews) {
+        for (UIView *view2 in view.subviews) {
+            if ([view2 isKindOfClass:[UIImageView class]]) {
+                [view2 removeFromSuperview];
+            }
+        }
+    }
     [self updateBackgrounds];
     
     NSLog(@"Currently Reading: %@", [[NSUserDefaults standardUserDefaults] stringForKey:@"Reading"]);
-    //self.viewDeckController.delegate = self;
     __block NSString *currentlyReading = [[NSUserDefaults standardUserDefaults] stringForKey:@"Reading"];
     if ([currentlyReading isEqualToString:@"No"]) {
-        //[self.viewDeckController openLeftView];
     } else {
         [self.articles enumerateObjectsUsingBlock:^(PHArticle *article, NSUInteger idx, BOOL *stop) {
             if ([article.pmcId isEqualToString:currentlyReading]) {
                 [self.collectionView selectItemAtIndexPath:[NSIndexPath indexPathForItem:idx inSection:0] animated:NO scrollPosition:UICollectionViewScrollPositionCenteredVertically];
-                //self.detailViewController.article = article;
-                //[self.viewDeckController closeLeftView];
                 [self performSegueWithIdentifier:@"pushArticle" sender:[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:idx inSection:0]]];
                 *stop = YES;
             }
@@ -445,15 +424,7 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
         ((PHDetailViewController*)segue.destinationViewController).article = article;
     }
 }
-#pragma mark - IIViewDeckController delegate
-/*
-- (void)viewDeckController:(IIViewDeckController *)viewDeckController didOpenViewSide:(IIViewDeckSide)viewDeckSide animated:(BOOL)animated {
-    if (viewDeckSide == IIViewDeckLeftSide) {
-        [[NSUserDefaults standardUserDefaults] setValue:@"No" forKey:@"Reading"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-    }
-}
-*/
+
 #pragma mark - HTML Parser
 
 -(void)downloadArticles:(NSNotification *)n {
@@ -542,15 +513,18 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
     self.navigationController.view.backgroundColor = bgColor;
     self.view.backgroundColor = bgColor;
     self.collectionView.backgroundColor = bgColor;
-    self.navigationController.navigationBar.tintColor = bgColor;
-    bottomBorder.backgroundColor = [PHColors iconColor].CGColor;
+    self.navigationController.navigationBar.barTintColor = bgColor;
+    //bottomBorder.backgroundColor = [PHColors iconColor].CGColor;
+    
+    NSShadow *shadow = [[NSShadow alloc] init];
+    shadow.shadowColor = [UIColor clearColor];
+    shadow.shadowBlurRadius = 0.0;
+    shadow.shadowOffset = CGSizeMake(0.0, 0.0);
     
     [self.navigationController.navigationBar setTitleTextAttributes:
         [NSDictionary dictionaryWithObjectsAndKeys:
-         [PHColors iconColor], UITextAttributeTextColor,
-         [UIColor clearColor], UITextAttributeTextShadowColor,
-         [NSValue valueWithUIOffset:UIOffsetMake(0, 0)],
-         UITextAttributeTextShadowOffset,nil]];
+         [PHColors iconColor], NSForegroundColorAttributeName,
+         shadow, NSShadowAttributeName, nil]];
 
     [((UIButton*)self.addBarButtonItem.customView) setImage:[PHColors changeImage:[UIImage imageNamed:@"add"] toColor:[PHColors iconColor]] forState:UIControlStateNormal];
     if ([[NSUserDefaults standardUserDefaults] integerForKey:@"GridLayout"] == 0) {

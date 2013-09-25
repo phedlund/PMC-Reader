@@ -305,6 +305,8 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
             
             
             for (NSArray *table in tables) {
+                if (table.count > 0) {
+                
                 objectURL = [NSURL URLWithString:[table objectAtIndex:0] relativeToURL:baseURL];
                 objectData = [NSData dataWithContentsOfURL:objectURL];
                 objectSaveURL = [docDir  URLByAppendingPathComponent:[table objectAtIndex:2]];
@@ -342,6 +344,7 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
                         pmcData = [pmcData stringByReplacingOccurrencesOfString:[table objectAtIndex:3] withString:objectSavePath];
                         
                     }
+                }
                 }
                 
             }
