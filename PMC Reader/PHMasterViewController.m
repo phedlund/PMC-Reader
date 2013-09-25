@@ -13,7 +13,6 @@
 #import "PHCollectionViewCell.h"
 #import "PHCollectionViewFlowLayout.h"
 #import "PHColors.h"
-#import "TransparentToolbar.h"
 #import "UILabel+VerticalAlignment.h"
 
 static NSString * const kBaseUrl = @"http://www.ncbi.nlm.nih.gov";
@@ -92,13 +91,7 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
 
 - (UIBarButtonItem *)addBarButtonItem {    
     if (!addBarButtonItem) {
-        UIImage *image = [UIImage imageNamed:@"add"];
-        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        button.frame = CGRectMake(0, 0, 28 , 42);
-        [button setImage:image forState:UIControlStateNormal];;
-        [button setImageEdgeInsets:UIEdgeInsetsMake(11.0, 2.0, 11.0, 2.0)];
-        [button addTarget:self action:@selector(doAdd:) forControlEvents:UIControlEventTouchUpInside];
-        addBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
+        addBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(doAdd:)];
     }
     return addBarButtonItem;
 }
@@ -112,19 +105,15 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
         } else {
             image = [UIImage imageNamed:@"edit"];
         }
-        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        button.frame = CGRectMake(0, 0, 28 , 42);
-        [button setImage:image forState:UIControlStateNormal];;
-        [button setImageEdgeInsets:UIEdgeInsetsMake(11.0, 2.0, 11.0, 2.0)];
-        [button addTarget:self action:@selector(doLayout:) forControlEvents:UIControlEventTouchUpInside];
-        layoutBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
+        layoutBarButtonItem = [[UIBarButtonItem alloc] initWithImage:image style:UIBarButtonItemStylePlain target:self action:@selector(doLayout:)];
     }
     return layoutBarButtonItem;
 }
 
-- (TransparentSearchBar *)searchBar {
+- (UISearchBar *)searchBar {
     if (!searchBar) {
         searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, 220, 44)];
+        searchBar.placeholder = @"Search";
         searchBar.delegate = self;
     }
     return searchBar;
@@ -172,12 +161,9 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
             [self writeArticles];
      }];
     
-    UIBarButtonItem *fixedSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-    fixedSpace.width = 5.0f;
-    
     self.navigationItem.leftBarButtonItems = @[self.addBarButtonItem, self.layoutBarButtonItem];
     UIBarButtonItem *searchBarItem = [[UIBarButtonItem alloc] initWithCustomView:self.searchBar];
-    self.navigationItem.rightBarButtonItems = @[searchBarItem, fixedSpace];
+    self.navigationItem.rightBarButtonItem = searchBarItem;
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(downloadArticles:) name:@"DownloadArticles" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateBackgrounds) name:@"UpdateBackgrounds" object:nil];
@@ -186,7 +172,10 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
     for (UIView *view in self.navigationController.navigationBar.subviews) {
         for (UIView *view2 in view.subviews) {
             if ([view2 isKindOfClass:[UIImageView class]]) {
-                [view2 removeFromSuperview];
+                if (![view2.superview isKindOfClass:[UIButton class]]) {
+                    [view2 removeFromSuperview];
+                }
+                
             }
         }
     }
@@ -237,9 +226,9 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
         [prefs setInteger:0 forKey:@"GridLayout"];
     }
     if ([prefs integerForKey:@"GridLayout"] == 0) {
-        [((UIButton*)self.layoutBarButtonItem.customView) setImage:[PHColors changeImage:[UIImage imageNamed:@"grid"] toColor:[PHColors iconColor]] forState:UIControlStateNormal];
+        self.layoutBarButtonItem.image = [UIImage imageNamed:@"grid"];
     } else {
-        [((UIButton*)self.layoutBarButtonItem.customView) setImage:[PHColors changeImage:[UIImage imageNamed:@"edit"] toColor:[PHColors iconColor]] forState:UIControlStateNormal];
+        self.layoutBarButtonItem.image = [UIImage imageNamed:@"edit"];
     }
     [self.collectionView.collectionViewLayout invalidateLayout];
 }
@@ -510,7 +499,7 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
 
 - (void)updateBackgrounds {
     UIColor *bgColor = [PHColors backgroundColor];
-    self.navigationController.view.backgroundColor = bgColor;
+    //self.navigationController.view.backgroundColor = bgColor;
     self.view.backgroundColor = bgColor;
     self.collectionView.backgroundColor = bgColor;
     self.navigationController.navigationBar.barTintColor = bgColor;
@@ -526,12 +515,8 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
          [PHColors iconColor], NSForegroundColorAttributeName,
          shadow, NSShadowAttributeName, nil]];
 
-    [((UIButton*)self.addBarButtonItem.customView) setImage:[PHColors changeImage:[UIImage imageNamed:@"add"] toColor:[PHColors iconColor]] forState:UIControlStateNormal];
-    if ([[NSUserDefaults standardUserDefaults] integerForKey:@"GridLayout"] == 0) {
-        [((UIButton*)self.layoutBarButtonItem.customView) setImage:[PHColors changeImage:[UIImage imageNamed:@"grid"] toColor:[PHColors iconColor]] forState:UIControlStateNormal];
-    } else {
-        [((UIButton*)self.layoutBarButtonItem.customView) setImage:[PHColors changeImage:[UIImage imageNamed:@"edit"] toColor:[PHColors iconColor]] forState:UIControlStateNormal];
-    }
+    self.addBarButtonItem.tintColor = [PHColors iconColor];
+    self.layoutBarButtonItem.tintColor = [PHColors iconColor];
 
     [self.collectionView reloadData];
 }

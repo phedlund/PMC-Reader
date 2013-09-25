@@ -86,7 +86,6 @@
 		D0EEAE021704C1B500DBAC4C /* SCCalloutView.m in Sources */ = {isa = PBXBuildFile; fileRef = D0EEADFE1704C1B500DBAC4C /* SCCalloutView.m */; };
 		D0EEAE031704C1B500DBAC4C /* SCPageScrubberBar.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D0EEADFF1704C1B500DBAC4C /* SCPageScrubberBar.bundle */; };
 		D0EEAE041704C1B500DBAC4C /* SCPageScrubberBar.m in Sources */ = {isa = PBXBuildFile; fileRef = D0EEAE011704C1B500DBAC4C /* SCPageScrubberBar.m */; };
-		D0EEAE071708F5AD00DBAC4C /* TransparentToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = D0EEAE061708F5AC00DBAC4C /* TransparentToolbar.m */; };
 		D0EEAE0D170A1F8100DBAC4C /* paginate1.png in Resources */ = {isa = PBXBuildFile; fileRef = D0EEAE09170A1F7F00DBAC4C /* paginate1.png */; };
 		D0EEAE0E170A1F8100DBAC4C /* paginate1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D0EEAE0A170A1F8000DBAC4C /* paginate1@2x.png */; };
 		D0EEAE0F170A1F8100DBAC4C /* paginate2.png in Resources */ = {isa = PBXBuildFile; fileRef = D0EEAE0B170A1F8000DBAC4C /* paginate2.png */; };
@@ -122,8 +121,6 @@
 		D0F6004616375D9100ADBC38 /* iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0F6004416375D9100ADBC38 /* iPad.storyboard */; };
 		D0F60055163775EF00ADBC38 /* PHMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0F60052163775EF00ADBC38 /* PHMasterViewController.m */; };
 		D0F9DA27170E5FBB00FA64E5 /* PHColors.m in Sources */ = {isa = PBXBuildFile; fileRef = D0F9DA26170E5FBA00FA64E5 /* PHColors.m */; };
-		D0F9DA2A1710D7C000FA64E5 /* TransparentNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = D0F9DA291710D7BF00FA64E5 /* TransparentNavigationBar.m */; };
-		D0F9DA2D1710EB4C00FA64E5 /* TransparentSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = D0F9DA2C1710EB4B00FA64E5 /* TransparentSearchBar.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -234,8 +231,6 @@
 		D0EEADFF1704C1B500DBAC4C /* SCPageScrubberBar.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = SCPageScrubberBar.bundle; path = SCPageScrubberBar/SCPageScrubberBar/SCPageScrubberBar.bundle; sourceTree = SOURCE_ROOT; };
 		D0EEAE001704C1B500DBAC4C /* SCPageScrubberBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCPageScrubberBar.h; path = SCPageScrubberBar/SCPageScrubberBar/SCPageScrubberBar.h; sourceTree = SOURCE_ROOT; };
 		D0EEAE011704C1B500DBAC4C /* SCPageScrubberBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCPageScrubberBar.m; path = SCPageScrubberBar/SCPageScrubberBar/SCPageScrubberBar.m; sourceTree = SOURCE_ROOT; };
-		D0EEAE051708F5AC00DBAC4C /* TransparentToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransparentToolbar.h; sourceTree = "<group>"; };
-		D0EEAE061708F5AC00DBAC4C /* TransparentToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransparentToolbar.m; sourceTree = "<group>"; };
 		D0EEAE09170A1F7F00DBAC4C /* paginate1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = paginate1.png; path = Resources/paginate1.png; sourceTree = "<group>"; };
 		D0EEAE0A170A1F8000DBAC4C /* paginate1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "paginate1@2x.png"; path = "Resources/paginate1@2x.png"; sourceTree = "<group>"; };
 		D0EEAE0B170A1F8000DBAC4C /* paginate2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = paginate2.png; path = Resources/paginate2.png; sourceTree = "<group>"; };
@@ -274,10 +269,6 @@
 		D0F60052163775EF00ADBC38 /* PHMasterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PHMasterViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		D0F9DA25170E5FB900FA64E5 /* PHColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHColors.h; sourceTree = "<group>"; };
 		D0F9DA26170E5FBA00FA64E5 /* PHColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHColors.m; sourceTree = "<group>"; };
-		D0F9DA281710D7BF00FA64E5 /* TransparentNavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransparentNavigationBar.h; sourceTree = "<group>"; };
-		D0F9DA291710D7BF00FA64E5 /* TransparentNavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransparentNavigationBar.m; sourceTree = "<group>"; };
-		D0F9DA2B1710EB4B00FA64E5 /* TransparentSearchBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransparentSearchBar.h; sourceTree = "<group>"; };
-		D0F9DA2C1710EB4B00FA64E5 /* TransparentSearchBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransparentSearchBar.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -350,7 +341,6 @@
 			children = (
 				D05B89FA1725FB0700C61968 /* UIColor+Expanded */,
 				D009A717171742ED00BC4D77 /* LXReorderableCollectionViewFlowLayout */,
-				D0EEAE081708F5BF00DBAC4C /* TransparentToolbar */,
 				D0EEADFC1704C1B400DBAC4C /* SCPageScrubberBar */,
 				D0EEADED16FA770C00DBAC4C /* RTLabel */,
 				D0EEADE516FA76DF00DBAC4C /* PopoverView */,
@@ -579,19 +569,6 @@
 			path = SCPageScrubberBar;
 			sourceTree = "<group>";
 		};
-		D0EEAE081708F5BF00DBAC4C /* TransparentToolbar */ = {
-			isa = PBXGroup;
-			children = (
-				D0EEAE051708F5AC00DBAC4C /* TransparentToolbar.h */,
-				D0EEAE061708F5AC00DBAC4C /* TransparentToolbar.m */,
-				D0F9DA2B1710EB4B00FA64E5 /* TransparentSearchBar.h */,
-				D0F9DA2C1710EB4B00FA64E5 /* TransparentSearchBar.m */,
-				D0F9DA281710D7BF00FA64E5 /* TransparentNavigationBar.h */,
-				D0F9DA291710D7BF00FA64E5 /* TransparentNavigationBar.m */,
-			);
-			name = TransparentToolbar;
-			sourceTree = "<group>";
-		};
 		D0F41E37163C90620078DF2A /* MCSegmentedControl */ = {
 			isa = PBXGroup;
 			children = (
@@ -771,10 +748,7 @@
 				D0EEADEC16FA770000DBAC4C /* RTLabel.m in Sources */,
 				D0EEAE021704C1B500DBAC4C /* SCCalloutView.m in Sources */,
 				D0EEAE041704C1B500DBAC4C /* SCPageScrubberBar.m in Sources */,
-				D0EEAE071708F5AD00DBAC4C /* TransparentToolbar.m in Sources */,
 				D0F9DA27170E5FBB00FA64E5 /* PHColors.m in Sources */,
-				D0F9DA2A1710D7C000FA64E5 /* TransparentNavigationBar.m in Sources */,
-				D0F9DA2D1710EB4C00FA64E5 /* TransparentSearchBar.m in Sources */,
 				D009A71A171742ED00BC4D77 /* LXReorderableCollectionViewFlowLayout.m in Sources */,
 				D009A71D171744A800BC4D77 /* PHCollectionViewCell.m in Sources */,
 				D009A720171787EC00BC4D77 /* PHCollectionViewFlowLayout.m in Sources */,

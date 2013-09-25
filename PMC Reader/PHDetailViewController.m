@@ -11,7 +11,6 @@
 #import "PHArticle.h"
 #import "PHArticleNavigationItem.h"
 #import "PHArticleReference.h"
-#import "TransparentToolbar.h"
 #import "PHColors.h"
 #import "UIColor+Expanded.h"
 
@@ -131,8 +130,6 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-    //self.viewDeckController.delegate = self;
-    //self.viewDeckController.panningView = self.topContainerView;
     [[self navigationItem] setTitle:@""];
     [self updateToolbar];
     [self writeCssTemplate];
@@ -140,10 +137,9 @@
     self.topContainerView.hidden = YES;
     self.titleLabel2.text = @"";
     self.pageNumberLabel.text = @"";
-    self.navigationController.navigationBar.translucent = YES;
-    bottomBorder = [CALayer layer];
-    bottomBorder.frame = CGRectMake(0.0f, 43.0f, 1024.0f, 1.0f);
-    [self.navigationController.navigationBar.layer addSublayer:bottomBorder];
+    //bottomBorder = [CALayer layer];
+    //bottomBorder.frame = CGRectMake(0.0f, 43.0f, 1024.0f, 1.0f);
+    //[self.navigationController.navigationBar.layer addSublayer:bottomBorder];
     [self updateBackgrounds];
 }
 
@@ -292,7 +288,6 @@
 - (void)toggleNavBar:(UITapGestureRecognizer *)gesture {
     CGPoint loc = [gesture locationInView:self.articleView];
     [self performSelector:@selector(doToggleNavBar:) withObject:[NSValue valueWithCGPoint:loc] afterDelay:0.4];
-    
 }
 
 - (void)doToggleNavBar:(NSValue *)location {
@@ -318,7 +313,12 @@
             self.topContainerView.hidden = NO;
         }
     }
+    [self setNeedsStatusBarAppearanceUpdate];
     self.articleView.frame = [self articleRect];
+}
+
+- (BOOL)prefersStatusBarHidden {
+    return self.navigationController.navigationBarHidden;
 }
 
 - (CGRect)orientationRect {
@@ -338,7 +338,7 @@
 
 - (CGRect)articleRect {
     if ([self shouldPaginate]) {
-        int y = 30;
+        int y = 94;
         if (self.navigationController.navigationBarHidden) {
             y = 94;
         }
@@ -540,16 +540,14 @@
     self.pageNumberBar.nightMode = (backgroundIndex == 2);
     self.titleLabel2.alpha = (backgroundIndex == 2) ? 1.0f : 0.5f;
     self.titleLabel.textColor = [PHColors iconColor];
-    
-    bottomBorder.backgroundColor = [[PHColors iconColor] CGColor];
-    [((UIButton*)self.backBarButtonItem.customView) setImage:[PHColors changeImage:[UIImage imageNamed:@"home"] toColor:[PHColors iconColor]] forState:UIControlStateNormal];
-    [((UIButton*)self.goBackBarButtonItem.customView) setImage:[PHColors changeImage:[UIImage imageNamed:@"back"] toColor:[PHColors iconColor]] forState:UIControlStateNormal];
-    [((UIButton*)self.forwardBarButtonItem.customView) setImage:[PHColors changeImage:[UIImage imageNamed:@"forward"] toColor:[PHColors iconColor]] forState:UIControlStateNormal];
-    [((UIButton*)self.refreshBarButtonItem.customView) setImage:[PHColors changeImage:[UIImage imageNamed:@"refresh"] toColor:[PHColors iconColor]] forState:UIControlStateNormal];
-    [((UIButton*)self.stopBarButtonItem.customView) setImage:[PHColors changeImage:[UIImage imageNamed:@"stop"] toColor:[PHColors iconColor]] forState:UIControlStateNormal];
-    [((UIButton*)self.prefsBarButtonItem.customView) setImage:[PHColors changeImage:[UIImage imageNamed:@"text"] toColor:[PHColors iconColor]] forState:UIControlStateNormal];
-    [((UIButton*)self.navBarButtonItem.customView) setImage:[PHColors changeImage:[UIImage imageNamed:@"contents"] toColor:[PHColors iconColor]] forState:UIControlStateNormal];
-    [((UIButton*)self.infoBarButtonItem.customView) setImage:[PHColors changeImage:[UIImage imageNamed:@"action"] toColor:[PHColors iconColor]] forState:UIControlStateNormal];
+    self.backBarButtonItem.tintColor = [PHColors iconColor];
+    self.goBackBarButtonItem.tintColor = [PHColors iconColor];
+    self.forwardBarButtonItem.tintColor = [PHColors iconColor];
+    self.refreshBarButtonItem.tintColor = [PHColors iconColor];
+    self.stopBarButtonItem.tintColor = [PHColors iconColor];
+    self.prefsBarButtonItem.tintColor = [PHColors iconColor];
+    self.navBarButtonItem.tintColor = [PHColors iconColor];
+    self.infoBarButtonItem.tintColor = [PHColors iconColor];
 }
 
 - (void) writeCssTemplate
@@ -820,52 +818,28 @@
 
 - (UIBarButtonItem *)backBarButtonItem {
     if (!backBarButtonItem) {
-        UIImage *image = [UIImage imageNamed:@"home"];
-        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        button.frame = CGRectMake(0, 0, 28 , 42);
-        [button setImage:image forState:UIControlStateNormal];;
-        [button setImageEdgeInsets:UIEdgeInsetsMake(11.0, 2.0, 11.0, 2.0)];
-        [button addTarget:self action:@selector(doBack:) forControlEvents:UIControlEventTouchUpInside];
-        backBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
+        backBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"home"] style:UIBarButtonItemStylePlain target:self action:@selector(doBack:)];
     }
     return backBarButtonItem;
 }
 
 - (UIBarButtonItem *)goBackBarButtonItem {
     if (!goBackBarButtonItem) {
-        UIImage *image = [UIImage imageNamed:@"back"];
-        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        button.frame = CGRectMake(0, 0, 28 , 42);
-        [button setImage:image forState:UIControlStateNormal];;
-        [button setImageEdgeInsets:UIEdgeInsetsMake(11.0, 2.0, 11.0, 2.0)];
-        [button addTarget:self action:@selector(doGoBack:) forControlEvents:UIControlEventTouchUpInside];
-        goBackBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
+        goBackBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"back"] style:UIBarButtonItemStylePlain target:self action:@selector(doGoBack:)];
     }
     return goBackBarButtonItem;
 }
 
 - (UIBarButtonItem *)forwardBarButtonItem {
-    if (!forwardBarButtonItem) {        
-        UIImage *image = [UIImage imageNamed:@"forward"];
-        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        button.frame = CGRectMake(0, 0, 28 , 42);
-        [button setImage:image forState:UIControlStateNormal];;
-        [button setImageEdgeInsets:UIEdgeInsetsMake(11.0, 2.0, 11.0, 2.0)];
-        [button addTarget:self action:@selector(doGoForward:) forControlEvents:UIControlEventTouchUpInside];
-        forwardBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
+    if (!forwardBarButtonItem) {
+        forwardBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"forward"] style:UIBarButtonItemStylePlain target:self action:@selector(doGoForward:)];
     }
     return forwardBarButtonItem;
 }
 
 - (UIBarButtonItem *)refreshBarButtonItem {
     if (!refreshBarButtonItem) {
-        UIImage *image = [UIImage imageNamed:@"refresh"];
-        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        button.frame = CGRectMake(0, 0, 28 , 42);
-        [button setImage:image forState:UIControlStateNormal];;
-        [button setImageEdgeInsets:UIEdgeInsetsMake(10.0, 2.0, 10.0, 2.0)];
-        [button addTarget:self action:@selector(doReload:) forControlEvents:UIControlEventTouchUpInside];
-        refreshBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
+        refreshBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(doReload:)];
     }
     
     return refreshBarButtonItem;
@@ -873,81 +847,31 @@
 
 - (UIBarButtonItem *)stopBarButtonItem {
     if (!stopBarButtonItem) {
-        UIImage *image = [UIImage imageNamed:@"stop"];
-        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        button.frame = CGRectMake(0, 0, 28 , 42);
-        [button setImage:image forState:UIControlStateNormal];;
-        [button setImageEdgeInsets:UIEdgeInsetsMake(11.0, 2.0, 11.0, 2.0)];
-        [button addTarget:self action:@selector(doStop:) forControlEvents:UIControlEventTouchUpInside];
-        stopBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
+        stopBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(doStop:)];
     }
     return stopBarButtonItem;
 }
 
 - (UIBarButtonItem *)infoBarButtonItem {
     if (!infoBarButtonItem) {
-        UIImage *image = [UIImage imageNamed:@"action"];
-        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        button.frame = CGRectMake(0, 0, 28 , 42);
-        [button setImage:image forState:UIControlStateNormal];;
-        [button setImageEdgeInsets:UIEdgeInsetsMake(10.0, 2.0, 10.0, 2.0)];
-        [button addTarget:self action:@selector(doInfo:) forControlEvents:UIControlEventTouchUpInside];
-        infoBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
+        infoBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(doInfo:)];
     }
     return infoBarButtonItem;
 }
 
 - (UIBarButtonItem *)prefsBarButtonItem {
     if (!prefsBarButtonItem) {
-        UIImage *image = [UIImage imageNamed:@"text"];
-        UIButton *prefButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        prefButton.frame = CGRectMake(0, 0, 28 , 42);
-        [prefButton setImage:image forState:UIControlStateNormal];;
-        [prefButton setImageEdgeInsets:UIEdgeInsetsMake(11.0, 2.0, 11.0, 2.0)];
-        [prefButton addTarget:self action:@selector(doPreferences:) forControlEvents:UIControlEventTouchUpInside];
-        prefsBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:prefButton];        
+        prefsBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"text"] style:UIBarButtonItemStylePlain target:self action:@selector(doPreferences:)];
     }
     return prefsBarButtonItem;
 }
 
 - (UIBarButtonItem *)navBarButtonItem {
     if (!navBarButtonItem) {
-        UIImage *image = [UIImage imageNamed:@"contents"];
-        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        button.frame = CGRectMake(0, 0, 28 , 42);
-        [button setImage:image forState:UIControlStateNormal];;
-        [button setImageEdgeInsets:UIEdgeInsetsMake(11.0, 2.0, 11.0, 2.0)];
-        [button addTarget:self action:@selector(doNavigation:) forControlEvents:UIControlEventTouchUpInside];
-        navBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
+        navBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"contents"] style:UIBarButtonItemStylePlain target:self action:@selector(doNavigation:)];
     }
     return navBarButtonItem;
 }
-
-- (UIToolbar *) leftToolbar {
-    if (!leftToolbar) {
-        leftToolbar = [[TransparentToolbar alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 100.0f, 44.0f)];
-        UIBarButtonItem *fixedSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-        fixedSpace.width = 5.0f;
-
-        NSArray *itemsLeft = [NSArray arrayWithObjects:
-                                        self.backBarButtonItem,
-                                        fixedSpace,
-                                        fixedSpace,
-                                        self.goBackBarButtonItem,
-                                        fixedSpace,
-                                        self.forwardBarButtonItem,
-                                        fixedSpace,
-                                        fixedSpace,
-                                        fixedSpace,
-                                        self.titleBarButtonItem,
-                                        nil];
-
-        leftToolbar.items = itemsLeft;
-        leftToolbar.tintColor = self.navigationController.navigationBar.tintColor;
-    }
-    return leftToolbar;
-}
-
 
 #pragma mark - Toolbar
 
@@ -977,33 +901,11 @@
         self.prefsBarButtonItem.enabled = NO;
     }
 
-    UIBarButtonItem *fixedSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-    fixedSpace.width = 5.0f;
-    
     UIBarButtonItem *refreshStopBarButtonItem = self.articleView.isLoading ? self.stopBarButtonItem : self.refreshBarButtonItem;
     refreshStopBarButtonItem.enabled = (self.article != nil);
     
-    NSMutableArray *itemsLeft = [self.leftToolbar.items mutableCopy];
-    
-    [itemsLeft replaceObjectAtIndex:(7) withObject:refreshStopBarButtonItem];
-
-    [self.leftToolbar setItems:itemsLeft];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.leftToolbar];
-
-    NSArray *itemsRight = [NSArray arrayWithObjects:
-                           fixedSpace,
-                           self.navBarButtonItem,
-                           fixedSpace,
-                           self.prefsBarButtonItem,
-                           fixedSpace,
-                           self.infoBarButtonItem,
-                           fixedSpace,
-                           nil];
-    
-    TransparentToolbar *toolbarRight = [[TransparentToolbar alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 135, 44.0f)];
-    toolbarRight.items = itemsRight;
-    toolbarRight.tintColor = self.navigationController.navigationBar.tintColor;
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:toolbarRight];
+    self.navigationItem.leftBarButtonItems = @[self.backBarButtonItem, self.goBackBarButtonItem, self.forwardBarButtonItem, refreshStopBarButtonItem, self.titleBarButtonItem];
+    self.navigationItem.rightBarButtonItems = @[self.infoBarButtonItem, self.prefsBarButtonItem, self.navBarButtonItem];
 }
 
 - (void)articleSectionSelected:(NSUInteger)section {
