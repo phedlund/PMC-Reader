@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		D0096CCF17F37F3800B05E68 /* UIImage+PHColor.m in Sources */ = {isa = PBXBuildFile; fileRef = D0096CCE17F37F3800B05E68 /* UIImage+PHColor.m */; };
+		D0096CD217F3916B00B05E68 /* TransparentToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = D0096CD117F3916B00B05E68 /* TransparentToolbar.m */; };
 		D009A71A171742ED00BC4D77 /* LXReorderableCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = D009A719171742ED00BC4D77 /* LXReorderableCollectionViewFlowLayout.m */; };
 		D009A71D171744A800BC4D77 /* PHCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D009A71C171744A800BC4D77 /* PHCollectionViewCell.m */; };
 		D009A720171787EC00BC4D77 /* PHCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = D009A71F171787EA00BC4D77 /* PHCollectionViewFlowLayout.m */; };
@@ -127,6 +128,8 @@
 /* Begin PBXFileReference section */
 		D0096CCD17F37F3800B05E68 /* UIImage+PHColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+PHColor.h"; sourceTree = "<group>"; };
 		D0096CCE17F37F3800B05E68 /* UIImage+PHColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+PHColor.m"; sourceTree = "<group>"; };
+		D0096CD017F3916B00B05E68 /* TransparentToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransparentToolbar.h; sourceTree = "<group>"; };
+		D0096CD117F3916B00B05E68 /* TransparentToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransparentToolbar.m; sourceTree = "<group>"; };
 		D009A718171742ED00BC4D77 /* LXReorderableCollectionViewFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LXReorderableCollectionViewFlowLayout.h; path = LXReorderableCollectionViewFlowLayout/LXReorderableCollectionViewFlowLayout/LXReorderableCollectionViewFlowLayout.h; sourceTree = SOURCE_ROOT; };
 		D009A719171742ED00BC4D77 /* LXReorderableCollectionViewFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LXReorderableCollectionViewFlowLayout.m; path = LXReorderableCollectionViewFlowLayout/LXReorderableCollectionViewFlowLayout/LXReorderableCollectionViewFlowLayout.m; sourceTree = SOURCE_ROOT; };
 		D009A71B171744A700BC4D77 /* PHCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHCollectionViewCell.h; sourceTree = "<group>"; };
@@ -384,6 +387,8 @@
 				D0D3999E16C1B5B600EA2497 /* PHArticleNavigationControllerViewController.m */,
 				D0096CCD17F37F3800B05E68 /* UIImage+PHColor.h */,
 				D0096CCE17F37F3800B05E68 /* UIImage+PHColor.m */,
+				D0096CD017F3916B00B05E68 /* TransparentToolbar.h */,
+				D0096CD117F3916B00B05E68 /* TransparentToolbar.m */,
 				D0F6004416375D9100ADBC38 /* iPad.storyboard */,
 				D030E6BA15C0D2DB00CB5285 /* Supporting Files */,
 			);
@@ -757,6 +762,7 @@
 				D0F9DA27170E5FBB00FA64E5 /* PHColors.m in Sources */,
 				D009A71A171742ED00BC4D77 /* LXReorderableCollectionViewFlowLayout.m in Sources */,
 				D009A71D171744A800BC4D77 /* PHCollectionViewCell.m in Sources */,
+				D0096CD217F3916B00B05E68 /* TransparentToolbar.m in Sources */,
 				D009A720171787EC00BC4D77 /* PHCollectionViewFlowLayout.m in Sources */,
 				D009A72517178E9700BC4D77 /* UILabel+VerticalAlignment.m in Sources */,
 				D05B89FD1725FB0800C61968 /* UIColor+Expanded.m in Sources */,

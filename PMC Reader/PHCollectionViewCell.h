@@ -13,7 +13,7 @@
 @protocol PHCollectionViewCellDelegate <NSObject>
 
 - (void)collectionViewCellSwiped:(PHCollectionViewCell *)cell;
-- (void)buttonTapped:(UIButton *)button inCell:(PHCollectionViewCell *)cell;
+- (void)buttonTapped:(UIBarButtonItem *)button inCell:(PHCollectionViewCell *)cell;
 @optional
 - (BOOL)collectionViewCellShouldSwipe:(PHCollectionViewCell *)cell;
 
@@ -33,8 +33,8 @@
 @property (strong, nonatomic) IBOutlet UILabel *publishedAsLabel;
 @property (strong, nonatomic) IBOutlet UIView *buttonContainerView;
 @property (strong, nonatomic) IBOutlet UIView *labelContainerView;
-@property (strong, nonatomic) IBOutlet UIButton *deleteButton;
-@property (strong, nonatomic) IBOutlet UIButton *downloadButton;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *deleteBarButton;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *downloadBarButton;
 @property (nonatomic, assign) BOOL buttonsVisible;
 @property (nonatomic, assign) BOOL activityVisible;
 
@@ -43,7 +43,7 @@
 - (void)showButtons;
 - (void)hideButtons;
 
-- (IBAction)doDelete:(UIButton *)sender;
-- (IBAction)doDownload:(UIButton *)sender;
+- (IBAction)doDelete:(UIBarButtonItem *)sender;
+- (IBAction)doDownload:(UIBarButtonItem *)sender;
 
 @end

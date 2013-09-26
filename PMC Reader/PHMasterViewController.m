@@ -161,7 +161,15 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
             [self.articles replaceObjectAtIndex:index withObject:article];
             [self writeArticles];
      }];
-    
+  
+    [[NSNotificationCenter defaultCenter]
+     addObserverForName:UIContentSizeCategoryDidChangeNotification
+     object:nil
+     queue:mainQueue
+     usingBlock:^(NSNotification *notification) {
+         [self.collectionView reloadData];
+     }];
+
     self.navigationItem.leftBarButtonItems = @[self.addBarButtonItem, self.layoutBarButtonItem];
     UIBarButtonItem *searchBarItem = [[UIBarButtonItem alloc] initWithCustomView:self.searchBar];
     self.navigationItem.rightBarButtonItem = searchBarItem;
@@ -270,6 +278,12 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
     cell.originalSourceLabel.textColor = [PHColors textColor];
     cell.publishedAsLabel.textColor = [PHColors textColor];
     
+    cell.titleLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleHeadline];
+    UIFont *myFont = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+    cell.authorLabel.font = [UIFont italicSystemFontOfSize:myFont.pointSize];
+    cell.originalSourceLabel.font = myFont;
+    cell.publishedAsLabel.font = [UIFont boldSystemFontOfSize:myFont.pointSize];
+    
     cell.titleLabel.textVerticalAlignment = UITextVerticalAlignmentTop;
     cell.authorLabel.textVerticalAlignment = UITextVerticalAlignmentTop;
     cell.originalSourceLabel.textVerticalAlignment = UITextVerticalAlignmentTop;
@@ -279,8 +293,8 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
     cell.contentView.opaque = YES;
     cell.labelContainerView.backgroundColor = [PHColors cellBackgroundColor];
     cell.buttonContainerView.backgroundColor = [PHColors cellBackgroundColor];
-    [cell.deleteButton setImage:[PHColors changeImage:[UIImage imageNamed:@"delete"] toColor:[PHColors iconColor]] forState:UIControlStateNormal];
-    [cell.downloadButton setImage:[PHColors changeImage:[UIImage imageNamed:@"download"] toColor:[PHColors iconColor]] forState:UIControlStateNormal];
+    cell.deleteBarButton.tintColor = [PHColors iconColor];
+    cell.downloadBarButton.tintColor = [PHColors iconColor];
 
     cell.activityVisible = article.downloading;
     
@@ -310,13 +324,13 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
     _swipedCell = cell;
 }
 
-- (void)buttonTapped:(UIButton *)button inCell:(PHCollectionViewCell *)cell {
+- (void)buttonTapped:(UIBarButtonItem *)button inCell:(PHCollectionViewCell *)cell {
     if (_swipedCell) {
         [_swipedCell hideButtons];
     }
     _swipedCell = nil;
     NSIndexPath *indexPath = [self.collectionView indexPathForCell:cell];
-    if ([button isEqual:cell.deleteButton]) {
+    if ([button isEqual:cell.deleteBarButton]) {
         NSFileManager *fm = [NSFileManager defaultManager];
         NSArray *paths = [fm URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask];
         NSURL *docDir = [paths objectAtIndex:0];
@@ -327,7 +341,7 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
         [self writeArticles];
         [self.collectionView deleteItemsAtIndexPaths:@[indexPath]];
     }
-    if ([button isEqual:cell.downloadButton]) {
+    if ([button isEqual:cell.downloadBarButton]) {
         NSFileManager *fm = [NSFileManager defaultManager];
          NSArray *paths = [fm URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask];
          NSURL *docDir = [paths objectAtIndex:0];

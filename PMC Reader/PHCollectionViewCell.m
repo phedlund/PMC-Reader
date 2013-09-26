@@ -58,9 +58,9 @@
             self.originalSourceLabel.frame = CGRectMake(10, 124, self.labelContainerView.frame.size.width - 20, 40);
         } else {
             self.titleLabel.frame = CGRectMake(10, 10, self.labelContainerView.frame.size.width - 20, 95);
-            self.authorLabel.frame = CGRectMake(10, 120, self.labelContainerView.frame.size.width - 20, 70);
+            self.authorLabel.frame = CGRectMake(10, 120, self.labelContainerView.frame.size.width - 20, 85);
             self.publishedAsLabel.frame = CGRectMake(10, 215, self.labelContainerView.frame.size.width - 20, 21);
-            self.originalSourceLabel.frame = CGRectMake(10, 240, self.labelContainerView.frame.size.width - 20, 60);
+            self.originalSourceLabel.frame = CGRectMake(10, 240, self.labelContainerView.frame.size.width - 20, 65);
         }
     }
 }
@@ -151,11 +151,12 @@
     return closeGestureRecognizer;
 }
 
-- (IBAction)doDelete:(UIButton *)sender {
+- (IBAction)doDelete:(UIBarButtonItem *)sender {
     [self.delegate buttonTapped:sender inCell:self];
 }
 
-- (IBAction)doDownload:(UIButton *)sender {
+- (IBAction)doDownload:(UIBarButtonItem *)sender {
     [self.delegate buttonTapped:sender inCell:self];
 }
+
 @end
