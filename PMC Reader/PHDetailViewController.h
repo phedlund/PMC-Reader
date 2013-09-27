@@ -31,7 +31,6 @@
 @property (nonatomic, strong, readonly) UIBarButtonItem *infoBarButtonItem;
 @property (nonatomic, strong, readonly) UIBarButtonItem *prefsBarButtonItem;
 @property (nonatomic, strong, readonly) UIBarButtonItem *navBarButtonItem;
-@property (nonatomic, strong, readonly) UIToolbar *leftToolbar;
 @property (nonatomic, strong, readonly) SCPageScrubberBar *pageNumberBar;
 @property (strong, nonatomic) IBOutlet UILabel *pageNumberLabel;
 

@@ -51,7 +51,7 @@
 @synthesize prefPopoverController = _prefPopoverController;
 @synthesize prefViewController = _prefViewController;
 @synthesize titleLabel, titleBarButtonItem;
-@synthesize backBarButtonItem, goBackBarButtonItem, forwardBarButtonItem, refreshBarButtonItem, stopBarButtonItem, leftToolbar;
+@synthesize backBarButtonItem, goBackBarButtonItem, forwardBarButtonItem, refreshBarButtonItem, stopBarButtonItem;
 @synthesize infoBarButtonItem, prefsBarButtonItem, navBarButtonItem;
 @synthesize articleNavigationController, articleNavigationPopover;
 @synthesize pageTapRecognizer, nextPageSwipeRecognizer, previousPageSwipeRecognizer;
@@ -770,12 +770,10 @@
             [self.articleView addGestureRecognizer:self.nextPageSwipeRecognizer];
             [self.articleView addGestureRecognizer:self.previousPageSwipeRecognizer];
             self.pageNumberBar.hidden = NO;
-            //self.titleLabel2.hidden = NO;
             self.articleView.frame = [self articleRect];
             [self updateCSS];
         } else {
             self.pageNumberBar.hidden = YES;
-            //self.titleLabel2.hidden = YES;
         }
         self.pageBarContainerView.hidden = NO;
         [self.pageBarContainerView addSubview:self.pageNumberBar];
