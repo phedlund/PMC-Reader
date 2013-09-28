@@ -9,6 +9,11 @@
 /* Begin PBXBuildFile section */
 		D0096CCF17F37F3800B05E68 /* UIImage+PHColor.m in Sources */ = {isa = PBXBuildFile; fileRef = D0096CCE17F37F3800B05E68 /* UIImage+PHColor.m */; };
 		D0096CD217F3916B00B05E68 /* TransparentToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = D0096CD117F3916B00B05E68 /* TransparentToolbar.m */; };
+		D0096D0E17F66DE400B05E68 /* close.png in Resources */ = {isa = PBXBuildFile; fileRef = D0096CFB17F66DE400B05E68 /* close.png */; };
+		D0096D0F17F66DE400B05E68 /* close@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D0096CFC17F66DE400B05E68 /* close@2x.png */; };
+		D0096D1417F66DE400B05E68 /* UAModalPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = D0096D0317F66DE400B05E68 /* UAModalPanel.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		D0096D1817F66DE400B05E68 /* UARoundedRectView.m in Sources */ = {isa = PBXBuildFile; fileRef = D0096D0C17F66DE400B05E68 /* UARoundedRectView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		D0096D1C17F7732800B05E68 /* PHFigTablePanel.m in Sources */ = {isa = PBXBuildFile; fileRef = D0096D1B17F7732800B05E68 /* PHFigTablePanel.m */; };
 		D009A71A171742ED00BC4D77 /* LXReorderableCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = D009A719171742ED00BC4D77 /* LXReorderableCollectionViewFlowLayout.m */; };
 		D009A71D171744A800BC4D77 /* PHCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D009A71C171744A800BC4D77 /* PHCollectionViewCell.m */; };
 		D009A720171787EC00BC4D77 /* PHCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = D009A71F171787EA00BC4D77 /* PHCollectionViewFlowLayout.m */; };
@@ -129,6 +134,14 @@
 		D0096CCE17F37F3800B05E68 /* UIImage+PHColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+PHColor.m"; sourceTree = "<group>"; };
 		D0096CD017F3916B00B05E68 /* TransparentToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransparentToolbar.h; sourceTree = "<group>"; };
 		D0096CD117F3916B00B05E68 /* TransparentToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransparentToolbar.m; sourceTree = "<group>"; };
+		D0096CFB17F66DE400B05E68 /* close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = close.png; sourceTree = "<group>"; };
+		D0096CFC17F66DE400B05E68 /* close@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "close@2x.png"; sourceTree = "<group>"; };
+		D0096D0217F66DE400B05E68 /* UAModalPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UAModalPanel.h; sourceTree = "<group>"; };
+		D0096D0317F66DE400B05E68 /* UAModalPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UAModalPanel.m; sourceTree = "<group>"; };
+		D0096D0B17F66DE400B05E68 /* UARoundedRectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UARoundedRectView.h; sourceTree = "<group>"; };
+		D0096D0C17F66DE400B05E68 /* UARoundedRectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UARoundedRectView.m; sourceTree = "<group>"; };
+		D0096D1A17F7732800B05E68 /* PHFigTablePanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHFigTablePanel.h; sourceTree = "<group>"; };
+		D0096D1B17F7732800B05E68 /* PHFigTablePanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHFigTablePanel.m; sourceTree = "<group>"; };
 		D009A718171742ED00BC4D77 /* LXReorderableCollectionViewFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LXReorderableCollectionViewFlowLayout.h; path = LXReorderableCollectionViewFlowLayout/LXReorderableCollectionViewFlowLayout/LXReorderableCollectionViewFlowLayout.h; sourceTree = SOURCE_ROOT; };
 		D009A719171742ED00BC4D77 /* LXReorderableCollectionViewFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LXReorderableCollectionViewFlowLayout.m; path = LXReorderableCollectionViewFlowLayout/LXReorderableCollectionViewFlowLayout/LXReorderableCollectionViewFlowLayout.m; sourceTree = SOURCE_ROOT; };
 		D009A71B171744A700BC4D77 /* PHCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHCollectionViewCell.h; sourceTree = "<group>"; };
@@ -291,6 +304,52 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D0096CF617F66DE400B05E68 /* Panel */ = {
+			isa = PBXGroup;
+			children = (
+				D0096CF717F66DE400B05E68 /* Categories */,
+				D0096CFA17F66DE400B05E68 /* Images */,
+				D0096D0117F66DE400B05E68 /* Panels */,
+				D0096D0617F66DE400B05E68 /* Views */,
+			);
+			name = Panel;
+			path = UAModalPanel/UAModalPanel/Panel;
+			sourceTree = SOURCE_ROOT;
+		};
+		D0096CF717F66DE400B05E68 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Categories;
+			sourceTree = "<group>";
+		};
+		D0096CFA17F66DE400B05E68 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				D0096CFB17F66DE400B05E68 /* close.png */,
+				D0096CFC17F66DE400B05E68 /* close@2x.png */,
+			);
+			path = Images;
+			sourceTree = "<group>";
+		};
+		D0096D0117F66DE400B05E68 /* Panels */ = {
+			isa = PBXGroup;
+			children = (
+				D0096D0217F66DE400B05E68 /* UAModalPanel.h */,
+				D0096D0317F66DE400B05E68 /* UAModalPanel.m */,
+			);
+			path = Panels;
+			sourceTree = "<group>";
+		};
+		D0096D0617F66DE400B05E68 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				D0096D0B17F66DE400B05E68 /* UARoundedRectView.h */,
+				D0096D0C17F66DE400B05E68 /* UARoundedRectView.m */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		D009A717171742ED00BC4D77 /* LXReorderableCollectionViewFlowLayout */ = {
 			isa = PBXGroup;
 			children = (
@@ -342,6 +401,7 @@
 		D030E6B915C0D2DB00CB5285 /* PMC Reader */ = {
 			isa = PBXGroup;
 			children = (
+				D0096CF617F66DE400B05E68 /* Panel */,
 				D05B89FA1725FB0700C61968 /* UIColor+Expanded */,
 				D009A717171742ED00BC4D77 /* LXReorderableCollectionViewFlowLayout */,
 				D0EEADFC1704C1B400DBAC4C /* SCPageScrubberBar */,
@@ -360,6 +420,8 @@
 				D009A71F171787EA00BC4D77 /* PHCollectionViewFlowLayout.m */,
 				D030E6CB15C0D2DB00CB5285 /* PHDetailViewController.h */,
 				D030E6CC15C0D2DB00CB5285 /* PHDetailViewController.m */,
+				D0096D1A17F7732800B05E68 /* PHFigTablePanel.h */,
+				D0096D1B17F7732800B05E68 /* PHFigTablePanel.m */,
 				D0F9DA25170E5FB900FA64E5 /* PHColors.h */,
 				D0F9DA26170E5FBA00FA64E5 /* PHColors.m */,
 				D0D1C75915CB652A0097CA9C /* PHPrefViewController.h */,
@@ -655,6 +717,7 @@
 				D0EFC99F15D4987200C26580 /* margin2@2x.png in Resources */,
 				D0EFC9A015D4987200C26580 /* margin3.png in Resources */,
 				D0EFC9A115D4987200C26580 /* margin3@2x.png in Resources */,
+				D0096D0F17F66DE400B05E68 /* close@2x.png in Resources */,
 				D0EFC9A815D49BE400C26580 /* background3.png in Resources */,
 				D0EFC9A915D49BE400C26580 /* background3@2x.png in Resources */,
 				D0EFC9AC15D707CF00C26580 /* background1.png in Resources */,
@@ -686,6 +749,7 @@
 				D0D399AB16C2DBF800EA2497 /* DejaVuSans.ttf in Resources */,
 				D0D399AC16C2DBF800EA2497 /* DejaVuSans-Bold.ttf in Resources */,
 				D0D399AD16C2DBF800EA2497 /* DejaVuSans-BoldOblique.ttf in Resources */,
+				D0096D0E17F66DE400B05E68 /* close.png in Resources */,
 				D0D399B516C2E09300EA2497 /* DejaVuSerif-Bold.ttf in Resources */,
 				D0D399B616C2E09300EA2497 /* DejaVuSerif-BoldItalic.ttf in Resources */,
 				D0D399B716C2E09300EA2497 /* DejaVuSerif-Italic.ttf in Resources */,
@@ -735,6 +799,7 @@
 				D0ED8FC7165C6A950081E81E /* PHTableViewCell.m in Sources */,
 				D036328916684C77000D3C0B /* PHDownloader.m in Sources */,
 				D0363291166961F3000D3C0B /* PHArticle.m in Sources */,
+				D0096D1417F66DE400B05E68 /* UAModalPanel.m in Sources */,
 				D0363294166AD2C6000D3C0B /* NSMutableArray+Extra.m in Sources */,
 				D036329F167296F6000D3C0B /* UINavigationController+DismissKeyboard.m in Sources */,
 				D0D3999C16C06FB800EA2497 /* PHArticleNavigationItem.m in Sources */,
@@ -747,9 +812,11 @@
 				D0F9DA27170E5FBB00FA64E5 /* PHColors.m in Sources */,
 				D009A71A171742ED00BC4D77 /* LXReorderableCollectionViewFlowLayout.m in Sources */,
 				D009A71D171744A800BC4D77 /* PHCollectionViewCell.m in Sources */,
+				D0096D1C17F7732800B05E68 /* PHFigTablePanel.m in Sources */,
 				D0096CD217F3916B00B05E68 /* TransparentToolbar.m in Sources */,
 				D009A720171787EC00BC4D77 /* PHCollectionViewFlowLayout.m in Sources */,
 				D009A72517178E9700BC4D77 /* UILabel+VerticalAlignment.m in Sources */,
+				D0096D1817F66DE400B05E68 /* UARoundedRectView.m in Sources */,
 				D05B89FD1725FB0800C61968 /* UIColor+Expanded.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

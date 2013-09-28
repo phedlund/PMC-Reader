@@ -192,3 +192,8 @@ div.togglers {
 div.ts_bar {
     display: none;
 }
+
+img {
+    max-width: 100%;
+    height: auto;
+}
