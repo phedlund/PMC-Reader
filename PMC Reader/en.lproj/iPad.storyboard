@@ -219,7 +219,6 @@
                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <items>
                                                         <barButtonItem style="plain" systemItem="trash" id="ip7-RB-jU3">
-                                                            <inset key="imageInsets" minX="22" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                             <connections>
                                                                 <action selector="doDelete:" destination="Ex8-Tn-kCw" id="EjU-9G-UWg"/>
                                                             </connections>
@@ -231,7 +230,6 @@
                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <items>
                                                         <barButtonItem style="plain" systemItem="refresh" id="Qlh-MJ-rDS">
-                                                            <inset key="imageInsets" minX="22" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                             <connections>
                                                                 <action selector="doDownload:" destination="Ex8-Tn-kCw" id="1dq-ET-72u"/>
                                                             </connections>
@@ -266,9 +264,7 @@
                             <outlet property="delegate" destination="XGV-d9-oRx" id="T1b-TT-gbW"/>
                         </connections>
                     </collectionView>
-                    <toolbarItems>
-                        <barButtonItem title="Item" id="g91-4o-d14"/>
-                    </toolbarItems>
+                    <toolbarItems/>
                     <navigationItem key="navigationItem" title="Articles" id="ZZW-tE-Hn8"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
@@ -456,6 +452,6 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="YhH-y4-TQt"/>
+        <segue reference="sIi-8E-tya"/>
     </inferredMetricsTieBreakers>
 </document>

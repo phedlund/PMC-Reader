@@ -119,7 +119,6 @@
 		D0EFC9B015D70BD500C26580 /* background2.png in Resources */ = {isa = PBXBuildFile; fileRef = D0EFC9AE15D70BD500C26580 /* background2.png */; };
 		D0EFC9B115D70BD500C26580 /* background2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D0EFC9AF15D70BD500C26580 /* background2@2x.png */; };
 		D0F4141516C711B60033C1E9 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0F4141416C711B60033C1E9 /* QuartzCore.framework */; };
-		D0F41E3A163C90620078DF2A /* MCSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = D0F41E39163C90620078DF2A /* MCSegmentedControl.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		D0F6004616375D9100ADBC38 /* iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0F6004416375D9100ADBC38 /* iPad.storyboard */; };
 		D0F60055163775EF00ADBC38 /* PHMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0F60052163775EF00ADBC38 /* PHMasterViewController.m */; };
 		D0F9DA27170E5FBB00FA64E5 /* PHColors.m in Sources */ = {isa = PBXBuildFile; fileRef = D0F9DA26170E5FBA00FA64E5 /* PHColors.m */; };
@@ -268,8 +267,6 @@
 		D0EFC9AE15D70BD500C26580 /* background2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = background2.png; path = Resources/background2.png; sourceTree = "<group>"; };
 		D0EFC9AF15D70BD500C26580 /* background2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "background2@2x.png"; path = "Resources/background2@2x.png"; sourceTree = "<group>"; };
 		D0F4141416C711B60033C1E9 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		D0F41E38163C90620078DF2A /* MCSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCSegmentedControl.h; sourceTree = "<group>"; };
-		D0F41E39163C90620078DF2A /* MCSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCSegmentedControl.m; sourceTree = "<group>"; };
 		D0F6004516375D9100ADBC38 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/iPad.storyboard; sourceTree = "<group>"; };
 		D0F60051163775EF00ADBC38 /* PHMasterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHMasterViewController.h; sourceTree = "<group>"; };
 		D0F60052163775EF00ADBC38 /* PHMasterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PHMasterViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
@@ -351,7 +348,6 @@
 				D0EEADED16FA770C00DBAC4C /* RTLabel */,
 				D0EEADE516FA76DF00DBAC4C /* PopoverView */,
 				D0ED8FC1165B1F8F0081E81E /* RaptureXML */,
-				D0F41E37163C90620078DF2A /* MCSegmentedControl */,
 				D0CDB7D415C1F59C0074B143 /* Parser */,
 				D0363299166EBD81000D3C0B /* ArrayExtra */,
 				D009A72217178E9600BC4D77 /* UILabel-VerticalAlignment */,
@@ -579,16 +575,6 @@
 			path = SCPageScrubberBar;
 			sourceTree = "<group>";
 		};
-		D0F41E37163C90620078DF2A /* MCSegmentedControl */ = {
-			isa = PBXGroup;
-			children = (
-				D0F41E38163C90620078DF2A /* MCSegmentedControl.h */,
-				D0F41E39163C90620078DF2A /* MCSegmentedControl.m */,
-			);
-			name = MCSegmentedControl;
-			path = MCSegmentedControl/MCSegmentedControlDemo/MCSegmentedControl;
-			sourceTree = SOURCE_ROOT;
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -744,7 +730,6 @@
 				D0CDB7D315C1F5900074B143 /* HTMLParser.m in Sources */,
 				D0D1C75B15CB652A0097CA9C /* PHPrefViewController.m in Sources */,
 				D0F60055163775EF00ADBC38 /* PHMasterViewController.m in Sources */,
-				D0F41E3A163C90620078DF2A /* MCSegmentedControl.m in Sources */,
 				D0ED8FC0165AEEBD0081E81E /* PHSearchViewController.m in Sources */,
 				D0ED8FC4165B1F900081E81E /* RXMLElement.m in Sources */,
 				D0ED8FC7165C6A950081E81E /* PHTableViewCell.m in Sources */,

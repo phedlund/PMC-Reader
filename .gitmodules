@@ -1,6 +1,3 @@
-[submodule "MCSegmentedControl"]
-	path = MCSegmentedControl
-	url = git://github.com/oettam/MCSegmentedControl.git
 [submodule "Objective-C-HMTL-Parser"]
 	path = Objective-C-HMTL-Parser
 	url = git://github.com/tresni/Objective-C-HMTL-Parser.git
