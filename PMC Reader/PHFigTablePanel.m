@@ -7,7 +7,7 @@
 //
 
 #import "PHFigTablePanel.h"
-#import "PHColors.h"
+#import "UIColor+PHColor.h"
 
 @implementation PHFigTablePanel
 
@@ -17,8 +17,8 @@
     if (self) {
 		self.margin = UIEdgeInsetsMake(40, 20, 20, 20);
         self.padding = UIEdgeInsetsMake(5, 5, 5, 5);
-        self.contentColor = [PHColors backgroundColor];
-        self.borderColor = [PHColors iconColor];
+        self.contentColor = [UIColor backgroundColor];
+        self.borderColor = [UIColor iconColor];
         self.shouldBounce = NO;
 		UIWebView *webView = [[UIWebView alloc] initWithFrame:CGRectZero];
         webView.delegate = self;

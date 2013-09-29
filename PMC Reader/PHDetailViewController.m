@@ -11,7 +11,7 @@
 #import "PHArticle.h"
 #import "PHArticleNavigationItem.h"
 #import "PHArticleReference.h"
-#import "PHColors.h"
+#import "UIColor+PHColor.h"
 #import "UIColor+Expanded.h"
 #import "PHFigTablePanel.h"
 
@@ -92,7 +92,7 @@
         self.articleView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         self.articleView.alpha = 0;
         self.articleView.opaque = NO;
-        self.articleView.backgroundColor = [PHColors backgroundColor];
+        self.articleView.backgroundColor = [UIColor backgroundColor];
         [self.view insertSubview:self.articleView belowSubview:self.pageBarContainerView];
         
         
@@ -433,7 +433,7 @@
                             _currentHash = ref.hashAttribute;
                             label.delegate = self;
                             label.text = labelText;
-                            label.textColor = [PHColors textColor];
+                            label.textColor = [UIColor textColor];
                             CGSize opt = [label optimumSize];
                             CGRect frame = [label frame];
                             frame.size.height = (int)opt.height + 5;
@@ -442,7 +442,7 @@
                             popover = [[PopoverView alloc] initWithFrame:label.frame];
                             int backgroundIndex =[[NSUserDefaults standardUserDefaults] integerForKey:@"Background"];
                             if (backgroundIndex > 0) {
-                                popover.backgroundGradientColors = @[[PHColors popoverButtonColor], [PHColors popoverBackgroundColor]];
+                                popover.backgroundGradientColors = @[[UIColor popoverButtonColor], [UIColor popoverBackgroundColor]];
                             }
                             [popover showAtPoint:currentTapLocation inView:self.articleView withContentView:label];
                             //popover = [PopoverView showPopoverAtPoint:currentTapLocation inView:self.articleView withContentView:label delegate:self];
@@ -549,7 +549,7 @@
 
 - (void)updateBackgrounds {
     int backgroundIndex =[[NSUserDefaults standardUserDefaults] integerForKey:@"Background"];
-    UIColor *bgColor = [PHColors backgroundColor];
+    UIColor *bgColor = [UIColor backgroundColor];
     self.view.backgroundColor = bgColor;
     self.topContainerView.backgroundColor = bgColor;
     self.pageBarContainerView.backgroundColor = bgColor;
@@ -558,15 +558,15 @@
     }
     self.pageNumberBar.nightMode = (backgroundIndex == 2);
     self.titleLabel2.alpha = (backgroundIndex == 2) ? 1.0f : 0.5f;
-    self.titleLabel.textColor = [PHColors iconColor];
-    self.backBarButtonItem.tintColor = [PHColors iconColor];
-    self.goBackBarButtonItem.tintColor = [PHColors iconColor];
-    self.forwardBarButtonItem.tintColor = [PHColors iconColor];
-    self.refreshBarButtonItem.tintColor = [PHColors iconColor];
-    self.stopBarButtonItem.tintColor = [PHColors iconColor];
-    self.prefsBarButtonItem.tintColor = [PHColors iconColor];
-    self.navBarButtonItem.tintColor = [PHColors iconColor];
-    self.infoBarButtonItem.tintColor = [PHColors iconColor];
+    self.titleLabel.textColor = [UIColor iconColor];
+    self.backBarButtonItem.tintColor = [UIColor iconColor];
+    self.goBackBarButtonItem.tintColor = [UIColor iconColor];
+    self.forwardBarButtonItem.tintColor = [UIColor iconColor];
+    self.refreshBarButtonItem.tintColor = [UIColor iconColor];
+    self.stopBarButtonItem.tintColor = [UIColor iconColor];
+    self.prefsBarButtonItem.tintColor = [UIColor iconColor];
+    self.navBarButtonItem.tintColor = [UIColor iconColor];
+    self.infoBarButtonItem.tintColor = [UIColor iconColor];
 }
 
 - (void) writeCssTemplate
@@ -587,9 +587,9 @@
     double lineHeight =[[NSUserDefaults standardUserDefaults] doubleForKey:@"LineHeight"];
     cssTemplate = [cssTemplate stringByReplacingOccurrencesOfString:@"$LINEHEIGHT$" withString:[NSString stringWithFormat:@"%fem", lineHeight]];
     
-    cssTemplate = [cssTemplate stringByReplacingOccurrencesOfString:@"$BACKGROUND$" withString:[NSString stringWithFormat:@"#%@", [PHColors backgroundColor].hexStringValue]];
-    cssTemplate = [cssTemplate stringByReplacingOccurrencesOfString:@"$COLOR$" withString:[NSString stringWithFormat:@"#%@", [PHColors textColor].hexStringValue]];
-    cssTemplate = [cssTemplate stringByReplacingOccurrencesOfString:@"$COLORLINK$" withString:[NSString stringWithFormat:@"#%@", [PHColors linkColor].hexStringValue]];
+    cssTemplate = [cssTemplate stringByReplacingOccurrencesOfString:@"$BACKGROUND$" withString:[NSString stringWithFormat:@"#%@", [UIColor backgroundColor].hexStringValue]];
+    cssTemplate = [cssTemplate stringByReplacingOccurrencesOfString:@"$COLOR$" withString:[NSString stringWithFormat:@"#%@", [UIColor textColor].hexStringValue]];
+    cssTemplate = [cssTemplate stringByReplacingOccurrencesOfString:@"$COLORLINK$" withString:[NSString stringWithFormat:@"#%@", [UIColor linkColor].hexStringValue]];
     
     NSFileManager *fm = [NSFileManager defaultManager];
     NSArray *paths = [fm URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask];

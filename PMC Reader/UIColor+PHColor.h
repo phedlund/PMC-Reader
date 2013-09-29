@@ -1,12 +1,12 @@
 //
-//  PHColors.h
+//  UIColor+PHColor.h
 //  PMC Reader
 //
-//  Created by Peter Hedlund on 4/4/13.
+//  Created by Peter Hedlund on 9/29/13.
 //  Copyright (c) 2013 Peter Hedlund. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 //White
 #define kPHWhiteBackgroundColor        [UIColor colorWithRed:0.97 green:0.97 blue:0.97 alpha:1]
@@ -38,7 +38,7 @@
 #define kPHNightPopoverButtonColor     [UIColor colorWithRed:0.28 green:0.28 blue:0.28 alpha:1]
 #define kPHNightPopoverBorderColor     [UIColor colorWithRed:0.0  green:0.0  blue:0.0  alpha:1]
 
-@interface PHColors : NSObject
+@interface UIColor (PHColor)
 
 + (UIColor *)backgroundColor;
 + (UIColor *)cellBackgroundColor;
@@ -49,7 +49,5 @@
 + (UIColor *)popoverButtonColor;
 + (UIColor *)popoverBorderColor;
 + (UIColor *)popoverIconColor;
-
-+ (UIImage *)changeImage:(UIImage*)image toColor:(UIColor*)color;
 
 @end

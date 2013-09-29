@@ -1,12 +1,12 @@
 //
-//  PHColors.m
+//  UIColor+PHColor.m
 //  PMC Reader
 //
-//  Created by Peter Hedlund on 4/4/13.
+//  Created by Peter Hedlund on 9/29/13.
 //  Copyright (c) 2013 Peter Hedlund. All rights reserved.
 //
 
-#import "PHColors.h"
+#import "UIColor+PHColor.h"
 
 #define kPHBackgroundColorArray        @[kPHWhiteBackgroundColor, kPHSepiaBackgroundColor, kPHNightBackgroundColor]
 #define kPHCellBackgroundColorArray    @[kPHWhiteCellBackgroundColor, kPHSepiaCellBackgroundColor, kPHNightCellBackgroundColor]
@@ -17,7 +17,7 @@
 #define kPHPopoverButtonColorArray     @[kPHWhitePopoverButtonColor, kPHSepiaPopoverButtonColor, kPHNightPopoverButtonColor]
 #define kPHPopoverBorderColorArray     @[kPHWhitePopoverBorderColor, kPHSepiaPopoverBorderColor, kPHNightPopoverBorderColor]
 
-@implementation PHColors
+@implementation UIColor (PHColor)
 
 + (UIColor *)backgroundColor {
     int backgroundIndex =[[NSUserDefaults standardUserDefaults] integerForKey:@"Background"];
@@ -65,22 +65,6 @@
         return kPHNightTextColor;
     }
     return [kPHIconColorArray objectAtIndex:backgroundIndex];
-}
-
-+ (UIImage *)changeImage:(UIImage*)image toColor:(UIColor*)color {
-    CGRect rect = CGRectMake(0, 0, image.size.width * image.scale, image.size.height * image.scale);
-
-    UIGraphicsBeginImageContext(rect.size);
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    CGContextTranslateCTM(context, 0, rect.size.height);
-    CGContextScaleCTM(context, 1.0, -1.0);
-    CGContextClipToMask(context, rect, image.CGImage);
-    CGContextSetFillColorWithColor(context, [color CGColor]);
-    CGContextFillRect(context, rect);
-    UIImage *img = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    return [UIImage imageWithCGImage:img.CGImage scale:1.0 orientation: UIImageOrientationUp];
 }
 
 @end

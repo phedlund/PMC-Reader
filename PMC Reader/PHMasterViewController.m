@@ -12,7 +12,7 @@
 #import "NSMutableArray+Extra.h"
 #import "PHCollectionViewCell.h"
 #import "PHCollectionViewFlowLayout.h"
-#import "PHColors.h"
+#import "UIColor+PHColor.h"
 #import "UILabel+VerticalAlignment.h"
 #import "UIImage+PHColor.h"
 
@@ -273,10 +273,10 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
     cell.authorLabel.text = article.authors;
     cell.originalSourceLabel.text = article.source;
     
-    cell.titleLabel.textColor = [PHColors textColor];
-    cell.authorLabel.textColor = [PHColors textColor];
-    cell.originalSourceLabel.textColor = [PHColors textColor];
-    cell.publishedAsLabel.textColor = [PHColors textColor];
+    cell.titleLabel.textColor = [UIColor textColor];
+    cell.authorLabel.textColor = [UIColor textColor];
+    cell.originalSourceLabel.textColor = [UIColor textColor];
+    cell.publishedAsLabel.textColor = [UIColor textColor];
     
     cell.titleLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleHeadline];
     UIFont *myFont = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
@@ -288,13 +288,13 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
     cell.authorLabel.textVerticalAlignment = UITextVerticalAlignmentTop;
     cell.originalSourceLabel.textVerticalAlignment = UITextVerticalAlignmentTop;
     
-    cell.backgroundColor = [PHColors cellBackgroundColor];
-    cell.contentView.backgroundColor = [PHColors cellBackgroundColor];
+    cell.backgroundColor = [UIColor cellBackgroundColor];
+    cell.contentView.backgroundColor = [UIColor cellBackgroundColor];
     cell.contentView.opaque = YES;
-    cell.labelContainerView.backgroundColor = [PHColors cellBackgroundColor];
-    cell.buttonContainerView.backgroundColor = [PHColors cellBackgroundColor];
-    cell.deleteBarButton.tintColor = [PHColors iconColor];
-    cell.downloadBarButton.tintColor = [PHColors iconColor];
+    cell.labelContainerView.backgroundColor = [UIColor cellBackgroundColor];
+    cell.buttonContainerView.backgroundColor = [UIColor cellBackgroundColor];
+    cell.deleteBarButton.tintColor = [UIColor iconColor];
+    cell.downloadBarButton.tintColor = [UIColor iconColor];
 
     cell.activityVisible = article.downloading;
     
@@ -513,7 +513,7 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
 #pragma mark - Misc
 
 - (void)updateBackgrounds {
-    UIColor *bgColor = [PHColors backgroundColor];
+    UIColor *bgColor = [UIColor backgroundColor];
     //self.navigationController.view.backgroundColor = bgColor;
     self.view.backgroundColor = bgColor;
     self.collectionView.backgroundColor = bgColor;
@@ -527,12 +527,12 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
     
     [self.navigationController.navigationBar setTitleTextAttributes:
         [NSDictionary dictionaryWithObjectsAndKeys:
-         [PHColors iconColor], NSForegroundColorAttributeName,
+         [UIColor iconColor], NSForegroundColorAttributeName,
          shadow, NSShadowAttributeName, nil]];
 
-    self.addBarButtonItem.tintColor = [PHColors iconColor];
-    self.layoutBarButtonItem.tintColor = [PHColors iconColor];
-    [self.searchBar setSearchFieldBackgroundImage:[UIImage imageWithColor:[PHColors cellBackgroundColor]] forState:UIControlStateNormal];
+    self.addBarButtonItem.tintColor = [UIColor iconColor];
+    self.layoutBarButtonItem.tintColor = [UIColor iconColor];
+    [self.searchBar setSearchFieldBackgroundImage:[UIImage imageWithColor:[UIColor cellBackgroundColor]] forState:UIControlStateNormal];
     [self.collectionView reloadData];
 }
 

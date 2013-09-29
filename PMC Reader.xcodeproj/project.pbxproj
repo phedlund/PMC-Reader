@@ -14,6 +14,7 @@
 		D0096D1417F66DE400B05E68 /* UAModalPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = D0096D0317F66DE400B05E68 /* UAModalPanel.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		D0096D1817F66DE400B05E68 /* UARoundedRectView.m in Sources */ = {isa = PBXBuildFile; fileRef = D0096D0C17F66DE400B05E68 /* UARoundedRectView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		D0096D1C17F7732800B05E68 /* PHFigTablePanel.m in Sources */ = {isa = PBXBuildFile; fileRef = D0096D1B17F7732800B05E68 /* PHFigTablePanel.m */; };
+		D0096D2217F8F37D00B05E68 /* UIColor+PHColor.m in Sources */ = {isa = PBXBuildFile; fileRef = D0096D2117F8F37D00B05E68 /* UIColor+PHColor.m */; };
 		D009A71A171742ED00BC4D77 /* LXReorderableCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = D009A719171742ED00BC4D77 /* LXReorderableCollectionViewFlowLayout.m */; };
 		D009A71D171744A800BC4D77 /* PHCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D009A71C171744A800BC4D77 /* PHCollectionViewCell.m */; };
 		D009A720171787EC00BC4D77 /* PHCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = D009A71F171787EA00BC4D77 /* PHCollectionViewFlowLayout.m */; };
@@ -108,7 +109,6 @@
 		D0F4141516C711B60033C1E9 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0F4141416C711B60033C1E9 /* QuartzCore.framework */; };
 		D0F6004616375D9100ADBC38 /* iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0F6004416375D9100ADBC38 /* iPad.storyboard */; };
 		D0F60055163775EF00ADBC38 /* PHMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0F60052163775EF00ADBC38 /* PHMasterViewController.m */; };
-		D0F9DA27170E5FBB00FA64E5 /* PHColors.m in Sources */ = {isa = PBXBuildFile; fileRef = D0F9DA26170E5FBA00FA64E5 /* PHColors.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -124,6 +124,8 @@
 		D0096D0C17F66DE400B05E68 /* UARoundedRectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UARoundedRectView.m; sourceTree = "<group>"; };
 		D0096D1A17F7732800B05E68 /* PHFigTablePanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHFigTablePanel.h; sourceTree = "<group>"; };
 		D0096D1B17F7732800B05E68 /* PHFigTablePanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHFigTablePanel.m; sourceTree = "<group>"; };
+		D0096D2017F8F37D00B05E68 /* UIColor+PHColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+PHColor.h"; sourceTree = "<group>"; };
+		D0096D2117F8F37D00B05E68 /* UIColor+PHColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+PHColor.m"; sourceTree = "<group>"; };
 		D009A718171742ED00BC4D77 /* LXReorderableCollectionViewFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LXReorderableCollectionViewFlowLayout.h; path = LXReorderableCollectionViewFlowLayout/LXReorderableCollectionViewFlowLayout/LXReorderableCollectionViewFlowLayout.h; sourceTree = SOURCE_ROOT; };
 		D009A719171742ED00BC4D77 /* LXReorderableCollectionViewFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LXReorderableCollectionViewFlowLayout.m; path = LXReorderableCollectionViewFlowLayout/LXReorderableCollectionViewFlowLayout/LXReorderableCollectionViewFlowLayout.m; sourceTree = SOURCE_ROOT; };
 		D009A71B171744A700BC4D77 /* PHCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHCollectionViewCell.h; sourceTree = "<group>"; };
@@ -247,8 +249,6 @@
 		D0F6004516375D9100ADBC38 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/iPad.storyboard; sourceTree = "<group>"; };
 		D0F60051163775EF00ADBC38 /* PHMasterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHMasterViewController.h; sourceTree = "<group>"; };
 		D0F60052163775EF00ADBC38 /* PHMasterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PHMasterViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		D0F9DA25170E5FB900FA64E5 /* PHColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHColors.h; sourceTree = "<group>"; };
-		D0F9DA26170E5FBA00FA64E5 /* PHColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHColors.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -386,8 +386,8 @@
 				D030E6CC15C0D2DB00CB5285 /* PHDetailViewController.m */,
 				D0096D1A17F7732800B05E68 /* PHFigTablePanel.h */,
 				D0096D1B17F7732800B05E68 /* PHFigTablePanel.m */,
-				D0F9DA25170E5FB900FA64E5 /* PHColors.h */,
-				D0F9DA26170E5FBA00FA64E5 /* PHColors.m */,
+				D0096D2017F8F37D00B05E68 /* UIColor+PHColor.h */,
+				D0096D2117F8F37D00B05E68 /* UIColor+PHColor.m */,
 				D0D1C75915CB652A0097CA9C /* PHPrefViewController.h */,
 				D0D1C75A15CB652A0097CA9C /* PHPrefViewController.m */,
 				D0ED8FBE165AEEBD0081E81E /* PHSearchViewController.h */,
@@ -737,7 +737,7 @@
 				D0EEADEC16FA770000DBAC4C /* RTLabel.m in Sources */,
 				D0EEAE021704C1B500DBAC4C /* SCCalloutView.m in Sources */,
 				D0EEAE041704C1B500DBAC4C /* SCPageScrubberBar.m in Sources */,
-				D0F9DA27170E5FBB00FA64E5 /* PHColors.m in Sources */,
+				D0096D2217F8F37D00B05E68 /* UIColor+PHColor.m in Sources */,
 				D009A71A171742ED00BC4D77 /* LXReorderableCollectionViewFlowLayout.m in Sources */,
 				D009A71D171744A800BC4D77 /* PHCollectionViewCell.m in Sources */,
 				D0096D1C17F7732800B05E68 /* PHFigTablePanel.m in Sources */,

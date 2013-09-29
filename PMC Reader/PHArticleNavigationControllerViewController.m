@@ -8,7 +8,7 @@
 
 #import "PHArticleNavigationControllerViewController.h"
 #import "PHArticleNavigationItem.h"
-#import "PHColors.h"
+#import "UIColor+PHColor.h"
 
 @interface PHArticleNavigationControllerViewController ()
 
@@ -44,8 +44,8 @@
     [super viewWillAppear:animated];
     
     self.tableView.scrollEnabled = NO;
-    self.tableView.backgroundColor = [PHColors popoverButtonColor];
-    self.tableView.separatorColor = [PHColors popoverBorderColor];
+    self.tableView.backgroundColor = [UIColor popoverButtonColor];
+    self.tableView.separatorColor = [UIColor popoverBorderColor];
     [self.tableView reloadData];
 }
 
@@ -91,7 +91,7 @@
         cell.textLabel.text = @"Article Sections Not Available";
         cell.detailTextLabel.text = @"Redownload the article to enable";
     }
-    cell.textLabel.textColor = [PHColors popoverIconColor];
+    cell.textLabel.textColor = [UIColor popoverIconColor];
     return cell;
 }
 

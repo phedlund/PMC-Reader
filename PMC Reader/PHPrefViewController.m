@@ -8,7 +8,7 @@
 
 #import "PHPrefViewController.h"
 #import "QuartzCore/QuartzCore.h"
-#import "PHColors.h"
+#import "UIColor+PHColor.h"
 
 #define MIN_FONT_SIZE 11
 #define MAX_FONT_SIZE 30
@@ -143,12 +143,12 @@
 }
 
 - (void)updateBackgrounds {
-    self.view.backgroundColor = [PHColors popoverBackgroundColor];
-    self.tableView.backgroundColor = [PHColors popoverButtonColor];
-    self.tableView.layer.borderColor = [[PHColors popoverBorderColor] CGColor];
-    self.tableView.separatorColor = [PHColors popoverBorderColor];
+    self.view.backgroundColor = [UIColor popoverBackgroundColor];
+    self.tableView.backgroundColor = [UIColor popoverButtonColor];
+    self.tableView.layer.borderColor = [[UIColor popoverBorderColor] CGColor];
+    self.tableView.separatorColor = [UIColor popoverBorderColor];
     
-    UIColor *buttonColor = [PHColors popoverButtonColor];
+    UIColor *buttonColor = [UIColor popoverButtonColor];
     self.paginationOnButton.backgroundColor = buttonColor;
     self.paginationOffButton.backgroundColor = buttonColor;
     self.decreaseFontSizeButton.backgroundColor = buttonColor;
@@ -161,7 +161,7 @@
     self.decreaseMarginButton.backgroundColor = buttonColor;
     self.increaseMarginButton.backgroundColor = buttonColor;
  
-    CGColorRef borderColor = [[PHColors popoverBorderColor] CGColor];
+    CGColorRef borderColor = [[UIColor popoverBorderColor] CGColor];
     self.paginationOnButton.layer.borderColor = borderColor;
     self.paginationOffButton.layer.borderColor = borderColor;
     self.decreaseFontSizeButton.layer.borderColor = borderColor;
@@ -174,7 +174,7 @@
     self.decreaseMarginButton.layer.borderColor = borderColor;
     self.increaseMarginButton.layer.borderColor = borderColor;
     
-    UIColor *iconColor = [PHColors popoverIconColor];
+    UIColor *iconColor = [UIColor popoverIconColor];
     self.paginationOnButton.tintColor = iconColor;
     self.paginationOffButton.tintColor = iconColor;
     self.decreaseFontSizeButton.tintColor = iconColor;
@@ -295,7 +295,7 @@
     
     // Configure the cell...
     cell.textLabel.text = [self.fonts objectAtIndex:indexPath.row];
-    cell.textLabel.textColor = [PHColors popoverIconColor];
+    cell.textLabel.textColor = [UIColor popoverIconColor];
     cell.accessoryType = UITableViewCellAccessoryNone;
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     NSString *font = [prefs valueForKey:@"Font"];
