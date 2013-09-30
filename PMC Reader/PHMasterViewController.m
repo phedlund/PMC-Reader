@@ -47,6 +47,48 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
         NSMutableArray *theArticles;
         if ([fm fileExistsAtPath:[articlesURL path]]) {
             theArticles = [NSMutableArray readFromPlistFile:@"articles"];
+            
+            //update block
+            if (![[NSUserDefaults standardUserDefaults] boolForKey:@"Update01"]) {
+                
+                NSDirectoryEnumerator *dirEnumerator = [fm enumeratorAtURL:docDir
+                                                includingPropertiesForKeys:[NSArray arrayWithObjects:NSURLNameKey, NSURLIsDirectoryKey,nil]
+                                                                   options:NSDirectoryEnumerationSkipsHiddenFiles | NSDirectoryEnumerationSkipsSubdirectoryDescendants
+                                                              errorHandler:nil];
+                
+                for (NSURL *theURL in dirEnumerator) {
+                    // Retrieve the file name. From NSURLNameKey, cached during the enumeration.
+                    NSString *fileName;
+                    [theURL getResourceValue:&fileName forKey:NSURLNameKey error:NULL];
+                    
+                    // Retrieve whether a directory. From NSURLIsDirectoryKey, also
+                    // cached during the enumeration.
+                    NSNumber *isDirectory;
+                    [theURL getResourceValue:&isDirectory forKey:NSURLIsDirectoryKey error:NULL];
+                    
+                    // Ignore files under the _extras directory
+                    if ([isDirectory boolValue]==YES) {
+                        if ([fileName caseInsensitiveCompare:@"templates"]==NSOrderedSame) {
+                            //
+                        } else {
+                            NSURL *fileURL = [theURL URLByAppendingPathComponent:@"text.html"];
+                            NSString *text = [NSString stringWithContentsOfURL:fileURL encoding:NSUTF8StringEncoding error:nil];
+                            NSError *error = nil;
+                            NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"file:///var/mobile/Applications/([0-9a-f-]{36}).*?/Documents/templates/pmc.css" options:NSRegularExpressionCaseInsensitive error:&error];
+                            text = [regex stringByReplacingMatchesInString:text options:0 range:NSMakeRange(0, [text length]) withTemplate:@"../templates/pmc.css"];
+                            
+                            regex = [NSRegularExpression regularExpressionWithPattern:@"file:///var/mobile/Applications/([0-9a-f-]{36}).*?/Documents/templates/pmc.js" options:NSRegularExpressionCaseInsensitive error:&error];
+                            text = [regex stringByReplacingMatchesInString:text options:0 range:NSMakeRange(0, [text length]) withTemplate:@"../templates/pmc.js"];
+                            
+                            NSLog(@"%@", text);
+                            [text writeToURL:fileURL atomically:YES encoding:NSUTF8StringEncoding error:nil];
+                        }
+                    }
+                }
+                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"Update01"];
+            }
+            //end update block
+            
         } else {
             //Updating from version 1.x of PMC Reader
             theArticles = [[NSMutableArray alloc] init];
