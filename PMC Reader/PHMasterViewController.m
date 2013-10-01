@@ -43,13 +43,20 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
         NSFileManager *fm = [NSFileManager defaultManager];
         NSArray *paths = [fm URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask];
         NSURL *docDir = [paths objectAtIndex:0];
+        NSString *docPath = [docDir absoluteString];
+        
+        NSRegularExpression *appDirMatch = [NSRegularExpression regularExpressionWithPattern:@"([0-9a-f-]{36}).*?" options:NSRegularExpressionCaseInsensitive error:nil];
+        NSTextCheckingResult *checkResult = [appDirMatch firstMatchInString:docPath options:NSMatchingReportProgress  range:NSMakeRange(0, [docPath length])];
+        NSString *appDir = [docPath substringWithRange:[checkResult range]];
+        NSLog(@"AppDir: %@", appDir);
+       
         NSURL *articlesURL = [docDir URLByAppendingPathComponent:@"articles.plist" isDirectory:NO];
         NSMutableArray *theArticles;
         if ([fm fileExistsAtPath:[articlesURL path]]) {
             theArticles = [NSMutableArray readFromPlistFile:@"articles"];
             
             //update block
-            if (![[NSUserDefaults standardUserDefaults] boolForKey:@"Update01"]) {
+            if (![[[NSUserDefaults standardUserDefaults] objectForKey:@"AppDirGUID"] isEqualToString:appDir] ) {
                 
                 NSDirectoryEnumerator *dirEnumerator = [fm enumeratorAtURL:docDir
                                                 includingPropertiesForKeys:[NSArray arrayWithObjects:NSURLNameKey, NSURLIsDirectoryKey,nil]
@@ -66,26 +73,32 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
                     NSNumber *isDirectory;
                     [theURL getResourceValue:&isDirectory forKey:NSURLIsDirectoryKey error:NULL];
                     
-                    // Ignore files under the _extras directory
+                    // Ignore files under the templates directory
                     if ([isDirectory boolValue]==YES) {
-                        if ([fileName caseInsensitiveCompare:@"templates"]==NSOrderedSame) {
+                        if ([fileName caseInsensitiveCompare:@"templates"] == NSOrderedSame) {
                             //
                         } else {
-                            NSURL *fileURL = [theURL URLByAppendingPathComponent:@"text.html"];
-                            NSString *text = [NSString stringWithContentsOfURL:fileURL encoding:NSUTF8StringEncoding error:nil];
-                            NSError *error = nil;
-                            NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"file:///var/mobile/Applications/([0-9a-f-]{36}).*?/Documents/templates/pmc.css" options:NSRegularExpressionCaseInsensitive error:&error];
-                            text = [regex stringByReplacingMatchesInString:text options:0 range:NSMakeRange(0, [text length]) withTemplate:@"../templates/pmc.css"];
                             
-                            regex = [NSRegularExpression regularExpressionWithPattern:@"file:///var/mobile/Applications/([0-9a-f-]{36}).*?/Documents/templates/pmc.js" options:NSRegularExpressionCaseInsensitive error:&error];
-                            text = [regex stringByReplacingMatchesInString:text options:0 range:NSMakeRange(0, [text length]) withTemplate:@"../templates/pmc.js"];
+                            NSDirectoryEnumerator *fileEnumerator = [fm enumeratorAtURL:theURL
+                                                             includingPropertiesForKeys:@[NSURLNameKey, NSURLIsRegularFileKey]
+                                                                                options:NSDirectoryEnumerationSkipsHiddenFiles | NSDirectoryEnumerationSkipsSubdirectoryDescendants
+                                                                           errorHandler:nil];
                             
-                            NSLog(@"%@", text);
-                            [text writeToURL:fileURL atomically:YES encoding:NSUTF8StringEncoding error:nil];
+                            
+                            NSURL *fileURL;
+                            while ((fileURL = [fileEnumerator nextObject])) {
+                                if ([[fileURL pathExtension] isEqualToString: @"html"]) {
+                                    // process the document
+                                    NSString *text = [NSString stringWithContentsOfURL:fileURL encoding:NSUTF8StringEncoding error:nil];
+                                    text = [appDirMatch stringByReplacingMatchesInString:text options:0 range:NSMakeRange(0, [text length]) withTemplate:appDir];
+                                    NSLog(@"%@", text);
+                                    [text writeToURL:fileURL atomically:YES encoding:NSUTF8StringEncoding error:nil];
+                                }
+                            }
                         }
                     }
                 }
-                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"Update01"];
+                [[NSUserDefaults standardUserDefaults] setObject:appDir forKey:@"AppDirGUID"];
             }
             //end update block
             
