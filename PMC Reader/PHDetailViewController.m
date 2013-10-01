@@ -399,22 +399,21 @@
             }
         }
         if ([request.URL.scheme isEqualToString:@"file"]) {
-            NSRange rangeF = [request.URL.absoluteString rangeOfString:[NSString stringWithFormat:@"Documents/%@/F", self.article.pmcId]];
-            NSRange rangeT = [request.URL.absoluteString rangeOfString:[NSString stringWithFormat:@"Documents/%@/T", self.article.pmcId]];
-
-            if ((rangeF.location != NSNotFound) || (rangeT.location != NSNotFound)) {
-                CGRect myFrame;
-                if (UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation)) {
-                    myFrame = CGRectMake(0, 0, 1024, 768);
-                } else {
-                    myFrame = CGRectMake(0, 0, 768, 1024);
+            if ([[request.URL pathExtension] isEqualToString:@"html"]) {
+                NSRange range = [url.absoluteString rangeOfString:[NSString stringWithFormat:@"Documents/%@/text.html", self.article.pmcId]];
+                if (range.location != NSNotFound) {
+                    CGRect myFrame;
+                    if (UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation)) {
+                        myFrame = CGRectMake(0, 0, 1024, 768);
+                    } else {
+                        myFrame = CGRectMake(0, 0, 768, 1024);
+                    }
+                    PHFigTablePanel *figPanel = [[PHFigTablePanel alloc] initWithFrame:myFrame URL:request.URL];
+                    [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:figPanel];
+                    [figPanel showFromPoint:currentTapLocation];
+                    return NO;
                 }
-                PHFigTablePanel *figPanel = [[PHFigTablePanel alloc] initWithFrame:myFrame URL:request.URL];
-                [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:figPanel];
-                [figPanel showFromPoint:currentTapLocation];
-                return NO;
             }
-
         }
         if ([request.URL.scheme isEqualToString:@"http"]) {
             NSRange range = [request.URL.absoluteString rangeOfString:@"#"];
