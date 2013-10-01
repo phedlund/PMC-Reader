@@ -15,8 +15,8 @@
 #import "UIColor+Expanded.h"
 #import "PHFigTablePanel.h"
 
-#define TITLE_LABEL_WIDTH_LANDSCAPE 680
-#define TITLE_LABEL_WIDTH_PORTRAIT 430
+#define TITLE_LABEL_WIDTH_LANDSCAPE 630
+#define TITLE_LABEL_WIDTH_PORTRAIT 380
 
 @interface PHDetailViewController () {
     PopoverView *popover;
@@ -158,18 +158,14 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     CGRect newRect = self.titleLabel.frame;
-    CGRect newRect2 = self.titleLabel2.frame;
     if (([UIApplication sharedApplication].statusBarOrientation == UIDeviceOrientationLandscapeLeft) ||
         ([UIApplication sharedApplication].statusBarOrientation == UIDeviceOrientationLandscapeRight)) {
         newRect.size.width = TITLE_LABEL_WIDTH_LANDSCAPE;
-        newRect2.size.width = TITLE_LABEL_WIDTH_LANDSCAPE;
     } else {
         newRect.size.width = TITLE_LABEL_WIDTH_PORTRAIT;
-        newRect2.size.width = TITLE_LABEL_WIDTH_PORTRAIT;
     }
     self.titleLabel.frame = newRect;
-    self.titleLabel2.frame = newRect2;
-    //self.titleLabel2.hidden = !self.navigationController.navigationBarHidden;
+    self.titleLabel2.frame = CGRectOffset(newRect, 0, 20);
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -191,16 +187,13 @@
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
     [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
     CGRect newRect = self.titleLabel.frame;
-    CGRect newRect2 = self.titleLabel2.frame;
     if ((toInterfaceOrientation == UIInterfaceOrientationLandscapeLeft) || (toInterfaceOrientation == UIInterfaceOrientationLandscapeRight)) {
         newRect.size.width = TITLE_LABEL_WIDTH_LANDSCAPE;
-        newRect2.size.width = TITLE_LABEL_WIDTH_LANDSCAPE;
     } else {
         newRect.size.width = TITLE_LABEL_WIDTH_PORTRAIT;
-        newRect2.size.width = TITLE_LABEL_WIDTH_PORTRAIT;
     }
     self.titleLabel.frame = newRect;
-    self.titleLabel2.frame = newRect2;
+    self.titleLabel2.frame = CGRectOffset(newRect, 0, 20);
     if ([self shouldPaginate]) {
         if (self.articleView != nil) {
             [self.articleView reload];
@@ -400,8 +393,8 @@
         }
         if ([request.URL.scheme isEqualToString:@"file"]) {
             if ([[request.URL pathExtension] isEqualToString:@"html"]) {
-                NSRange range = [url.absoluteString rangeOfString:[NSString stringWithFormat:@"Documents/%@/text.html", self.article.pmcId]];
-                if (range.location != NSNotFound) {
+                NSRange range = [request.URL.absoluteString rangeOfString:[NSString stringWithFormat:@"Documents/%@/text.html", self.article.pmcId]];
+                if (range.location == NSNotFound) {
                     CGRect myFrame;
                     if (UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation)) {
                         myFrame = CGRectMake(0, 0, 1024, 768);
