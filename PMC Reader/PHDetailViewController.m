@@ -94,7 +94,9 @@
         self.articleView.opaque = NO;
         self.articleView.backgroundColor = [UIColor backgroundColor];
         [self.view insertSubview:self.articleView belowSubview:self.pageBarContainerView];
-        
+        if (![self shouldPaginate]) {
+             self.articleView.scrollView.contentInset = UIEdgeInsetsMake(64, 0, 0, 0);
+        }
         
         UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(toggleNavBar:)];
         gesture.numberOfTapsRequired = 1;
@@ -109,7 +111,6 @@
         _currentPage = 0;
         self.pageNumberLabel.text = @"";
         [self updateBackgrounds];
-        self.topContainerView.hidden = !self.navigationController.navigationBarHidden;
         [self.titleLabel setText:self.article.title];
         [self.titleLabel2 setText:self.article.title];
         _handlingLink = NO;
@@ -135,7 +136,6 @@
     [self updateToolbar];
     [self writeCssTemplate];
     currentTapLocation = CGPointMake(350, 100);
-    self.topContainerView.hidden = YES;
     self.titleLabel2.text = @"";
     self.pageNumberLabel.text = @"";
     //bottomBorder = [CALayer layer];
@@ -299,12 +299,18 @@
             self.pageNumberBar.hidden = NO;
             self.pageNumberLabel.alpha = 1.0f;
             self.topContainerView.hidden = YES;
+            if (![self shouldPaginate]) {
+                self.articleView.scrollView.contentInset = UIEdgeInsetsMake(64, 0, 0, 0);
+                CGPoint offset = self.articleView.scrollView.contentOffset;
+                self.articleView.scrollView.contentOffset = CGPointMake(offset.x, offset.y - 64);
+            }
         } else {
             [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationSlide];
             self.navigationController.navigationBarHidden = YES;
             self.pageNumberBar.hidden = YES;
             self.pageNumberLabel.alpha = 0.5f;
             self.topContainerView.hidden = NO;
+            self.articleView.scrollView.contentInset = UIEdgeInsetsZero;
         }
     }
     [self setNeedsStatusBarAppearanceUpdate];
@@ -503,7 +509,6 @@
             [self gotoPage:_currentPage animated:NO];
         }
     }
-    //NSLog(@"Offset: %f", scrollView.contentOffset.x);
 }
 
 - (void)rtLabel:(id)rtLabel didSelectLinkWithURL:(NSURL*)url {
@@ -532,9 +537,10 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:@"UpdateBackgrounds" object:nil userInfo:nil];
     [self updateBackgrounds];
     [self writeCssTemplate];
-    [self updatePagination];
     if ([self articleView] != nil) {
         [self.articleView reload];
+    } else {
+        [self updatePagination];
     }
     self.pageNumberBar.frame = [self pageNumberBarRect];
 }
@@ -772,7 +778,6 @@
 }
 
 - (void)updatePagination {
-    self.topContainerView.hidden = !self.navigationController.navigationBarHidden;
     if ([self shouldPaginate]) {
         if (self.articleView) {
             self.articleView.scrollView.scrollEnabled = NO;
@@ -782,6 +787,7 @@
             [self.articleView addGestureRecognizer:self.previousPageSwipeRecognizer];
             self.pageNumberBar.hidden = NO;
             self.articleView.frame = [self articleRect];
+            self.articleView.scrollView.contentInset = UIEdgeInsetsZero;
             [self updateCSS];
         } else {
             self.pageNumberBar.hidden = YES;
@@ -797,6 +803,9 @@
             [self.articleView removeGestureRecognizer:self.nextPageSwipeRecognizer];
             [self.articleView removeGestureRecognizer:self.previousPageSwipeRecognizer];
             self.articleView.frame = [self articleRect];
+            if (!self.navigationController.navigationBarHidden) {
+                 self.articleView.scrollView.contentInset = UIEdgeInsetsMake(64, 0, 0, 0);
+            }
         }
         self.pageBarContainerView.hidden = YES;
         [self.pageNumberBar removeFromSuperview];

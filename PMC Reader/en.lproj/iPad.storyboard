@@ -72,7 +72,7 @@
         <!--Detail View Controller-->
         <scene sceneID="krM-pN-5xZ">
             <objects>
-                <viewController wantsFullScreenLayout="YES" id="euu-E6-BqD" customClass="PHDetailViewController" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="euu-E6-BqD" customClass="PHDetailViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="CqQ-Cm-tng">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
