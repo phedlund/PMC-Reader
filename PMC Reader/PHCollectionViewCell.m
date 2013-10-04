@@ -51,16 +51,18 @@
         self.activityBackground.frame = CGRectMake((self.contentView.frame.size.width - self.activityBackground.frame.size.width) / 2, (self.contentView.frame.size.height - self.activityBackground.frame.size.height) / 2, self.activityBackground.frame.size.width, self.activityBackground.frame.size.height);
         self.labelContainerView.frame = self.bounds;
         self.buttonContainerView.frame = CGRectMake(self.contentView.frame.size.width, 0, 0, self.contentView.frame.size.height);
-        if (self.contentView.frame.size.width > 400) {
-            self.titleLabel.frame = CGRectMake(10, 10, self.labelContainerView.frame.size.width - 20, 45);
-            self.authorLabel.frame = CGRectMake(10, 58, self.labelContainerView.frame.size.width - 20, 40);
-            self.publishedAsLabel.frame = CGRectMake(10, 101, self.labelContainerView.frame.size.width - 20, 21);
-            self.originalSourceLabel.frame = CGRectMake(10, 124, self.labelContainerView.frame.size.width - 20, 40);
-        } else {
-            self.titleLabel.frame = CGRectMake(10, 10, self.labelContainerView.frame.size.width - 20, 95);
-            self.authorLabel.frame = CGRectMake(10, 120, self.labelContainerView.frame.size.width - 20, 85);
-            self.publishedAsLabel.frame = CGRectMake(10, 215, self.labelContainerView.frame.size.width - 20, 21);
-            self.originalSourceLabel.frame = CGRectMake(10, 240, self.labelContainerView.frame.size.width - 20, 65);
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+            if (self.contentView.frame.size.width > 400) {
+                self.titleLabel.frame = CGRectMake(10, 10, self.labelContainerView.frame.size.width - 20, 45);
+                self.authorLabel.frame = CGRectMake(10, 58, self.labelContainerView.frame.size.width - 20, 40);
+                self.publishedAsLabel.frame = CGRectMake(10, 101, self.labelContainerView.frame.size.width - 20, 21);
+                self.originalSourceLabel.frame = CGRectMake(10, 124, self.labelContainerView.frame.size.width - 20, 40);
+            } else {
+                self.titleLabel.frame = CGRectMake(10, 10, self.labelContainerView.frame.size.width - 20, 95);
+                self.authorLabel.frame = CGRectMake(10, 120, self.labelContainerView.frame.size.width - 20, 85);
+                self.publishedAsLabel.frame = CGRectMake(10, 215, self.labelContainerView.frame.size.width - 20, 21);
+                self.originalSourceLabel.frame = CGRectMake(10, 240, self.labelContainerView.frame.size.width - 20, 65);
+            }
         }
     }
 }

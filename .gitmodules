@@ -4,9 +4,6 @@
 [submodule "RaptureXML"]
 	path = RaptureXML
 	url = git://github.com/ZaBlanc/RaptureXML.git
-[submodule "PopoverView"]
-	path = PopoverView
-url=git://github.com/phedlund/PopoverView.git
 [submodule "RTLabel"]
 	path = RTLabel
 	url = git://github.com/honcheng/RTLabel.git
@@ -22,3 +19,6 @@ url=git://github.com/phedlund/SCPageScrubberBar.git
 [submodule "UAModalPanel"]
 	path = UAModalPanel
 	url = https://github.com/UrbanApps/UAModalPanel.git
+[submodule "WyPopoverController"]
+	path = WyPopoverController
+	url = https://github.com/nicolaschengdev/WYPopoverController.git

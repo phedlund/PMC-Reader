@@ -14,12 +14,13 @@
 #import "UIColor+PHColor.h"
 #import "UIColor+Expanded.h"
 #import "PHFigTablePanel.h"
+#import "TransparentToolbar.h"
 
 #define TITLE_LABEL_WIDTH_LANDSCAPE 630
 #define TITLE_LABEL_WIDTH_PORTRAIT 380
 
 @interface PHDetailViewController () {
-    PopoverView *popover;
+    WYPopoverController *popover;
     CGPoint currentTapLocation;
     int _pageCount;
     int _currentPage;
@@ -135,7 +136,7 @@
     [[self navigationItem] setTitle:@""];
     [self updateToolbar];
     [self writeCssTemplate];
-    currentTapLocation = CGPointMake(350, 100);
+    currentTapLocation = self.view.center;
     self.titleLabel2.text = @"";
     self.pageNumberLabel.text = @"";
     //bottomBorder = [CALayer layer];
@@ -203,7 +204,7 @@
 
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
     if (popover) {
-        [popover dismiss:NO];
+        [popover dismissPopoverAnimated:NO];
     }
 }
 
@@ -260,6 +261,9 @@
     } else {
         self.articleNavigationPopover.popoverContentSize = CGSizeMake(290.0f, 44);
     }
+    WYPopoverBackgroundView* popoverAppearance = [WYPopoverBackgroundView appearance];
+    popoverAppearance.fillTopColor = [UIColor popoverButtonColor];
+    popoverAppearance.viewContentInsets = UIEdgeInsetsMake(0, 0, 0, 0);
 
     [self.articleNavigationPopover presentPopoverFromBarButtonItem:self.navBarButtonItem permittedArrowDirections:(UIPopoverArrowDirectionUp | UIPopoverArrowDirectionDown) animated:YES];
 }
@@ -272,9 +276,9 @@
     return articleNavigationController;
 }
 
-- (UIPopoverController *) articleNavigationPopover {
+- (WYPopoverController *) articleNavigationPopover {
     if (!articleNavigationPopover) {
-        articleNavigationPopover = [[UIPopoverController alloc] initWithContentViewController:self.articleNavigationController];
+        articleNavigationPopover = [[WYPopoverController alloc] initWithContentViewController:self.articleNavigationController];
     }
     return articleNavigationPopover;
 }
@@ -292,7 +296,8 @@
     _handlingLink = NO;
     double w = self.articleView.frame.size.width;
     CGPoint loc = [location CGPointValue];
-    if ((loc.x > 150) && (loc.x < (w - 150))) {
+    int margin = (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 150 : 75;
+    if ((loc.x > margin) && (loc.x < (w - margin))) {
         if (self.navigationController.navigationBarHidden) {
             [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationSlide];
             self.navigationController.navigationBarHidden = NO;
@@ -342,12 +347,14 @@
         if (self.navigationController.navigationBarHidden) {
             y = 94;
         }
+        return CGRectMake(0, y, [self orientationRect].size.width, [self orientationRect].size.height - 184);
+        /*
         if (([UIApplication sharedApplication].statusBarOrientation == UIDeviceOrientationLandscapeLeft) ||
             ([UIApplication sharedApplication].statusBarOrientation == UIDeviceOrientationLandscapeRight)) {
             return CGRectMake(0, y, 1024, 585);
         } else {
-            return CGRectMake(0, y, 768, 840);
-        }
+            return CGRectMake(0, y, [self orientationRect].size.width, [self orientationRect].size.height - 184);
+        }*/
     } else {
         return self.view.frame;
     }
@@ -356,12 +363,7 @@
 - (CGRect)pageNumberBarRect {
     int width =[[NSUserDefaults standardUserDefaults] integerForKey:@"Margin"];
     int x = ([self orientationRect].size.width - width) / 2;
-    if (([UIApplication sharedApplication].statusBarOrientation == UIDeviceOrientationLandscapeLeft) ||
-        ([UIApplication sharedApplication].statusBarOrientation == UIDeviceOrientationLandscapeRight)) {
-        return CGRectMake(x, 20, width, 30);
-    } else {
-        return CGRectMake(x, 20, width, 30);
-    }
+    return CGRectMake(x, 20, width, 30);
 }
 
 - (void) updateTapLocation:(UIGestureRecognizer *)gestureRecognizer {
@@ -401,13 +403,7 @@
             if ([[request.URL pathExtension] isEqualToString:@"html"]) {
                 NSRange range = [request.URL.absoluteString rangeOfString:[NSString stringWithFormat:@"Documents/%@/text.html", self.article.pmcId]];
                 if (range.location == NSNotFound) {
-                    CGRect myFrame;
-                    if (UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation)) {
-                        myFrame = CGRectMake(0, 0, 1024, 768);
-                    } else {
-                        myFrame = CGRectMake(0, 0, 768, 1024);
-                    }
-                    PHFigTablePanel *figPanel = [[PHFigTablePanel alloc] initWithFrame:myFrame URL:request.URL];
+                    PHFigTablePanel *figPanel = [[PHFigTablePanel alloc] initWithFrame:[self orientationRect] URL:request.URL];
                     [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:figPanel];
                     [figPanel showFromPoint:currentTapLocation];
                     return NO;
@@ -427,24 +423,27 @@
                             NSString *labelText = [NSString stringWithFormat:@" [<a href='%@'>Ref List</a>]", [url absoluteString]];
                             labelText = [ref.text stringByAppendingString:labelText];
                             
-                            RTLabel *label = [[RTLabel alloc] initWithFrame:CGRectMake(0, 0, 350, 500)];
+                            int width = (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 350 : 280;
+                            RTLabel *label = [[RTLabel alloc] initWithFrame:CGRectMake(0, 0, width, 500)];
                             _currentHash = ref.hashAttribute;
                             label.delegate = self;
                             label.text = labelText;
                             label.textColor = [UIColor textColor];
+                            label.backgroundColor = [UIColor popoverButtonColor];
                             CGSize opt = [label optimumSize];
                             CGRect frame = [label frame];
                             frame.size.height = (int)opt.height + 5;
                             label.frame = frame;
+                            
+                            UIViewController *vc = [[UIViewController alloc] init];
+                            vc.preferredContentSize = CGSizeMake(opt.width + 20, opt.height + 25);
+                            [vc.view addSubview:label];
 
-                            popover = [[PopoverView alloc] initWithFrame:label.frame];
-                            int backgroundIndex =[[NSUserDefaults standardUserDefaults] integerForKey:@"Background"];
-                            if (backgroundIndex > 0) {
-                                popover.backgroundGradientColors = @[[UIColor popoverButtonColor], [UIColor popoverBackgroundColor]];
-                            }
-                            [popover showAtPoint:currentTapLocation inView:self.articleView withContentView:label];
-                            //popover = [PopoverView showPopoverAtPoint:currentTapLocation inView:self.articleView withContentView:label delegate:self];
-                            //NSLog(@"Visible: %@", label.visibleText);
+                            popover = [[WYPopoverController alloc] initWithContentViewController:vc];
+                            WYPopoverBackgroundView *appearance = [WYPopoverBackgroundView appearance];
+                            appearance.viewContentInsets = UIEdgeInsetsMake(10, 10, 10, 10);
+
+                            [popover presentPopoverFromRect:CGRectMake(currentTapLocation.x, currentTapLocation.y, 1, 1) inView:self.articleView permittedArrowDirections:WYPopoverArrowDirectionAny animated:YES];
                             refFound = YES;
                             *stop = YES;
                         }
@@ -513,7 +512,7 @@
 
 - (void)rtLabel:(id)rtLabel didSelectLinkWithURL:(NSURL*)url {
     if (popover) {
-        [popover dismiss:NO];
+        [popover dismissPopoverAnimated:NO];
     }
 
     NSRange range = [url.absoluteString rangeOfString:[NSString stringWithFormat:@"Documents/%@/text.html", self.article.pmcId]];
@@ -527,10 +526,6 @@
     [self.articleView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"window.location.hash = '%@';", _currentHash]];
     [self.articleView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"window.location = '%@';", url.absoluteString]];
     [self updateToolbar];
-}
-
-- (void)popoverViewDidDismiss:(PopoverView *)popoverView {
-    popover = nil;
 }
 
 -(void) settingsChanged:(NSString *)setting newValue:(NSUInteger)value {
@@ -565,6 +560,9 @@
     self.prefsBarButtonItem.tintColor = [UIColor iconColor];
     self.navBarButtonItem.tintColor = [UIColor iconColor];
     self.infoBarButtonItem.tintColor = [UIColor iconColor];
+
+    WYPopoverBackgroundView* popoverAppearance = [WYPopoverBackgroundView appearance];
+    popoverAppearance.fillTopColor = [UIColor popoverButtonColor];
 }
 
 - (void) writeCssTemplate
@@ -922,8 +920,18 @@
     UIBarButtonItem *refreshStopBarButtonItem = self.articleView.isLoading ? self.stopBarButtonItem : self.refreshBarButtonItem;
     refreshStopBarButtonItem.enabled = (self.article != nil);
     
-    self.navigationItem.leftBarButtonItems = @[self.backBarButtonItem, self.goBackBarButtonItem, self.forwardBarButtonItem, refreshStopBarButtonItem, self.titleBarButtonItem];
-    self.navigationItem.rightBarButtonItems = @[self.infoBarButtonItem, self.prefsBarButtonItem, self.navBarButtonItem];
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        self.navigationItem.leftBarButtonItems = @[self.backBarButtonItem, self.goBackBarButtonItem, self.forwardBarButtonItem, refreshStopBarButtonItem, self.titleBarButtonItem];
+        self.navigationItem.rightBarButtonItems = @[self.infoBarButtonItem, self.prefsBarButtonItem, self.navBarButtonItem];
+    } else {
+        TransparentToolbar *leftTBar = [[TransparentToolbar alloc] initWithFrame:CGRectMake(0, 0, 90, 44)];
+        leftTBar.items = @[self.backBarButtonItem, self.goBackBarButtonItem, self.forwardBarButtonItem, refreshStopBarButtonItem];
+        TransparentToolbar *rightTBar = [[TransparentToolbar alloc] initWithFrame:CGRectMake(0, 0, 105, 44)];
+        rightTBar.items =  @[self.navBarButtonItem, self.prefsBarButtonItem, self.infoBarButtonItem];
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftTBar];
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightTBar];
+    }
+
 }
 
 - (void)articleSectionSelected:(NSUInteger)section {

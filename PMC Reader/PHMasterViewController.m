@@ -225,9 +225,17 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
          [self.collectionView reloadData];
      }];
 
-    self.navigationItem.leftBarButtonItems = @[self.addBarButtonItem, self.layoutBarButtonItem];
-    UIBarButtonItem *searchBarItem = [[UIBarButtonItem alloc] initWithCustomView:self.searchBar];
-    self.navigationItem.rightBarButtonItem = searchBarItem;
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        self.navigationItem.leftBarButtonItems = @[self.addBarButtonItem, self.layoutBarButtonItem];
+        UIBarButtonItem *searchBarItem = [[UIBarButtonItem alloc] initWithCustomView:self.searchBar];
+        self.navigationItem.rightBarButtonItem = searchBarItem;
+    } else {
+        self.navigationItem.leftBarButtonItem = self.addBarButtonItem;
+        //UIBarButtonItem *searchBarItem = [[UIBarButtonItem alloc] initWithCustomView:self.searchBar];
+        //self.navigationItem.rightBarButtonItem = searchBarItem;
+    }
+
+    
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(downloadArticles:) name:@"DownloadArticles" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateBackgrounds) name:@"UpdateBackgrounds" object:nil];
@@ -334,7 +342,12 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
     cell.publishedAsLabel.textColor = [UIColor textColor];
     
     cell.titleLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleHeadline];
-    UIFont *myFont = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+    UIFont *myFont;
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        myFont = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+    } else {
+        myFont = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
+    }
     cell.authorLabel.font = [UIFont italicSystemFontOfSize:myFont.pointSize];
     cell.originalSourceLabel.font = myFont;
     cell.publishedAsLabel.font = [UIFont boldSystemFontOfSize:myFont.pointSize];
@@ -358,15 +371,19 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     PHCollectionViewFlowLayout *layout = (PHCollectionViewFlowLayout*)collectionViewLayout;
-    if ([[NSUserDefaults standardUserDefaults] integerForKey:@"GridLayout"] == 0) {
-        return CGSizeMake(collectionView.frame.size.width - (layout.sectionInset.left + layout.sectionInset.right), 150);
-    } else {
-        if (([UIApplication sharedApplication].statusBarOrientation == UIDeviceOrientationLandscapeLeft) ||
-            ([UIApplication sharedApplication].statusBarOrientation == UIDeviceOrientationLandscapeRight)) {
-            return CGSizeMake((collectionView.frame.size.width - (layout.sectionInset.left + layout.sectionInset.right + layout.minimumInteritemSpacing + layout.minimumInteritemSpacing)) / 3, 310);
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        if ([[NSUserDefaults standardUserDefaults] integerForKey:@"GridLayout"] == 0) {
+            return CGSizeMake(collectionView.frame.size.width - (layout.sectionInset.left + layout.sectionInset.right), 150);
         } else {
-            return CGSizeMake((collectionView.frame.size.width - (layout.sectionInset.left + layout.sectionInset.right + layout.minimumInteritemSpacing)) / 2, 310);
+            if (([UIApplication sharedApplication].statusBarOrientation == UIDeviceOrientationLandscapeLeft) ||
+                ([UIApplication sharedApplication].statusBarOrientation == UIDeviceOrientationLandscapeRight)) {
+                return CGSizeMake((collectionView.frame.size.width - (layout.sectionInset.left + layout.sectionInset.right + layout.minimumInteritemSpacing + layout.minimumInteritemSpacing)) / 3, 310);
+            } else {
+                return CGSizeMake((collectionView.frame.size.width - (layout.sectionInset.left + layout.sectionInset.right + layout.minimumInteritemSpacing)) / 2, 310);
+            }
         }
+    } else {
+        return CGSizeMake(collectionView.frame.size.width - (layout.sectionInset.left + layout.sectionInset.right), 140);
     }
 }
 

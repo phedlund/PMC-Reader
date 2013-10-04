@@ -9,20 +9,9 @@
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
 	<key>CFBundleIcons</key>
-	<dict>
-		<key>CFBundlePrimaryIcon</key>
-		<dict>
-			<key>CFBundleIconFiles</key>
-			<array>
-				<string>icon-72.png</string>
-				<string>icon-144.png</string>
-				<string>Default-Landscape@2x~ipad.png</string>
-				<string>Default-Portrait@2x~ipad.png</string>
-				<string>Default-Landscape~ipad.png</string>
-				<string>Default-Portrait~ipad.png</string>
-			</array>
-		</dict>
-	</dict>
+	<dict/>
+	<key>CFBundleIcons~ipad</key>
+	<dict/>
 	<key>CFBundleIdentifier</key>
 	<string>com.peterandlinda.${PRODUCT_NAME:rfc1034identifier}</string>
 	<key>CFBundleInfoDictionaryVersion</key>
@@ -56,7 +45,7 @@
 	<key>UIFileSharingEnabled</key>
 	<false/>
 	<key>UIMainStoryboardFile</key>
-	<string>MainStoryboard</string>
+	<string>iPhone</string>
 	<key>UIMainStoryboardFile~ipad</key>
 	<string>iPad</string>
 	<key>UIRequiredDeviceCapabilities</key>

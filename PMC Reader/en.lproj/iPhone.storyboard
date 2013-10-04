@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4510" systemVersion="12F37" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="nYx-oJ-JtX">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
+    </dependencies>
+    <scenes>
+        <!--Detail View Controller-->
+        <scene sceneID="BTV-ke-gIg">
+            <objects>
+                <viewController id="8VO-PH-Gfs" customClass="PHDetailViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="cel-Xn-GMf">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" id="TSF-3G-bcr">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.5" contentMode="left" text="Childhood Obesity:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="XUQ-uY-ehG">
+                                        <rect key="frame" x="10" y="20" width="300" height="44"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <color key="textColor" red="0.40000000000000002" green="0.20000000000000001" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
+                            <view contentMode="scaleToFill" id="iyq-wc-QqW">
+                                <rect key="frame" x="0.0" y="478" width="320" height="90"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <subviews>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="100/999" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="pEk-9x-BLf">
+                                        <rect key="frame" x="110" y="49" width="100" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
+                                        <color key="textColor" red="0.40000000000000002" green="0.20000000000000001" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="yDf-2s-JGR"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="pageBarContainerView" destination="iyq-wc-QqW" id="AYV-T6-6mh"/>
+                        <outlet property="pageNumberLabel" destination="pEk-9x-BLf" id="VWg-rz-c5d"/>
+                        <outlet property="titleLabel2" destination="XUQ-uY-ehG" id="FiN-5l-bqI"/>
+                        <outlet property="topContainerView" destination="TSF-3G-bcr" id="Tpf-n7-GEx"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mNX-3x-660" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1290" y="-523"/>
+        </scene>
+        <!--Master View Controller - Articles-->
+        <scene sceneID="6ca-hA-Key">
+            <objects>
+                <collectionViewController autoresizesArchivedViewToFullSize="NO" id="Tnr-gB-OOe" customClass="PHMasterViewController" sceneMemberID="viewController">
+                    <collectionView key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" id="CX1-df-c0A">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="5" minimumInteritemSpacing="5" id="sjk-zW-rwA" customClass="PHCollectionViewFlowLayout">
+                            <size key="itemSize" width="310" height="140"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="5" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                        <cells>
+                            <collectionViewCell clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="articleCell" id="zvF-2A-MR8" customClass="PHCollectionViewCell">
+                                <rect key="frame" x="5" y="69" width="310" height="140"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="310" height="140"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <view contentMode="scaleToFill" id="wl2-sd-3pr">
+                                            <rect key="frame" x="0.0" y="0.0" width="230" height="140"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Identifying patterns in treatment reponse profiles in acute bipolar mania: a cluster analysis approach" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="DJf-z5-5lv">
+                                                    <rect key="frame" x="10" y="5" width="210" height="47"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="DRP-b4-Dpl">
+                                                    <rect key="frame" x="10" y="51" width="210" height="46"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                                    <string key="text">Peter B. Hedlund, Marcello Leopoldo, Silvio Caccia, Gor Sarkisyan, Claudia Fracasso, Giuliana Martelli, Enza Lacivita, Francesco Berardi, Roberto Perrone</string>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Published as:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="MPp-hZ-cL4">
+                                                    <rect key="frame" x="10" y="90" width="210" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Neurosci Lett. 2007 March 13; 414(3): 247–251. Published online 2007 January 11. doi: 10.1016/j.neulet.2006.12.054" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="if4-5v-ecP">
+                                                    <rect key="frame" x="10" y="113" width="210" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                        </view>
+                                        <view alpha="0.80000001192092896" contentMode="scaleToFill" id="Qdu-3k-ubU">
+                                            <rect key="frame" x="105" y="20" width="100" height="100"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <subviews>
+                                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" style="whiteLarge" id="CbH-XX-4N4">
+                                                    <rect key="frame" x="32" y="20" width="37" height="37"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </activityIndicatorView>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Downloading..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="lVv-QL-j5x">
+                                                    <rect key="frame" x="0.0" y="70" width="100" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <view clipsSubviews="YES" contentMode="scaleToFill" id="dbT-sE-fJw">
+                                            <rect key="frame" x="230" y="0.0" width="80" height="140"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <subviews>
+                                                <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="4l3-A4-eZR" customClass="TransparentToolbar">
+                                                    <rect key="frame" x="0.0" y="20" width="80" height="44"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <items>
+                                                        <barButtonItem style="plain" systemItem="trash" id="m50-fV-3r1">
+                                                            <connections>
+                                                                <action selector="doDelete:" destination="zvF-2A-MR8" id="Vsz-az-M3L"/>
+                                                            </connections>
+                                                        </barButtonItem>
+                                                    </items>
+                                                </toolbar>
+                                                <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="PMv-tS-boS" customClass="TransparentToolbar">
+                                                    <rect key="frame" x="0.0" y="76" width="80" height="44"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <items>
+                                                        <barButtonItem style="plain" systemItem="refresh" id="wvX-lQ-Khu">
+                                                            <connections>
+                                                                <action selector="doDownload:" destination="zvF-2A-MR8" id="ypS-bo-Tyr"/>
+                                                            </connections>
+                                                        </barButtonItem>
+                                                    </items>
+                                                </toolbar>
+                                            </subviews>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                        </view>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <size key="customSize" width="310" height="140"/>
+                                <connections>
+                                    <outlet property="activityBackground" destination="Qdu-3k-ubU" id="Ukj-fa-pPh"/>
+                                    <outlet property="activityIndicator" destination="CbH-XX-4N4" id="hfJ-37-rC7"/>
+                                    <outlet property="authorLabel" destination="DRP-b4-Dpl" id="hGR-Hi-wUw"/>
+                                    <outlet property="buttonContainerView" destination="dbT-sE-fJw" id="YNe-6s-810"/>
+                                    <outlet property="deleteBarButton" destination="m50-fV-3r1" id="cSX-jy-wp6"/>
+                                    <outlet property="downloadBarButton" destination="wvX-lQ-Khu" id="9Tk-Ar-jmD"/>
+                                    <outlet property="labelContainerView" destination="wl2-sd-3pr" id="DEJ-Sn-Qrs"/>
+                                    <outlet property="originalSourceLabel" destination="if4-5v-ecP" id="ov2-k0-c2S"/>
+                                    <outlet property="publishedAsLabel" destination="MPp-hZ-cL4" id="sDQ-GM-77Q"/>
+                                    <outlet property="titleLabel" destination="DJf-z5-5lv" id="Ocu-Mh-Wyo"/>
+                                    <segue destination="8VO-PH-Gfs" kind="push" identifier="pushArticle" id="UdT-ii-W8L"/>
+                                </connections>
+                            </collectionViewCell>
+                        </cells>
+                        <connections>
+                            <outlet property="dataSource" destination="Tnr-gB-OOe" id="p5H-ZK-nFg"/>
+                            <outlet property="delegate" destination="Tnr-gB-OOe" id="z4l-MF-xEL"/>
+                        </connections>
+                    </collectionView>
+                    <navigationItem key="navigationItem" title="Articles" id="wum-LP-dWA">
+                        <barButtonItem key="leftBarButtonItem" style="plain" systemItem="add" id="KWV-IQ-enG">
+                            <connections>
+                                <segue destination="TTh-T6-96I" kind="modal" identifier="search" id="cep-gv-Dag"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ngF-qT-qqr" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="764" y="165"/>
+        </scene>
+        <!--Page View Controller-->
+        <scene sceneID="QAC-8U-dRO">
+            <objects>
+                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="RbV-ph-fPZ" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cCv-aP-cbq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1286" y="169"/>
+        </scene>
+        <!--Search View Controller - Search PubMed Central-->
+        <scene sceneID="Mcq-rG-bG8">
+            <objects>
+                <tableViewController id="GBo-FP-RuP" customClass="PHSearchViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="kYB-57-G43">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <searchBar key="tableFooterView" contentMode="redraw" placeholder="Search Query" id="Tuv-fc-rTG">
+                            <rect key="frame" x="0.0" y="64" width="320" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <textInputTraits key="textInputTraits"/>
+                            <connections>
+                                <outlet property="delegate" destination="GBo-FP-RuP" id="oah-Fl-crU"/>
+                            </connections>
+                        </searchBar>
+                        <connections>
+                            <outlet property="dataSource" destination="GBo-FP-RuP" id="Ejy-iZ-vAb"/>
+                            <outlet property="delegate" destination="GBo-FP-RuP" id="GZx-p5-iFI"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Search PubMed Central" id="02z-Ku-G8a">
+                        <barButtonItem key="rightBarButtonItem" title="Done" style="done" id="lNM-IX-lSd">
+                            <connections>
+                                <action selector="doDone:" destination="GBo-FP-RuP" id="Dz0-zP-Xhz"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="searchBar" destination="Tuv-fc-rTG" id="9Jc-NI-Be0"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="eiv-4P-5V6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1290" y="843"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Irj-f4-i0H">
+            <objects>
+                <navigationController storyboardIdentifier="master" automaticallyAdjustsScrollViewInsets="NO" id="nYx-oJ-JtX" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="7l3-8h-Tfg">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Tnr-gB-OOe" kind="relationship" relationship="rootViewController" id="sZ5-ZI-Fgv"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vMS-He-mJ9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="238" y="165"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="vtU-Oa-iZc">
+            <objects>
+                <navigationController storyboardIdentifier="detail" automaticallyAdjustsScrollViewInsets="NO" id="ufr-ju-K18" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="te2-ya-oj5"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="eKw-yP-TAB">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="8VO-PH-Gfs" kind="relationship" relationship="rootViewController" id="52t-6O-9lr"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xuj-uZ-fzY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="764" y="-523"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="jZf-W5-zFF">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="TTh-T6-96I" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="JEQ-hD-EmL">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="GBo-FP-RuP" kind="relationship" relationship="rootViewController" id="6tw-L4-V4l"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GAA-9y-qdZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="764" y="843"/>
+        </scene>
+    </scenes>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
+    </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="52t-6O-9lr"/>
+    </inferredMetricsTieBreakers>
+</document>

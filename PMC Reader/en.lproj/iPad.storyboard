@@ -5,7 +5,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
     </dependencies>
     <scenes>
-        <!--Search View Controller - Search Pubmed Central-->
+        <!--Search View Controller - Search PubMed Central-->
         <scene sceneID="BJB-am-Dqz">
             <objects>
                 <tableViewController modalPresentationStyle="formSheet" id="OiH-Wa-zp0" customClass="PHSearchViewController" sceneMemberID="viewController">
@@ -23,7 +23,7 @@
                         </searchBar>
                         <sections/>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Search Pubmed Central" id="7Je-FY-ibc">
+                    <navigationItem key="navigationItem" title="Search PubMed Central" id="7Je-FY-ibc">
                         <barButtonItem key="rightBarButtonItem" systemItem="done" id="hVV-np-2De">
                             <connections>
                                 <action selector="doDone:" destination="OiH-Wa-zp0" id="aUf-em-fjO"/>

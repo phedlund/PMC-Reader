@@ -43,8 +43,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    self.tableView.scrollEnabled = NO;
-    self.tableView.backgroundColor = [UIColor popoverButtonColor];
+    self.tableView.scrollEnabled = YES;
     self.tableView.separatorColor = [UIColor popoverBorderColor];
     [self.tableView reloadData];
 }
@@ -91,6 +90,7 @@
         cell.textLabel.text = @"Article Sections Not Available";
         cell.detailTextLabel.text = @"Redownload the article to enable";
     }
+    cell.backgroundColor = [UIColor popoverButtonColor];
     cell.textLabel.textColor = [UIColor popoverIconColor];
     return cell;
 }

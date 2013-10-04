@@ -11,10 +11,10 @@
 #import "PHPrefViewController.h"
 #import "PHArticleNavigationControllerViewController.h"
 #import "RTLabel.h"
-#import "PopoverView.h"
 #import "SCPageScrubberBar.h"
+#import "WYPopoverController.h"
 
-@interface PHDetailViewController : UIViewController <UIActionSheetDelegate, UIWebViewDelegate, UIScrollViewDelegate, UIPopoverControllerDelegate, UIGestureRecognizerDelegate, PHPrefViewControllerDelegate, ArticleNavigationDelegate, RTLabelDelegate, PopoverViewDelegate, SCPageScrubberBarDelegate>
+@interface PHDetailViewController : UIViewController <UIActionSheetDelegate, UIWebViewDelegate, UIScrollViewDelegate, UIPopoverControllerDelegate, UIGestureRecognizerDelegate, PHPrefViewControllerDelegate, ArticleNavigationDelegate, RTLabelDelegate, SCPageScrubberBarDelegate, WYPopoverControllerDelegate>
 
 @property (strong, nonatomic) PHArticle *article;
 @property (strong, nonatomic) IBOutlet UIView *pageBarContainerView;
@@ -35,7 +35,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *pageNumberLabel;
 
 @property (strong, nonatomic) PHArticleNavigationControllerViewController *articleNavigationController;
-@property (strong, nonatomic) UIPopoverController *articleNavigationPopover;
+@property (strong, nonatomic) WYPopoverController *articleNavigationPopover;
 
 - (void) writeCssTemplate;
 

@@ -15,6 +15,10 @@
 		D0096D1817F66DE400B05E68 /* UARoundedRectView.m in Sources */ = {isa = PBXBuildFile; fileRef = D0096D0C17F66DE400B05E68 /* UARoundedRectView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		D0096D1C17F7732800B05E68 /* PHFigTablePanel.m in Sources */ = {isa = PBXBuildFile; fileRef = D0096D1B17F7732800B05E68 /* PHFigTablePanel.m */; };
 		D0096D2217F8F37D00B05E68 /* UIColor+PHColor.m in Sources */ = {isa = PBXBuildFile; fileRef = D0096D2117F8F37D00B05E68 /* UIColor+PHColor.m */; };
+		D0096D2717FCB83700B05E68 /* iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0096D2517FCB83700B05E68 /* iPhone.storyboard */; };
+		D0096D2917FF2F1400B05E68 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0096D2817FF2F1400B05E68 /* Images.xcassets */; };
+		D0096D2F17FF2FE800B05E68 /* WYPopoverController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0096D2C17FF2FE800B05E68 /* WYPopoverController.m */; };
+		D0096D3017FF2FE800B05E68 /* WYStoryboardPopoverSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = D0096D2E17FF2FE800B05E68 /* WYStoryboardPopoverSegue.m */; };
 		D009A71A171742ED00BC4D77 /* LXReorderableCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = D009A719171742ED00BC4D77 /* LXReorderableCollectionViewFlowLayout.m */; };
 		D009A71D171744A800BC4D77 /* PHCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D009A71C171744A800BC4D77 /* PHCollectionViewCell.m */; };
 		D009A720171787EC00BC4D77 /* PHCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = D009A71F171787EA00BC4D77 /* PHCollectionViewFlowLayout.m */; };
@@ -76,7 +80,6 @@
 		D0ED8FC7165C6A950081E81E /* PHTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D0ED8FC6165C6A950081E81E /* PHTableViewCell.m */; };
 		D0ED8FC9165C6B190081E81E /* PHTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0ED8FC8165C6B190081E81E /* PHTableViewCell.xib */; };
 		D0EEADE416FA29C900DBAC4C /* PHArticleReference.m in Sources */ = {isa = PBXBuildFile; fileRef = D0EEADE316FA29C900DBAC4C /* PHArticleReference.m */; };
-		D0EEADE916FA76DF00DBAC4C /* PopoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = D0EEADE716FA76DF00DBAC4C /* PopoverView.m */; };
 		D0EEADEC16FA770000DBAC4C /* RTLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = D0EEADEB16FA770000DBAC4C /* RTLabel.m */; };
 		D0EEADEF16FA79D900DBAC4C /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0EEADEE16FA79D900DBAC4C /* CoreText.framework */; };
 		D0EEAE021704C1B500DBAC4C /* SCCalloutView.m in Sources */ = {isa = PBXBuildFile; fileRef = D0EEADFE1704C1B500DBAC4C /* SCCalloutView.m */; };
@@ -126,6 +129,12 @@
 		D0096D1B17F7732800B05E68 /* PHFigTablePanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHFigTablePanel.m; sourceTree = "<group>"; };
 		D0096D2017F8F37D00B05E68 /* UIColor+PHColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+PHColor.h"; sourceTree = "<group>"; };
 		D0096D2117F8F37D00B05E68 /* UIColor+PHColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+PHColor.m"; sourceTree = "<group>"; };
+		D0096D2617FCB83700B05E68 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = "PMC Reader/en.lproj/iPhone.storyboard"; sourceTree = "<group>"; };
+		D0096D2817FF2F1400B05E68 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		D0096D2B17FF2FE800B05E68 /* WYPopoverController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WYPopoverController.h; sourceTree = "<group>"; };
+		D0096D2C17FF2FE800B05E68 /* WYPopoverController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WYPopoverController.m; sourceTree = "<group>"; };
+		D0096D2D17FF2FE800B05E68 /* WYStoryboardPopoverSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WYStoryboardPopoverSegue.h; sourceTree = "<group>"; };
+		D0096D2E17FF2FE800B05E68 /* WYStoryboardPopoverSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WYStoryboardPopoverSegue.m; sourceTree = "<group>"; };
 		D009A718171742ED00BC4D77 /* LXReorderableCollectionViewFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LXReorderableCollectionViewFlowLayout.h; path = LXReorderableCollectionViewFlowLayout/LXReorderableCollectionViewFlowLayout/LXReorderableCollectionViewFlowLayout.h; sourceTree = SOURCE_ROOT; };
 		D009A719171742ED00BC4D77 /* LXReorderableCollectionViewFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LXReorderableCollectionViewFlowLayout.m; path = LXReorderableCollectionViewFlowLayout/LXReorderableCollectionViewFlowLayout/LXReorderableCollectionViewFlowLayout.m; sourceTree = SOURCE_ROOT; };
 		D009A71B171744A700BC4D77 /* PHCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHCollectionViewCell.h; sourceTree = "<group>"; };
@@ -210,9 +219,6 @@
 		D0ED8FC8165C6B190081E81E /* PHTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PHTableViewCell.xib; sourceTree = "<group>"; };
 		D0EEADE216FA29C900DBAC4C /* PHArticleReference.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHArticleReference.h; sourceTree = "<group>"; };
 		D0EEADE316FA29C900DBAC4C /* PHArticleReference.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHArticleReference.m; sourceTree = "<group>"; };
-		D0EEADE616FA76DF00DBAC4C /* PopoverView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopoverView.h; sourceTree = "<group>"; };
-		D0EEADE716FA76DF00DBAC4C /* PopoverView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopoverView.m; sourceTree = "<group>"; };
-		D0EEADE816FA76DF00DBAC4C /* PopoverView_Configuration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopoverView_Configuration.h; sourceTree = "<group>"; };
 		D0EEADEA16FA76FF00DBAC4C /* RTLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RTLabel.h; path = RTLabel/RTLabelProject/Classes/RTLabel.h; sourceTree = SOURCE_ROOT; };
 		D0EEADEB16FA770000DBAC4C /* RTLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RTLabel.m; path = RTLabel/RTLabelProject/Classes/RTLabel.m; sourceTree = SOURCE_ROOT; };
 		D0EEADEE16FA79D900DBAC4C /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
@@ -314,6 +320,18 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		D0096D2A17FF2FE800B05E68 /* WYPopoverController */ = {
+			isa = PBXGroup;
+			children = (
+				D0096D2B17FF2FE800B05E68 /* WYPopoverController.h */,
+				D0096D2C17FF2FE800B05E68 /* WYPopoverController.m */,
+				D0096D2D17FF2FE800B05E68 /* WYStoryboardPopoverSegue.h */,
+				D0096D2E17FF2FE800B05E68 /* WYStoryboardPopoverSegue.m */,
+			);
+			name = WYPopoverController;
+			path = WyPopoverController/WYPopoverController;
+			sourceTree = SOURCE_ROOT;
+		};
 		D009A717171742ED00BC4D77 /* LXReorderableCollectionViewFlowLayout */ = {
 			isa = PBXGroup;
 			children = (
@@ -365,12 +383,12 @@
 		D030E6B915C0D2DB00CB5285 /* PMC Reader */ = {
 			isa = PBXGroup;
 			children = (
+				D0096D2A17FF2FE800B05E68 /* WYPopoverController */,
 				D0096CF617F66DE400B05E68 /* Panel */,
 				D05B89FA1725FB0700C61968 /* UIColor+Expanded */,
 				D009A717171742ED00BC4D77 /* LXReorderableCollectionViewFlowLayout */,
 				D0EEADFC1704C1B400DBAC4C /* SCPageScrubberBar */,
 				D0EEADED16FA770C00DBAC4C /* RTLabel */,
-				D0EEADE516FA76DF00DBAC4C /* PopoverView */,
 				D0ED8FC1165B1F8F0081E81E /* RaptureXML */,
 				D0CDB7D415C1F59C0074B143 /* Parser */,
 				D0363299166EBD81000D3C0B /* ArrayExtra */,
@@ -412,6 +430,8 @@
 				D0096CD017F3916B00B05E68 /* TransparentToolbar.h */,
 				D0096CD117F3916B00B05E68 /* TransparentToolbar.m */,
 				D0F6004416375D9100ADBC38 /* iPad.storyboard */,
+				D0096D2517FCB83700B05E68 /* iPhone.storyboard */,
+				D0096D2817FF2F1400B05E68 /* Images.xcassets */,
 				D030E6BA15C0D2DB00CB5285 /* Supporting Files */,
 			);
 			path = "PMC Reader";
@@ -551,17 +571,6 @@
 			path = RaptureXML/RaptureXML;
 			sourceTree = SOURCE_ROOT;
 		};
-		D0EEADE516FA76DF00DBAC4C /* PopoverView */ = {
-			isa = PBXGroup;
-			children = (
-				D0EEADE616FA76DF00DBAC4C /* PopoverView.h */,
-				D0EEADE716FA76DF00DBAC4C /* PopoverView.m */,
-				D0EEADE816FA76DF00DBAC4C /* PopoverView_Configuration.h */,
-			);
-			name = PopoverView;
-			path = PopoverView/PopoverView;
-			sourceTree = SOURCE_ROOT;
-		};
 		D0EEADED16FA770C00DBAC4C /* RTLabel */ = {
 			isa = PBXGroup;
 			children = (
@@ -655,6 +664,7 @@
 				D0EFC99515D4952900C26580 /* lineheight3@2x.png in Resources */,
 				D0EFC99C15D4987200C26580 /* margin1.png in Resources */,
 				D0EFC99D15D4987200C26580 /* margin1@2x.png in Resources */,
+				D0096D2917FF2F1400B05E68 /* Images.xcassets in Resources */,
 				D0EFC9A015D4987200C26580 /* margin3.png in Resources */,
 				D0EFC9A115D4987200C26580 /* margin3@2x.png in Resources */,
 				D0096D0F17F66DE400B05E68 /* close@2x.png in Resources */,
@@ -694,6 +704,7 @@
 				D0D399B816C2E09300EA2497 /* DejaVuSerif.ttf in Resources */,
 				D0D399BC16C2E4A800EA2497 /* LibreBaskerville-Bold.ttf in Resources */,
 				D0D399BD16C2E4A800EA2497 /* LibreBaskerville-Italic.ttf in Resources */,
+				D0096D2717FCB83700B05E68 /* iPhone.storyboard in Resources */,
 				D0D399BE16C2E4A800EA2497 /* LibreBaskerville-Regular.ttf in Resources */,
 				D0EEAE031704C1B500DBAC4C /* SCPageScrubberBar.bundle in Resources */,
 				D0EEAE0D170A1F8100DBAC4C /* paginate1.png in Resources */,
@@ -720,6 +731,7 @@
 				D0CDB7D215C1F5900074B143 /* HTMLNode.m in Sources */,
 				D0096CCF17F37F3800B05E68 /* UIImage+PHColor.m in Sources */,
 				D0CDB7D315C1F5900074B143 /* HTMLParser.m in Sources */,
+				D0096D2F17FF2FE800B05E68 /* WYPopoverController.m in Sources */,
 				D0D1C75B15CB652A0097CA9C /* PHPrefViewController.m in Sources */,
 				D0F60055163775EF00ADBC38 /* PHMasterViewController.m in Sources */,
 				D0ED8FC0165AEEBD0081E81E /* PHSearchViewController.m in Sources */,
@@ -733,8 +745,8 @@
 				D0D3999C16C06FB800EA2497 /* PHArticleNavigationItem.m in Sources */,
 				D0D3999F16C1B5B600EA2497 /* PHArticleNavigationControllerViewController.m in Sources */,
 				D0EEADE416FA29C900DBAC4C /* PHArticleReference.m in Sources */,
-				D0EEADE916FA76DF00DBAC4C /* PopoverView.m in Sources */,
 				D0EEADEC16FA770000DBAC4C /* RTLabel.m in Sources */,
+				D0096D3017FF2FE800B05E68 /* WYStoryboardPopoverSegue.m in Sources */,
 				D0EEAE021704C1B500DBAC4C /* SCCalloutView.m in Sources */,
 				D0EEAE041704C1B500DBAC4C /* SCPageScrubberBar.m in Sources */,
 				D0096D2217F8F37D00B05E68 /* UIColor+PHColor.m in Sources */,
@@ -752,6 +764,15 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		D0096D2517FCB83700B05E68 /* iPhone.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D0096D2617FCB83700B05E68 /* en */,
+			);
+			name = iPhone.storyboard;
+			path = ..;
+			sourceTree = "<group>";
+		};
 		D030E6BC15C0D2DB00CB5285 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -842,6 +863,8 @@
 		D030E6D115C0D2DB00CB5285 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -851,6 +874,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -858,6 +882,8 @@
 		D030E6D215C0D2DB00CB5285 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Peter Hedlund";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -867,6 +893,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "0384CC2C-182E-415C-886B-60EC3757F3ED";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
