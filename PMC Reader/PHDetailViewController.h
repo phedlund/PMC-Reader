@@ -21,6 +21,7 @@
 @property (strong, nonatomic) IBOutlet UIView *topContainerView;
 @property (strong, nonatomic) UIWebView *articleView;
 @property (strong, nonatomic) IBOutlet UILabel *titleLabel2;
+@property (strong, nonatomic) IBOutlet UILabel *pageNumberLabel;
 @property (nonatomic, strong, readonly) UILabel *titleLabel;
 @property (nonatomic, strong, readonly) UIBarButtonItem *backBarButtonItem;
 @property (nonatomic, strong, readonly) UIBarButtonItem *titleBarButtonItem;
@@ -32,10 +33,11 @@
 @property (nonatomic, strong, readonly) UIBarButtonItem *prefsBarButtonItem;
 @property (nonatomic, strong, readonly) UIBarButtonItem *navBarButtonItem;
 @property (nonatomic, strong, readonly) SCPageScrubberBar *pageNumberBar;
-@property (strong, nonatomic) IBOutlet UILabel *pageNumberLabel;
 
-@property (strong, nonatomic) PHArticleNavigationControllerViewController *articleNavigationController;
-@property (strong, nonatomic) WYPopoverController *articleNavigationPopover;
+@property (nonatomic, strong, readonly) PHArticleNavigationControllerViewController *articleNavigationController;
+@property (nonatomic, strong, readonly) WYPopoverController *articleNavigationPopover;
+@property (nonatomic, strong, readonly) WYPopoverController *referencePopover;
+@property (nonatomic, strong, readonly) RTLabel *referenceLabel;
 
 - (void) writeCssTemplate;
 

@@ -20,7 +20,6 @@
 #define TITLE_LABEL_WIDTH_PORTRAIT 380
 
 @interface PHDetailViewController () {
-    WYPopoverController *popover;
     CGPoint currentTapLocation;
     int _pageCount;
     int _currentPage;
@@ -58,6 +57,8 @@
 @synthesize articleNavigationController, articleNavigationPopover;
 @synthesize pageTapRecognizer, nextPageSwipeRecognizer, previousPageSwipeRecognizer;
 @synthesize pageNumberBar;
+@synthesize referencePopover;
+@synthesize referenceLabel;
 
 #pragma mark - Managing the detail item
 
@@ -203,9 +204,7 @@
 }
 
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
-    if (popover) {
-        [popover dismissPopoverAnimated:NO];
-    }
+    [self.referencePopover dismissPopoverAnimated:NO];
 }
 
 #pragma mark - Actions
@@ -281,6 +280,26 @@
         articleNavigationPopover = [[WYPopoverController alloc] initWithContentViewController:self.articleNavigationController];
     }
     return articleNavigationPopover;
+}
+
+- (WYPopoverController *) referencePopover {
+    if (!referencePopover) {
+        UIViewController *vc = [[UIViewController alloc] init];
+        int width = (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 370 : 300;
+        vc.preferredContentSize = CGSizeMake(width, 500);
+        [vc.view addSubview:self.referenceLabel];
+        referencePopover = [[WYPopoverController alloc] initWithContentViewController:vc];
+    }
+    return referencePopover;
+}
+
+- (RTLabel *) referenceLabel {
+    if (!referenceLabel) {
+        int width = (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 350 : 280;
+        referenceLabel = [[RTLabel alloc] initWithFrame:CGRectMake(0, 0, width, 500)];
+        referenceLabel.delegate = self;
+    }
+    return referenceLabel;
 }
 
 - (void)toggleNavBar:(UITapGestureRecognizer *)gesture {
@@ -422,28 +441,21 @@
                             NSURL *url = [NSURL URLWithString:[frag stringByAppendingString:[request.URL fragment]] relativeToURL:self.articleView.request.URL];
                             NSString *labelText = [NSString stringWithFormat:@" [<a href='%@'>Ref List</a>]", [url absoluteString]];
                             labelText = [ref.text stringByAppendingString:labelText];
-                            
-                            int width = (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 350 : 280;
-                            RTLabel *label = [[RTLabel alloc] initWithFrame:CGRectMake(0, 0, width, 500)];
                             _currentHash = ref.hashAttribute;
-                            label.delegate = self;
-                            label.text = labelText;
-                            label.textColor = [UIColor textColor];
-                            label.backgroundColor = [UIColor popoverButtonColor];
-                            CGSize opt = [label optimumSize];
-                            CGRect frame = [label frame];
-                            frame.size.height = (int)opt.height + 5;
-                            label.frame = frame;
-                            
-                            UIViewController *vc = [[UIViewController alloc] init];
-                            vc.preferredContentSize = CGSizeMake(opt.width + 20, opt.height + 25);
-                            [vc.view addSubview:label];
 
-                            popover = [[WYPopoverController alloc] initWithContentViewController:vc];
+                            self.referenceLabel.text = labelText;
+                            self.referenceLabel.textColor = [UIColor textColor];
+                            self.referenceLabel.backgroundColor = [UIColor popoverButtonColor];
+                            CGSize opt = [self.referenceLabel optimumSize];
+                            CGRect frame = self.referenceLabel.frame;
+                            frame.size.height = (int)opt.height + 5;
+                            self.referenceLabel.frame = frame;
+                            self.referencePopover.contentViewController.preferredContentSize = CGSizeMake(opt.width + 20, opt.height + 25);
+
                             WYPopoverBackgroundView *appearance = [WYPopoverBackgroundView appearance];
                             appearance.viewContentInsets = UIEdgeInsetsMake(10, 10, 10, 10);
 
-                            [popover presentPopoverFromRect:CGRectMake(currentTapLocation.x, currentTapLocation.y, 1, 1) inView:self.articleView permittedArrowDirections:WYPopoverArrowDirectionAny animated:YES];
+                            [self.referencePopover presentPopoverFromRect:CGRectMake(currentTapLocation.x, currentTapLocation.y, 1, 1) inView:self.articleView permittedArrowDirections:WYPopoverArrowDirectionAny animated:YES];
                             refFound = YES;
                             *stop = YES;
                         }
@@ -511,9 +523,7 @@
 }
 
 - (void)rtLabel:(id)rtLabel didSelectLinkWithURL:(NSURL*)url {
-    if (popover) {
-        [popover dismissPopoverAnimated:NO];
-    }
+    [self.referencePopover dismissPopoverAnimated:NO];
 
     NSRange range = [url.absoluteString rangeOfString:[NSString stringWithFormat:@"Documents/%@/text.html", self.article.pmcId]];
     if (range.location != NSNotFound) {
