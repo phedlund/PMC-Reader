@@ -174,6 +174,7 @@
         self.titleLabel2.frame = CGRectMake(20, 10, [self orientationRect].size.width - 40, 21);
         self.titleLabel2.font = [UIFont preferredFontForTextStyle:UIFontTextStyleCaption2];
     }
+    self.titleLabel2.hidden = !self.navigationController.navigationBarHidden;
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -376,6 +377,7 @@
             self.pageNumberBar.hidden = YES;
             self.pageNumberLabel.alpha = 0.5f;
             self.topContainerView.hidden = NO;
+            self.titleLabel2.hidden = NO;
             self.articleView.scrollView.contentInset = UIEdgeInsetsZero;
         }
     }
@@ -423,7 +425,7 @@
     int width =[[NSUserDefaults standardUserDefaults] integerForKey:@"Margin"];
     int x = ([self orientationRect].size.width - width) / 2;
     int y = (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 20 : 0;
-    return CGRectMake(x, y, width, 30);
+    return CGRectMake(x, y, width, 23);
 }
 
 - (void) updateTapLocation:(UIGestureRecognizer *)gestureRecognizer {
