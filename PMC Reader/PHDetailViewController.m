@@ -16,8 +16,8 @@
 #import "PHFigTablePanel.h"
 #import "TransparentToolbar.h"
 
-#define TITLE_LABEL_WIDTH_LANDSCAPE 630
-#define TITLE_LABEL_WIDTH_PORTRAIT 380
+#define TITLE_LABEL_WIDTH_LANDSCAPE 670
+#define TITLE_LABEL_WIDTH_PORTRAIT 420
 
 @interface PHDetailViewController () {
     CGPoint currentTapLocation;
