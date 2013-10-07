@@ -12,7 +12,7 @@
 - (void)settingsChanged:(NSString*)setting newValue:(NSUInteger)value;
 @end
 
-@interface PHPrefViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
+@interface PHPrefViewController : UIViewController
 
 @property (strong, nonatomic) IBOutlet UIButton *paginationOnButton;
 @property (strong, nonatomic) IBOutlet UIButton *paginationOffButton;
@@ -25,8 +25,6 @@
 @property (strong, nonatomic) IBOutlet UIButton *increaseLineHeightButton;
 @property (strong, nonatomic) IBOutlet UIButton *decreaseMarginButton;
 @property (strong, nonatomic) IBOutlet UIButton *increaseMarginButton;
-@property (strong, nonatomic) IBOutlet UITableView *tableView;
-@property (strong, nonatomic) NSArray *fonts;
 
 @property (nonatomic, strong) id<PHPrefViewControllerDelegate> delegate;
 

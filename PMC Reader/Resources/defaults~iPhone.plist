@@ -1,0 +1,35 @@
+{
+	AppDirGUID = "";
+	Reading = No;
+	GridLayout = 1;
+	Paginate = 0;
+	Fonts = (
+		Arial,
+		"DejaVu Sans",
+		"DejaVu Serif",
+		Helvetica,
+		"Libre Baskerville",
+		Palatino,
+		"Times New Roman",
+	);
+	Font = Palatino;
+	Background = 0;
+	Backgrounds = (
+		"#FFFFFF",
+		"#F5EFDC",
+		"#111111",
+	);
+	Colors = (
+		"#000000",
+		"#000000",
+		"#999999",
+	);
+	ColorsLink = (
+		"#354559",
+		"#354559",
+		"#D7E0E1",
+	);
+	FontSize = 16;
+	LineHeight = "1.4";
+	Margin = 280;
+}

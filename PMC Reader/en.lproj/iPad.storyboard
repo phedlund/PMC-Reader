@@ -284,7 +284,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="XJT-5u-1IM">
-                                <rect key="frame" x="240" y="20" width="95" height="44"/>
+                                <rect key="frame" x="20" y="20" width="95" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
                                 <inset key="imageEdgeInsets" minX="35" minY="9" maxX="34" maxY="9"/>
@@ -294,7 +294,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="K8P-yk-DNa">
-                                <rect key="frame" x="345" y="20" width="95" height="44"/>
+                                <rect key="frame" x="125" y="20" width="95" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
                                 <inset key="imageEdgeInsets" minX="35" minY="9" maxX="34" maxY="9"/>
@@ -304,7 +304,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="5aA-bD-sc3">
-                                <rect key="frame" x="345" y="260" width="95" height="44"/>
+                                <rect key="frame" x="125" y="260" width="95" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
                                 <inset key="imageEdgeInsets" minX="35" minY="9" maxX="34" maxY="9"/>
@@ -314,7 +314,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="1fx-C8-Jxj">
-                                <rect key="frame" x="240" y="260" width="95" height="44"/>
+                                <rect key="frame" x="20" y="260" width="95" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
                                 <inset key="imageEdgeInsets" minX="35" minY="9" maxX="34" maxY="9"/>
@@ -324,7 +324,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="cc1-RF-DLq">
-                                <rect key="frame" x="345" y="200" width="95" height="44"/>
+                                <rect key="frame" x="125" y="200" width="95" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
                                 <inset key="imageEdgeInsets" minX="35" minY="9" maxX="34" maxY="9"/>
@@ -334,7 +334,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="GD9-fz-kNH">
-                                <rect key="frame" x="240" y="200" width="95" height="44"/>
+                                <rect key="frame" x="20" y="200" width="95" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
                                 <inset key="imageEdgeInsets" minX="35" minY="9" maxX="34" maxY="9"/>
@@ -344,7 +344,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Z0a-a0-OD0">
-                                <rect key="frame" x="345" y="140" width="95" height="44"/>
+                                <rect key="frame" x="125" y="140" width="95" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
                                 <inset key="imageEdgeInsets" minX="35" minY="9" maxX="34" maxY="9"/>
@@ -354,7 +354,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="gY8-I9-eig">
-                                <rect key="frame" x="240" y="140" width="95" height="44"/>
+                                <rect key="frame" x="20" y="140" width="95" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
                                 <inset key="imageEdgeInsets" minX="35" minY="9" maxX="34" maxY="9"/>
@@ -364,7 +364,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="bJV-OJ-sPx">
-                                <rect key="frame" x="380" y="80" width="60" height="44"/>
+                                <rect key="frame" x="160" y="80" width="60" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
                                 <state key="normal">
@@ -375,7 +375,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Gkr-bM-IId">
-                                <rect key="frame" x="240" y="80" width="60" height="44"/>
+                                <rect key="frame" x="20" y="80" width="60" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
                                 <state key="normal">
@@ -386,7 +386,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Y32-FC-XL9">
-                                <rect key="frame" x="310" y="80" width="60" height="44"/>
+                                <rect key="frame" x="90" y="80" width="60" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
                                 <state key="normal">
@@ -417,7 +417,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7bF-3Q-8eV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-343" y="98"/>
+            <point key="canvasLocation" x="1532" y="1292"/>
         </scene>
     </scenes>
     <resources>

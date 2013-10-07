@@ -29,10 +29,9 @@
     CALayer *bottomBorder;
     BOOL _newArticle;
     int _newArticlePage;
+    NSArray *_settingsControllers;
 }
 
-@property (strong, nonatomic) UIPopoverController *prefPopoverController;
-@property (strong, nonatomic) PHPrefViewController *prefViewController;
 @property (nonatomic, strong, readonly) UITapGestureRecognizer *pageTapRecognizer;
 @property (nonatomic, strong, readonly) UISwipeGestureRecognizer *nextPageSwipeRecognizer;
 @property (nonatomic, strong, readonly) UISwipeGestureRecognizer *previousPageSwipeRecognizer;
@@ -49,12 +48,14 @@
 
 @synthesize article = _article;
 @synthesize articleView = _articleView;
-@synthesize prefPopoverController = _prefPopoverController;
-@synthesize prefViewController = _prefViewController;
+@synthesize articleNavigationController;
+@synthesize prefViewController;
+@synthesize fontsController;
+@synthesize settingsPageController;
+@synthesize settingsPopover;
 @synthesize titleLabel, titleBarButtonItem;
 @synthesize backBarButtonItem, goBackBarButtonItem, forwardBarButtonItem, refreshBarButtonItem, stopBarButtonItem;
-@synthesize infoBarButtonItem, prefsBarButtonItem, navBarButtonItem;
-@synthesize articleNavigationController, articleNavigationPopover;
+@synthesize infoBarButtonItem, prefsBarButtonItem;
 @synthesize pageTapRecognizer, nextPageSwipeRecognizer, previousPageSwipeRecognizer;
 @synthesize pageNumberBar;
 @synthesize referencePopover;
@@ -159,15 +160,20 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    CGRect newRect = self.titleLabel.frame;
-    if (([UIApplication sharedApplication].statusBarOrientation == UIDeviceOrientationLandscapeLeft) ||
-        ([UIApplication sharedApplication].statusBarOrientation == UIDeviceOrientationLandscapeRight)) {
-        newRect.size.width = TITLE_LABEL_WIDTH_LANDSCAPE;
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        CGRect newRect = self.titleLabel.frame;
+        if (([UIApplication sharedApplication].statusBarOrientation == UIDeviceOrientationLandscapeLeft) ||
+            ([UIApplication sharedApplication].statusBarOrientation == UIDeviceOrientationLandscapeRight)) {
+            newRect.size.width = TITLE_LABEL_WIDTH_LANDSCAPE;
+        } else {
+            newRect.size.width = TITLE_LABEL_WIDTH_PORTRAIT;
+        }
+        self.titleLabel.frame = newRect;
+        self.titleLabel2.frame = CGRectOffset(newRect, 0, 20);
     } else {
-        newRect.size.width = TITLE_LABEL_WIDTH_PORTRAIT;
+        self.titleLabel2.frame = CGRectMake(20, 10, [self orientationRect].size.width - 40, 21);
+        self.titleLabel2.font = [UIFont preferredFontForTextStyle:UIFontTextStyleCaption2];
     }
-    self.titleLabel.frame = newRect;
-    self.titleLabel2.frame = CGRectOffset(newRect, 0, 20);
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -188,18 +194,30 @@
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
     [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
-    CGRect newRect = self.titleLabel.frame;
-    if ((toInterfaceOrientation == UIInterfaceOrientationLandscapeLeft) || (toInterfaceOrientation == UIInterfaceOrientationLandscapeRight)) {
-        newRect.size.width = TITLE_LABEL_WIDTH_LANDSCAPE;
-    } else {
-        newRect.size.width = TITLE_LABEL_WIDTH_PORTRAIT;
-    }
-    self.titleLabel.frame = newRect;
-    self.titleLabel2.frame = CGRectOffset(newRect, 0, 20);
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        CGRect newRect = self.titleLabel.frame;
+        if ((toInterfaceOrientation == UIInterfaceOrientationLandscapeLeft) || (toInterfaceOrientation == UIInterfaceOrientationLandscapeRight)) {
+            newRect.size.width = TITLE_LABEL_WIDTH_LANDSCAPE;
+        } else {
+            newRect.size.width = TITLE_LABEL_WIDTH_PORTRAIT;
+        }
+        self.titleLabel.frame = newRect;
+        self.titleLabel2.frame = CGRectOffset(newRect, 0, 20);
+     }
+
     if ([self shouldPaginate]) {
         if (self.articleView != nil) {
             [self.articleView reload];
         }
+    }
+}
+
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        //
+    } else {
+        self.titleLabel2.frame = CGRectMake(20, 10, [self orientationRect].size.width - 40, 21);
+        self.titleLabel2.font = [UIFont preferredFontForTextStyle:UIFontTextStyleCaption2];
     }
 }
 
@@ -236,50 +254,74 @@
     }
 }
 
+- (UIPageViewController *) settingsPageController {
+    if (!settingsPageController) {
+        settingsPageController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil];
+        settingsPageController.dataSource = self;
+        settingsPageController.delegate = self;
+        [settingsPageController setViewControllers:@[self.articleNavigationController] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+            settingsPageController.preferredContentSize = CGSizeMake(240, 362);
+        } else {
+            settingsPageController.preferredContentSize = CGSizeMake(220, 344);
+        }
+    }
+    return settingsPageController;
+}
+
 - (IBAction)doPreferences:(id)sender {
-    if (_prefViewController == nil) {
-        _prefViewController =  [self.storyboard instantiateViewControllerWithIdentifier:@"preferences"];
-        _prefViewController.delegate = self;
-        _prefPopoverController = [[UIPopoverController alloc] initWithContentViewController:_prefViewController];
-    } 
-    
-    [_prefPopoverController presentPopoverFromBarButtonItem:self.prefsBarButtonItem permittedArrowDirections:(UIPopoverArrowDirectionUp | UIPopoverArrowDirectionDown) animated:YES];
+    WYPopoverBackgroundView* popoverAppearance = [WYPopoverBackgroundView appearance];
+    popoverAppearance.fillTopColor = [UIColor popoverButtonColor];
+    popoverAppearance.viewContentInsets = UIEdgeInsetsZero;
+
+    self.articleNavigationController.articleSections = [NSArray arrayWithArray:self.article.articleNavigationItems];;
+    if (!_settingsControllers) {
+        _settingsControllers = @[self.articleNavigationController, self.prefViewController, self.fontsController];
+    }
+    [self.settingsPopover presentPopoverFromBarButtonItem:self.prefsBarButtonItem permittedArrowDirections:(UIPopoverArrowDirectionUp | UIPopoverArrowDirectionDown) animated:YES];
 }
 
 - (IBAction)doInfo:(id)sender {
     if (self.article != nil) {
-        UIActionSheet *menu = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:@"Open in Safari", @"Copy", nil];
-        [menu showFromBarButtonItem:infoBarButtonItem animated:YES];
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+            UIActionSheet *menu = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:@"Open in Safari", @"Copy", nil];
+            [menu showFromBarButtonItem:infoBarButtonItem animated:YES];
+        } else {
+            UIActionSheet *menu = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Open in Safari", @"Copy", nil];
+            [menu showInView:self.view];
+        }
     }
 }
 
-- (IBAction) doNavigation:(id)sender {
-    self.articleNavigationController.articleSections = [NSArray arrayWithArray:self.article.articleNavigationItems];
-    if (self.article.articleNavigationItems.count > 0) {
-        self.articleNavigationPopover.popoverContentSize  = CGSizeMake(290.0f, 44 * self.article.articleNavigationItems.count);
-    } else {
-        self.articleNavigationPopover.popoverContentSize = CGSizeMake(290.0f, 44);
-    }
-    WYPopoverBackgroundView* popoverAppearance = [WYPopoverBackgroundView appearance];
-    popoverAppearance.fillTopColor = [UIColor popoverButtonColor];
-    popoverAppearance.viewContentInsets = UIEdgeInsetsMake(0, 0, 0, 0);
-
-    [self.articleNavigationPopover presentPopoverFromBarButtonItem:self.navBarButtonItem permittedArrowDirections:(UIPopoverArrowDirectionUp | UIPopoverArrowDirectionDown) animated:YES];
-}
-
-- (PHArticleNavigationControllerViewController *) articleNavigationController {
+- (PHArticleNavigationController *) articleNavigationController {
     if (!articleNavigationController) {
-        articleNavigationController = [[PHArticleNavigationControllerViewController alloc] initWithStyle:UITableViewStylePlain];
+        articleNavigationController = [[PHArticleNavigationController alloc] initWithStyle:UITableViewStylePlain];
         articleNavigationController.delegate = self;
     }
     return articleNavigationController;
 }
 
-- (WYPopoverController *) articleNavigationPopover {
-    if (!articleNavigationPopover) {
-        articleNavigationPopover = [[WYPopoverController alloc] initWithContentViewController:self.articleNavigationController];
+- (PHPrefViewController *) prefViewController {
+    if (!prefViewController) {
+        prefViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"preferences"];
+        prefViewController.delegate = self;
     }
-    return articleNavigationPopover;
+    return prefViewController;
+}
+
+- (PHFontsTableController *) fontsController {
+    if (!fontsController) {
+        fontsController = [[PHFontsTableController alloc] initWithStyle:UITableViewStylePlain];
+        fontsController.delegate = self;
+    }
+    return fontsController;
+}
+
+- (WYPopoverController *) settingsPopover {
+    if (!settingsPopover) {
+        settingsPopover = [[WYPopoverController alloc] initWithContentViewController:self.settingsPageController];
+    }
+    return settingsPopover;
 }
 
 - (WYPopoverController *) referencePopover {
@@ -362,11 +404,9 @@
 
 - (CGRect)articleRect {
     if ([self shouldPaginate]) {
-        int y = 94;
-        if (self.navigationController.navigationBarHidden) {
-            y = 94;
-        }
-        return CGRectMake(0, y, [self orientationRect].size.width, [self orientationRect].size.height - 184);
+        int topY = self.topContainerView.frame.size.height + ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 30 : 5);
+        int bottomY = self.pageBarContainerView.frame.size.height;
+        return CGRectMake(0, topY, [self orientationRect].size.width, [self orientationRect].size.height - (topY + bottomY));
         /*
         if (([UIApplication sharedApplication].statusBarOrientation == UIDeviceOrientationLandscapeLeft) ||
             ([UIApplication sharedApplication].statusBarOrientation == UIDeviceOrientationLandscapeRight)) {
@@ -382,7 +422,8 @@
 - (CGRect)pageNumberBarRect {
     int width =[[NSUserDefaults standardUserDefaults] integerForKey:@"Margin"];
     int x = ([self orientationRect].size.width - width) / 2;
-    return CGRectMake(x, 20, width, 30);
+    int y = (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 20 : 0;
+    return CGRectMake(x, y, width, 30);
 }
 
 - (void) updateTapLocation:(UIGestureRecognizer *)gestureRecognizer {
@@ -568,8 +609,18 @@
     self.refreshBarButtonItem.tintColor = [UIColor iconColor];
     self.stopBarButtonItem.tintColor = [UIColor iconColor];
     self.prefsBarButtonItem.tintColor = [UIColor iconColor];
-    self.navBarButtonItem.tintColor = [UIColor iconColor];
     self.infoBarButtonItem.tintColor = [UIColor iconColor];
+
+    NSArray *subviews = self.settingsPageController.view.subviews;
+    UIPageControl *pageControl = nil;
+    for (int i=0; i<[subviews count]; i++) {
+        if ([[subviews objectAtIndex:i] isKindOfClass:[UIPageControl class]]) {
+            pageControl = (UIPageControl *)[subviews objectAtIndex:i];
+            pageControl.pageIndicatorTintColor = [UIColor popoverBorderColor];
+            pageControl.currentPageIndicatorTintColor = [UIColor iconColor];
+            pageControl.backgroundColor = [UIColor popoverButtonColor];
+        }
+    }
 
     WYPopoverBackgroundView* popoverAppearance = [WYPopoverBackgroundView appearance];
     popoverAppearance.fillTopColor = [UIColor popoverButtonColor];
@@ -887,16 +938,9 @@
 
 - (UIBarButtonItem *)prefsBarButtonItem {
     if (!prefsBarButtonItem) {
-        prefsBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"text"] style:UIBarButtonItemStylePlain target:self action:@selector(doPreferences:)];
+        prefsBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"menu"] style:UIBarButtonItemStylePlain target:self action:@selector(doPreferences:)];
     }
     return prefsBarButtonItem;
-}
-
-- (UIBarButtonItem *)navBarButtonItem {
-    if (!navBarButtonItem) {
-        navBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"contents"] style:UIBarButtonItemStylePlain target:self action:@selector(doNavigation:)];
-    }
-    return navBarButtonItem;
 }
 
 #pragma mark - Toolbar
@@ -907,45 +951,33 @@
     if ((self.article != nil)) {
         self.infoBarButtonItem.enabled = !self.articleView.isLoading;
         self.prefsBarButtonItem.enabled = !self.articleView.isLoading;
-        self.navBarButtonItem.enabled = !self.articleView.isLoading;
     } else {
         self.infoBarButtonItem.enabled = NO;
         self.prefsBarButtonItem.enabled = NO;
-        self.navBarButtonItem.enabled = NO;
     }
     
     NSURL *url = self.articleView.request.URL;
     NSString *u = [url absoluteString];
-    NSString *v = [NSString stringWithFormat:@"Documents/%@/text.html", self.article.pmcId];
+    NSString *v = [NSString stringWithFormat:@"Documents/%@", self.article.pmcId];
     
-    if ([u rangeOfString:v].location == NSNotFound) {
-        self.navBarButtonItem.enabled = NO;
-    }
-    
-    v = [NSString stringWithFormat:@"Documents/%@", self.article.pmcId];
     if ([u rangeOfString:v].location == NSNotFound) {
         self.prefsBarButtonItem.enabled = NO;
     }
 
     UIBarButtonItem *refreshStopBarButtonItem = self.articleView.isLoading ? self.stopBarButtonItem : self.refreshBarButtonItem;
     refreshStopBarButtonItem.enabled = (self.article != nil);
-    
+
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
         self.navigationItem.leftBarButtonItems = @[self.backBarButtonItem, self.goBackBarButtonItem, self.forwardBarButtonItem, refreshStopBarButtonItem, self.titleBarButtonItem];
-        self.navigationItem.rightBarButtonItems = @[self.infoBarButtonItem, self.prefsBarButtonItem, self.navBarButtonItem];
+        self.navigationItem.rightBarButtonItems = @[self.infoBarButtonItem, self.prefsBarButtonItem];
     } else {
-        TransparentToolbar *leftTBar = [[TransparentToolbar alloc] initWithFrame:CGRectMake(0, 0, 90, 44)];
-        leftTBar.items = @[self.backBarButtonItem, self.goBackBarButtonItem, self.forwardBarButtonItem, refreshStopBarButtonItem];
-        TransparentToolbar *rightTBar = [[TransparentToolbar alloc] initWithFrame:CGRectMake(0, 0, 105, 44)];
-        rightTBar.items =  @[self.navBarButtonItem, self.prefsBarButtonItem, self.infoBarButtonItem];
-        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftTBar];
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightTBar];
+        self.navigationItem.leftBarButtonItems = @[self.backBarButtonItem, self.goBackBarButtonItem, self.forwardBarButtonItem, refreshStopBarButtonItem];
+        self.navigationItem.rightBarButtonItems = @[self.infoBarButtonItem, self.prefsBarButtonItem];
     }
-
 }
 
 - (void)articleSectionSelected:(NSUInteger)section {
-    [self.articleNavigationPopover dismissPopoverAnimated:YES];
+    [self.settingsPopover dismissPopoverAnimated:YES];
     PHArticleNavigationItem *navItem = (PHArticleNavigationItem *)[self.article.articleNavigationItems objectAtIndex:section];
     NSURL *url = self.articleView.request.URL;
     NSMutableString* frag = [[NSMutableString alloc] initWithString:@"#"];
@@ -953,6 +985,37 @@
     url = [NSURL URLWithString:frag relativeToURL:url];
     NSLog(@"DEBUG - absoluteString: %@", [url absoluteString]);
     [[self articleView] loadRequest:[NSURLRequest requestWithURL:url]];
+}
+
+- (void)fontSelected:(NSUInteger)font {
+    [self settingsChanged:@"Font" newValue:font];
+}
+
+- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController {
+    int ind = [_settingsControllers indexOfObject:viewController];
+    UIViewController *nextController;
+    if (ind < (_settingsControllers.count - 1)) {
+        nextController = [_settingsControllers objectAtIndex:ind + 1];
+    }
+    return nextController;
+}
+
+- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController {
+    int ind = [_settingsControllers indexOfObject:viewController];
+    UIViewController *nextController;
+    if (ind > 0) {
+        nextController = [_settingsControllers objectAtIndex:ind - 1];
+    }
+    return nextController;
+}
+
+- (NSInteger)presentationCountForPageViewController:(UIPageViewController *)pageViewController {
+    return 3;
+}
+
+- (NSInteger)presentationIndexForPageViewController:(UIPageViewController *)pageViewController {
+    // The selected item reflected in the page indicator.
+    return 0;
 }
 
 @end

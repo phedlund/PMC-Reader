@@ -13,8 +13,8 @@
 //- (NSUInteger)selectedMode;
 @end
 
-@interface PHArticleNavigationControllerViewController : UITableViewController {
-    id<ArticleNavigationDelegate> __unsafe_unretained m_delegate;
+@interface PHArticleNavigationController : UITableViewController {
+    id<ArticleNavigationDelegate> __unsafe_unretained _delegate;
 }
 
 @property (nonatomic, strong) NSArray *articleSections;

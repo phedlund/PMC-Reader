@@ -10,22 +10,21 @@
 #import "QuartzCore/QuartzCore.h"
 #import "UIColor+PHColor.h"
 
-#define MIN_FONT_SIZE 11
+#define MIN_FONT_SIZE (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ? 11 : 9)
 #define MAX_FONT_SIZE 30
 
 #define MIN_LINE_HEIGHT 1.2f
 #define MAX_LINE_HEIGHT 2.6f
 
-#define MIN_WIDTH 380
-#define MAX_WIDTH 650
+#define MIN_WIDTH (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ? 380 : 150)
+#define MAX_WIDTH (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ? 700 : 300)
 
 @interface PHPrefViewController ()
 
 @end
 
 @implementation PHPrefViewController
-@synthesize tableView;
-@synthesize fonts;
+
 @synthesize delegate = _delegate;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -42,21 +41,6 @@
     [super viewDidLoad];
 	
     // Do any additional setup after loading the view.
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    self.fonts = [prefs arrayForKey:@"Fonts"];
-
-    //Did not work putting on storyboard
-    CGRect tableViewFrame = CGRectMake(20, 20, 200, 283);
-    self.tableView = [[UITableView alloc] initWithFrame:tableViewFrame style:UITableViewStylePlain];
-    self.tableView.layer.borderWidth = 0.75;
-    self.tableView.layer.borderColor = [UIColor darkGrayColor].CGColor;
-    self.tableView.layer.cornerRadius = 5;
-    self.tableView.clipsToBounds = YES;
-    self.tableView.dataSource = self;
-    self.tableView.delegate = self;
-    self.tableView.rowHeight = 44.0;
-    [self.view addSubview:self.tableView];
-    
     [self.paginationOnButton.layer setCornerRadius:8.0f];
     [self.paginationOnButton.layer setMasksToBounds:YES];
     [self.paginationOnButton.layer setBorderWidth:0.75f];
@@ -115,13 +99,11 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self.tableView reloadData];
     [self updateBackgrounds];
 }
 
 - (void)viewDidUnload
 {
-    [self setTableView:nil];
     [self setPaginationOnButton:nil];
     [self setPaginationOffButton:nil];
     [self setWhiteBackgroundButton:nil];
@@ -144,9 +126,6 @@
 
 - (void)updateBackgrounds {
     self.view.backgroundColor = [UIColor popoverBackgroundColor];
-    self.tableView.backgroundColor = [UIColor popoverButtonColor];
-    self.tableView.layer.borderColor = [[UIColor popoverBorderColor] CGColor];
-    self.tableView.separatorColor = [UIColor popoverBorderColor];
     
     UIColor *buttonColor = [UIColor popoverButtonColor];
     self.paginationOnButton.backgroundColor = buttonColor;
@@ -183,8 +162,6 @@
     self.increaseLineHeightButton.tintColor = iconColor;
     self.decreaseMarginButton.tintColor = iconColor;
     self.increaseMarginButton.tintColor = iconColor;
-
-    [self.tableView reloadData];
 }
 
 - (IBAction)handleButtonTap:(UIButton *)sender {
@@ -267,95 +244,6 @@
 
     if (_delegate != nil) {
 		[_delegate settingsChanged:@"" newValue:0];
-	}
-}
-
-
-#pragma mark - Table view data source
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    // Return the number of sections.
-    return 1;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    // Return the number of rows in the section.
-    return self.fonts.count;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-    }
-    
-    // Configure the cell...
-    cell.textLabel.text = [self.fonts objectAtIndex:indexPath.row];
-    cell.textLabel.textColor = [UIColor popoverIconColor];
-    cell.accessoryType = UITableViewCellAccessoryNone;
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    NSString *font = [prefs valueForKey:@"Font"];
-    NSInteger currentIndex = [self.fonts indexOfObject:font];
-    if (currentIndex == indexPath.row) {
-        cell.accessoryType = UITableViewCellAccessoryCheckmark;
-    }
-   
-    return cell;
-}
-
-/*
- // Override to support conditional editing of the table view.
- - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
- {
- // Return NO if you do not want the specified item to be editable.
- return YES;
- }
- */
-
-/*
- // Override to support editing the table view.
- - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
- {
- if (editingStyle == UITableViewCellEditingStyleDelete) {
- // Delete the row from the data source
- [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
- }
- else if (editingStyle == UITableViewCellEditingStyleInsert) {
- // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
- }
- }
- */
-
-/*
- // Override to support rearranging the table view.
- - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
- {
- }
- */
-
-/*
- // Override to support conditional rearranging of the table view.
- - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
- {
- // Return NO if you do not want the item to be re-orderable.
- return YES;
- }
- */
-
-#pragma mark - Table view delegate
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
-    [self.tableView reloadData];
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    [prefs setObject:[self.fonts objectAtIndex:indexPath.row] forKey:@"Font"];
-    if (_delegate != nil) {
-		[_delegate settingsChanged:@"Font" newValue:indexPath.row];
 	}
 }
 

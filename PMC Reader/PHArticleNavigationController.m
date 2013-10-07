@@ -6,16 +6,16 @@
 //  Copyright (c) 2013 Peter Hedlund. All rights reserved.
 //
 
-#import "PHArticleNavigationControllerViewController.h"
+#import "PHArticleNavigationController.h"
 #import "PHArticleNavigationItem.h"
 #import "UIColor+PHColor.h"
 
-@interface PHArticleNavigationControllerViewController ()
+@interface PHArticleNavigationController ()
 
 
 @end
 
-@implementation PHArticleNavigationControllerViewController
+@implementation PHArticleNavigationController
 
 @synthesize articleSections;
 @synthesize delegate;

@@ -9,12 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "PHArticle.h"
 #import "PHPrefViewController.h"
-#import "PHArticleNavigationControllerViewController.h"
+#import "PHArticleNavigationController.h"
+#import "PHFontsTableController.h"
 #import "RTLabel.h"
 #import "SCPageScrubberBar.h"
 #import "WYPopoverController.h"
 
-@interface PHDetailViewController : UIViewController <UIActionSheetDelegate, UIWebViewDelegate, UIScrollViewDelegate, UIPopoverControllerDelegate, UIGestureRecognizerDelegate, PHPrefViewControllerDelegate, ArticleNavigationDelegate, RTLabelDelegate, SCPageScrubberBarDelegate, WYPopoverControllerDelegate>
+@interface PHDetailViewController : UIViewController <UIActionSheetDelegate, UIWebViewDelegate, UIScrollViewDelegate, UIPopoverControllerDelegate, UIGestureRecognizerDelegate, PHPrefViewControllerDelegate, ArticleNavigationDelegate, PHFontsControllerDelegate, RTLabelDelegate, SCPageScrubberBarDelegate, WYPopoverControllerDelegate, UIPageViewControllerDataSource, UIPageViewControllerDelegate>
 
 @property (strong, nonatomic) PHArticle *article;
 @property (strong, nonatomic) IBOutlet UIView *pageBarContainerView;
@@ -31,11 +32,14 @@
 @property (nonatomic, strong, readonly) UIBarButtonItem *stopBarButtonItem;
 @property (nonatomic, strong, readonly) UIBarButtonItem *infoBarButtonItem;
 @property (nonatomic, strong, readonly) UIBarButtonItem *prefsBarButtonItem;
-@property (nonatomic, strong, readonly) UIBarButtonItem *navBarButtonItem;
 @property (nonatomic, strong, readonly) SCPageScrubberBar *pageNumberBar;
 
-@property (nonatomic, strong, readonly) PHArticleNavigationControllerViewController *articleNavigationController;
-@property (nonatomic, strong, readonly) WYPopoverController *articleNavigationPopover;
+@property (nonatomic, strong, readonly) PHArticleNavigationController *articleNavigationController;
+@property (nonatomic, strong, readonly) PHPrefViewController *prefViewController;
+@property (nonatomic, strong, readonly) PHFontsTableController *fontsController;
+@property (nonatomic, strong, readonly) UIPageViewController *settingsPageController;
+@property (nonatomic, strong, readonly) WYPopoverController *settingsPopover;
+
 @property (nonatomic, strong, readonly) WYPopoverController *referencePopover;
 @property (nonatomic, strong, readonly) RTLabel *referenceLabel;
 
@@ -48,6 +52,5 @@
 - (IBAction) doStop:(id)sender;
 - (IBAction) doPreferences:(id)sender;
 - (IBAction) doInfo:(id)sender;
-- (IBAction) doNavigation:(id)sender;
 
 @end
