@@ -15,6 +15,10 @@
 #import "UIColor+Expanded.h"
 #import "PHFigTablePanel.h"
 #import "TransparentToolbar.h"
+#import "TUSafariActivity.h"
+#import "FDReadabilityActivity.h"
+#import "FDiCabActivity.h"
+#import "FDInstapaperActivity.h"
 
 #define TITLE_LABEL_WIDTH_LANDSCAPE 670
 #define TITLE_LABEL_WIDTH_PORTRAIT 420
@@ -30,6 +34,7 @@
     BOOL _newArticle;
     int _newArticlePage;
     NSArray *_settingsControllers;
+    UIPopoverController *_activityPopover;
 }
 
 @property (nonatomic, strong, readonly) UITapGestureRecognizer *pageTapRecognizer;
@@ -284,12 +289,30 @@
 
 - (IBAction)doInfo:(id)sender {
     if (self.article != nil) {
+        NSURL *url = self.articleView.request.URL;
+        NSRange range = [url.absoluteString rangeOfString:[NSString stringWithFormat:@"Documents/%@/text.html", self.article.pmcId]];
+        if (range.location != NSNotFound) {
+            url = self.article.url;
+        }
+
+        TUSafariActivity *sa = [[TUSafariActivity alloc] init];
+        FDiCabActivity *ia = [[FDiCabActivity alloc] init];
+        FDInstapaperActivity *ipa = [[FDInstapaperActivity alloc] init];
+        FDReadabilityActivity *ra = [[FDReadabilityActivity alloc] init];
+        
+        NSArray *activityItems = @[url];
+        NSArray *activities = @[sa, ia, ipa, ra];
+        
+        UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:activityItems applicationActivities:activities];
+        
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-            UIActionSheet *menu = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:@"Open in Safari", @"Copy", nil];
-            [menu showFromBarButtonItem:infoBarButtonItem animated:YES];
+            if (![_activityPopover isPopoverVisible]) {
+                _activityPopover = [[UIPopoverController alloc] initWithContentViewController:activityViewController];
+                _activityPopover.delegate = self;
+                [_activityPopover presentPopoverFromBarButtonItem:self.infoBarButtonItem permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+            }
         } else {
-            UIActionSheet *menu = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Open in Safari", @"Copy", nil];
-            [menu showInView:self.view];
+            [self presentViewController:activityViewController animated:YES completion:nil];
         }
     }
 }
@@ -695,28 +718,6 @@
     self.pageNumberBar.maximumValue = _pageCount - 1;
     self.pageNumberLabel.text = [NSString stringWithFormat:@"%d of %d",_currentPage + 1, _pageCount];
     [self gotoPage:_currentPage animated:NO];
-}
-
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    NSURL *url = self.articleView.request.URL;
-    NSRange range = [url.absoluteString rangeOfString:[NSString stringWithFormat:@"Documents/%@/text.html", self.article.pmcId]];
-    if (range.location != NSNotFound) {
-        url = self.article.url;
-    }
-    
-    switch (buttonIndex) {
-        case 0: {
-            [[UIApplication sharedApplication] openURL:url];
-            break;
-        }
-        case 1: {
-            UIPasteboard* pasteboard = [UIPasteboard generalPasteboard];
-            [pasteboard setString:url.absoluteString];
-            break;
-        }
-        default:
-            break;
-    }
 }
 
 #pragma mark - Page navigation

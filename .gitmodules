@@ -22,3 +22,6 @@ url=git://github.com/phedlund/SCPageScrubberBar.git
 [submodule "WyPopoverController"]
 	path = WyPopoverController
 	url = https://github.com/nicolaschengdev/WYPopoverController.git
+[submodule "TUSafariActivity"]
+	path = TUSafariActivity
+	url = https://github.com/davbeck/TUSafariActivity.git
