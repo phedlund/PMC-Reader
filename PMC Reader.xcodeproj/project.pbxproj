@@ -54,7 +54,6 @@
 		D0096D5A1802216700B05E68 /* PHCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = D009A71F171787EA00BC4D77 /* PHCollectionViewFlowLayout.m */; };
 		D0096D5B1802216700B05E68 /* UILabel+VerticalAlignment.m in Sources */ = {isa = PBXBuildFile; fileRef = D009A72417178E9700BC4D77 /* UILabel+VerticalAlignment.m */; };
 		D0096D5C1802216700B05E68 /* UARoundedRectView.m in Sources */ = {isa = PBXBuildFile; fileRef = D0096D0C17F66DE400B05E68 /* UARoundedRectView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		D0096D5D1802216700B05E68 /* UIColor+Expanded.m in Sources */ = {isa = PBXBuildFile; fileRef = D05B89FC1725FB0800C61968 /* UIColor+Expanded.m */; };
 		D0096D5F1802216700B05E68 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0EEADEE16FA79D900DBAC4C /* CoreText.framework */; };
 		D0096D601802216700B05E68 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0F4141416C711B60033C1E9 /* QuartzCore.framework */; };
 		D0096D611802216700B05E68 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D0CDB7CC15C1BA4F0074B143 /* libxml2.dylib */; };
@@ -174,6 +173,8 @@
 		D0096E0F180390FA00B05E68 /* Safari~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = D0096DFF180390FA00B05E68 /* Safari~ipad.png */; };
 		D0096E10180390FA00B05E68 /* TUSafariActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = D0096E03180390FA00B05E68 /* TUSafariActivity.m */; };
 		D0096E11180390FA00B05E68 /* TUSafariActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = D0096E03180390FA00B05E68 /* TUSafariActivity.m */; };
+		D0096E1418039A5700B05E68 /* UIColor+Expanded.m in Sources */ = {isa = PBXBuildFile; fileRef = D0096E1318039A5700B05E68 /* UIColor+Expanded.m */; };
+		D0096E1518039A5700B05E68 /* UIColor+Expanded.m in Sources */ = {isa = PBXBuildFile; fileRef = D0096E1318039A5700B05E68 /* UIColor+Expanded.m */; };
 		D009A71A171742ED00BC4D77 /* LXReorderableCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = D009A719171742ED00BC4D77 /* LXReorderableCollectionViewFlowLayout.m */; };
 		D009A71D171744A800BC4D77 /* PHCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D009A71C171744A800BC4D77 /* PHCollectionViewCell.m */; };
 		D009A720171787EC00BC4D77 /* PHCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = D009A71F171787EA00BC4D77 /* PHCollectionViewFlowLayout.m */; };
@@ -193,7 +194,6 @@
 		D036329F167296F6000D3C0B /* UINavigationController+DismissKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = D036329E167296F5000D3C0B /* UINavigationController+DismissKeyboard.m */; };
 		D03632A31676829D000D3C0B /* text.png in Resources */ = {isa = PBXBuildFile; fileRef = D03632A11676829D000D3C0B /* text.png */; };
 		D03632A41676829D000D3C0B /* text@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D03632A21676829D000D3C0B /* text@2x.png */; };
-		D05B89FD1725FB0800C61968 /* UIColor+Expanded.m in Sources */ = {isa = PBXBuildFile; fileRef = D05B89FC1725FB0800C61968 /* UIColor+Expanded.m */; };
 		D05B8A0E1728BE1100C61968 /* grid.png in Resources */ = {isa = PBXBuildFile; fileRef = D05B8A0C1728BE0F00C61968 /* grid.png */; };
 		D05B8A0F1728BE1100C61968 /* grid@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D05B8A0D1728BE1000C61968 /* grid@2x.png */; };
 		D0C96272172F1A170065720B /* home.png in Resources */ = {isa = PBXBuildFile; fileRef = D0C96270172F1A170065720B /* home.png */; };
@@ -340,6 +340,8 @@
 		D0096E03180390FA00B05E68 /* TUSafariActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TUSafariActivity.m; sourceTree = "<group>"; };
 		D0096E04180390FA00B05E68 /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/TUSafariActivity.strings; sourceTree = "<group>"; };
 		D0096E05180390FA00B05E68 /* zh_CN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = zh_CN; path = zh_CN.lproj/TUSafariActivity.strings; sourceTree = "<group>"; };
+		D0096E1218039A5700B05E68 /* UIColor+Expanded.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIColor+Expanded.h"; path = "uicolor-utilities/Color/UIColor+Expanded.h"; sourceTree = SOURCE_ROOT; };
+		D0096E1318039A5700B05E68 /* UIColor+Expanded.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIColor+Expanded.m"; path = "uicolor-utilities/Color/UIColor+Expanded.m"; sourceTree = SOURCE_ROOT; };
 		D009A718171742ED00BC4D77 /* LXReorderableCollectionViewFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LXReorderableCollectionViewFlowLayout.h; path = LXReorderableCollectionViewFlowLayout/LXReorderableCollectionViewFlowLayout/LXReorderableCollectionViewFlowLayout.h; sourceTree = SOURCE_ROOT; };
 		D009A719171742ED00BC4D77 /* LXReorderableCollectionViewFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LXReorderableCollectionViewFlowLayout.m; path = LXReorderableCollectionViewFlowLayout/LXReorderableCollectionViewFlowLayout/LXReorderableCollectionViewFlowLayout.m; sourceTree = SOURCE_ROOT; };
 		D009A71B171744A700BC4D77 /* PHCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHCollectionViewCell.h; sourceTree = "<group>"; };
@@ -372,8 +374,6 @@
 		D036329E167296F5000D3C0B /* UINavigationController+DismissKeyboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+DismissKeyboard.m"; sourceTree = "<group>"; };
 		D03632A11676829D000D3C0B /* text.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = text.png; path = Resources/text.png; sourceTree = "<group>"; };
 		D03632A21676829D000D3C0B /* text@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "text@2x.png"; path = "Resources/text@2x.png"; sourceTree = "<group>"; };
-		D05B89FB1725FB0800C61968 /* UIColor+Expanded.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Expanded.h"; sourceTree = "<group>"; };
-		D05B89FC1725FB0800C61968 /* UIColor+Expanded.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Expanded.m"; sourceTree = "<group>"; };
 		D05B8A0C1728BE0F00C61968 /* grid.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = grid.png; path = Resources/grid.png; sourceTree = "<group>"; };
 		D05B8A0D1728BE1000C61968 /* grid@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "grid@2x.png"; path = "Resources/grid@2x.png"; sourceTree = "<group>"; };
 		D0C96270172F1A170065720B /* home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = home.png; path = Resources/home.png; sourceTree = "<group>"; };
@@ -757,8 +757,8 @@
 		D05B89FA1725FB0700C61968 /* UIColor+Expanded */ = {
 			isa = PBXGroup;
 			children = (
-				D05B89FB1725FB0800C61968 /* UIColor+Expanded.h */,
-				D05B89FC1725FB0800C61968 /* UIColor+Expanded.m */,
+				D0096E1218039A5700B05E68 /* UIColor+Expanded.h */,
+				D0096E1318039A5700B05E68 /* UIColor+Expanded.m */,
 			);
 			name = "UIColor+Expanded";
 			path = "uicolor-utilities/Color/UIColor+Expanded";
@@ -1199,10 +1199,10 @@
 				D0096D571802216700B05E68 /* PHCollectionViewCell.m in Sources */,
 				D0096D581802216700B05E68 /* PHFigTablePanel.m in Sources */,
 				D0096D591802216700B05E68 /* TransparentToolbar.m in Sources */,
+				D0096E1518039A5700B05E68 /* UIColor+Expanded.m in Sources */,
 				D0096D5A1802216700B05E68 /* PHCollectionViewFlowLayout.m in Sources */,
 				D0096D5B1802216700B05E68 /* UILabel+VerticalAlignment.m in Sources */,
 				D0096D5C1802216700B05E68 /* UARoundedRectView.m in Sources */,
-				D0096D5D1802216700B05E68 /* UIColor+Expanded.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1244,10 +1244,10 @@
 				D009A71D171744A800BC4D77 /* PHCollectionViewCell.m in Sources */,
 				D0096D1C17F7732800B05E68 /* PHFigTablePanel.m in Sources */,
 				D0096CD217F3916B00B05E68 /* TransparentToolbar.m in Sources */,
+				D0096E1418039A5700B05E68 /* UIColor+Expanded.m in Sources */,
 				D009A720171787EC00BC4D77 /* PHCollectionViewFlowLayout.m in Sources */,
 				D009A72517178E9700BC4D77 /* UILabel+VerticalAlignment.m in Sources */,
 				D0096D1817F66DE400B05E68 /* UARoundedRectView.m in Sources */,
-				D05B89FD1725FB0800C61968 /* UIColor+Expanded.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
