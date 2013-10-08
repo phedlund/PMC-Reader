@@ -25,17 +25,17 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="10.034091"
-     inkscape:cx="532"
-     inkscape:cy="976"
+     inkscape:zoom="0.62649613"
+     inkscape:cx="963.18898"
+     inkscape:cy="859.35136"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
      showguides="true"
      inkscape:guide-bbox="true"
      inkscape:window-width="1868"
-     inkscape:window-height="1036"
-     inkscape:window-x="52"
+     inkscape:window-height="856"
+     inkscape:window-x="852"
      inkscape:window-y="22"
      inkscape:window-maximized="0">
     <sodipodi:guide
@@ -61,7 +61,7 @@
      id="layer1">
     <image
        y="48.348572"
-       x="496.19427"
+       x="612.19427"
        id="image9691"
        xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABgAAAAA8CAYAAACghnGHAAAABHNCSVQICAgIfAhkiAAAHoNJREFU
 eJzt3Xl4k9edL/CvFtuy5E3yvq9gDMYsZo0hBgMBwpo0ZG9629tmedLOze3kznSZpJn2NjftZJrO
@@ -813,7 +813,7 @@ AAAASEgAAAAAAAAACQkAAAAAAAAgIQEAAAAAAAAk9AVvpF23cTjKTgAAAABJRU5ErkJggg==
        id="path10023"
        d="m 507.5,74.362183 -6,0 0,3 6,0 m 6,0 38,0 0,-3 -38,0"
        inkscape:connector-curvature="0"
-       inkscape:export-filename="/Users/peter/Projects/PMC Reader/PMC Reader/Resources/edit@2x.png"
+       inkscape:export-filename="/Users/peter/Projects/PMC Reader/PMC Reader/Resources/contents@2x.png"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90" />
     <image
@@ -841,7 +841,7 @@ RK5CYII=
     <path
        inkscape:export-ydpi="90"
        inkscape:export-xdpi="90"
-       inkscape:export-filename="/Users/peter/Projects/PMC Reader/PMC Reader/Resources/edit@2x.png"
+       inkscape:export-filename="/Users/peter/Projects/PMC Reader/PMC Reader/Resources/contents@2x.png"
        inkscape:connector-curvature="0"
        d="m 507.5,59.362183 -6,0 0,3 6,0 m 6,0 38,0 0,-3 -38,0"
        id="path10015"
@@ -850,7 +850,7 @@ RK5CYII=
     <path
        inkscape:export-ydpi="90"
        inkscape:export-xdpi="90"
-       inkscape:export-filename="/Users/peter/Projects/PMC Reader/PMC Reader/Resources/edit@2x.png"
+       inkscape:export-filename="/Users/peter/Projects/PMC Reader/PMC Reader/Resources/contents@2x.png"
        inkscape:connector-curvature="0"
        d="m 507.5,89.362183 -6,0 0,3 6,0 m 6,0 38,0 0,-3 -38,0"
        id="path10025"
@@ -860,7 +860,7 @@ RK5CYII=
        transform="scale(-1,1)"
        inkscape:export-ydpi="90"
        inkscape:export-xdpi="90"
-       inkscape:export-filename="/Users/peter/Projects/PMC Reader/PMC Reader/Resources/edit@2x.png"
+       inkscape:export-filename="/Users/peter/Projects/PMC Reader/PMC Reader/Resources/contents@2x.png"
        y="32.362183"
        x="-564"
        height="88"
