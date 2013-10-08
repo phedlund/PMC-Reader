@@ -11,5 +11,6 @@
 @interface UIImage (PHColor)
 
 + (UIImage *)imageWithColor:(UIColor *)color;
++ (UIImage *)changeImage:(UIImage*)image toColor:(UIColor*)color;
 
 @end

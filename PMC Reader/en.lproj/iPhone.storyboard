@@ -194,6 +194,11 @@
                                 <segue destination="TTh-T6-96I" kind="modal" identifier="search" id="cep-gv-Dag"/>
                             </connections>
                         </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="search" id="y8o-cd-Gvf">
+                            <connections>
+                                <action selector="doSearch:" destination="Tnr-gB-OOe" id="i6N-Wy-aIr"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ngF-qT-qqr" userLabel="First Responder" sceneMemberID="firstResponder"/>

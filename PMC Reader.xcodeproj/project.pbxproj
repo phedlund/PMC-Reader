@@ -132,6 +132,10 @@
 		D0096DB1180248A800B05E68 /* menu@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D0096DAF180248A800B05E68 /* menu@2x.png */; };
 		D0096DB218024A2A00B05E68 /* menu.png in Resources */ = {isa = PBXBuildFile; fileRef = D0096DAE180248A800B05E68 /* menu.png */; };
 		D0096DB318024A2D00B05E68 /* menu@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D0096DAF180248A800B05E68 /* menu@2x.png */; };
+		D0096DBA18037DCD00B05E68 /* backgroundsearch.png in Resources */ = {isa = PBXBuildFile; fileRef = D0096DB818037DCD00B05E68 /* backgroundsearch.png */; };
+		D0096DBB18037DCD00B05E68 /* backgroundsearch.png in Resources */ = {isa = PBXBuildFile; fileRef = D0096DB818037DCD00B05E68 /* backgroundsearch.png */; };
+		D0096DBC18037DCD00B05E68 /* backgroundsearch@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D0096DB918037DCD00B05E68 /* backgroundsearch@2x.png */; };
+		D0096DBD18037DCD00B05E68 /* backgroundsearch@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D0096DB918037DCD00B05E68 /* backgroundsearch@2x.png */; };
 		D009A71A171742ED00BC4D77 /* LXReorderableCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = D009A719171742ED00BC4D77 /* LXReorderableCollectionViewFlowLayout.m */; };
 		D009A71D171744A800BC4D77 /* PHCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D009A71C171744A800BC4D77 /* PHCollectionViewCell.m */; };
 		D009A720171787EC00BC4D77 /* PHCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = D009A71F171787EA00BC4D77 /* PHCollectionViewFlowLayout.m */; };
@@ -255,6 +259,8 @@
 		D0096DAD1802216700B05E68 /* PMC Reader copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "PMC Reader copy-Info.plist"; path = "/Users/peter/Projects/PMC Reader/PMC Reader copy-Info.plist"; sourceTree = "<absolute>"; };
 		D0096DAE180248A800B05E68 /* menu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = menu.png; path = Resources/menu.png; sourceTree = "<group>"; };
 		D0096DAF180248A800B05E68 /* menu@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "menu@2x.png"; path = "Resources/menu@2x.png"; sourceTree = "<group>"; };
+		D0096DB818037DCD00B05E68 /* backgroundsearch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = backgroundsearch.png; path = Resources/backgroundsearch.png; sourceTree = "<group>"; };
+		D0096DB918037DCD00B05E68 /* backgroundsearch@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "backgroundsearch@2x.png"; path = "Resources/backgroundsearch@2x.png"; sourceTree = "<group>"; };
 		D009A718171742ED00BC4D77 /* LXReorderableCollectionViewFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LXReorderableCollectionViewFlowLayout.h; path = LXReorderableCollectionViewFlowLayout/LXReorderableCollectionViewFlowLayout/LXReorderableCollectionViewFlowLayout.h; sourceTree = SOURCE_ROOT; };
 		D009A719171742ED00BC4D77 /* LXReorderableCollectionViewFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LXReorderableCollectionViewFlowLayout.m; path = LXReorderableCollectionViewFlowLayout/LXReorderableCollectionViewFlowLayout/LXReorderableCollectionViewFlowLayout.m; sourceTree = SOURCE_ROOT; };
 		D009A71B171744A700BC4D77 /* PHCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHCollectionViewCell.h; sourceTree = "<group>"; };
@@ -637,6 +643,8 @@
 		D0CDB7DB15C33FC90074B143 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D0096DB818037DCD00B05E68 /* backgroundsearch.png */,
+				D0096DB918037DCD00B05E68 /* backgroundsearch@2x.png */,
 				D0096DAE180248A800B05E68 /* menu.png */,
 				D0096DAF180248A800B05E68 /* menu@2x.png */,
 				D0C96270172F1A170065720B /* home.png */,
@@ -848,6 +856,7 @@
 				D0096D831802216700B05E68 /* forward@2x.png in Resources */,
 				D0096D841802216700B05E68 /* icon-72.png in Resources */,
 				D0096D851802216700B05E68 /* icon-144.png in Resources */,
+				D0096DBB18037DCD00B05E68 /* backgroundsearch.png in Resources */,
 				D0096D861802216700B05E68 /* Default-Landscape@2x~ipad.png in Resources */,
 				D0096D871802216700B05E68 /* Default-Portrait@2x~ipad.png in Resources */,
 				D0096D881802216700B05E68 /* Default-Landscape~ipad.png in Resources */,
@@ -864,6 +873,7 @@
 				D0096D921802216700B05E68 /* contents.png in Resources */,
 				D0096D931802216700B05E68 /* DejaVuSans-Oblique.ttf in Resources */,
 				D0096D941802216700B05E68 /* DejaVuSans.ttf in Resources */,
+				D0096DBD18037DCD00B05E68 /* backgroundsearch@2x.png in Resources */,
 				D0096D951802216700B05E68 /* DejaVuSans-Bold.ttf in Resources */,
 				D0096D961802216700B05E68 /* DejaVuSans-BoldOblique.ttf in Resources */,
 				D0096D971802216700B05E68 /* close.png in Resources */,
@@ -924,6 +934,7 @@
 				D0ED243015DDD46B00AE4803 /* forward@2x.png in Resources */,
 				D0EB6F5815E3123100D3E790 /* icon-72.png in Resources */,
 				D0EB6F5B15E3124500D3E790 /* icon-144.png in Resources */,
+				D0096DBA18037DCD00B05E68 /* backgroundsearch.png in Resources */,
 				D0EB6F5D15E31AFB00D3E790 /* Default-Landscape@2x~ipad.png in Resources */,
 				D0EB6F5F15E31B0000D3E790 /* Default-Portrait@2x~ipad.png in Resources */,
 				D0EB6F6115E31B0400D3E790 /* Default-Landscape~ipad.png in Resources */,
@@ -940,6 +951,7 @@
 				D0D399A316C1F1C400EA2497 /* contents.png in Resources */,
 				D0D399AA16C2DBF800EA2497 /* DejaVuSans-Oblique.ttf in Resources */,
 				D0D399AB16C2DBF800EA2497 /* DejaVuSans.ttf in Resources */,
+				D0096DBC18037DCD00B05E68 /* backgroundsearch@2x.png in Resources */,
 				D0D399AC16C2DBF800EA2497 /* DejaVuSans-Bold.ttf in Resources */,
 				D0D399AD16C2DBF800EA2497 /* DejaVuSans-BoldOblique.ttf in Resources */,
 				D0096D0E17F66DE400B05E68 /* close.png in Resources */,

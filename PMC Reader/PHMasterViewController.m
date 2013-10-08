@@ -36,6 +36,7 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
 @synthesize searchBar;
 @synthesize isFiltered;
 @synthesize addBarButtonItem;
+@synthesize searchBarButtonItem;
 @synthesize layoutBarButtonItem;
 
 - (NSMutableArray *) articles {
@@ -152,6 +153,13 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
     return addBarButtonItem;
 }
 
+- (UIBarButtonItem *)searchBarButtonItem {
+    if (!searchBarButtonItem) {
+        searchBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(doSearch:)];
+    }
+    return searchBarButtonItem;
+}
+
 - (UIBarButtonItem *)layoutBarButtonItem {
     if (!layoutBarButtonItem) {
         UIImage *image;
@@ -231,8 +239,7 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
         self.navigationItem.rightBarButtonItem = searchBarItem;
     } else {
         self.navigationItem.leftBarButtonItem = self.addBarButtonItem;
-        //UIBarButtonItem *searchBarItem = [[UIBarButtonItem alloc] initWithCustomView:self.searchBar];
-        //self.navigationItem.rightBarButtonItem = searchBarItem;
+        self.navigationItem.rightBarButtonItem = self.searchBarButtonItem;
     }
 
     
@@ -303,6 +310,16 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
         self.layoutBarButtonItem.image = [UIImage imageNamed:@"edit"];
     }
     [self.collectionView.collectionViewLayout invalidateLayout];
+}
+
+- (IBAction)doSearch:(id)sender {
+    if (self.navigationItem.rightBarButtonItems.count > 1) {
+        self.navigationItem.rightBarButtonItems = @[self.searchBarButtonItem];
+        self.navigationItem.title = @"Articles";
+    } else {
+        self.navigationItem.rightBarButtonItems = @[self.searchBarButtonItem, [[UIBarButtonItem alloc] initWithCustomView:self.searchBar]];
+        self.navigationItem.title = nil;
+    }
 }
 
 #pragma mark - Table View
@@ -603,8 +620,11 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
          shadow, NSShadowAttributeName, nil]];
 
     self.addBarButtonItem.tintColor = [UIColor iconColor];
+    self.searchBarButtonItem.tintColor = [UIColor iconColor];
     self.layoutBarButtonItem.tintColor = [UIColor iconColor];
-    [self.searchBar setSearchFieldBackgroundImage:[UIImage imageWithColor:[UIColor cellBackgroundColor]] forState:UIControlStateNormal];
+    UIImage *bgImage = [UIImage changeImage:[UIImage imageNamed:@"backgroundsearch"] toColor:[UIColor cellBackgroundColor]];
+    bgImage = [bgImage resizableImageWithCapInsets:UIEdgeInsetsMake(0, 5, 0, 5) resizingMode:UIImageResizingModeStretch];
+    [self.searchBar setSearchFieldBackgroundImage:bgImage forState:UIControlStateNormal];
     [self.collectionView reloadData];
 }
 

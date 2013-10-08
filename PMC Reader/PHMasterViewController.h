@@ -16,6 +16,7 @@
 
 @property (strong, nonatomic) PHDetailViewController *detailViewController;
 @property (nonatomic, strong, readonly) UIBarButtonItem *addBarButtonItem;
+@property (nonatomic, strong, readonly) UIBarButtonItem *searchBarButtonItem;
 @property (nonatomic, strong, readonly) UIBarButtonItem *layoutBarButtonItem;
 @property (strong, nonatomic) NSMutableArray *articles;
 @property (strong, nonatomic) NSMutableArray *filteredArticles;
@@ -24,5 +25,6 @@
 
 - (IBAction) doAdd:(id)sender;
 - (IBAction) doLayout:(id)sender;
+- (IBAction) doSearch:(id)sender;
 
 @end
