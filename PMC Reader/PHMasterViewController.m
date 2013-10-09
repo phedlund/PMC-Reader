@@ -264,13 +264,12 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
     __block NSString *currentlyReading = [[NSUserDefaults standardUserDefaults] stringForKey:@"Reading"];
     if ([currentlyReading isEqualToString:@"No"]) {
     } else {
-        [self.articles enumerateObjectsUsingBlock:^(PHArticle *article, NSUInteger idx, BOOL *stop) {
-            if ([article.pmcId isEqualToString:currentlyReading]) {
-                [self.collectionView selectItemAtIndexPath:[NSIndexPath indexPathForItem:idx inSection:0] animated:NO scrollPosition:UICollectionViewScrollPositionCenteredVertically];
-                [self performSegueWithIdentifier:@"pushArticle" sender:[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:idx inSection:0]]];
-                *stop = YES;
-            }
-        }];
+        NSArray *pmcIds = [self.articles valueForKey:@"pmcId"];
+        NSInteger idx = [pmcIds indexOfObject:currentlyReading];
+        PHArticle *article = [self.articles objectAtIndex:idx];        
+        NSIndexPath *idxPath = [NSIndexPath indexPathForItem:idx inSection:0];
+        [self.collectionView selectItemAtIndexPath:idxPath animated:NO scrollPosition:UICollectionViewScrollPositionCenteredVertically];
+        [self performSegueWithIdentifier:@"pushArticle" sender:article];
     }
 }
 
@@ -473,24 +472,7 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
     PHArticle *article = (PHArticle*)[self.articles objectAtIndex:indexPath.row];
     return !article.downloading;
 }
-/*
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    PHCollectionViewCell *cell = (PHCollectionViewCell*)[collectionView cellForItemAtIndexPath:indexPath];
-    if (cell.buttonsVisible) {
-        return;
-    }
-    [self.searchBar resignFirstResponder];
-    NSData *object = nil;
-    if (self.isFiltered) {
-        object = [self.filteredArticles objectAtIndex:indexPath.row];
-    } else {
-        object = [self.articles objectAtIndex:indexPath.row];
-    }
-    self.detailViewController.article = (PHArticle*)object;
-    [self.viewDeckController closeLeftView];
-}
-*/
+
 - (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
     if ([identifier isEqualToString:@"pushArticle"]) {
         PHCollectionViewCell *cell = (PHCollectionViewCell*)sender;
@@ -503,17 +485,21 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"pushArticle"]) {
-        PHCollectionViewCell *cell = (PHCollectionViewCell*)sender;
-        int row = [self.collectionView indexPathForCell:cell].row;
-        [self.searchBar resignFirstResponder];
-        PHArticle *article = nil;
-        if (self.isFiltered) {
-            article = [self.filteredArticles objectAtIndex:row];
-        } else {
-            article = [self.articles objectAtIndex:row];
+        PHArticle *article;
+        if ([sender isKindOfClass:[PHArticle class]]) {
+            article = (PHArticle*)sender;
         }
-        NSLog(@"ID: %@", article.pmcId);
-        //self.detailViewController.article = article;
+        if ([sender isKindOfClass:[PHCollectionViewCell class]]) {
+            PHCollectionViewCell *cell = (PHCollectionViewCell*)sender;
+            int row = [self.collectionView indexPathForCell:cell].row;
+            [self.searchBar resignFirstResponder];
+            
+            if (self.isFiltered) {
+                article = [self.filteredArticles objectAtIndex:row];
+            } else {
+                article = [self.articles objectAtIndex:row];
+            }
+        }
         ((PHDetailViewController*)segue.destinationViewController).article = article;
     }
 }
