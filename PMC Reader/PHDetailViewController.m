@@ -847,7 +847,7 @@
             [self.articleView addGestureRecognizer:self.pageTapRecognizer];
             [self.articleView addGestureRecognizer:self.nextPageSwipeRecognizer];
             [self.articleView addGestureRecognizer:self.previousPageSwipeRecognizer];
-            self.pageNumberBar.hidden = NO;
+            self.pageNumberBar.hidden = self.navigationController.navigationBarHidden;
             self.articleView.frame = [self articleRect];
             self.articleView.scrollView.contentInset = UIEdgeInsetsZero;
             [self updateCSS];
