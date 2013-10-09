@@ -59,12 +59,7 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
         }
     } else {
         if (data) {
-            
-            
             NSURL *baseURL = [NSURL URLWithString:kBaseUrl];
-            //NSData *htmlData = [NSData dataWithContentsOfURL:articleURL];
-            //NSData *htmlData = [NSData dataWithContentsOfFile:@"/Users/peter/Dropbox/test.html"];
-            //NSError *error = nil;
             HTMLParser *parser = [[HTMLParser alloc] initWithData:data error:&error];
             
             if (error) {
@@ -80,10 +75,7 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
             NSURL *docDir = [paths objectAtIndex:0];
             
             NSString *htmlTemplatePath  = [[docDir path] stringByAppendingPathComponent:@"templates/pmc.html"];
-            NSString *cssTemplatePath  = [[docDir path] stringByAppendingPathComponent:@"templates/pmc.css"];
-            NSString *jsTemplatePath  = [[docDir path] stringByAppendingPathComponent:@"templates/pmc.js"];
-            //NSLog(@"CSS: %@", cssTemplatePath);
-            
+           
             NSString *pmcData;
             NSString *pmcID;
             NSString *pmcAuthors = @"";
