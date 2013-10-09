@@ -715,6 +715,7 @@
     _pageCount = (int)((float)totalWidth/self.articleView.bounds.size.width);
     float ratio = (float)_pageCount/(float)oldPageCount;
     _currentPage = (int)(_currentPage * ratio);
+    _currentPage = MAX(_currentPage, 0);
     self.pageNumberBar.maximumValue = _pageCount - 1;
     self.pageNumberLabel.text = [NSString stringWithFormat:@"%d of %d",_currentPage + 1, _pageCount];
     [self gotoPage:_currentPage animated:NO];
