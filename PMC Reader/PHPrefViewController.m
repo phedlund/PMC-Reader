@@ -191,7 +191,7 @@
     }
 
     if (sender == self.decreaseFontSizeButton) {
-        int currentFontSize = [[prefs valueForKey:@"FontSize"] integerValue];
+        NSInteger currentFontSize = [[prefs valueForKey:@"FontSize"] integerValue];
         
         if (currentFontSize > MIN_FONT_SIZE) {
             --currentFontSize;
@@ -200,7 +200,7 @@
     }
     
     if (sender == self.increaseFontSizeButton) {
-        int currentFontSize = [[prefs valueForKey:@"FontSize"] integerValue];
+        NSInteger currentFontSize = [[prefs valueForKey:@"FontSize"] integerValue];
         if (currentFontSize < MAX_FONT_SIZE) {
             ++currentFontSize;
         }
@@ -225,7 +225,7 @@
     }
     
     if (sender == self.decreaseMarginButton) {
-        int currentMargin = [[prefs valueForKey:@"Margin"] integerValue];
+        NSInteger currentMargin = [[prefs valueForKey:@"Margin"] integerValue];
         if (currentMargin < MAX_WIDTH) {
             currentMargin = currentMargin + 20;
         }
@@ -233,7 +233,7 @@
     }
     
     if (sender == self.increaseMarginButton) {
-        int currentMargin = [[prefs valueForKey:@"Margin"] integerValue];
+        NSInteger currentMargin = [[prefs valueForKey:@"Margin"] integerValue];
         if (currentMargin > MIN_WIDTH) {
             currentMargin = currentMargin - 20;
         }

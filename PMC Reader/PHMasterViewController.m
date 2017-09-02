@@ -216,11 +216,11 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
         queue:mainQueue
         usingBlock:^(NSNotification *notification)
         {
-            int index = [self.articles indexOfObject:(PHArticle*)[notification.userInfo objectForKey:@"Article"]];
-            NSLog(@"Notification received with index: %i", index);
+            NSUInteger index = [self.articles indexOfObject:(PHArticle*)[notification.userInfo objectForKey:@"Article"]];
+            NSLog(@"Notification received with index: %lu", (unsigned long)index);
             PHArticle *article = [self.articles objectAtIndex:index];
             article.currentPage = [notification.userInfo objectForKey:@"NewPage"];
-            NSLog(@"Notified of page: %i", [article.currentPage integerValue]);
+            NSLog(@"Notified of page: %li", (long)[article.currentPage integerValue]);
             [self.articles replaceObjectAtIndex:index withObject:article];
             [self writeArticles];
      }];
@@ -491,7 +491,7 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
         }
         if ([sender isKindOfClass:[PHCollectionViewCell class]]) {
             PHCollectionViewCell *cell = (PHCollectionViewCell*)sender;
-            int row = [self.collectionView indexPathForCell:cell].row;
+            NSInteger row = [self.collectionView indexPathForCell:cell].row;
             [self.searchBar resignFirstResponder];
             
             if (self.isFiltered) {

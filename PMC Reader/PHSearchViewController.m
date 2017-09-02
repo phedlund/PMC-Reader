@@ -142,7 +142,7 @@ static int const kRetMax = 20;
         if (_objects.count > 0) {
             if (indexPath.row >= [_objects count]) {
                 cell.titleLabel.text = @"Show More...";
-                cell.authorLabel.text = [NSString stringWithFormat:@"Showing %d of %d.", [_objects count], _searchCount];
+                cell.authorLabel.text = [NSString stringWithFormat:@"Showing %lu of %d.", (unsigned long)[_objects count], _searchCount];
                 cell.originalSourceLabel.text = @"";
             } else {
                 cell.accessoryView = nil;

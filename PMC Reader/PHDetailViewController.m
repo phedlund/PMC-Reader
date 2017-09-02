@@ -25,14 +25,14 @@
 
 @interface PHDetailViewController () {
     CGPoint currentTapLocation;
-    int _pageCount;
-    int _currentPage;
+    NSInteger _pageCount;
+    NSInteger _currentPage;
     BOOL _handlingLink;
     BOOL _scrollingInternally;
     NSString *_currentHash;
     CALayer *bottomBorder;
     BOOL _newArticle;
-    int _newArticlePage;
+    NSInteger _newArticlePage;
     NSArray *_settingsControllers;
     UIPopoverController *_activityPopover;
 }
@@ -44,7 +44,7 @@
 - (void) configureView;
 - (void) updatePagination;
 - (BOOL) shouldPaginate;
-- (void) gotoPage:(int)page animated:(BOOL)animated;
+- (void) gotoPage:(NSInteger)page animated:(BOOL)animated;
 - (void) updateBackgrounds;
 
 @end
@@ -445,7 +445,7 @@
 }
 
 - (CGRect)pageNumberBarRect {
-    int width =[[NSUserDefaults standardUserDefaults] integerForKey:@"Margin"];
+    NSInteger width =[[NSUserDefaults standardUserDefaults] integerForKey:@"Margin"];
     int x = ([self orientationRect].size.width - width) / 2;
     int y = (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 20 : 0;
     return CGRectMake(x, y, width, 23);
@@ -755,7 +755,7 @@
 - (void)handleTap:(UITapGestureRecognizer *)gesture {
     if (gesture.state == UIGestureRecognizerStateEnded) {
         CGPoint loc = [gesture locationInView:self.articleView];
-        int contentWidth =[[NSUserDefaults standardUserDefaults] integerForKey:@"Margin"];
+        NSInteger contentWidth =[[NSUserDefaults standardUserDefaults] integerForKey:@"Margin"];
         double viewWidth = self.articleView.frame.size.width;
         int margin = (viewWidth - contentWidth) / 2;
         if (loc.x < margin) {
@@ -778,7 +778,7 @@
     }
 }
 
-- (void) gotoPage:(int)page animated:(BOOL)animated {
+- (void) gotoPage:(NSInteger)page animated:(BOOL)animated {
     if (page < 0) {
         _currentPage = 0;
         return;
@@ -793,8 +793,8 @@
     [self.articleView.scrollView setContentOffset:CGPointMake(pageOffset, 0.0f) animated:animated];
 
     self.pageNumberBar.value = _currentPage;
-	self.pageNumberLabel.text = [NSString stringWithFormat:@"%d of %d", _currentPage + 1, _pageCount];
-    NSDictionary *infoDict = [NSDictionary dictionaryWithObjectsAndKeys:self.article, @"Article", [NSNumber numberWithInt:_currentPage], @"NewPage", nil];
+	self.pageNumberLabel.text = [NSString stringWithFormat:@"%ld of %ld", _currentPage + 1, (long)_pageCount];
+    NSDictionary *infoDict = [NSDictionary dictionaryWithObjectsAndKeys:self.article, @"Article", [NSNumber numberWithInteger:_currentPage], @"NewPage", nil];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"PageChanged" object:self userInfo:infoDict];
 }
 
@@ -821,7 +821,7 @@
 
 - (NSString *)scrubberBar:(SCPageScrubberBar *)scrubberBar subtitleTextForValue:(CGFloat)value {
     NSInteger current = (int)value + 1;
-    return [NSString stringWithFormat:@"Page %d", current];
+    return [NSString stringWithFormat:@"Page %ld", (long)current];
     //return @"";
 }
 
@@ -996,7 +996,7 @@
 }
 
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController {
-    int ind = [_settingsControllers indexOfObject:viewController];
+    NSInteger ind = [_settingsControllers indexOfObject:viewController];
     UIViewController *nextController;
     if (ind < (_settingsControllers.count - 1)) {
         nextController = [_settingsControllers objectAtIndex:ind + 1];
@@ -1005,7 +1005,7 @@
 }
 
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController {
-    int ind = [_settingsControllers indexOfObject:viewController];
+    NSInteger ind = [_settingsControllers indexOfObject:viewController];
     UIViewController *nextController;
     if (ind > 0) {
         nextController = [_settingsControllers objectAtIndex:ind - 1];
