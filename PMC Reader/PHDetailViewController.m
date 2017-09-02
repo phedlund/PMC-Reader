@@ -578,7 +578,7 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if (_scrollingInternally) {
         if ([self shouldPaginate]) {
-            int oldPage = _currentPage;
+            NSInteger oldPage = _currentPage;
             _currentPage = (int)ceil(((float)scrollView.contentOffset.x / self.articleView.bounds.size.width));
             if (oldPage > _currentPage) {
                 _currentPage--;
@@ -617,7 +617,7 @@
 }
 
 - (void)updateBackgrounds {
-    int backgroundIndex =[[NSUserDefaults standardUserDefaults] integerForKey:@"Background"];
+    NSInteger backgroundIndex =[[NSUserDefaults standardUserDefaults] integerForKey:@"Background"];
     UIColor *bgColor = [UIColor backgroundColor];
     self.view.backgroundColor = bgColor;
     self.topContainerView.backgroundColor = bgColor;
@@ -660,11 +660,11 @@
     NSString *font = [[NSUserDefaults standardUserDefaults] objectForKey:@"Font"];
     cssTemplate = [cssTemplate stringByReplacingOccurrencesOfString:@"$FONT$" withString:font];
 
-    int fontSize =[[NSUserDefaults standardUserDefaults] integerForKey:@"FontSize"];
-    cssTemplate = [cssTemplate stringByReplacingOccurrencesOfString:@"$FONTSIZE$" withString:[NSString stringWithFormat:@"%dpx", fontSize]];
+    NSInteger fontSize =[[NSUserDefaults standardUserDefaults] integerForKey:@"FontSize"];
+    cssTemplate = [cssTemplate stringByReplacingOccurrencesOfString:@"$FONTSIZE$" withString:[NSString stringWithFormat:@"%ldpx", (long)fontSize]];
     
-    int margin =[[NSUserDefaults standardUserDefaults] integerForKey:@"Margin"];
-    cssTemplate = [cssTemplate stringByReplacingOccurrencesOfString:@"$MARGIN$" withString:[NSString stringWithFormat:@"%dpx", margin]];
+    NSInteger margin =[[NSUserDefaults standardUserDefaults] integerForKey:@"Margin"];
+    cssTemplate = [cssTemplate stringByReplacingOccurrencesOfString:@"$MARGIN$" withString:[NSString stringWithFormat:@"%ldpx", (long)margin]];
     
     double lineHeight =[[NSUserDefaults standardUserDefaults] doubleForKey:@"LineHeight"];
     cssTemplate = [cssTemplate stringByReplacingOccurrencesOfString:@"$LINEHEIGHT$" withString:[NSString stringWithFormat:@"%fem", lineHeight]];
@@ -711,13 +711,13 @@
     //}    
 
     int totalWidth = [[self.articleView stringByEvaluatingJavaScriptFromString:@"document.documentElement.scrollWidth"] intValue];
-    int oldPageCount = _pageCount;
+    NSInteger oldPageCount = _pageCount;
     _pageCount = (int)((float)totalWidth/self.articleView.bounds.size.width);
     float ratio = (float)_pageCount/(float)oldPageCount;
     _currentPage = (int)(_currentPage * ratio);
     _currentPage = MAX(_currentPage, 0);
     self.pageNumberBar.maximumValue = _pageCount - 1;
-    self.pageNumberLabel.text = [NSString stringWithFormat:@"%d of %d",_currentPage + 1, _pageCount];
+    self.pageNumberLabel.text = [NSString stringWithFormat:@"%ld of %ld",_currentPage + 1, (long)_pageCount];
     [self gotoPage:_currentPage animated:NO];
 }
 
