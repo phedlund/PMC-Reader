@@ -34,7 +34,7 @@
     BOOL _newArticle;
     NSInteger _newArticlePage;
     NSArray *_settingsControllers;
-    UIPopoverController *_activityPopover;
+    UIPopoverPresentationController *_activityPopover;
 }
 
 @property (nonatomic, strong, readonly) UITapGestureRecognizer *pageTapRecognizer;
@@ -304,13 +304,13 @@
         NSArray *activities = @[sa, ia, ipa, ra];
         
         UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:activityItems applicationActivities:activities];
-        
+        activityViewController.modalPresentationStyle = UIModalPresentationPopover;
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-            if (![_activityPopover isPopoverVisible]) {
-                _activityPopover = [[UIPopoverController alloc] initWithContentViewController:activityViewController];
-                _activityPopover.delegate = self;
-                [_activityPopover presentPopoverFromBarButtonItem:self.infoBarButtonItem permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
-            }
+            _activityPopover = activityViewController.popoverPresentationController;
+            _activityPopover.delegate = self;
+            _activityPopover.barButtonItem = self.infoBarButtonItem;
+            _activityPopover.permittedArrowDirections = UIPopoverArrowDirectionLeft | UIPopoverArrowDirectionRight | UIPopoverArrowDirectionUp | UIPopoverArrowDirectionDown;
+            [self presentViewController:activityViewController animated:YES completion:nil];
         } else {
             [self presentViewController:activityViewController animated:YES completion:nil];
         }

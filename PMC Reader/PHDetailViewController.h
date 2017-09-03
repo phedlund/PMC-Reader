@@ -15,7 +15,7 @@
 #import "SCPageScrubberBar.h"
 #import "WYPopoverController.h"
 
-@interface PHDetailViewController : UIViewController <UIWebViewDelegate, UIScrollViewDelegate, UIPopoverControllerDelegate, UIGestureRecognizerDelegate, PHPrefViewControllerDelegate, ArticleNavigationDelegate, PHFontsControllerDelegate, RTLabelDelegate, SCPageScrubberBarDelegate, WYPopoverControllerDelegate, UIPageViewControllerDataSource, UIPageViewControllerDelegate>
+@interface PHDetailViewController : UIViewController <UIWebViewDelegate, UIScrollViewDelegate, UIPopoverPresentationControllerDelegate, UIGestureRecognizerDelegate, PHPrefViewControllerDelegate, ArticleNavigationDelegate, PHFontsControllerDelegate, RTLabelDelegate, SCPageScrubberBarDelegate, WYPopoverControllerDelegate, UIPageViewControllerDataSource, UIPageViewControllerDelegate>
 
 @property (strong, nonatomic) PHArticle *article;
 @property (strong, nonatomic) IBOutlet UIView *pageBarContainerView;
