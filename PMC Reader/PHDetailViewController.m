@@ -231,6 +231,15 @@
     [self.referencePopover dismissPopoverAnimated:NO];
 }
 
+
+- (BOOL)prefersStatusBarHidden {
+    return self.navigationController.navigationBar.hidden;
+}
+
+- (UIStatusBarAnimation)preferredStatusBarUpdateAnimation {
+    return UIStatusBarAnimationSlide;
+}
+
 #pragma mark - Actions
 
 - (IBAction)doBack:(id)sender
@@ -384,7 +393,6 @@
     int margin = (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 150 : 75;
     if ((loc.x > margin) && (loc.x < (w - margin))) {
         if (self.navigationController.navigationBarHidden) {
-            [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationSlide];
             self.navigationController.navigationBarHidden = NO;
             self.pageNumberBar.hidden = NO;
             self.pageNumberLabel.alpha = 1.0f;
@@ -395,7 +403,6 @@
                 self.articleView.scrollView.contentOffset = CGPointMake(offset.x, offset.y - 64);
             }
         } else {
-            [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationSlide];
             self.navigationController.navigationBarHidden = YES;
             self.pageNumberBar.hidden = YES;
             self.pageNumberLabel.alpha = 0.5f;
@@ -406,10 +413,6 @@
     }
     [self setNeedsStatusBarAppearanceUpdate];
     self.articleView.frame = [self articleRect];
-}
-
-- (BOOL)prefersStatusBarHidden {
-    return self.navigationController.navigationBarHidden;
 }
 
 - (CGRect)orientationRect {
