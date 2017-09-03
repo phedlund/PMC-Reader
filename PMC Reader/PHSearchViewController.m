@@ -12,7 +12,7 @@
 #import "PHArticle.h"
 #import "UINavigationController+DismissKeyboard.h"
 
-static NSString * const kBaseSearchUrl = @"http://eutils.ncbi.nlm.nih.gov/entrez/eutils/";
+static NSString * const kBaseSearchUrl = @"https://eutils.ncbi.nlm.nih.gov/entrez/eutils/";
 static int const kRetMax = 20;
 
 @interface PHSearchViewController () {

@@ -12,7 +12,7 @@
 
 #import "HTMLParser.h"
 
-static NSString * const kBaseUrl = @"http://www.ncbi.nlm.nih.gov";
+static NSString * const kBaseUrl = @"https://www.ncbi.nlm.nih.gov";
 static NSString * const kArticleUrlSuffix = @"pmc/articles/";
 
 @implementation PHDownloader
