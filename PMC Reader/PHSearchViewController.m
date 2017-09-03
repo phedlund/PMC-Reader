@@ -265,15 +265,43 @@ static int const kRetMax = 20;
     [searchBar resignFirstResponder];
 }
 
+- (NSURL *)searchURL:(NSString *)query {
+    NSURLComponents *components = [[NSURLComponents alloc] init];
+    components.scheme = @"https";
+    components.host = @"eutils.ncbi.nlm.nih.gov";
+    components.path = @"/entrez/eutils/esearch.fcgi";
+
+    NSURLQueryItem *dbKey = [NSURLQueryItem queryItemWithName:@"db" value:@"pmc"];
+    NSURLQueryItem *historyKey = [NSURLQueryItem queryItemWithName:@"usehistory" value:@"y"];
+    NSURLQueryItem *queryKey = [NSURLQueryItem queryItemWithName:@"term" value:query];
+    components.queryItems = @[dbKey, historyKey, queryKey];
+    return components.URL;
+}
+
+- (NSURL *)summaryURL {
+    NSURLComponents *components = [[NSURLComponents alloc] init];
+    components.scheme = @"https";
+    components.host = @"eutils.ncbi.nlm.nih.gov";
+    components.path = @"/entrez/eutils/esummary.fcgi";
+    
+    NSURLQueryItem *dbKey = [NSURLQueryItem queryItemWithName:@"db" value:@"pmc"];
+    NSURLQueryItem *queryKey = [NSURLQueryItem queryItemWithName:@"query_key" value:_queryKey];
+    NSURLQueryItem *envKey = [NSURLQueryItem queryItemWithName:@"WebEnv" value:_webEnv];
+    NSURLQueryItem *startKey = [NSURLQueryItem queryItemWithName:@"retstart" value:[NSString stringWithFormat:@"%d", _retStart]];
+    NSURLQueryItem *maxKey = [NSURLQueryItem queryItemWithName:@"retmax" value:[NSString stringWithFormat:@"%d", kRetMax]];
+
+    components.queryItems = @[dbKey, queryKey, envKey, startKey, maxKey];
+    return components.URL;
+}
+
 -(void)searchPMC:(NSString*)query {
-    NSString *searchURL  = [NSString stringWithFormat:@"%@esearch.fcgi?db=pmc&term=%@&usehistory=y", kBaseSearchUrl, query];
-    searchURL = [searchURL stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:searchURL]
+    NSURL *searchURL  = [self searchURL:query];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:searchURL
                                                                 cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
                                                             timeoutInterval:60];
     [request setValue:@"PMC_Reader" forHTTPHeaderField:@"User-Agent"];
 
-    [NSURLConnection sendAsynchronousRequest:request queue:self.searchQueue completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
+    NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if ([data length] > 0 && error == nil) {
             RXMLElement *rootXML = [RXMLElement elementFromXMLData:data];
             _queryKey = [rootXML child:@"QueryKey"].text;
@@ -300,20 +328,18 @@ static int const kRetMax = 20;
             _errorMessage = error.localizedDescription;;
             [self performSelectorOnMainThread:@selector(updateTable) withObject:nil waitUntilDone:NO];
         }
-        
+
     }];
+    [task resume];
 }
 
 - (void) retrieveSummaries {
-    NSString *summaryURL  = [NSString stringWithFormat:@"%@esummary.fcgi?db=pmc&query_key=%@&WebEnv=%@&retstart=%d&retmax=%d", kBaseSearchUrl, _queryKey, _webEnv, _retStart, kRetMax];
-    
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:summaryURL]
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[self summaryURL]
                                                                 cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
                                                             timeoutInterval:60];
     [request setValue:@"PMC_Reader" forHTTPHeaderField:@"User-Agent"];
     
-    [NSURLConnection sendAsynchronousRequest:request queue:self.searchQueue completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
-        
+    NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if ([data length] > 0 && error == nil) {
             RXMLElement *rootXML = [RXMLElement elementFromXMLData:data];
             [rootXML iterate:@"DocSum" usingBlock: ^(RXMLElement *docSum) {
@@ -366,6 +392,7 @@ static int const kRetMax = 20;
             [self performSelectorOnMainThread:@selector(updateTable) withObject:nil waitUntilDone:NO];
         }
     }];
+    [task resume];
 }
 
 - (void)updateTable {
