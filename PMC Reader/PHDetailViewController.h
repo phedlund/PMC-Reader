@@ -40,8 +40,10 @@
 @property (nonatomic, strong, readonly) UIPageViewController *settingsPageController;
 @property (nonatomic, strong, readonly) WYPopoverController *settingsPopover;
 
-@property (nonatomic, strong, readonly) WYPopoverController *referencePopover;
 @property (nonatomic, strong, readonly) RTLabel *referenceLabel;
+@property (nonatomic, strong, readonly) UIViewController *referenceController;
+@property (nonatomic, strong, readonly) UIPopoverPresentationController *referencePresentationController;
+
 
 - (void) writeCssTemplate;
 

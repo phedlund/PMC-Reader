@@ -63,8 +63,9 @@
 @synthesize infoBarButtonItem, prefsBarButtonItem;
 @synthesize pageTapRecognizer, nextPageSwipeRecognizer, previousPageSwipeRecognizer;
 @synthesize pageNumberBar;
-@synthesize referencePopover;
 @synthesize referenceLabel;
+@synthesize referenceController;
+@synthesize referencePresentationController;
 
 #pragma mark - Managing the detail item
 
@@ -228,7 +229,7 @@
 }
 
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
-    [self.referencePopover dismissPopoverAnimated:NO];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 
@@ -238,6 +239,11 @@
 
 - (UIStatusBarAnimation)preferredStatusBarUpdateAnimation {
     return UIStatusBarAnimationSlide;
+}
+
+- (UIModalPresentationStyle)adaptivePresentationStyleForPresentationController:(UIPresentationController *)controller {
+    
+    return UIModalPresentationNone;
 }
 
 #pragma mark - Actions
@@ -357,15 +363,13 @@
     return settingsPopover;
 }
 
-- (WYPopoverController *) referencePopover {
-    if (!referencePopover) {
-        UIViewController *vc = [[UIViewController alloc] init];
-        int width = (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 370 : 300;
-        vc.preferredContentSize = CGSizeMake(width, 500);
-        [vc.view addSubview:self.referenceLabel];
-        referencePopover = [[WYPopoverController alloc] initWithContentViewController:vc];
+- (UIViewController *)referenceController {
+    if (!referenceController) {
+        referenceController = [UIViewController new];
+        referenceController.view = self.referenceLabel;
+        referenceController.modalPresentationStyle = UIModalPresentationPopover;
     }
-    return referencePopover;
+    return referenceController;
 }
 
 - (RTLabel *) referenceLabel {
@@ -518,13 +522,18 @@
                             CGSize opt = [self.referenceLabel optimumSize];
                             CGRect frame = self.referenceLabel.frame;
                             frame.size.height = (int)opt.height + 5;
-                            self.referenceLabel.frame = frame;
-                            self.referencePopover.contentViewController.preferredContentSize = CGSizeMake(opt.width + 20, opt.height + 25);
-
-                            WYPopoverBackgroundView *appearance = [WYPopoverBackgroundView appearance];
-                            appearance.viewContentInsets = UIEdgeInsetsMake(10, 10, 10, 10);
-
-                            [self.referencePopover presentPopoverFromRect:CGRectMake(currentTapLocation.x, currentTapLocation.y, 1, 1) inView:self.articleView permittedArrowDirections:WYPopoverArrowDirectionAny animated:YES];
+                            self.referenceLabel.bounds = CGRectInset(frame, -10, -10);
+                            self.referenceController.preferredContentSize = CGSizeMake(opt.width + 20, opt.height + 25);
+                            referencePresentationController = self.referenceController.popoverPresentationController;
+                            referencePresentationController.backgroundColor = [UIColor popoverButtonColor];
+                            referencePresentationController.delegate = self;
+                            referencePresentationController.permittedArrowDirections = UIPopoverArrowDirectionAny;
+                            referencePresentationController.sourceRect = CGRectMake(currentTapLocation.x, currentTapLocation.y, 1, 1);
+                            referencePresentationController.sourceView = webView;
+                            [self presentViewController:self.referenceController animated:YES completion:^{
+                                //
+                            }];
+                            
                             refFound = YES;
                             *stop = YES;
                         }
@@ -592,7 +601,7 @@
 }
 
 - (void)rtLabel:(id)rtLabel didSelectLinkWithURL:(NSURL*)url {
-    [self.referencePopover dismissPopoverAnimated:NO];
+    [self dismissViewControllerAnimated:YES completion:nil];
 
     NSRange range = [url.absoluteString rangeOfString:[NSString stringWithFormat:@"Documents/%@/text.html", self.article.pmcId]];
     if (range.location != NSNotFound) {
