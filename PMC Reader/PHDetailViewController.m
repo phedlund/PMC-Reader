@@ -57,7 +57,7 @@
 @synthesize prefViewController;
 @synthesize fontsController;
 @synthesize settingsPageController;
-@synthesize settingsPopover;
+@synthesize settingsPresentationController;
 @synthesize titleLabel, titleBarButtonItem;
 @synthesize backBarButtonItem, goBackBarButtonItem, forwardBarButtonItem, refreshBarButtonItem, stopBarButtonItem;
 @synthesize infoBarButtonItem, prefsBarButtonItem;
@@ -286,20 +286,23 @@
         } else {
             settingsPageController.preferredContentSize = CGSizeMake(220, 344);
         }
+        settingsPageController.modalPresentationStyle = UIModalPresentationPopover;
     }
     return settingsPageController;
 }
 
 - (IBAction)doPreferences:(id)sender {
-    WYPopoverBackgroundView* popoverAppearance = [WYPopoverBackgroundView appearance];
-    popoverAppearance.fillTopColor = [UIColor popoverButtonColor];
-    popoverAppearance.viewContentInsets = UIEdgeInsetsZero;
+    settingsPresentationController = self.settingsPageController.popoverPresentationController;
+    settingsPresentationController.delegate = self;
+    settingsPresentationController.barButtonItem = self.prefsBarButtonItem;
+    settingsPresentationController.permittedArrowDirections = UIPopoverArrowDirectionAny;
+    settingsPresentationController.backgroundColor = [UIColor popoverButtonColor];
 
     self.articleNavigationController.articleSections = [NSArray arrayWithArray:self.article.articleNavigationItems];;
     if (!_settingsControllers) {
         _settingsControllers = @[self.articleNavigationController, self.prefViewController, self.fontsController];
     }
-    [self.settingsPopover presentPopoverFromBarButtonItem:self.prefsBarButtonItem permittedArrowDirections:(UIPopoverArrowDirectionUp | UIPopoverArrowDirectionDown) animated:YES];
+    [self presentViewController:self.settingsPageController animated:YES completion:nil];
 }
 
 - (IBAction)doInfo:(id)sender {
@@ -324,7 +327,7 @@
             _activityPopover = activityViewController.popoverPresentationController;
             _activityPopover.delegate = self;
             _activityPopover.barButtonItem = self.infoBarButtonItem;
-            _activityPopover.permittedArrowDirections = UIPopoverArrowDirectionLeft | UIPopoverArrowDirectionRight | UIPopoverArrowDirectionUp | UIPopoverArrowDirectionDown;
+            _activityPopover.permittedArrowDirections = UIPopoverArrowDirectionAny;
             [self presentViewController:activityViewController animated:YES completion:nil];
         } else {
             [self presentViewController:activityViewController animated:YES completion:nil];
@@ -354,13 +357,6 @@
         fontsController.delegate = self;
     }
     return fontsController;
-}
-
-- (WYPopoverController *) settingsPopover {
-    if (!settingsPopover) {
-        settingsPopover = [[WYPopoverController alloc] initWithContentViewController:self.settingsPageController];
-    }
-    return settingsPopover;
 }
 
 - (UIViewController *)referenceController {
@@ -658,9 +654,6 @@
             pageControl.backgroundColor = [UIColor popoverButtonColor];
         }
     }
-
-    WYPopoverBackgroundView* popoverAppearance = [WYPopoverBackgroundView appearance];
-    popoverAppearance.fillTopColor = [UIColor popoverButtonColor];
 }
 
 - (void) writeCssTemplate
@@ -993,7 +986,7 @@
 }
 
 - (void)articleSectionSelected:(NSUInteger)section {
-    [self.settingsPopover dismissPopoverAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
     PHArticleNavigationItem *navItem = (PHArticleNavigationItem *)[self.article.articleNavigationItems objectAtIndex:section];
     NSURL *url = self.articleView.request.URL;
     NSMutableString* frag = [[NSMutableString alloc] initWithString:@"#"];

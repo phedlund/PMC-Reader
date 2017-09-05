@@ -13,9 +13,8 @@
 #import "PHFontsTableController.h"
 #import "RTLabel.h"
 #import "SCPageScrubberBar.h"
-#import "WYPopoverController.h"
 
-@interface PHDetailViewController : UIViewController <UIWebViewDelegate, UIScrollViewDelegate, UIPopoverPresentationControllerDelegate, UIGestureRecognizerDelegate, PHPrefViewControllerDelegate, ArticleNavigationDelegate, PHFontsControllerDelegate, RTLabelDelegate, SCPageScrubberBarDelegate, WYPopoverControllerDelegate, UIPageViewControllerDataSource, UIPageViewControllerDelegate>
+@interface PHDetailViewController : UIViewController <UIWebViewDelegate, UIScrollViewDelegate, UIPopoverPresentationControllerDelegate, UIGestureRecognizerDelegate, PHPrefViewControllerDelegate, ArticleNavigationDelegate, PHFontsControllerDelegate, RTLabelDelegate, SCPageScrubberBarDelegate, UIPageViewControllerDataSource, UIPageViewControllerDelegate>
 
 @property (strong, nonatomic) PHArticle *article;
 @property (strong, nonatomic) IBOutlet UIView *pageBarContainerView;
@@ -38,7 +37,7 @@
 @property (nonatomic, strong, readonly) PHPrefViewController *prefViewController;
 @property (nonatomic, strong, readonly) PHFontsTableController *fontsController;
 @property (nonatomic, strong, readonly) UIPageViewController *settingsPageController;
-@property (nonatomic, strong, readonly) WYPopoverController *settingsPopover;
+@property (nonatomic, strong, readonly) UIPopoverPresentationController *settingsPresentationController;
 
 @property (nonatomic, strong, readonly) RTLabel *referenceLabel;
 @property (nonatomic, strong, readonly) UIViewController *referenceController;
