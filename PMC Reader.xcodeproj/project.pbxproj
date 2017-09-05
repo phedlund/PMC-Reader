@@ -17,8 +17,6 @@
 		D0096D2217F8F37D00B05E68 /* UIColor+PHColor.m in Sources */ = {isa = PBXBuildFile; fileRef = D0096D2117F8F37D00B05E68 /* UIColor+PHColor.m */; };
 		D0096D2717FCB83700B05E68 /* iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0096D2517FCB83700B05E68 /* iPhone.storyboard */; };
 		D0096D2917FF2F1400B05E68 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0096D2817FF2F1400B05E68 /* Images.xcassets */; };
-		D0096D2F17FF2FE800B05E68 /* WYPopoverController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0096D2C17FF2FE800B05E68 /* WYPopoverController.m */; };
-		D0096D3017FF2FE800B05E68 /* WYStoryboardPopoverSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = D0096D2E17FF2FE800B05E68 /* WYStoryboardPopoverSegue.m */; };
 		D0096D3217FFA0CE00B05E68 /* defaults~iPhone.plist in Resources */ = {isa = PBXBuildFile; fileRef = D0096D3117FFA0CE00B05E68 /* defaults~iPhone.plist */; };
 		D0096D381800CE7500B05E68 /* PHFontsTableController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0096D371800CE7500B05E68 /* PHFontsTableController.m */; };
 		D0096DB0180248A800B05E68 /* menu.png in Resources */ = {isa = PBXBuildFile; fileRef = D0096DAE180248A800B05E68 /* menu.png */; };
@@ -152,10 +150,6 @@
 		D0096D2117F8F37D00B05E68 /* UIColor+PHColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+PHColor.m"; sourceTree = "<group>"; };
 		D0096D2617FCB83700B05E68 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = "PMC Reader/en.lproj/iPhone.storyboard"; sourceTree = "<group>"; };
 		D0096D2817FF2F1400B05E68 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		D0096D2B17FF2FE800B05E68 /* WYPopoverController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WYPopoverController.h; sourceTree = "<group>"; };
-		D0096D2C17FF2FE800B05E68 /* WYPopoverController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WYPopoverController.m; sourceTree = "<group>"; };
-		D0096D2D17FF2FE800B05E68 /* WYStoryboardPopoverSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WYStoryboardPopoverSegue.h; sourceTree = "<group>"; };
-		D0096D2E17FF2FE800B05E68 /* WYStoryboardPopoverSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WYStoryboardPopoverSegue.m; sourceTree = "<group>"; };
 		D0096D3117FFA0CE00B05E68 /* defaults~iPhone.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; name = "defaults~iPhone.plist"; path = "Resources/defaults~iPhone.plist"; sourceTree = "<group>"; };
 		D0096D361800CE7500B05E68 /* PHFontsTableController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHFontsTableController.h; sourceTree = "<group>"; };
 		D0096D371800CE7500B05E68 /* PHFontsTableController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHFontsTableController.m; sourceTree = "<group>"; };
@@ -386,18 +380,6 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		D0096D2A17FF2FE800B05E68 /* WYPopoverController */ = {
-			isa = PBXGroup;
-			children = (
-				D0096D2B17FF2FE800B05E68 /* WYPopoverController.h */,
-				D0096D2C17FF2FE800B05E68 /* WYPopoverController.m */,
-				D0096D2D17FF2FE800B05E68 /* WYStoryboardPopoverSegue.h */,
-				D0096D2E17FF2FE800B05E68 /* WYStoryboardPopoverSegue.m */,
-			);
-			name = WYPopoverController;
-			path = WyPopoverController/WYPopoverController;
-			sourceTree = SOURCE_ROOT;
-		};
 		D0096D391800D3A200B05E68 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
@@ -520,7 +502,6 @@
 				D0096DBE180390D400B05E68 /* FDiCabActivity */,
 				D0096DC3180390D400B05E68 /* FDInstapaperActivity */,
 				D0096DCA180390D400B05E68 /* FDReadabilityActivity */,
-				D0096D2A17FF2FE800B05E68 /* WYPopoverController */,
 				D0096CF617F66DE400B05E68 /* Panel */,
 				D05B89FA1725FB0700C61968 /* UIColor+Expanded */,
 				D009A717171742ED00BC4D77 /* LXReorderableCollectionViewFlowLayout */,
@@ -918,7 +899,6 @@
 				D0CDB7D215C1F5900074B143 /* HTMLNode.m in Sources */,
 				D0096CCF17F37F3800B05E68 /* UIImage+PHColor.m in Sources */,
 				D0CDB7D315C1F5900074B143 /* HTMLParser.m in Sources */,
-				D0096D2F17FF2FE800B05E68 /* WYPopoverController.m in Sources */,
 				D0D1C75B15CB652A0097CA9C /* PHPrefViewController.m in Sources */,
 				D0096DD1180390D400B05E68 /* FDiCabActivity.m in Sources */,
 				D0F60055163775EF00ADBC38 /* PHMasterViewController.m in Sources */,
@@ -935,7 +915,6 @@
 				D0D3999F16C1B5B600EA2497 /* PHArticleNavigationController.m in Sources */,
 				D0EEADE416FA29C900DBAC4C /* PHArticleReference.m in Sources */,
 				D0EEADEC16FA770000DBAC4C /* RTLabel.m in Sources */,
-				D0096D3017FF2FE800B05E68 /* WYStoryboardPopoverSegue.m in Sources */,
 				D0096D381800CE7500B05E68 /* PHFontsTableController.m in Sources */,
 				D0EEAE021704C1B500DBAC4C /* SCCalloutView.m in Sources */,
 				D0EEAE041704C1B500DBAC4C /* SCPageScrubberBar.m in Sources */,
