@@ -42,7 +42,6 @@
 		D0096E0C180390FA00B05E68 /* Safari@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = D0096DFE180390FA00B05E68 /* Safari@2x~ipad.png */; };
 		D0096E0E180390FA00B05E68 /* Safari~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = D0096DFF180390FA00B05E68 /* Safari~ipad.png */; };
 		D0096E10180390FA00B05E68 /* TUSafariActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = D0096E03180390FA00B05E68 /* TUSafariActivity.m */; };
-		D0096E1418039A5700B05E68 /* UIColor+Expanded.m in Sources */ = {isa = PBXBuildFile; fileRef = D0096E1318039A5700B05E68 /* UIColor+Expanded.m */; };
 		D0096E1718039BFD00B05E68 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D0096E1618039BFD00B05E68 /* Settings.bundle */; };
 		D009A71A171742ED00BC4D77 /* LXReorderableCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = D009A719171742ED00BC4D77 /* LXReorderableCollectionViewFlowLayout.m */; };
 		D009A71D171744A800BC4D77 /* PHCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D009A71C171744A800BC4D77 /* PHCollectionViewCell.m */; };
@@ -63,6 +62,7 @@
 		D036329F167296F6000D3C0B /* UINavigationController+DismissKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = D036329E167296F5000D3C0B /* UINavigationController+DismissKeyboard.m */; };
 		D03632A31676829D000D3C0B /* text.png in Resources */ = {isa = PBXBuildFile; fileRef = D03632A11676829D000D3C0B /* text.png */; };
 		D03632A41676829D000D3C0B /* text@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D03632A21676829D000D3C0B /* text@2x.png */; };
+		D05067E11F60E1550064F236 /* UIColor+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = D05067E01F60E1550064F236 /* UIColor+Hex.m */; };
 		D05B8A0E1728BE1100C61968 /* grid.png in Resources */ = {isa = PBXBuildFile; fileRef = D05B8A0C1728BE0F00C61968 /* grid.png */; };
 		D05B8A0F1728BE1100C61968 /* grid@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D05B8A0D1728BE1000C61968 /* grid@2x.png */; };
 		D099D9BB1805BAF7001F9C35 /* iTunesArtwork@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D099D9BA1805BAF7001F9C35 /* iTunesArtwork@2x.png */; };
@@ -199,8 +199,6 @@
 		D0096E03180390FA00B05E68 /* TUSafariActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TUSafariActivity.m; sourceTree = "<group>"; };
 		D0096E04180390FA00B05E68 /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/TUSafariActivity.strings; sourceTree = "<group>"; };
 		D0096E05180390FA00B05E68 /* zh_CN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = zh_CN; path = zh_CN.lproj/TUSafariActivity.strings; sourceTree = "<group>"; };
-		D0096E1218039A5700B05E68 /* UIColor+Expanded.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIColor+Expanded.h"; path = "uicolor-utilities/Color/UIColor+Expanded.h"; sourceTree = SOURCE_ROOT; };
-		D0096E1318039A5700B05E68 /* UIColor+Expanded.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIColor+Expanded.m"; path = "uicolor-utilities/Color/UIColor+Expanded.m"; sourceTree = SOURCE_ROOT; };
 		D0096E1618039BFD00B05E68 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		D009A718171742ED00BC4D77 /* LXReorderableCollectionViewFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LXReorderableCollectionViewFlowLayout.h; path = LXReorderableCollectionViewFlowLayout/LXReorderableCollectionViewFlowLayout/LXReorderableCollectionViewFlowLayout.h; sourceTree = SOURCE_ROOT; };
 		D009A719171742ED00BC4D77 /* LXReorderableCollectionViewFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LXReorderableCollectionViewFlowLayout.m; path = LXReorderableCollectionViewFlowLayout/LXReorderableCollectionViewFlowLayout/LXReorderableCollectionViewFlowLayout.m; sourceTree = SOURCE_ROOT; };
@@ -234,6 +232,8 @@
 		D036329E167296F5000D3C0B /* UINavigationController+DismissKeyboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+DismissKeyboard.m"; sourceTree = "<group>"; };
 		D03632A11676829D000D3C0B /* text.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = text.png; path = Resources/text.png; sourceTree = "<group>"; };
 		D03632A21676829D000D3C0B /* text@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "text@2x.png"; path = "Resources/text@2x.png"; sourceTree = "<group>"; };
+		D05067DF1F60E1550064F236 /* UIColor+Hex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Hex.h"; sourceTree = "<group>"; };
+		D05067E01F60E1550064F236 /* UIColor+Hex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Hex.m"; sourceTree = "<group>"; };
 		D05B8A0C1728BE0F00C61968 /* grid.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = grid.png; path = Resources/grid.png; sourceTree = "<group>"; };
 		D05B8A0D1728BE1000C61968 /* grid@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "grid@2x.png"; path = "Resources/grid@2x.png"; sourceTree = "<group>"; };
 		D099D9BA1805BAF7001F9C35 /* iTunesArtwork@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iTunesArtwork@2x.png"; sourceTree = SOURCE_ROOT; };
@@ -498,12 +498,12 @@
 		D030E6B915C0D2DB00CB5285 /* PMC Reader */ = {
 			isa = PBXGroup;
 			children = (
+				D05067DE1F60E1550064F236 /* UIColor+Hex */,
 				D0096DEB180390F900B05E68 /* TUSafariActivity */,
 				D0096DBE180390D400B05E68 /* FDiCabActivity */,
 				D0096DC3180390D400B05E68 /* FDInstapaperActivity */,
 				D0096DCA180390D400B05E68 /* FDReadabilityActivity */,
 				D0096CF617F66DE400B05E68 /* Panel */,
-				D05B89FA1725FB0700C61968 /* UIColor+Expanded */,
 				D009A717171742ED00BC4D77 /* LXReorderableCollectionViewFlowLayout */,
 				D0EEADFC1704C1B400DBAC4C /* SCPageScrubberBar */,
 				D0EEADED16FA770C00DBAC4C /* RTLabel */,
@@ -583,14 +583,14 @@
 			name = DismissKeyboard;
 			sourceTree = "<group>";
 		};
-		D05B89FA1725FB0700C61968 /* UIColor+Expanded */ = {
+		D05067DE1F60E1550064F236 /* UIColor+Hex */ = {
 			isa = PBXGroup;
 			children = (
-				D0096E1218039A5700B05E68 /* UIColor+Expanded.h */,
-				D0096E1318039A5700B05E68 /* UIColor+Expanded.m */,
+				D05067DF1F60E1550064F236 /* UIColor+Hex.h */,
+				D05067E01F60E1550064F236 /* UIColor+Hex.m */,
 			);
-			name = "UIColor+Expanded";
-			path = "uicolor-utilities/Color/UIColor+Expanded";
+			name = "UIColor+Hex";
+			path = "UIColor-Hex/UIColor";
 			sourceTree = SOURCE_ROOT;
 		};
 		D0CDB7D415C1F59C0074B143 /* Parser */ = {
@@ -894,6 +894,7 @@
 			files = (
 				D030E6C015C0D2DB00CB5285 /* main.m in Sources */,
 				D030E6C415C0D2DB00CB5285 /* PHAppDelegate.m in Sources */,
+				D05067E11F60E1550064F236 /* UIColor+Hex.m in Sources */,
 				D030E6CD15C0D2DB00CB5285 /* PHDetailViewController.m in Sources */,
 				D0096E10180390FA00B05E68 /* TUSafariActivity.m in Sources */,
 				D0CDB7D215C1F5900074B143 /* HTMLNode.m in Sources */,
@@ -924,7 +925,6 @@
 				D009A71D171744A800BC4D77 /* PHCollectionViewCell.m in Sources */,
 				D0096D1C17F7732800B05E68 /* PHFigTablePanel.m in Sources */,
 				D0096CD217F3916B00B05E68 /* TransparentToolbar.m in Sources */,
-				D0096E1418039A5700B05E68 /* UIColor+Expanded.m in Sources */,
 				D009A720171787EC00BC4D77 /* PHCollectionViewFlowLayout.m in Sources */,
 				D009A72517178E9700BC4D77 /* UILabel+VerticalAlignment.m in Sources */,
 				D0096D1817F66DE400B05E68 /* UARoundedRectView.m in Sources */,

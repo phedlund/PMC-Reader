@@ -12,7 +12,7 @@
 #import "PHArticleNavigationItem.h"
 #import "PHArticleReference.h"
 #import "UIColor+PHColor.h"
-#import "UIColor+Expanded.h"
+#import "UIColor+Hex.h"
 #import "PHFigTablePanel.h"
 #import "TransparentToolbar.h"
 #import "TUSafariActivity.h"
@@ -674,9 +674,9 @@
     double lineHeight =[[NSUserDefaults standardUserDefaults] doubleForKey:@"LineHeight"];
     cssTemplate = [cssTemplate stringByReplacingOccurrencesOfString:@"$LINEHEIGHT$" withString:[NSString stringWithFormat:@"%fem", lineHeight]];
     
-    cssTemplate = [cssTemplate stringByReplacingOccurrencesOfString:@"$BACKGROUND$" withString:[NSString stringWithFormat:@"#%@", [UIColor backgroundColor].hexStringValue]];
-    cssTemplate = [cssTemplate stringByReplacingOccurrencesOfString:@"$COLOR$" withString:[NSString stringWithFormat:@"#%@", [UIColor textColor].hexStringValue]];
-    cssTemplate = [cssTemplate stringByReplacingOccurrencesOfString:@"$COLORLINK$" withString:[NSString stringWithFormat:@"#%@", [UIColor linkColor].hexStringValue]];
+    cssTemplate = [cssTemplate stringByReplacingOccurrencesOfString:@"$BACKGROUND$" withString:[UIColor backgroundColor].cssString];
+    cssTemplate = [cssTemplate stringByReplacingOccurrencesOfString:@"$COLOR$" withString:[UIColor textColor].cssString];
+    cssTemplate = [cssTemplate stringByReplacingOccurrencesOfString:@"$COLORLINK$" withString:[UIColor linkColor].cssString];
     
     NSFileManager *fm = [NSFileManager defaultManager];
     NSArray *paths = [fm URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask];

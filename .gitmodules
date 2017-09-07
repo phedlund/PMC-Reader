@@ -13,12 +13,12 @@ url=git://github.com/phedlund/SCPageScrubberBar.git
 [submodule "LXReorderableCollectionViewFlowLayout"]
 	path = LXReorderableCollectionViewFlowLayout
 	url = git://github.com/lxcid/LXReorderableCollectionViewFlowLayout.git
-[submodule "uicolor-utilities"]
-	path = uicolor-utilities
-	url = git://github.com/erica/uicolor-utilities.git
 [submodule "UAModalPanel"]
 	path = UAModalPanel
 	url = https://github.com/UrbanApps/UAModalPanel.git
 [submodule "TUSafariActivity"]
 	path = TUSafariActivity
 	url = https://github.com/davbeck/TUSafariActivity.git
+[submodule "UIColor-Hex"]
+	path = UIColor-Hex
+	url = https://github.com/Inferis/UIColor-Hex.git
