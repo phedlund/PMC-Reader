@@ -8,7 +8,6 @@
 
 #import "PHMasterViewController.h"
 #import <QuartzCore/QuartzCore.h>
-#import "HTMLParser.h"
 #import "NSMutableArray+Extra.h"
 #import "PHCollectionViewCell.h"
 #import "PHCollectionViewFlowLayout.h"
