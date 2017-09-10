@@ -45,6 +45,8 @@
     
     self.tableView.scrollEnabled = YES;
     self.tableView.separatorColor = [UIColor popoverBorderColor];
+    self.view.backgroundColor = [UIColor popoverButtonColor];
+    self.tableView.backgroundColor = [UIColor popoverButtonColor];
     [self.tableView reloadData];
 }
 
