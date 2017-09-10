@@ -722,7 +722,7 @@
     _currentPage = (int)(_currentPage * ratio);
     _currentPage = MAX(_currentPage, 0);
     self.pageNumberBar.maximumValue = _pageCount - 1;
-    self.pageNumberLabel.text = [NSString stringWithFormat:@"%ld of %ld",_currentPage + 1, (long)_pageCount];
+    self.pageNumberLabel.text = [NSString stringWithFormat:@"%ld of %ld", (long)_currentPage + 1, (long)_pageCount];
     [self gotoPage:_currentPage animated:NO];
 }
 
@@ -798,7 +798,7 @@
     [self.articleView.scrollView setContentOffset:CGPointMake(pageOffset, 0.0f) animated:animated];
 
     self.pageNumberBar.value = _currentPage;
-	self.pageNumberLabel.text = [NSString stringWithFormat:@"%ld of %ld", _currentPage + 1, (long)_pageCount];
+	self.pageNumberLabel.text = [NSString stringWithFormat:@"%ld of %ld", (long)_currentPage + 1, (long)_pageCount];
     NSDictionary *infoDict = [NSDictionary dictionaryWithObjectsAndKeys:self.article, @"Article", [NSNumber numberWithInteger:_currentPage], @"NewPage", nil];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"PageChanged" object:self userInfo:infoDict];
 }
