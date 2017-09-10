@@ -498,7 +498,7 @@
                 }
             }
         }
-        if ([request.URL.scheme isEqualToString:@"http"]) {
+        if ([request.URL.scheme hasPrefix:@"http"]) {
             NSRange range = [request.URL.absoluteString rangeOfString:@"#"];
             if (range.location != NSNotFound) {
                 _scrollingInternally = YES;
