@@ -77,8 +77,6 @@
 		D0C96272172F1A170065720B /* home.png in Resources */ = {isa = PBXBuildFile; fileRef = D0C96270172F1A170065720B /* home.png */; };
 		D0C96273172F1A170065720B /* home@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D0C96271172F1A170065720B /* home@2x.png */; };
 		D0CDB7CD15C1BA4F0074B143 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D0CDB7CC15C1BA4F0074B143 /* libxml2.dylib */; };
-		D0CDB7D215C1F5900074B143 /* HTMLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CDB7CF15C1F5900074B143 /* HTMLNode.m */; };
-		D0CDB7D315C1F5900074B143 /* HTMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CDB7D115C1F5900074B143 /* HTMLParser.m */; };
 		D0CDB7DA15C33FB70074B143 /* pmc.html in Resources */ = {isa = PBXBuildFile; fileRef = D0CDB7D715C33FB70074B143 /* pmc.html */; };
 		D0CDB7DC15C340660074B143 /* pmc.js in Resources */ = {isa = PBXBuildFile; fileRef = D0CDB7D615C33FB70074B143 /* pmc.js */; };
 		D0D1C75B15CB652A0097CA9C /* PHPrefViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0D1C75A15CB652A0097CA9C /* PHPrefViewController.m */; };
@@ -258,10 +256,6 @@
 		D0C96270172F1A170065720B /* home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = home.png; path = Resources/home.png; sourceTree = "<group>"; };
 		D0C96271172F1A170065720B /* home@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "home@2x.png"; path = "Resources/home@2x.png"; sourceTree = "<group>"; };
 		D0CDB7CC15C1BA4F0074B143 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
-		D0CDB7CE15C1F5900074B143 /* HTMLNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HTMLNode.h; path = "../Objective-C-HMTL-Parser/HTMLNode.h"; sourceTree = "<group>"; };
-		D0CDB7CF15C1F5900074B143 /* HTMLNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HTMLNode.m; path = "../Objective-C-HMTL-Parser/HTMLNode.m"; sourceTree = "<group>"; };
-		D0CDB7D015C1F5900074B143 /* HTMLParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HTMLParser.h; path = "../Objective-C-HMTL-Parser/HTMLParser.h"; sourceTree = "<group>"; };
-		D0CDB7D115C1F5900074B143 /* HTMLParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HTMLParser.m; path = "../Objective-C-HMTL-Parser/HTMLParser.m"; sourceTree = "<group>"; };
 		D0CDB7D615C33FB70074B143 /* pmc.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = pmc.js; path = Resources/pmc.js; sourceTree = "<group>"; };
 		D0CDB7D715C33FB70074B143 /* pmc.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = pmc.html; path = Resources/pmc.html; sourceTree = "<group>"; };
 		D0D1C75915CB652A0097CA9C /* PHPrefViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHPrefViewController.h; sourceTree = "<group>"; };
@@ -521,7 +515,6 @@
 				D0EEADFC1704C1B400DBAC4C /* SCPageScrubberBar */,
 				D0EEADED16FA770C00DBAC4C /* RTLabel */,
 				D0ED8FC1165B1F8F0081E81E /* RaptureXML */,
-				D0CDB7D415C1F59C0074B143 /* Parser */,
 				D0363299166EBD81000D3C0B /* ArrayExtra */,
 				D009A72217178E9600BC4D77 /* UILabel-VerticalAlignment */,
 				D03632A01672990C000D3C0B /* DismissKeyboard */,
@@ -636,17 +629,6 @@
 			name = Classes;
 			path = TUSafariActivity/Pod/Classes;
 			sourceTree = SOURCE_ROOT;
-		};
-		D0CDB7D415C1F59C0074B143 /* Parser */ = {
-			isa = PBXGroup;
-			children = (
-				D0CDB7CE15C1F5900074B143 /* HTMLNode.h */,
-				D0CDB7CF15C1F5900074B143 /* HTMLNode.m */,
-				D0CDB7D015C1F5900074B143 /* HTMLParser.h */,
-				D0CDB7D115C1F5900074B143 /* HTMLParser.m */,
-			);
-			name = Parser;
-			sourceTree = "<group>";
 		};
 		D0CDB7DB15C33FC90074B143 /* Resources */ = {
 			isa = PBXGroup;
@@ -951,9 +933,7 @@
 				D030E6C415C0D2DB00CB5285 /* PHAppDelegate.m in Sources */,
 				D05067E11F60E1550064F236 /* UIColor+Hex.m in Sources */,
 				D030E6CD15C0D2DB00CB5285 /* PHDetailViewController.m in Sources */,
-				D0CDB7D215C1F5900074B143 /* HTMLNode.m in Sources */,
 				D0096CCF17F37F3800B05E68 /* UIImage+PHColor.m in Sources */,
-				D0CDB7D315C1F5900074B143 /* HTMLParser.m in Sources */,
 				D0D1C75B15CB652A0097CA9C /* PHPrefViewController.m in Sources */,
 				D0096DD1180390D400B05E68 /* FDiCabActivity.m in Sources */,
 				D0F60055163775EF00ADBC38 /* PHMasterViewController.m in Sources */,
