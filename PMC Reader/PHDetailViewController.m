@@ -14,7 +14,6 @@
 #import "UIColor+PHColor.h"
 #import "UIColor+Hex.h"
 #import "PHFigTablePanel.h"
-#import "TransparentToolbar.h"
 #import "TUSafariActivity.h"
 #import "FDReadabilityActivity.h"
 #import "FDiCabActivity.h"

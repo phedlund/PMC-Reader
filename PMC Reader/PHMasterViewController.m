@@ -14,6 +14,7 @@
 #import "UIColor+PHColor.h"
 #import "UILabel+VerticalAlignment.h"
 #import "UIImage+PHColor.h"
+#import "TransparentToolbar.h"
 
 static NSString * const kBaseUrl = @"http://www.ncbi.nlm.nih.gov";
 static NSString * const kArticleUrlSuffix = @"pmc/articles/";
@@ -376,8 +377,8 @@ static NSString * const kArticleUrlSuffix = @"pmc/articles/";
     cell.contentView.opaque = YES;
     cell.labelContainerView.backgroundColor = [UIColor cellBackgroundColor];
     cell.buttonContainerView.backgroundColor = [UIColor cellBackgroundColor];
-    cell.deleteBarButton.tintColor = [UIColor iconColor];
-    cell.downloadBarButton.tintColor = [UIColor iconColor];
+
+    [[UIBarButtonItem appearanceWhenContainedInInstancesOfClasses:@[TransparentToolbar.class]] setTintColor:[UIColor iconColor]];
 
     cell.activityVisible = article.downloading;
     
