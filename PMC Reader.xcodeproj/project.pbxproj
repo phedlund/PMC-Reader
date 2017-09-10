@@ -57,7 +57,6 @@
 		D03632A31676829D000D3C0B /* text.png in Resources */ = {isa = PBXBuildFile; fileRef = D03632A11676829D000D3C0B /* text.png */; };
 		D03632A41676829D000D3C0B /* text@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D03632A21676829D000D3C0B /* text@2x.png */; };
 		D05067E11F60E1550064F236 /* UIColor+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = D05067E01F60E1550064F236 /* UIColor+Hex.m */; };
-		D050683F1F60E63B0064F236 /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = D050681A1F60E63B0064F236 /* .gitkeep */; };
 		D05068401F60E63B0064F236 /* TUSafariActivity.strings in Resources */ = {isa = PBXBuildFile; fileRef = D050681B1F60E63B0064F236 /* TUSafariActivity.strings */; };
 		D05068411F60E63B0064F236 /* safari-7.png in Resources */ = {isa = PBXBuildFile; fileRef = D050682C1F60E63B0064F236 /* safari-7.png */; };
 		D05068421F60E63B0064F236 /* safari-7@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D050682D1F60E63B0064F236 /* safari-7@2x.png */; };
@@ -69,7 +68,6 @@
 		D05068481F60E63B0064F236 /* safari@2x~iPad.png in Resources */ = {isa = PBXBuildFile; fileRef = D05068331F60E63B0064F236 /* safari@2x~iPad.png */; };
 		D05068491F60E63B0064F236 /* safari@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D05068341F60E63B0064F236 /* safari@3x.png */; };
 		D050684A1F60E63B0064F236 /* safari~iPad.png in Resources */ = {isa = PBXBuildFile; fileRef = D05068351F60E63B0064F236 /* safari~iPad.png */; };
-		D050684B1F60E63B0064F236 /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = D050683C1F60E63B0064F236 /* .gitkeep */; };
 		D050684C1F60E63B0064F236 /* TUSafariActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = D050683E1F60E63B0064F236 /* TUSafariActivity.m */; };
 		D05B8A0E1728BE1100C61968 /* grid.png in Resources */ = {isa = PBXBuildFile; fileRef = D05B8A0C1728BE0F00C61968 /* grid.png */; };
 		D05B8A0F1728BE1100C61968 /* grid@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D05B8A0D1728BE1000C61968 /* grid@2x.png */; };
@@ -854,7 +852,6 @@
 				D0096DDD180390D400B05E68 /* instapaper.png in Resources */,
 				D0096DDB180390D400B05E68 /* instapaper-ipad@2x.png in Resources */,
 				D0096DBA18037DCD00B05E68 /* backgroundsearch.png in Resources */,
-				D050684B1F60E63B0064F236 /* .gitkeep in Resources */,
 				D0096E1718039BFD00B05E68 /* Settings.bundle in Resources */,
 				D0096DB0180248A800B05E68 /* menu.png in Resources */,
 				D05068411F60E63B0064F236 /* safari-7.png in Resources */,
@@ -893,7 +890,6 @@
 				D0EEAE031704C1B500DBAC4C /* SCPageScrubberBar.bundle in Resources */,
 				D0EEAE0D170A1F8100DBAC4C /* paginate1.png in Resources */,
 				D0EEAE0E170A1F8100DBAC4C /* paginate1@2x.png in Resources */,
-				D050683F1F60E63B0064F236 /* .gitkeep in Resources */,
 				D0EEAE0F170A1F8100DBAC4C /* paginate2.png in Resources */,
 				D05068491F60E63B0064F236 /* safari@3x.png in Resources */,
 				D0EEAE10170A1F8100DBAC4C /* paginate2@2x.png in Resources */,
