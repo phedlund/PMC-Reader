@@ -11,8 +11,8 @@
 		D0096CD217F3916B00B05E68 /* TransparentToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = D0096CD117F3916B00B05E68 /* TransparentToolbar.m */; };
 		D0096D0E17F66DE400B05E68 /* close.png in Resources */ = {isa = PBXBuildFile; fileRef = D0096CFB17F66DE400B05E68 /* close.png */; };
 		D0096D0F17F66DE400B05E68 /* close@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D0096CFC17F66DE400B05E68 /* close@2x.png */; };
-		D0096D1417F66DE400B05E68 /* UAModalPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = D0096D0317F66DE400B05E68 /* UAModalPanel.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		D0096D1817F66DE400B05E68 /* UARoundedRectView.m in Sources */ = {isa = PBXBuildFile; fileRef = D0096D0C17F66DE400B05E68 /* UARoundedRectView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		D0096D1417F66DE400B05E68 /* UAModalPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = D0096D0317F66DE400B05E68 /* UAModalPanel.m */; };
+		D0096D1817F66DE400B05E68 /* UARoundedRectView.m in Sources */ = {isa = PBXBuildFile; fileRef = D0096D0C17F66DE400B05E68 /* UARoundedRectView.m */; };
 		D0096D1C17F7732800B05E68 /* PHFigTablePanel.m in Sources */ = {isa = PBXBuildFile; fileRef = D0096D1B17F7732800B05E68 /* PHFigTablePanel.m */; };
 		D0096D2217F8F37D00B05E68 /* UIColor+PHColor.m in Sources */ = {isa = PBXBuildFile; fileRef = D0096D2117F8F37D00B05E68 /* UIColor+PHColor.m */; };
 		D0096D2717FCB83700B05E68 /* iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0096D2517FCB83700B05E68 /* iPhone.storyboard */; };
