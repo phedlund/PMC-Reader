@@ -15,9 +15,6 @@
 #import "UIColor+Hex.h"
 #import "PHFigTablePanel.h"
 #import "TUSafariActivity.h"
-#import "FDReadabilityActivity.h"
-#import "FDiCabActivity.h"
-#import "FDInstapaperActivity.h"
 
 #define TITLE_LABEL_WIDTH_LANDSCAPE 670
 #define TITLE_LABEL_WIDTH_PORTRAIT 420
@@ -313,12 +310,9 @@
         }
 
         TUSafariActivity *sa = [[TUSafariActivity alloc] init];
-        FDiCabActivity *ia = [[FDiCabActivity alloc] init];
-        FDInstapaperActivity *ipa = [[FDInstapaperActivity alloc] init];
-        FDReadabilityActivity *ra = [[FDReadabilityActivity alloc] init];
-        
+
         NSArray *activityItems = @[url];
-        NSArray *activities = @[sa, ia, ipa, ra];
+        NSArray *activities = @[sa];
         
         UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:activityItems applicationActivities:activities];
         activityViewController.modalPresentationStyle = UIModalPresentationPopover;
