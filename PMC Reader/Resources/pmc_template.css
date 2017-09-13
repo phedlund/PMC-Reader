@@ -1,3 +1,32 @@
+@media only screen
+and (orientation: portrait) {
+    body {
+        background: $BACKGROUND$;
+        color:$COLOR$;
+        font-size:$FONTSIZE$;
+        text-align: center;
+        width: $MARGIN$;
+        margin-top: 40px;
+        margin-bottom: 40px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+@media only screen
+and (orientation: landscape) {
+    body {
+        background: $BACKGROUND$;
+        color:$COLOR$;
+        font-size:$FONTSIZE$;
+        text-align: center;
+        width: $MARGIN_LANDSCAPE$;
+        margin-top: 40px;
+        margin-bottom: 40px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
 
 html {
     -webkit-text-size-adjust: none; /* Never autoresize text */
@@ -6,21 +35,10 @@ html {
     -webkit-backface-visibility: hidden;
 }
 
-body {
-    background: $BACKGROUND$;
-    color:$COLOR$;
-    font-size:$FONTSIZE$;
-    align: center;
-    width: $MARGIN$;
-    margin-top: 40px;
-    margin-bottom: 40px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
 h1 {
    font-family:"Arial";
    font-size:150%;
+   text-align: left;
    line-height:$LINEHEIGHT$;
    clear: both;
 }
@@ -29,25 +47,25 @@ h2 {
     color:#985735;
     font-family:"Arial";
     font-size:110%;
+    text-align: left;
     /*margin-top:-0.8em;*/
     line-height:$LINEHEIGHT$;
-    
 }
 
 h3 {
     color:#724128;
     font-family:"Arial";
     font-size:100%;
+    text-align: left;
     line-height:$LINEHEIGHT$;
-    
 }
 
 h4 {
     color:#724128;
     font-family:"Arial";
     font-size:80%;
+    text-align: left;
     line-height:$LINEHEIGHT$;
-    
 }
 
 p {
@@ -67,20 +85,24 @@ a {
 div.sec {
     font-family:"$FONT$";
     font-size:100%;
+    text-align: left;
     line-height:$LINEHEIGHT$;
     clear: both;
 }
 
 div.small {
+    text-align: left;
     font-size: 80%;
 }
 
 div.table-wrap {
+    text-align: left;
     font-size:80%;
 }
 
 div.fn {
     font-size:80%;
+    text-align: left;
     line-height:$LINEHEIGHT$;
 }
 
@@ -91,12 +113,14 @@ div.fn {
 table, .fig, .table, .caption {
     font-size:80%;
     line-height:$LINEHEIGHT$;
+    text-align: left;
     clear: both;
     margin: 1.3846em 0px;
 }
 
 .fig-table-link {
     font-size:100%;
+    text-align: left;
     line-height:$LINEHEIGHT$;
 }
 
@@ -133,6 +157,7 @@ div.goto {
 }
 
 .kwd-title, .kwd-text {
+    text-align: left;
     font-size: 80%;
 }
 
@@ -152,15 +177,21 @@ div.ref-cit-blk {
 #Author information
 
 div.fm-authors-info {
-    /*font-size: 80%;*/
+    text-align: left;
     margin-top: 0.3em;
 }
 
 div.fm-authors-info div {
+    text-align: left;
     margin-top: 0.3em;
 }
 
+div.fm-author {
+    text-align: left;
+}
+
 div.fm-affl {
+    text-align: left;
     font-style:italic;
 }
 
@@ -185,6 +216,7 @@ div.fm-affl {
 div.togglers {
     display: none;
 }
+
 .links-box {
     display: none;
 }

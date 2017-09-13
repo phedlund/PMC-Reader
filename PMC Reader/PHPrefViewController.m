@@ -19,6 +19,9 @@
 #define MIN_WIDTH (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ? 380 : 150)
 #define MAX_WIDTH (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ? 700 : 300)
 
+#define MIN_WIDTH_LANDSCAPE 45 //%
+#define MAX_WIDTH_LANDSCAPE 95 //%
+
 @interface PHPrefViewController ()
 
 @end
@@ -230,6 +233,11 @@
             currentMargin = currentMargin + 20;
         }
         [prefs setInteger:currentMargin forKey:@"Margin"];
+        NSInteger currentMarginLandscape = [[prefs valueForKey:@"MarginLandscape"] integerValue];
+        if (currentMarginLandscape < MAX_WIDTH_LANDSCAPE) {
+            currentMarginLandscape += 5;
+        }
+        [prefs setInteger:currentMarginLandscape forKey:@"MarginLandscape"];
     }
     
     if (sender == self.increaseMarginButton) {
@@ -238,6 +246,11 @@
             currentMargin = currentMargin - 20;
         }
         [prefs setInteger:currentMargin forKey:@"Margin"];
+        NSInteger currentMarginLandscape = [[prefs valueForKey:@"MarginLandscape"] integerValue];
+        if (currentMarginLandscape > MIN_WIDTH_LANDSCAPE) {
+            currentMarginLandscape -= 5;
+        }
+        [prefs setInteger:currentMarginLandscape forKey:@"MarginLandscape"];
     }
     
     [prefs synchronize];
