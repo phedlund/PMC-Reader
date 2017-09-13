@@ -409,18 +409,8 @@
 }
 
 - (CGRect)orientationRect {
-    CGFloat width;
-    CGFloat height;
     CGSize screen = [[UIScreen mainScreen] bounds].size;
-    if (([UIApplication sharedApplication].statusBarOrientation == UIDeviceOrientationLandscapeLeft) ||
-           ([UIApplication sharedApplication].statusBarOrientation == UIDeviceOrientationLandscapeRight)) {
-        width = screen.height;
-        height = screen.width;
-    } else {
-        width = screen.width;
-        height = screen.height;
-    }
-    return CGRectMake(0.0, 0.0, width, height);
+    return CGRectMake(0.0, 0.0, screen.width, screen.height);
 }
 
 - (CGRect)articleRect {
@@ -428,13 +418,6 @@
         int topY = self.topContainerView.frame.size.height + ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 30 : 5);
         int bottomY = self.pageBarContainerView.frame.size.height;
         return CGRectMake(0, topY, [self orientationRect].size.width, [self orientationRect].size.height - (topY + bottomY));
-        /*
-        if (([UIApplication sharedApplication].statusBarOrientation == UIDeviceOrientationLandscapeLeft) ||
-            ([UIApplication sharedApplication].statusBarOrientation == UIDeviceOrientationLandscapeRight)) {
-            return CGRectMake(0, y, 1024, 585);
-        } else {
-            return CGRectMake(0, y, [self orientationRect].size.width, [self orientationRect].size.height - 184);
-        }*/
     } else {
         return self.view.frame;
     }
