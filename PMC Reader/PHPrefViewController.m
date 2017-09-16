@@ -3,7 +3,7 @@
 //  PMC Reader
 //
 //  Created by Peter Hedlund on 8/2/12.
-//  Copyright (c) 2012-2013 Peter Hedlund. All rights reserved.
+//  Copyright (c) 2012-2017 Peter Hedlund. All rights reserved.
 //
 
 #import "PHPrefViewController.h"
@@ -16,28 +16,13 @@
 #define MIN_LINE_HEIGHT 1.2f
 #define MAX_LINE_HEIGHT 2.6f
 
-#define MIN_WIDTH (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ? 380 : 150)
-#define MAX_WIDTH (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ? 700 : 300)
-
-#define MIN_WIDTH_LANDSCAPE 45 //%
-#define MAX_WIDTH_LANDSCAPE 95 //%
-
-@interface PHPrefViewController ()
-
-@end
+#define MIN_WIDTH 45 //%
+#define MAX_WIDTH 95 //%
 
 @implementation PHPrefViewController
 
 @synthesize delegate = _delegate;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
 
 - (void)viewDidLoad
 {
@@ -210,7 +195,6 @@
         [prefs setInteger:currentFontSize forKey:@"FontSize"];
     }
     
-    
     if (sender == self.decreaseLineHeightButton) {
         double currentLineHeight = [[prefs valueForKey:@"LineHeight"] doubleValue];
         if (currentLineHeight > MIN_LINE_HEIGHT) {
@@ -228,29 +212,35 @@
     }
     
     if (sender == self.decreaseMarginButton) {
-        NSInteger currentMargin = [[prefs valueForKey:@"Margin"] integerValue];
-        if (currentMargin < MAX_WIDTH) {
-            currentMargin = currentMargin + 20;
+        if (UIDeviceOrientationIsPortrait([UIDevice currentDevice].orientation)) {
+            NSInteger currentMargin = [[prefs valueForKey:@"Margin"] integerValue];
+            if (currentMargin < MAX_WIDTH) {
+                currentMargin += 5;
+            }
+            [prefs setInteger:currentMargin forKey:@"Margin"];
+        } else {
+            NSInteger currentMarginLandscape = [[prefs valueForKey:@"MarginLandscape"] integerValue];
+            if (currentMarginLandscape < MAX_WIDTH) {
+                currentMarginLandscape += 5;
+            }
+            [prefs setInteger:currentMarginLandscape forKey:@"MarginLandscape"];
         }
-        [prefs setInteger:currentMargin forKey:@"Margin"];
-        NSInteger currentMarginLandscape = [[prefs valueForKey:@"MarginLandscape"] integerValue];
-        if (currentMarginLandscape < MAX_WIDTH_LANDSCAPE) {
-            currentMarginLandscape += 5;
-        }
-        [prefs setInteger:currentMarginLandscape forKey:@"MarginLandscape"];
     }
     
     if (sender == self.increaseMarginButton) {
-        NSInteger currentMargin = [[prefs valueForKey:@"Margin"] integerValue];
-        if (currentMargin > MIN_WIDTH) {
-            currentMargin = currentMargin - 20;
+        if (UIDeviceOrientationIsPortrait([UIDevice currentDevice].orientation)) {
+            NSInteger currentMargin = [[prefs valueForKey:@"Margin"] integerValue];
+            if (currentMargin > MIN_WIDTH) {
+                currentMargin -= 5;
+            }
+            [prefs setInteger:currentMargin forKey:@"Margin"];
+        } else {
+            NSInteger currentMarginLandscape = [[prefs valueForKey:@"MarginLandscape"] integerValue];
+            if (currentMarginLandscape > MIN_WIDTH) {
+                currentMarginLandscape -= 5;
+            }
+            [prefs setInteger:currentMarginLandscape forKey:@"MarginLandscape"];
         }
-        [prefs setInteger:currentMargin forKey:@"Margin"];
-        NSInteger currentMarginLandscape = [[prefs valueForKey:@"MarginLandscape"] integerValue];
-        if (currentMarginLandscape > MIN_WIDTH_LANDSCAPE) {
-            currentMarginLandscape -= 5;
-        }
-        [prefs setInteger:currentMarginLandscape forKey:@"MarginLandscape"];
     }
     
     [prefs synchronize];

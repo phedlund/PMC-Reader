@@ -23,6 +23,8 @@
     CGPoint currentTapLocation;
     NSInteger _pageCount;
     NSInteger _currentPage;
+    double _currentWidth;
+    double _currentWidthLandscape;
     BOOL _handlingLink;
     BOOL _scrollingInternally;
     NSString *_currentHash;
@@ -222,6 +224,7 @@
         self.titleLabel2.frame = CGRectMake(20, 10, [self orientationRect].size.width - 40, 21);
         self.titleLabel2.font = [UIFont preferredFontForTextStyle:UIFontTextStyleCaption2];
     }
+    self.pageNumberBar.frame = [self pageNumberBarRect];
 }
 
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
@@ -423,7 +426,10 @@
 }
 
 - (CGRect)pageNumberBarRect {
-    NSInteger width =[[NSUserDefaults standardUserDefaults] integerForKey:@"Margin"];
+    NSInteger width = (NSInteger)_currentWidthLandscape;
+    if (UIDeviceOrientationIsPortrait([UIDevice currentDevice].orientation)) {
+        width = _currentWidth;
+    }
     int x = ([self orientationRect].size.width - width) / 2;
     int y = (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 20 : 0;
     return CGRectMake(x, y, width, 23);
@@ -643,12 +649,14 @@
     NSInteger fontSize =[[NSUserDefaults standardUserDefaults] integerForKey:@"FontSize"];
     cssTemplate = [cssTemplate stringByReplacingOccurrencesOfString:@"$FONTSIZE$" withString:[NSString stringWithFormat:@"%ldpx", (long)fontSize]];
     
+    CGSize screenSize = [UIScreen mainScreen].bounds.size;
     NSInteger margin =[[NSUserDefaults standardUserDefaults] integerForKey:@"Margin"];
-    cssTemplate = [cssTemplate stringByReplacingOccurrencesOfString:@"$MARGIN$" withString:[NSString stringWithFormat:@"%ldpx", (long)margin]];
+    _currentWidth = MIN(screenSize.width, screenSize.height) * ((double)margin / 100);
+    cssTemplate = [cssTemplate stringByReplacingOccurrencesOfString:@"$MARGIN$" withString:[NSString stringWithFormat:@"%ldpx", (long)_currentWidth]];
     
     NSInteger marginLandscape = [[NSUserDefaults standardUserDefaults] integerForKey:@"MarginLandscape"];
-    double newWidth = ([UIScreen mainScreen].bounds.size.width) * ((double)marginLandscape / 100);
-    cssTemplate = [cssTemplate stringByReplacingOccurrencesOfString:@"$MARGIN_LANDSCAPE$" withString:[NSString stringWithFormat:@"%ldpx", (long)newWidth]];
+    _currentWidthLandscape = MAX(screenSize.width, screenSize.height) * ((double)marginLandscape / 100);
+    cssTemplate = [cssTemplate stringByReplacingOccurrencesOfString:@"$MARGIN_LANDSCAPE$" withString:[NSString stringWithFormat:@"%ldpx", (long)_currentWidthLandscape]];
 
     double lineHeight =[[NSUserDefaults standardUserDefaults] doubleForKey:@"LineHeight"];
     cssTemplate = [cssTemplate stringByReplacingOccurrencesOfString:@"$LINEHEIGHT$" withString:[NSString stringWithFormat:@"%fem", lineHeight]];
@@ -739,9 +747,12 @@
 - (void)handleTap:(UITapGestureRecognizer *)gesture {
     if (gesture.state == UIGestureRecognizerStateEnded) {
         CGPoint loc = [gesture locationInView:self.articleView];
-        NSInteger contentWidth =[[NSUserDefaults standardUserDefaults] integerForKey:@"Margin"];
+        NSInteger width = (NSInteger)_currentWidthLandscape;
+        if (UIDeviceOrientationIsPortrait([UIDevice currentDevice].orientation)) {
+            width = _currentWidth;
+        }
         double viewWidth = self.articleView.frame.size.width;
-        int margin = (viewWidth - contentWidth) / 2;
+        int margin = (viewWidth - width) / 2;
         if (loc.x < margin) {
             [self gotoPage:--_currentPage animated:YES];
         }
