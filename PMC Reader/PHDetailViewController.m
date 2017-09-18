@@ -60,7 +60,7 @@
 @synthesize backBarButtonItem, goBackBarButtonItem, forwardBarButtonItem, refreshBarButtonItem, stopBarButtonItem;
 @synthesize infoBarButtonItem, prefsBarButtonItem;
 @synthesize pageTapRecognizer, nextPageSwipeRecognizer, previousPageSwipeRecognizer;
-@synthesize pageNumberBar;
+@synthesize pageNumberBar = _pageNumberBar;
 @synthesize referenceLabel;
 @synthesize referenceController;
 @synthesize referencePresentationController;
@@ -797,21 +797,15 @@
 
 - (PageNumberBar *)pageNumberBar
 {
-    if (pageNumberBar == nil) {
-        pageNumberBar = [[PageNumberBar alloc] initWithFrame:[self pageNumberBarRect]];
-        pageNumberBar.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
-        pageNumberBar.minimumValue = 0;
-        pageNumberBar.maximumValue = 100;
-        pageNumberBar.delegate = self;
-    }
-    return pageNumberBar;
+    if (_pageNumberBar == nil) {
+        _pageNumberBar = [[PageNumberBar alloc] initWithFrame:[self pageNumberBarRect]];
+        _pageNumberBar.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
+        _pageNumberBar.minimumValue = 0;
+        _pageNumberBar.maximumValue = 100;
+        _pageNumberBar.delegate = self;
+    };
+    return _pageNumberBar;
 }
-
-//- (NSString*)scrubberBar:(SCPageScrubberBar*)scrubberBar titleTextForValue:(CGFloat)value {
-//    //NSInteger current = (int)value + 1;
-//    //return [NSString stringWithFormat:@"Page %d", current];
-//    return nil;
-//}
 
 - (NSString *)pageNumberBar: (PageNumberBar*)pageNumberBar textForValue: (float)value {
     NSInteger current = (NSInteger)value + 1;

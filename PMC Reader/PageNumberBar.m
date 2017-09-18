@@ -10,7 +10,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "UIColor+PHColor.h"
 
-#define kSCDotImageSpacing 10.0f
+#define kDotSpacing 10.0f
 
 @interface PageNumberPopupView: UIView
 
@@ -33,8 +33,8 @@
 }
 
 - (void)drawRect:(CGRect)rect {
-    [[UIColor colorWithWhite:0 alpha:0.8] setFill];
-    
+    //Outer border
+    [[[UIColor popoverIconColor] colorWithAlphaComponent:0.8] setFill];
     CGRect roundedRect = CGRectMake(self.bounds.origin.x, self.bounds.origin.y, self.bounds.size.width, floorf(self.bounds.size.height * 0.8));
     UIBezierPath *roundedRectPath = [UIBezierPath bezierPathWithRoundedRect:roundedRect cornerRadius:6.0];
     
@@ -49,8 +49,23 @@
     [roundedRectPath appendPath:arrowPath];
     [roundedRectPath fill];
     
+    //Inner
+    [[[UIColor popoverBackgroundColor] colorWithAlphaComponent:0.8] setFill];
+    CGRect roundedRect2 = CGRectInset(roundedRect, 1.5, 1.5);
+    UIBezierPath *roundedRectPath2 = [UIBezierPath bezierPathWithRoundedRect:roundedRect2 cornerRadius:4.0];
+    
+    UIBezierPath *arrowPath2 = [UIBezierPath bezierPath];
+    CGPoint p1 = CGPointMake(midX, CGRectGetMaxY(self.bounds) - 1.5);
+    [arrowPath2 moveToPoint:p1];
+    [arrowPath2 addLineToPoint:CGPointMake((midX - 8.5), CGRectGetMaxY(roundedRect2))];
+    [arrowPath2 addLineToPoint:CGPointMake((midX + 8.5), CGRectGetMaxY(roundedRect2))];
+    [arrowPath2 closePath];
+    
+    [roundedRectPath2 appendPath:arrowPath2];
+    [roundedRectPath2 fill];
+    
     if (self.text) {
-        NSDictionary *fontAttributes = @{NSFontAttributeName:self.font, NSForegroundColorAttributeName:[UIColor colorWithWhite:1 alpha:0.8]};
+        NSDictionary *fontAttributes = @{NSFontAttributeName:self.font, NSForegroundColorAttributeName:[UIColor popoverIconColor]};
        
         CGSize size = [_text sizeWithAttributes:fontAttributes];
         CGRect textRect = CGRectMake(roundedRect.origin.x  + ((rect.size.width - size.width) / 2.0),
@@ -163,17 +178,13 @@
     } else {
         self.pageNumberPopup.text = @"";
     }
-
-//    [self.pageNumberPopup sizeToFit];
 }
 
 
 #pragma mark - UIControl touch event tracking
 
 - (BOOL)beginTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event {
-    // Fade in and update the callout view
     CGPoint touchPoint = [touch locationInView:self];
-    // Check if the knob is touched. Only in this case show the callout view
     if(CGRectContainsPoint(CGRectInset([self thumbRect], -12.0, -12.0), touchPoint)) {
         [self animatePageNumberPopupAlpha:YES];
         [self updatePageNumberPopupValue];
@@ -183,14 +194,12 @@
 }
 
 - (BOOL)continueTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event {
-    // Update the popup view as slider knob is being moved
     [self updatePageNumberPopupValue];
     [self updatePageNumberPopupPosition];
     return [super continueTrackingWithTouch:touch withEvent:event];
 }
 
 - (void)endTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event {
-    // Fade out the popoup view
     [self animatePageNumberPopupAlpha:NO];
     if (self.delegate && [self.delegate respondsToSelector:@selector(pageNumberBar:valueSelected:)]) {
         [self.delegate pageNumberBar:self valueSelected:self.value];
@@ -236,7 +245,7 @@
     if (_dotsImage == nil) {
         CGFloat scale = [UIScreen mainScreen].scale;
         CGSize size = CGSizeMake([UIScreen mainScreen].bounds.size.width, 3);
-        CGFloat oneDotWidth = 3 + kSCDotImageSpacing;
+        CGFloat oneDotWidth = 3 + kDotSpacing;
         
         UIGraphicsBeginImageContextWithOptions(size, NO, scale);
         CGContextRef context = UIGraphicsGetCurrentContext();
@@ -244,7 +253,7 @@
     
         NSInteger len = (int)((size.width * scale) / oneDotWidth);
         for (NSInteger i = 0; i < len; i++) {
-            CGPoint drawPoint = CGPointMake(i * oneDotWidth + kSCDotImageSpacing / 2, 0);
+            CGPoint drawPoint = CGPointMake(i * oneDotWidth + kDotSpacing / 2, 0);
             CGContextFillEllipseInRect(context, CGRectMake(drawPoint.x, drawPoint.y, 3, 3));
         }
         
@@ -255,65 +264,34 @@
 }
 
 - (UIImageView *)dotsImageView {
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
+    if (_dotsImageView == nil) {
         _dotsImageView = [[UIImageView alloc] initWithFrame:self.bounds];
         _dotsImageView.image = self.dotsImage;
         _dotsImageView.contentMode = UIViewContentModeCenter;
         _dotsImageView.clipsToBounds = YES;
         _dotsImageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    });
+    };
     return _dotsImageView;
 }
 
 - (UIImage *)clearImage
 {
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
+    if (_clearImage == nil) {
         UIGraphicsBeginImageContextWithOptions((CGSize){ 1, 1 }, NO, 0.0f);
         _clearImage = UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext();
-    });
+    };
     return _clearImage;
 }
 
 - (PageNumberPopupView *)pageNumberPopup
 {
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
+    if (_pageNumberPopup == nil) {
         _pageNumberPopup = [[PageNumberPopupView alloc] initWithFrame:CGRectMake(0.0, 0.0, 100.0, 0.0)];
         _pageNumberPopup.backgroundColor = [UIColor clearColor];
         _pageNumberPopup.alpha = 0.0;
-    });
+    }
     return _pageNumberPopup;
 }
 
-//- (void)setAlwaysShowTitleView:(BOOL)alwaysShowTitleView
-//{
-//    if (_alwaysShowTitleView != alwaysShowTitleView) {
-//        _alwaysShowTitleView = alwaysShowTitleView;
-//        if (_alwaysShowTitleView) {
-//            self.calloutView.alpha = 1.0;
-//        } else {
-//            self.calloutView.alpha = 0.0;
-//        }
-//    }
-//}
-//
-//- (void)setIsPopoverMode:(BOOL)isPopoverMode
-//{
-//    if (_isPopoverMode != isPopoverMode) {
-//        _isPopoverMode = isPopoverMode;
-//        self.calloutView.anchorDirection = self.isPopoverMode ? SCCalloutViewAnchorBottom : SCCalloutViewAnchorNone;
-//    }
-//}
-
-//- (void)setNightMode:(BOOL)nightMode {
-//    if (_nightMode != nightMode) {
-//        [self setNeedsLayout];
-//    }
-//}
-
 @end
-
-

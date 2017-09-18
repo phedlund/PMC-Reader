@@ -49,8 +49,7 @@
 		D05068501F6761A20064F236 /* TUSafariActivity.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D050684F1F6761A20064F236 /* TUSafariActivity.bundle */; };
 		D05B8A0E1728BE1100C61968 /* grid.png in Resources */ = {isa = PBXBuildFile; fileRef = D05B8A0C1728BE0F00C61968 /* grid.png */; };
 		D05B8A0F1728BE1100C61968 /* grid@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D05B8A0D1728BE1000C61968 /* grid@2x.png */; };
-		D08502621F6DE24400CC737D /* dots.png in Resources */ = {isa = PBXBuildFile; fileRef = D08502611F6DE24400CC737D /* dots.png */; };
-		D08502651F6F3CBB00CC737D /* PageNumberBar.m in Sources */ = {isa = PBXBuildFile; fileRef = D08502631F6F3CBB00CC737D /* PageNumberBar.m */; };
+		D08502661F6F6C9D00CC737D /* PageNumberBar.m in Sources */ = {isa = PBXBuildFile; fileRef = D08502631F6F3CBB00CC737D /* PageNumberBar.m */; };
 		D099D9BB1805BAF7001F9C35 /* iTunesArtwork@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D099D9BA1805BAF7001F9C35 /* iTunesArtwork@2x.png */; };
 		D0C96272172F1A170065720B /* home.png in Resources */ = {isa = PBXBuildFile; fileRef = D0C96270172F1A170065720B /* home.png */; };
 		D0C96273172F1A170065720B /* home@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D0C96271172F1A170065720B /* home@2x.png */; };
@@ -181,7 +180,6 @@
 		D050684F1F6761A20064F236 /* TUSafariActivity.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = TUSafariActivity.bundle; path = TUSafariActivity/Pod/Assets/TUSafariActivity.bundle; sourceTree = SOURCE_ROOT; };
 		D05B8A0C1728BE0F00C61968 /* grid.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = grid.png; path = Resources/grid.png; sourceTree = "<group>"; };
 		D05B8A0D1728BE1000C61968 /* grid@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "grid@2x.png"; path = "Resources/grid@2x.png"; sourceTree = "<group>"; };
-		D08502611F6DE24400CC737D /* dots.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dots.png; sourceTree = "<group>"; };
 		D08502631F6F3CBB00CC737D /* PageNumberBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PageNumberBar.m; sourceTree = "<group>"; };
 		D08502641F6F3CBB00CC737D /* PageNumberBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PageNumberBar.h; sourceTree = "<group>"; };
 		D099D9BA1805BAF7001F9C35 /* iTunesArtwork@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iTunesArtwork@2x.png"; sourceTree = SOURCE_ROOT; };
@@ -544,7 +542,6 @@
 				D0EFC97F15D4914F00C26580 /* fontsizel@2x.png */,
 				D0EFC98215D4915000C26580 /* fontsizes.png */,
 				D0EFC98315D4915000C26580 /* fontsizes@2x.png */,
-				D08502611F6DE24400CC737D /* dots.png */,
 				D0EF086A15D31306005689E1 /* defaults.plist */,
 				D0096D3117FFA0CE00B05E68 /* defaults~iPhone.plist */,
 				D0EF085515D2FB2C005689E1 /* pmc_template.css */,
@@ -737,7 +734,6 @@
 				D099D9BB1805BAF7001F9C35 /* iTunesArtwork@2x.png in Resources */,
 				D05B8A0E1728BE1100C61968 /* grid.png in Resources */,
 				D05B8A0F1728BE1100C61968 /* grid@2x.png in Resources */,
-				D08502621F6DE24400CC737D /* dots.png in Resources */,
 				D0C96272172F1A170065720B /* home.png in Resources */,
 				D0C96273172F1A170065720B /* home@2x.png in Resources */,
 			);
@@ -766,6 +762,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D08502661F6F6C9D00CC737D /* PageNumberBar.m in Sources */,
 				D030E6C015C0D2DB00CB5285 /* main.m in Sources */,
 				D030E6C415C0D2DB00CB5285 /* PHAppDelegate.m in Sources */,
 				D05067E11F60E1550064F236 /* UIColor+Hex.m in Sources */,
@@ -781,7 +778,6 @@
 				D0096D1417F66DE400B05E68 /* UAModalPanel.m in Sources */,
 				D0363294166AD2C6000D3C0B /* NSMutableArray+Extra.m in Sources */,
 				D036329F167296F6000D3C0B /* UINavigationController+DismissKeyboard.m in Sources */,
-				D08502651F6F3CBB00CC737D /* PageNumberBar.m in Sources */,
 				D0D3999C16C06FB800EA2497 /* PHArticleNavigationItem.m in Sources */,
 				D0D3999F16C1B5B600EA2497 /* PHArticleNavigationController.m in Sources */,
 				D0EEADE416FA29C900DBAC4C /* PHArticleReference.m in Sources */,
