@@ -49,6 +49,8 @@
 		D05068501F6761A20064F236 /* TUSafariActivity.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D050684F1F6761A20064F236 /* TUSafariActivity.bundle */; };
 		D05B8A0E1728BE1100C61968 /* grid.png in Resources */ = {isa = PBXBuildFile; fileRef = D05B8A0C1728BE0F00C61968 /* grid.png */; };
 		D05B8A0F1728BE1100C61968 /* grid@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D05B8A0D1728BE1000C61968 /* grid@2x.png */; };
+		D08502621F6DE24400CC737D /* dots.png in Resources */ = {isa = PBXBuildFile; fileRef = D08502611F6DE24400CC737D /* dots.png */; };
+		D08502651F6F3CBB00CC737D /* PageNumberBar.m in Sources */ = {isa = PBXBuildFile; fileRef = D08502631F6F3CBB00CC737D /* PageNumberBar.m */; };
 		D099D9BB1805BAF7001F9C35 /* iTunesArtwork@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D099D9BA1805BAF7001F9C35 /* iTunesArtwork@2x.png */; };
 		D0C96272172F1A170065720B /* home.png in Resources */ = {isa = PBXBuildFile; fileRef = D0C96270172F1A170065720B /* home.png */; };
 		D0C96273172F1A170065720B /* home@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D0C96271172F1A170065720B /* home@2x.png */; };
@@ -83,9 +85,6 @@
 		D0EEADE416FA29C900DBAC4C /* PHArticleReference.m in Sources */ = {isa = PBXBuildFile; fileRef = D0EEADE316FA29C900DBAC4C /* PHArticleReference.m */; };
 		D0EEADEC16FA770000DBAC4C /* RTLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = D0EEADEB16FA770000DBAC4C /* RTLabel.m */; };
 		D0EEADEF16FA79D900DBAC4C /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0EEADEE16FA79D900DBAC4C /* CoreText.framework */; };
-		D0EEAE021704C1B500DBAC4C /* SCCalloutView.m in Sources */ = {isa = PBXBuildFile; fileRef = D0EEADFE1704C1B500DBAC4C /* SCCalloutView.m */; };
-		D0EEAE031704C1B500DBAC4C /* SCPageScrubberBar.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D0EEADFF1704C1B500DBAC4C /* SCPageScrubberBar.bundle */; };
-		D0EEAE041704C1B500DBAC4C /* SCPageScrubberBar.m in Sources */ = {isa = PBXBuildFile; fileRef = D0EEAE011704C1B500DBAC4C /* SCPageScrubberBar.m */; };
 		D0EEAE0D170A1F8100DBAC4C /* paginate1.png in Resources */ = {isa = PBXBuildFile; fileRef = D0EEAE09170A1F7F00DBAC4C /* paginate1.png */; };
 		D0EEAE0E170A1F8100DBAC4C /* paginate1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D0EEAE0A170A1F8000DBAC4C /* paginate1@2x.png */; };
 		D0EEAE0F170A1F8100DBAC4C /* paginate2.png in Resources */ = {isa = PBXBuildFile; fileRef = D0EEAE0B170A1F8000DBAC4C /* paginate2.png */; };
@@ -182,6 +181,9 @@
 		D050684F1F6761A20064F236 /* TUSafariActivity.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = TUSafariActivity.bundle; path = TUSafariActivity/Pod/Assets/TUSafariActivity.bundle; sourceTree = SOURCE_ROOT; };
 		D05B8A0C1728BE0F00C61968 /* grid.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = grid.png; path = Resources/grid.png; sourceTree = "<group>"; };
 		D05B8A0D1728BE1000C61968 /* grid@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "grid@2x.png"; path = "Resources/grid@2x.png"; sourceTree = "<group>"; };
+		D08502611F6DE24400CC737D /* dots.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dots.png; sourceTree = "<group>"; };
+		D08502631F6F3CBB00CC737D /* PageNumberBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PageNumberBar.m; sourceTree = "<group>"; };
+		D08502641F6F3CBB00CC737D /* PageNumberBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PageNumberBar.h; sourceTree = "<group>"; };
 		D099D9BA1805BAF7001F9C35 /* iTunesArtwork@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iTunesArtwork@2x.png"; sourceTree = SOURCE_ROOT; };
 		D0C96270172F1A170065720B /* home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = home.png; path = Resources/home.png; sourceTree = "<group>"; };
 		D0C96271172F1A170065720B /* home@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "home@2x.png"; path = "Resources/home@2x.png"; sourceTree = "<group>"; };
@@ -224,11 +226,6 @@
 		D0EEADEA16FA76FF00DBAC4C /* RTLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RTLabel.h; path = RTLabel/RTLabelProject/Classes/RTLabel.h; sourceTree = SOURCE_ROOT; };
 		D0EEADEB16FA770000DBAC4C /* RTLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RTLabel.m; path = RTLabel/RTLabelProject/Classes/RTLabel.m; sourceTree = SOURCE_ROOT; };
 		D0EEADEE16FA79D900DBAC4C /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
-		D0EEADFD1704C1B500DBAC4C /* SCCalloutView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCCalloutView.h; path = SCPageScrubberBar/SCPageScrubberBar/SCCalloutView.h; sourceTree = SOURCE_ROOT; };
-		D0EEADFE1704C1B500DBAC4C /* SCCalloutView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCCalloutView.m; path = SCPageScrubberBar/SCPageScrubberBar/SCCalloutView.m; sourceTree = SOURCE_ROOT; };
-		D0EEADFF1704C1B500DBAC4C /* SCPageScrubberBar.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = SCPageScrubberBar.bundle; path = SCPageScrubberBar/SCPageScrubberBar/SCPageScrubberBar.bundle; sourceTree = SOURCE_ROOT; };
-		D0EEAE001704C1B500DBAC4C /* SCPageScrubberBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCPageScrubberBar.h; path = SCPageScrubberBar/SCPageScrubberBar/SCPageScrubberBar.h; sourceTree = SOURCE_ROOT; };
-		D0EEAE011704C1B500DBAC4C /* SCPageScrubberBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCPageScrubberBar.m; path = SCPageScrubberBar/SCPageScrubberBar/SCPageScrubberBar.m; sourceTree = SOURCE_ROOT; };
 		D0EEAE09170A1F7F00DBAC4C /* paginate1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = paginate1.png; path = Resources/paginate1.png; sourceTree = "<group>"; };
 		D0EEAE0A170A1F8000DBAC4C /* paginate1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "paginate1@2x.png"; path = "Resources/paginate1@2x.png"; sourceTree = "<group>"; };
 		D0EEAE0B170A1F8000DBAC4C /* paginate2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = paginate2.png; path = Resources/paginate2.png; sourceTree = "<group>"; };
@@ -402,7 +399,6 @@
 				D0096DEB180390F900B05E68 /* TUSafariActivity */,
 				D0096CF617F66DE400B05E68 /* Panel */,
 				D009A717171742ED00BC4D77 /* LXReorderableCollectionViewFlowLayout */,
-				D0EEADFC1704C1B400DBAC4C /* SCPageScrubberBar */,
 				D0EEADED16FA770C00DBAC4C /* RTLabel */,
 				D0ED8FC1165B1F8F0081E81E /* RaptureXML */,
 				D0363299166EBD81000D3C0B /* ArrayExtra */,
@@ -432,6 +428,8 @@
 				D0363290166961F3000D3C0B /* PHArticle.m */,
 				D0EEADE216FA29C900DBAC4C /* PHArticleReference.h */,
 				D0EEADE316FA29C900DBAC4C /* PHArticleReference.m */,
+				D08502641F6F3CBB00CC737D /* PageNumberBar.h */,
+				D08502631F6F3CBB00CC737D /* PageNumberBar.m */,
 				D0096CCD17F37F3800B05E68 /* UIImage+PHColor.h */,
 				D0096CCE17F37F3800B05E68 /* UIImage+PHColor.m */,
 				D0096D2017F8F37D00B05E68 /* UIColor+PHColor.h */,
@@ -546,6 +544,7 @@
 				D0EFC97F15D4914F00C26580 /* fontsizel@2x.png */,
 				D0EFC98215D4915000C26580 /* fontsizes.png */,
 				D0EFC98315D4915000C26580 /* fontsizes@2x.png */,
+				D08502611F6DE24400CC737D /* dots.png */,
 				D0EF086A15D31306005689E1 /* defaults.plist */,
 				D0096D3117FFA0CE00B05E68 /* defaults~iPhone.plist */,
 				D0EF085515D2FB2C005689E1 /* pmc_template.css */,
@@ -590,18 +589,6 @@
 				D0EEADEB16FA770000DBAC4C /* RTLabel.m */,
 			);
 			name = RTLabel;
-			sourceTree = "<group>";
-		};
-		D0EEADFC1704C1B400DBAC4C /* SCPageScrubberBar */ = {
-			isa = PBXGroup;
-			children = (
-				D0EEADFD1704C1B500DBAC4C /* SCCalloutView.h */,
-				D0EEADFE1704C1B500DBAC4C /* SCCalloutView.m */,
-				D0EEADFF1704C1B500DBAC4C /* SCPageScrubberBar.bundle */,
-				D0EEAE001704C1B500DBAC4C /* SCPageScrubberBar.h */,
-				D0EEAE011704C1B500DBAC4C /* SCPageScrubberBar.m */,
-			);
-			path = SCPageScrubberBar;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -743,7 +730,6 @@
 				D0D399BD16C2E4A800EA2497 /* LibreBaskerville-Italic.ttf in Resources */,
 				D0096D2717FCB83700B05E68 /* iPhone.storyboard in Resources */,
 				D0D399BE16C2E4A800EA2497 /* LibreBaskerville-Regular.ttf in Resources */,
-				D0EEAE031704C1B500DBAC4C /* SCPageScrubberBar.bundle in Resources */,
 				D0EEAE0D170A1F8100DBAC4C /* paginate1.png in Resources */,
 				D0EEAE0E170A1F8100DBAC4C /* paginate1@2x.png in Resources */,
 				D0EEAE0F170A1F8100DBAC4C /* paginate2.png in Resources */,
@@ -751,6 +737,7 @@
 				D099D9BB1805BAF7001F9C35 /* iTunesArtwork@2x.png in Resources */,
 				D05B8A0E1728BE1100C61968 /* grid.png in Resources */,
 				D05B8A0F1728BE1100C61968 /* grid@2x.png in Resources */,
+				D08502621F6DE24400CC737D /* dots.png in Resources */,
 				D0C96272172F1A170065720B /* home.png in Resources */,
 				D0C96273172F1A170065720B /* home@2x.png in Resources */,
 			);
@@ -794,14 +781,13 @@
 				D0096D1417F66DE400B05E68 /* UAModalPanel.m in Sources */,
 				D0363294166AD2C6000D3C0B /* NSMutableArray+Extra.m in Sources */,
 				D036329F167296F6000D3C0B /* UINavigationController+DismissKeyboard.m in Sources */,
+				D08502651F6F3CBB00CC737D /* PageNumberBar.m in Sources */,
 				D0D3999C16C06FB800EA2497 /* PHArticleNavigationItem.m in Sources */,
 				D0D3999F16C1B5B600EA2497 /* PHArticleNavigationController.m in Sources */,
 				D0EEADE416FA29C900DBAC4C /* PHArticleReference.m in Sources */,
 				D050684C1F60E63B0064F236 /* TUSafariActivity.m in Sources */,
 				D0EEADEC16FA770000DBAC4C /* RTLabel.m in Sources */,
 				D0096D381800CE7500B05E68 /* PHFontsTableController.m in Sources */,
-				D0EEAE021704C1B500DBAC4C /* SCCalloutView.m in Sources */,
-				D0EEAE041704C1B500DBAC4C /* SCPageScrubberBar.m in Sources */,
 				D0096D2217F8F37D00B05E68 /* UIColor+PHColor.m in Sources */,
 				D009A71A171742ED00BC4D77 /* LXReorderableCollectionViewFlowLayout.m in Sources */,
 				D009A71D171744A800BC4D77 /* PHCollectionViewCell.m in Sources */,

@@ -4,9 +4,6 @@
 [submodule "RTLabel"]
 	path = RTLabel
 	url = git://github.com/honcheng/RTLabel.git
-[submodule "SCPageScrubberBar"]
-	path = SCPageScrubberBar
-url=git://github.com/phedlund/SCPageScrubberBar.git
 [submodule "LXReorderableCollectionViewFlowLayout"]
 	path = LXReorderableCollectionViewFlowLayout
 	url = git://github.com/lxcid/LXReorderableCollectionViewFlowLayout.git

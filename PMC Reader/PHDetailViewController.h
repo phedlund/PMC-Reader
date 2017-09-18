@@ -12,9 +12,9 @@
 #import "PHArticleNavigationController.h"
 #import "PHFontsTableController.h"
 #import "RTLabel.h"
-#import "SCPageScrubberBar.h"
+#import "PageNumberBar.h"
 
-@interface PHDetailViewController : UIViewController <UIWebViewDelegate, UIScrollViewDelegate, UIPopoverPresentationControllerDelegate, UIGestureRecognizerDelegate, PHPrefViewControllerDelegate, ArticleNavigationDelegate, PHFontsControllerDelegate, RTLabelDelegate, SCPageScrubberBarDelegate, UIPageViewControllerDataSource, UIPageViewControllerDelegate>
+@interface PHDetailViewController : UIViewController <UIWebViewDelegate, UIScrollViewDelegate, UIPopoverPresentationControllerDelegate, UIGestureRecognizerDelegate, PHPrefViewControllerDelegate, ArticleNavigationDelegate, PHFontsControllerDelegate, RTLabelDelegate, UIPageViewControllerDataSource, UIPageViewControllerDelegate, PageNumberBarDelegate>
 
 @property (strong, nonatomic) PHArticle *article;
 @property (strong, nonatomic) IBOutlet UIView *pageBarContainerView;
@@ -31,7 +31,7 @@
 @property (nonatomic, strong, readonly) UIBarButtonItem *stopBarButtonItem;
 @property (nonatomic, strong, readonly) UIBarButtonItem *infoBarButtonItem;
 @property (nonatomic, strong, readonly) UIBarButtonItem *prefsBarButtonItem;
-@property (nonatomic, strong, readonly) SCPageScrubberBar *pageNumberBar;
+@property (nonatomic, strong, readonly) PageNumberBar *pageNumberBar;
 
 @property (nonatomic, strong, readonly) PHArticleNavigationController *articleNavigationController;
 @property (nonatomic, strong, readonly) PHPrefViewController *prefViewController;

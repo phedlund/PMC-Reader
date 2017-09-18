@@ -179,6 +179,7 @@
         self.titleLabel2.font = [UIFont preferredFontForTextStyle:UIFontTextStyleCaption2];
     }
     self.titleLabel2.hidden = !self.navigationController.navigationBarHidden;
+    self.pageNumberBar.frame = [self pageNumberBarRect];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -294,7 +295,7 @@
     settingsPresentationController.delegate = self;
     settingsPresentationController.barButtonItem = self.prefsBarButtonItem;
     settingsPresentationController.permittedArrowDirections = UIPopoverArrowDirectionAny;
-    settingsPresentationController.backgroundColor = [UIColor popoverButtonColor];
+    settingsPresentationController.backgroundColor = [UIColor popoverBackgroundColor];
 
     self.articleNavigationController.articleSections = [NSArray arrayWithArray:self.article.articleNavigationItems];;
     if (!_settingsControllers) {
@@ -603,6 +604,7 @@
         [self updatePagination];
     }
     self.pageNumberBar.frame = [self pageNumberBarRect];
+    [self.pageNumberBar refresh];
 }
 
 - (void)updateBackgrounds {
@@ -614,7 +616,7 @@
     if (self.articleView) {
         self.articleView.backgroundColor = bgColor;
     }
-    self.pageNumberBar.nightMode = (backgroundIndex == 2);
+
     self.titleLabel2.alpha = (backgroundIndex == 2) ? 1.0f : 0.5f;
     self.titleLabel.textColor = [UIColor iconColor];
     self.backBarButtonItem.tintColor = [UIColor iconColor];
@@ -624,7 +626,7 @@
     self.stopBarButtonItem.tintColor = [UIColor iconColor];
     self.prefsBarButtonItem.tintColor = [UIColor iconColor];
     self.infoBarButtonItem.tintColor = [UIColor iconColor];
-
+    self.settingsPresentationController.backgroundColor = [UIColor popoverBackgroundColor];
     NSArray *subviews = self.settingsPageController.view.subviews;
     UIPageControl *pageControl = nil;
     for (int i=0; i<[subviews count]; i++) {
@@ -649,13 +651,13 @@
     NSInteger fontSize =[[NSUserDefaults standardUserDefaults] integerForKey:@"FontSize"];
     cssTemplate = [cssTemplate stringByReplacingOccurrencesOfString:@"$FONTSIZE$" withString:[NSString stringWithFormat:@"%ldpx", (long)fontSize]];
     
-    CGSize screenSize = [UIScreen mainScreen].bounds.size;
+    CGSize screenSize = [UIScreen mainScreen].nativeBounds.size;
     NSInteger margin =[[NSUserDefaults standardUserDefaults] integerForKey:@"Margin"];
-    _currentWidth = MIN(screenSize.width, screenSize.height) * ((double)margin / 100);
+    _currentWidth = (screenSize.width / [UIScreen mainScreen].scale) * ((double)margin / 100);
     cssTemplate = [cssTemplate stringByReplacingOccurrencesOfString:@"$MARGIN$" withString:[NSString stringWithFormat:@"%ldpx", (long)_currentWidth]];
     
     NSInteger marginLandscape = [[NSUserDefaults standardUserDefaults] integerForKey:@"MarginLandscape"];
-    _currentWidthLandscape = MAX(screenSize.width, screenSize.height) * ((double)marginLandscape / 100);
+    _currentWidthLandscape = (screenSize.height / [UIScreen mainScreen].scale) * ((double)marginLandscape / 100);
     cssTemplate = [cssTemplate stringByReplacingOccurrencesOfString:@"$MARGIN_LANDSCAPE$" withString:[NSString stringWithFormat:@"%ldpx", (long)_currentWidthLandscape]];
 
     double lineHeight =[[NSUserDefaults standardUserDefaults] doubleForKey:@"LineHeight"];
@@ -793,35 +795,31 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:@"PageChanged" object:self userInfo:infoDict];
 }
 
-- (SCPageScrubberBar *)pageNumberBar
+- (PageNumberBar *)pageNumberBar
 {
     if (pageNumberBar == nil) {
-        pageNumberBar = [[SCPageScrubberBar alloc] initWithFrame:[self pageNumberBarRect]];
+        pageNumberBar = [[PageNumberBar alloc] initWithFrame:[self pageNumberBarRect]];
         pageNumberBar.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
-        pageNumberBar.delegate = self;
         pageNumberBar.minimumValue = 0;
         pageNumberBar.maximumValue = 100;
-        pageNumberBar.isPopoverMode = YES;
-        pageNumberBar.alwaysShowTitleView = NO;
-        pageNumberBar.nightMode = NO;
+        pageNumberBar.delegate = self;
     }
     return pageNumberBar;
 }
 
-- (NSString*)scrubberBar:(SCPageScrubberBar*)scrubberBar titleTextForValue:(CGFloat)value {
-    //NSInteger current = (int)value + 1;
-    //return [NSString stringWithFormat:@"Page %d", current];
-    return nil;
-}
+//- (NSString*)scrubberBar:(SCPageScrubberBar*)scrubberBar titleTextForValue:(CGFloat)value {
+//    //NSInteger current = (int)value + 1;
+//    //return [NSString stringWithFormat:@"Page %d", current];
+//    return nil;
+//}
 
-- (NSString *)scrubberBar:(SCPageScrubberBar *)scrubberBar subtitleTextForValue:(CGFloat)value {
-    NSInteger current = (int)value + 1;
+- (NSString *)pageNumberBar: (PageNumberBar*)pageNumberBar textForValue: (float)value {
+    NSInteger current = (NSInteger)value + 1;
     return [NSString stringWithFormat:@"Page %ld", (long)current];
-    //return @"";
 }
 
-- (void)scrubberBar:(SCPageScrubberBar*)scrubberBar valueSelected:(CGFloat)value {
-    [self gotoPage:(int)value animated:NO];
+- (void)pageNumberBar: (PageNumberBar*)pageNumberBar valueSelected: (float)value {
+    [self gotoPage:(NSInteger)value animated:NO];
 }
 
 - (BOOL)shouldPaginate {
