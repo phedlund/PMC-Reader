@@ -33,4 +33,5 @@
 	LineHeight = "1.4";
 	Margin = 280;
 	MarginLandscape = 70;
+	MarginPortrait = 70;
 }

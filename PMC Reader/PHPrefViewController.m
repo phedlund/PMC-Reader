@@ -213,11 +213,11 @@
     
     if (sender == self.decreaseMarginButton) {
         if (UIDeviceOrientationIsPortrait([UIDevice currentDevice].orientation)) {
-            NSInteger currentMargin = [[prefs valueForKey:@"Margin"] integerValue];
+            NSInteger currentMargin = [[prefs valueForKey:@"MarginPortrait"] integerValue];
             if (currentMargin < MAX_WIDTH) {
                 currentMargin += 5;
             }
-            [prefs setInteger:currentMargin forKey:@"Margin"];
+            [prefs setInteger:currentMargin forKey:@"MarginPortrait"];
         } else {
             NSInteger currentMarginLandscape = [[prefs valueForKey:@"MarginLandscape"] integerValue];
             if (currentMarginLandscape < MAX_WIDTH) {
@@ -229,11 +229,11 @@
     
     if (sender == self.increaseMarginButton) {
         if (UIDeviceOrientationIsPortrait([UIDevice currentDevice].orientation)) {
-            NSInteger currentMargin = [[prefs valueForKey:@"Margin"] integerValue];
+            NSInteger currentMargin = [[prefs valueForKey:@"MarginPortrait"] integerValue];
             if (currentMargin > MIN_WIDTH) {
                 currentMargin -= 5;
             }
-            [prefs setInteger:currentMargin forKey:@"Margin"];
+            [prefs setInteger:currentMargin forKey:@"MarginPortrait"];
         } else {
             NSInteger currentMarginLandscape = [[prefs valueForKey:@"MarginLandscape"] integerValue];
             if (currentMarginLandscape > MIN_WIDTH) {

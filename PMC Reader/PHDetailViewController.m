@@ -652,7 +652,7 @@
     cssTemplate = [cssTemplate stringByReplacingOccurrencesOfString:@"$FONTSIZE$" withString:[NSString stringWithFormat:@"%ldpx", (long)fontSize]];
     
     CGSize screenSize = [UIScreen mainScreen].nativeBounds.size;
-    NSInteger margin =[[NSUserDefaults standardUserDefaults] integerForKey:@"Margin"];
+    NSInteger margin =[[NSUserDefaults standardUserDefaults] integerForKey:@"MarginPortrait"];
     _currentWidth = (screenSize.width / [UIScreen mainScreen].scale) * ((double)margin / 100);
     cssTemplate = [cssTemplate stringByReplacingOccurrencesOfString:@"$MARGIN$" withString:[NSString stringWithFormat:@"%ldpx", (long)_currentWidth]];
     
